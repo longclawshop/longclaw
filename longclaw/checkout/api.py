@@ -2,6 +2,7 @@
 Shipping logic and payment capture API
 '''
 from django.utils.module_loading import import_string
+from django.db import transaction
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
 from rest_framework.response import Response
@@ -23,7 +24,7 @@ def create_token(request):
     token = gateway.get_token(request)
     return Response({'token': token}, status=status.HTTP_200_OK)
 
-
+@transaction.atomic
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
 def capture_payment(request):

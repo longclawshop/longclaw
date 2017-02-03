@@ -1,5 +1,5 @@
 from django.apps import apps
-from django.conf import settings
+from django.db import transaction
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
 from rest_framework.response import Response
@@ -33,6 +33,7 @@ def get_item_count(request):
         count = 0
     return Response(data={"quantity": count}, status=status.HTTP_200_OK)
 
+@transaction.atomic
 @api_view(["POST"])
 @permission_classes([permissions.AllowAny])
 def add_to_basket(request):
@@ -59,6 +60,7 @@ def add_to_basket(request):
     return Response(data=serializer.data,
                     status=status.HTTP_201_CREATED)
 
+@transaction.atomic
 @api_view(["POST"])
 @permission_classes([permissions.AllowAny])
 def remove_from_basket(request):
