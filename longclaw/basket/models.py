@@ -5,19 +5,19 @@ class BasketItem(models.Model):
     basket_id = models.CharField(max_length=32)
     date_added = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField(default=1)
-    product = models.ForeignKey(PRODUCT_VARIANT_MODEL, unique=False)
+    variant = models.ForeignKey(PRODUCT_VARIANT_MODEL, unique=False)
 
     class Meta:
         ordering = ['date_added']
 
     def total(self):
-        return self.quantity * self.product.price
+        return self.quantity * self.variant.price
 
     def name(self):
-        return "{} ({})".format(self.product.page.title, self.product.ref)
+        return "{} ({})".format(self.variant.product.title, self.variant.ref)
 
     def price(self):
-        return self.product.price
+        return self.variant.price
 
     def increase_quantity(self, quantity=1):
         ''' Increase the quantity of this product in the basket
