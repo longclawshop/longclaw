@@ -1,0 +1,3 @@
+
+# Additional requirements go here
+django-rest-framework

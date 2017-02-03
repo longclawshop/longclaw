@@ -1,0 +1,12 @@
+# -*- coding: utf-8
+from __future__ import unicode_literals, absolute_import
+
+from django.conf.urls import url, include
+
+from longclaw.basket.urls import urlpatterns as basket_urls
+from longclaw.checkout.urls import urlpatterns as checkout_urls
+
+urlpatterns = [
+    url(r'^', include(basket_urls, namespace='longclaw')),
+    url(r'^', include(checkout_urls, namespace='longclaw')),
+]
