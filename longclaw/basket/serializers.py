@@ -5,7 +5,7 @@ from longclaw.basket.models import BasketItem
 
 class BasketItemSerializer(serializers.ModelSerializer):
 
-    product = ProductVariantSerializer()
+    variant = ProductVariantSerializer()
     price = serializers.SerializerMethodField()
     total = serializers.SerializerMethodField()
 
