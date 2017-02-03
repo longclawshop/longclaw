@@ -85,7 +85,7 @@ def capture_payment(request):
     # Create the order items
     for item in items:
         order_item = OrderItem(
-            product=item.product,
+            product=item.variant,
             quantity=item.quantity,
             order=order
         )
