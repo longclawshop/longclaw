@@ -11,7 +11,7 @@ Longclaw
 .. image:: https://codecov.io/gh/JamesRamm/longclaw/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/JamesRamm/longclaw
 
-A shop for `Wagtail CMS<https://github.com/wagtail/wagtail>`_
+A shop for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
 
 Quickstart
 ----------
