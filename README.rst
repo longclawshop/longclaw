@@ -18,7 +18,7 @@ Quickstart
 
 Install longclaw::
 
-    pip install longclaw
+    pip install git+https://github.com/JamesRamm/longclaw.git
 
 Add it to your `INSTALLED_APPS`:
 
@@ -37,8 +37,8 @@ Add longclaw's URL patterns:
 
 .. code-block:: python
 
-from longclaw.basket.urls import urlpatterns as basket_urls
-from longclaw.checkout.urls import urlpatterns as checkout_urls
+    from longclaw.basket.urls import urlpatterns as basket_urls
+    from longclaw.checkout.urls import urlpatterns as checkout_urls
 
     urlpatterns = [
         ...
