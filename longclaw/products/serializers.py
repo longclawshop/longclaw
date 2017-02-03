@@ -3,7 +3,7 @@ from django.apps import apps
 from rest_framework import serializers
 from longclaw.products.models import Product
 
-PRODUCT_VARIANT_MODEL = getattr(settings, 'PRODUCT_VARIANT_MODEL', 'products.ProductVariant')
+PRODUCT_VARIANT_MODEL = getattr(settings, 'PRODUCT_VARIANT_MODEL', 'longclaw.products.ProductVariant')
 ProductVariant = apps.get_model(*PRODUCT_VARIANT_MODEL.split('.'))
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -15,7 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class ProductVariantSerializer(serializers.ModelSerializer):
 
-    page = ProductSerializer()
+    product = ProductSerializer()
 
     class Meta:
         model = ProductVariant
