@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from checkout import api
+from longclaw.checkout import api
 
 urlpatterns = [
     url(r'shipping/$',

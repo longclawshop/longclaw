@@ -5,11 +5,11 @@ from django.utils.module_loading import import_string
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
 from rest_framework.response import Response
-from basket.utils import get_basket_items, destroy_basket
-from orders.models import Order, OrderItem, Address
-from checkout.models import ShippingCountry
-from checkout import app_settings, serializers
-from checkout.utils import PaymentError
+from longclaw.basket.utils import get_basket_items, destroy_basket
+from longclaw.orders.models import Order, OrderItem, Address
+from longclaw.checkout.models import ShippingCountry
+from longclaw.checkout import app_settings, serializers
+from longclaw.checkout.utils import PaymentError
 
 gateway = import_string(app_settings.PAYMENT_GATEWAY)()
 
