@@ -1,6 +1,6 @@
 from django.conf import settings
 import braintree
-from longclaw.checkout import app_settings
+from longclaw import settings as app_settings
 from longclaw.checkout.utils import PaymentError
 
 class BraintreePayment():

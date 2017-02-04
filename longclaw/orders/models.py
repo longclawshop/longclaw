@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
-from longclaw.orders.app_settings import PRODUCT_VARIANT_MODEL
+from longclaw.settings import PRODUCT_VARIANT_MODEL
 
 class Address(models.Model):
     name = models.CharField(max_length=64)
@@ -46,9 +46,13 @@ class Order(models.Model):
     @property
     def total(self):
         total = 0
-        for item in self.items_set.all():
+        for item in self.items.all():
             total += item.total
         return total
+
+    @property
+    def total_items(self):
+        return self.items.count()
 
 class OrderItem(models.Model):
     product = models.ForeignKey(PRODUCT_VARIANT_MODEL, on_delete=models.DO_NOTHING)

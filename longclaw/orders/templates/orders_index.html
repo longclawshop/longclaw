@@ -1,0 +1,24 @@
+{% extends "modeladmin/index.html" %}
+{% load i18n modeladmin_tags %}
+
+{% block result_list %}
+    {% if not all_count %}
+        <div class="nice-padding" style="margin-top:30px;">
+            {% if no_valid_parents %}
+                <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
+                <ul>
+                    {% for type in required_parent_types %}<li><b>{{ type|title }}</b></li>{% endfor %}
+                </ul>
+            {% else %}
+                <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
+                {% if user_can_create %}
+                    {% blocktrans with view.create_url as url %}
+                        Why not <a href="{{ url }}">add one</a>?
+                    {% endblocktrans %}
+                {% endif %}</p>
+            {% endif %}
+        </div>
+    {% else %}
+        {% result_list %}
+    {% endif %}
+{% endblock %}

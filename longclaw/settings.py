@@ -9,3 +9,5 @@ PAYMENT_GATEWAY = getattr(settings,
                           'PAYMENT_GATEWAY',
                           'longclaw.checkout.gateways.BraintreePayment')
 CURRENCY = getattr(settings, "CURRENCY", "GBP")
+
+PRODUCT_VARIANT_MODEL = getattr(settings, 'PRODUCT_VARIANT_MODEL', 'products.ProductVariant')

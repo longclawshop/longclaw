@@ -1,5 +1,5 @@
 from django.db import models
-from longclaw.basket.app_settings import PRODUCT_VARIANT_MODEL
+from longclaw.settings import PRODUCT_VARIANT_MODEL
 
 class BasketItem(models.Model):
     basket_id = models.CharField(max_length=32)
