@@ -1,4 +1,5 @@
 
 # Additional requirements go here
+django-extensions
 djangorestframework>=3.5.3
 wagtail>=1.7
