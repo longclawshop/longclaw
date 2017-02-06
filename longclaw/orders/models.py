@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
-from longclaw.orders.app_settings import PRODUCT_VARIANT_MODEL
+from longclaw.settings import PRODUCT_VARIANT_MODEL
 
 class Address(models.Model):
     name = models.CharField(max_length=64)

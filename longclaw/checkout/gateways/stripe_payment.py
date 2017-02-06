@@ -1,7 +1,6 @@
 import math
-from django.conf import settings
 import stripe
-from longclaw.checkout.app_settings import CURRENCY
+from longclaw.settings import CURRENCY, STRIPE_SECRET
 from longclaw.checkout.utils import PaymentError
 from longclaw.checkout.gateways import BasePayment
 
@@ -11,7 +10,7 @@ class StripePayment(BasePayment):
     Create a payment using stripe
     '''
     def __init__(self):
-        stripe.api_key = settings.STRIPE_SECRET
+        stripe.api_key = STRIPE_SECRET
 
     def create_payment(self, request, amount):
         try:
