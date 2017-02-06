@@ -7,5 +7,5 @@ DEFAULT_SHIPPING_ENABLED = getattr(settings, 'DEFAULT_SHIPPING_ENABLED', True)
 
 PAYMENT_GATEWAY = getattr(settings,
                           'PAYMENT_GATEWAY',
-                          'longclaw.checkout.gateways.BraintreePayment')
+                          'longclaw.checkout.gateways.BasePayment')
 CURRENCY = getattr(settings, "CURRENCY", "GBP")

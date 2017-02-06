@@ -3,9 +3,10 @@ from django.conf import settings
 import stripe
 from longclaw.checkout.app_settings import CURRENCY
 from longclaw.checkout.utils import PaymentError
+from longclaw.checkout.gateways import BasePayment
 
 
-class StripePayment():
+class StripePayment(BasePayment):
     '''
     Create a payment using stripe
     '''
