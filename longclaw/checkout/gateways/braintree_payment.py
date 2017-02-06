@@ -1,6 +1,5 @@
-from django.conf import settings
 import braintree
-from longclaw.checkout import app_settings
+from longclaw import settings
 from longclaw.checkout.utils import PaymentError
 from longclaw.checkout.gateways import BasePayment
 
@@ -43,7 +42,7 @@ class PaypalVZeroPayment():
         result = self.gateway.transaction.sale({
             "amount": str(amount),
             "payment_method_nonce": nonce,
-            "merchant_account_id": app_settings.CURRENCY,
+            "merchant_account_id": settings.CURRENCY,
             "options": {
                 "paypal": {
                     "description": description

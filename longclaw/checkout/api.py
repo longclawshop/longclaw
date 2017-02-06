@@ -9,10 +9,11 @@ from rest_framework.response import Response
 from longclaw.basket.utils import get_basket_items, destroy_basket
 from longclaw.orders.models import Order, OrderItem, Address
 from longclaw.checkout.models import ShippingCountry
-from longclaw.checkout import app_settings, serializers
+from longclaw.checkout import serializers
 from longclaw.checkout.utils import PaymentError
+from longclaw import settings
 
-gateway = import_string(app_settings.PAYMENT_GATEWAY)()
+gateway = import_string(settings.PAYMENT_GATEWAY)()
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])
@@ -127,10 +128,10 @@ def get_shipping_cost(country_code, option):
             raise InvalidShippingRate
 
     except ShippingCountry.DoesNotExist:
-        if app_settings.DEFAULT_SHIPPING_ENABLED:
-            return {"rate": app_settings.DEFAULT_SHIPPING_RATE,
+        if settings.DEFAULT_SHIPPING_ENABLED:
+            return {"rate": settings.DEFAULT_SHIPPING_RATE,
                     "description": "Standard shipping to rest of world",
-                    "carrier": app_settings.DEFAULT_SHIPPING_CARRIER}
+                    "carrier": settings.DEFAULT_SHIPPING_CARRIER}
         else:
             raise InvalidShippingCountry
 

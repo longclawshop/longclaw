@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from longclaw.basket.models import BasketItem
 from longclaw.basket.serializers import BasketItemSerializer
 from longclaw.basket import utils
-from longclaw.basket.app_settings import PRODUCT_VARIANT_MODEL
+from longclaw.settings import PRODUCT_VARIANT_MODEL
 
 ProductVariant = apps.get_model(*PRODUCT_VARIANT_MODEL.split('.'))
 
