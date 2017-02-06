@@ -1,5 +1,4 @@
 
 # Additional requirements go here
-django>=1.9
 djangorestframework>=3.5.3
 wagtail>=1.7
