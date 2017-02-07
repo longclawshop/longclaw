@@ -3,7 +3,7 @@ Demo project template
 
 1. Template Product_index.html
 
-Add it to your `Products\models.py`:
+Add it to your `Products models.py`:
 
 .. code-block:: python
 
