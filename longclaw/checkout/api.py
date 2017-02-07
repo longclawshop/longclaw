@@ -128,10 +128,10 @@ def get_shipping_cost(country_code, option):
             raise InvalidShippingRate
 
     except ShippingCountry.DoesNotExist:
-        if app_settings.DEFAULT_SHIPPING_ENABLED:
-            return {"rate": app_settings.DEFAULT_SHIPPING_RATE,
+        if settings.DEFAULT_SHIPPING_ENABLED:
+            return {"rate": settings.DEFAULT_SHIPPING_RATE,
                     "description": "Standard shipping to rest of world",
-                    "carrier": app_settings.DEFAULT_SHIPPING_CARRIER}
+                    "carrier": settings.DEFAULT_SHIPPING_CARRIER}
         else:
             raise InvalidShippingCountry
 

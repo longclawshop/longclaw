@@ -1,3 +1,5 @@
 
 # Additional requirements go here
-django-rest-framework
+django-extensions
+djangorestframework>=3.5.3
+wagtail==1.7

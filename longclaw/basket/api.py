@@ -28,7 +28,7 @@ def get_item_count(request):
     bid = utils.basket_id(request)
     item = ProductVariant.objects.get(id=request.GET["variant_id"])
     try:
-        count = BasketItem.objects.get(basket_id=bid, product=item).quantity
+        count = BasketItem.objects.get(basket_id=bid, variant=item).quantity
     except BasketItem.DoesNotExist:
         count = 0
     return Response(data={"quantity": count}, status=status.HTTP_200_OK)
@@ -47,12 +47,12 @@ def add_to_basket(request):
     # Check if the variant is already in the basket
     in_basket = False
     for item in items:
-        if item.product.id == variant.id:
+        if item.variant.id == variant.id:
             item.increase_quantity(quantity)
             in_basket = True
             break
     if not in_basket:
-        item = BasketItem(product=variant, quantity=quantity, basket_id=bid)
+        item = BasketItem(variant=variant, quantity=quantity, basket_id=bid)
         item.save()
 
     items, _ = utils.get_basket_items(request)
@@ -71,7 +71,7 @@ def remove_from_basket(request):
     variant = ProductVariant.objects.get(id=request.data["variant_id"])
     quantity = request.data.get("quantity", 1)
     try:
-        item = BasketItem.objects.get(basket_id=utils.basket_id(request), product=variant)
+        item = BasketItem.objects.get(basket_id=utils.basket_id(request), variant=variant)
     except BasketItem.DoesNotExist:
         return Response(data={"message": "Item does not exist in cart"},
                         status=status.HTTP_400_BAD_REQUEST)
