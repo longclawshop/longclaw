@@ -15,6 +15,9 @@ A shop for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
 
 Quickstart
 ----------
+Install Wagtail::
+
+    pip install wagtail
 
 Install longclaw::
 
