@@ -8,7 +8,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('basket', '0002_basketitem_product'),
+        ('basket', '0001_initial'),
     ]
 
     operations = [
