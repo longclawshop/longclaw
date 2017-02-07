@@ -1,3 +1,4 @@
+-r requirements.txt
 bumpversion==0.5.3
 wheel==0.29.0
 django_extensions==1.7.6

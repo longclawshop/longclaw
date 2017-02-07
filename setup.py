@@ -41,8 +41,14 @@ if sys.argv[-1] == 'tag':
     os.system("git push --tags")
     sys.exit()
 
-readme = open('README.rst').read()
-history = open('CHANGELOG.rst').read().replace('.. :changelog:', '')
+try:
+    readme = open('README.rst').read()
+    history = open('CHANGELOG.rst').read().replace('.. :changelog:', '')
+except FileNotFoundError:
+    # Protects against running python from a different dir to setup.py, 
+    # e.g. on travis
+    readme = ''
+    history = ''
 
 setup(
     name='longclaw',
