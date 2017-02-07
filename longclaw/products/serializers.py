@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-from longclaw import settings
-=======
->>>>>>> master
 from django.apps import apps
 from rest_framework import serializers
 from longclaw.products.models import Product
 from longclaw.settings import PRODUCT_VARIANT_MODEL
 
-<<<<<<< HEAD
-ProductVariant = apps.get_model(*settings.PRODUCT_VARIANT_MODEL.split('.'))
-=======
 ProductVariant = apps.get_model(*PRODUCT_VARIANT_MODEL.split('.'))
->>>>>>> master
 
 class ProductSerializer(serializers.ModelSerializer):
 
