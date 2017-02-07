@@ -44,7 +44,7 @@ if sys.argv[-1] == 'tag':
 try:
     readme = open('README.rst').read()
     history = open('CHANGELOG.rst').read().replace('.. :changelog:', '')
-except FileNotFoundError:
+except IOError:
     # Protects against running python from a different dir to setup.py, 
     # e.g. on travis
     readme = ''
