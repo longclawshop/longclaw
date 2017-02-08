@@ -37,9 +37,9 @@ class OrderButtonHelper(ButtonHelper):
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
             'url': self.url_helper.get_action_url('fulfill', quote(pk)),
-            'label': _('Fulfill'),
+            'label': _('View'),
             'classname': cn,
-            'title': _('Fulfill this %s') % self.verbose_name,
+            'title': _('View this %s') % self.verbose_name,
         }
 
     def get_buttons_for_obj(self, obj, exclude=None, classnames_add=None,
@@ -57,13 +57,30 @@ class OrderButtonHelper(ButtonHelper):
         btns = []
         if ph.user_can_inspect_obj(usr, obj):
             btns.append(self.fulfill_button(pk, classnames_add, classnames_exclude))
-            btns.append(self.inspect_button(pk, classnames_add, classnames_exclude))
             btns.append(self.cancel_button(pk, classnames_add, classnames_exclude))
 
         return btns
 
 class FulfillView(InspectView):
-    pass
+
+    def get_page_title(self, **kwargs):
+        return "Order #{}".format(self.instance.id)
+
+    def get_page_subtitle(self, **kwargs):
+        return ''
+
+    def get_context_data(self, **kwargs):
+        print(self.instance)
+        context = {
+            'order': self.instance,
+            'grand_total': self.instance.total + self.instance.shipping_rate,
+            'fields': self.get_fields_dict()
+        }
+        context.update(kwargs)
+        return super(FulfillView, self).get_context_data(**context)
+
+    def get_template_names(self):
+        return 'orders_fulfill.html'
 
 class OrderModelAdmin(ModelAdmin):
     model = Order

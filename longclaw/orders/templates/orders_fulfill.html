@@ -1,0 +1,117 @@
+{% extends "modeladmin/inspect.html" %}
+{% load i18n %}
+
+
+{% block content_main %}
+
+<div class="nice-padding">
+
+    <p class="back"><a href="{{ view.index_url }}" class="icon icon-arrow-left">{% blocktrans with view.verbose_name as model_name %}Back to {{ model_name }} list{% endblocktrans %}</a></p>
+     
+    <div class="row">
+        <h2> Order Summary </h2>   
+        {% if order.status == 1 %}
+            <span class="icon icon-warning">
+                UNFULFILLED&nbsp;
+            </span>
+            <a href class="button yes">Fulfill</a>
+            <a href class="button button-secondary">Refund</a>
+        {% elif order.status == 2 %}
+            <span class="icon icon-success">
+                FULFILLED
+            </span>
+            <a href class="button button-secondary">Refund</a>
+
+        {% elif order.status == 3 %}
+            <span class="icon icon-bin">
+                CANCELLED
+            </span>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col4">
+            <dl>
+                <dt>Order Date</dt>
+                <dd>{{order.payment_date}}</dd>
+            </dl>
+            <dl>
+                <dt>Shipping Address</dt>
+                <dd>
+                <address>
+                    {{order.shipping_address.name}}<br>
+                    {{order.shipping_address.line_1}}<br>
+                    {{order.shipping_address.city}}<br>
+                    {{order.shipping_address.postcode}}<br>
+                    {{order.shipping_address.country}}<br>
+                </address>
+                </dd>
+            </dl>
+
+        </div>
+        <div class="col4">
+            <dl>
+                <dt>Customer Email</dt>
+                <dd>{{order.email}}</dd>
+            </dl>
+        </div>
+        <div class="col4">
+            <dl>
+                <dt>Status Note</dt>
+                <dt>{{order.status_note}}</dt>
+            </dl>
+        </div>
+
+    </div>
+    <h2> Order Items </h2>
+    <table class="listing">
+        <thead>
+            <th>Product</th>
+            <th>Variant Ref</th>
+            <th>Item Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </thead>
+        <tbody>
+            {% for item in order.items.all %}
+            <tr>
+                <td>
+                    <a href="/admin/pages/{{item.product.product.id}}/edit/">
+                        {{item.product.product.title}}
+                    </a>
+                </td>
+                <td>{{item.product.ref}}</td>
+                <td>{{item.product.price}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.total}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>{{order.total}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Shipping</td>
+                <td>{{order.shipping_rate}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>Total</strong></td>
+                <td><strong>{{grand_total}}</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

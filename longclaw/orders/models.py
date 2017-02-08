@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
-from longclaw.settings import PRODUCT_VARIANT_MODEL
+from longclaw.settings import PRODUCT_VARIANT_MODEL, DEFAULT_SHIPPING_RATE
 
 class Address(models.Model):
     name = models.CharField(max_length=64)
@@ -42,6 +42,10 @@ class Order(models.Model):
 
     # billing info
     billing_address = models.ForeignKey(Address, blank=True, related_name="orders_billing_address")
+
+    shipping_rate = models.DecimalField(max_digits=12,
+                                        decimal_places=2,
+                                        default=DEFAULT_SHIPPING_RATE)
 
     @property
     def total(self):
