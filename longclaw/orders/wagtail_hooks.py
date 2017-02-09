@@ -1,6 +1,7 @@
 from django.contrib.admin.utils import quote
 from django.utils.translation import ugettext as _
 from django.conf.urls import url
+from rest_framework.renderers import JSONRenderer
 
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, modeladmin_register
@@ -8,6 +9,8 @@ from wagtail.contrib.modeladmin.options import (
 from wagtail.contrib.modeladmin.helpers import ButtonHelper
 from wagtail.contrib.modeladmin.views import InspectView
 from longclaw.orders.models import Order
+from longclaw.orders.serializers import OrderSerializer
+
 
 class OrderButtonHelper(ButtonHelper):
 
@@ -56,10 +59,13 @@ class OrderButtonHelper(ButtonHelper):
         pk = quote(getattr(obj, self.opts.pk.attname))
         btns = []
         if ph.user_can_inspect_obj(usr, obj):
-            btns.append(self.fulfill_button(pk, classnames_add, classnames_exclude))
-            btns.append(self.cancel_button(pk, classnames_add, classnames_exclude))
+            btns.append(self.fulfill_button(
+                pk, classnames_add, classnames_exclude))
+            btns.append(self.cancel_button(
+                pk, classnames_add, classnames_exclude))
 
         return btns
+
 
 class FulfillView(InspectView):
 
@@ -70,8 +76,8 @@ class FulfillView(InspectView):
         return ''
 
     def get_context_data(self, **kwargs):
-        print(self.instance)
         context = {
+            'initial_data': JSONRenderer().render(OrderSerializer(self.instance).data),
             'order': self.instance,
             'grand_total': self.instance.total + self.instance.shipping_rate,
             'fields': self.get_fields_dict()
@@ -82,13 +88,15 @@ class FulfillView(InspectView):
     def get_template_names(self):
         return 'orders_fulfill.html'
 
+
 class OrderModelAdmin(ModelAdmin):
     model = Order
     menu_order = 100
     menu_icon = 'list-ul'
     add_to_settings_menu = False
     exclude_from_explorer = False
-    list_display = ('id', 'status', 'status_note', 'email', 'payment_date', 'total_items', 'total')
+    list_display = ('id', 'status', 'status_note', 'email',
+                    'payment_date', 'total_items', 'total')
     list_filter = ('status', 'payment_date', 'email')
     inspect_view_enabled = True
     fulfill_view_class = FulfillView

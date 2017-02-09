@@ -7,12 +7,11 @@ module.exports = {
   entry: {
     orders: './src/orders/index.jsx',
     vendors: [
-      'react', 'redux', 'react-redux', 'redux-thunk', 
-      'redux-form', 'isomorphic-fetch', 'whatwg-fetch',
+      'react', 'isomorphic-fetch', 'whatwg-fetch',
     ]
   },
   output: {
-      path: path.resolve('../ramshackleaudio/static/js/'),
+      path: path.resolve('../orders/static/longclaw.orders/js/'),
       filename: "[name].bundle.js"
   },
 
