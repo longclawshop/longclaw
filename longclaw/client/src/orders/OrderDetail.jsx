@@ -5,26 +5,56 @@ import api from '../api/api';
 
 class OrderDetail extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      loading: true,
+      order: null
+    }
+
+  }
+
   handleFulfill() {
-    console.log("Fulfill clicked!")
+    api.fulfillOrder({ urlParams: { id: this.props.orderId }})
+      .then(this.fetchOrder())
   }
 
   handleRefund() {
     console.log("Refund clicked!")
   }
 
+  fetchOrder() {
+    this.setState({ loading: true })
+    api.getOrder({ urlParams: { id: this.props.orderId }})
+      .then(json => this.setState({ loading: false, order: json }))
+  }
+
+  componentDidMount() {
+    this.fetchOrder()
+  }
+
   render() {
+    if (this.state.loading) {
+      return (
+        <span>
+          <i className="icon icon-spinner"></i>
+        </span>
+      );
+    }
+    const order = this.state.order;
     let status = <span className="icon icon-warning">UNKNOWN&nbsp;</span>;
     let refundBtn = (
       <button
         onClick={() => this.handleRefund()}
         className="button button-secondary"
+        disabled
       >
         Refund
       </button>
     );
 
-    if (this.props.order.status == 1) {
+    if (order.status == 1) {
       status = (
         <div>
           <span className="icon icon-warning">
@@ -35,7 +65,7 @@ class OrderDetail extends Component {
         </div>
       );
     }
-    else if (this.props.order.status == 2) {
+    else if (order.status == 2) {
       status = (
         <div>
           <span className="icon icon-warning">
@@ -45,7 +75,7 @@ class OrderDetail extends Component {
         </div>
       );
     }
-    else if (this.props.order.status == 3) {
+    else if (order.status == 3) {
       status = <span className="icon icon-bin">CANCELLED</span>;
     };
 
@@ -56,14 +86,14 @@ class OrderDetail extends Component {
           {status}
         </div>
         <OrderSummary
-          order={this.props.order}
-          shippingAddress={this.props.order.shipping_address}
+          order={order}
+          shippingAddress={order.shipping_address}
         />
         <h2>Order Items</h2>
         <OrderItems
-          items={this.props.order.items}
-          subTotal={this.props.order.total}
-          shippingRate={parseFloat(this.props.order.shipping_rate)}
+          items={order.items}
+          subTotal={order.total}
+          shippingRate={parseFloat(order.shipping_rate)}
         />
       </div>
     );

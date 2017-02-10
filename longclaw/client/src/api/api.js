@@ -7,7 +7,7 @@ import fetch from 'isomorphic-fetch';
 export default {
 
   getOrder: makeApiFunction('/api/order/{id}/', get),
-  fulfillOrder: makeApiFunction('api/order/{id}/fulfill', post, false, false)
+  fulfillOrder: makeApiFunction('/api/order/{id}/fulfill/', post, false, false)
 
 }
 
@@ -44,11 +44,8 @@ function makeApiFunction(endpoint, requestFunction, form = false, json = false) 
    * without all the boilerplate and offer a more secure way of allowing
    * this 'host' to be passed in with out altering any global state.
    */
-  return (host = null, options = {}) => {
+  return (options = {}) => {
     let url = endpoint;
-    if (host !== null) {
-      url = `${host}${endpoint}`;
-    }
     if (options.urlParams) {
       Object.keys(options.urlParams).map((key) => {
         url = url.replace(`{${key}}`, options.urlParams[key]);

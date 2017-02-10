@@ -77,7 +77,7 @@ class DetailView(InspectView):
 
     def get_context_data(self, **kwargs):
         context = {
-            'initial_data': JSONRenderer().render(OrderSerializer(self.instance).data),
+            'order_id': self.instance.id
         }
         context.update(kwargs)
         return super(DetailView, self).get_context_data(**context)
