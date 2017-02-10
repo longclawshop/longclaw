@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
+import moment from 'moment';
 
 const OrderSummary = ({order, shippingAddress}) => (
   <div className="row">
     <div className="col4">
       <dl>
         <dt>Order Date</dt>
-        <dd>{order.payment_date}</dd>
+        <dd>{moment(order.payment_date).format("DD/MM/YYYY")}</dd>
       </dl>
       <dl>
         <dt>Shipping Address</dt>

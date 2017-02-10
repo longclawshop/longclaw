@@ -31,5 +31,8 @@
     "webpack": "^1.13.1",
     "webpack-bundle-tracker": "^0.1.0",
     "whatwg-fetch": "^2.0.1"
+  },
+  "dependencies": {
+    "moment": "^2.17.1"
   }
 }
