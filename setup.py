@@ -17,7 +17,12 @@ class sdist(base_sdist):
         Compile the front end assets
         '''
         try:
-            subprocess.check_call(['npm', '--prefix', 'longclaw/client/', 'run', 'build'])
+            # Move into client dir
+            curdir = os.path.abspath(os.curdir)
+            client_path = os.path.join(os.path.dirname(__file__), 'longclaw', 'client')
+            os.chdir(client_path)
+            subprocess.check_call(['npm', 'run', 'build'])
+            os.chdir(curdir)
         except (OSError, subprocess.CalledProcessError) as err:
             print('Error compiling assets:  {}'.format(err))
             raise SystemExit(1)
