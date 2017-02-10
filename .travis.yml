@@ -22,6 +22,9 @@ matrix:
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: 
+- . $HOME/.nvm/nvm.sh
+- nvm install stable
+- nvm use stable
 - pip install -r requirements_test.txt
 - cd longclaw/client && npm install
 
