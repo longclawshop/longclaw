@@ -1,0 +1,22 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "jquery": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "rules": {
+    "semi": [2, "never"],
+    "no-return-assign": 0,
+    "react/jsx-no-bind": 0,
+    "no-console": "error",
+    "comma-dangle": [2, "never"],
+    "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
+    "new-cap": [2, {}]
+  }
+}

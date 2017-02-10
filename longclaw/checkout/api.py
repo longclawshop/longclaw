@@ -75,12 +75,14 @@ def capture_payment(request):
                                                        postcode=address['billing_address_zip'],
                                                        country=address['billing_address_country'])
     billing_address.save()
+    postage = float(request.data['shipping_rate'])
     # Create the order
     order = Order(
         email=request.data['email'],
         ip_address=request.data.get('ip', '0.0.0.0'),
         shipping_address=shipping_address,
-        billing_address=billing_address
+        billing_address=billing_address,
+        shipping_rate=postage
     )
     order.save()
 
@@ -93,7 +95,7 @@ def capture_payment(request):
         )
         order_item.save()
 
-    postage = float(request.data['shipping_rate'])
+    
     try:
         gateway.create_payment(request, float(total)+postage)
         # Once the order has been successfully taken, we can empty the basket

@@ -3,11 +3,33 @@
 import os
 import re
 import sys
+import subprocess
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup
+from setuptools.command.sdist import sdist as base_sdist
+
+class sdist(base_sdist):
+    '''
+    Regular sdist class plus compilation of front end assets
+    '''
+    def compile_assets(self):
+        '''
+        Compile the front end assets
+        '''
+        try:
+            # Move into client dir
+            curdir = os.path.abspath(os.curdir)
+            client_path = os.path.join(os.path.dirname(__file__), 'longclaw', 'client')
+            os.chdir(client_path)
+            subprocess.check_call(['npm', 'run', 'build'])
+            os.chdir(curdir)
+        except (OSError, subprocess.CalledProcessError) as err:
+            print('Error compiling assets:  {}'.format(err))
+            raise SystemExit(1)
+
+    def run(self):
+        self.compile_assets()
+        base_sdist.run(self)
 
 
 def get_version(*file_paths):
@@ -41,11 +63,12 @@ if sys.argv[-1] == 'tag':
     os.system("git push --tags")
     sys.exit()
 
+
 try:
     readme = open('README.rst').read()
     history = open('CHANGELOG.rst').read().replace('.. :changelog:', '')
 except IOError:
-    # Protects against running python from a different dir to setup.py, 
+    # Protects against running python from a different dir to setup.py,
     # e.g. on travis
     readme = ''
     history = ''
@@ -82,4 +105,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
+    cmdclass={
+        'sdist': sdist
+    }
 )

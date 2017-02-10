@@ -2,6 +2,8 @@
 __pycache__
 .directory
 .vscode/
+tags
+node_modules/
 
 # C extensions
 *.so
@@ -47,3 +49,7 @@ output/*/index.html
 
 # Sphinx
 docs/_build
+
+
+webpack-stats.json
+*bundle.js*
