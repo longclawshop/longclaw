@@ -2,6 +2,9 @@
 {% extends "wagtailadmin/admin_base.html" %}
 {% load wagtailadmin_tags wagtailcore_tags staticfiles i18n %}
 
+{% block titletag %}{% blocktrans with title=parent_page.get_admin_display_title %}Orders{% endblocktrans %}{% endblock %}
+{% block bodyclass %}page-orders{% endblock %}
+
 {% comment %}
     To work with the panel uses the basic templates wagtailadmin base.html
     In the template you want to add basic information for managing the shop Longclaw.
@@ -48,7 +51,15 @@
 
             <div id="nav-toggle" class="nav-toggle icon text-replace">{% trans "Menu" %}</div>
 
-            {% block content %}{% endblock %}
+            {% block content %}
+             <header class="merged nice-padding">
+                <div class="row row-flush">
+                 <div class="col9">
+                <h1>Orders longclaw</h1>
+            </div>
+        </div>
+            </header>
+            {% endblock %}
         </div>
     </div>
 {% endblock %}
