@@ -9,7 +9,9 @@ from setuptools import setup
 from setuptools.command.sdist import sdist as base_sdist
 
 class sdist(base_sdist):
-
+    '''
+    Regular sdist class plus compilation of front end assets
+    '''
     def compile_assets(self):
         '''
         Compile the front end assets
@@ -61,7 +63,7 @@ try:
     readme = open('README.rst').read()
     history = open('CHANGELOG.rst').read().replace('.. :changelog:', '')
 except IOError:
-    # Protects against running python from a different dir to setup.py, 
+    # Protects against running python from a different dir to setup.py,
     # e.g. on travis
     readme = ''
     history = ''
