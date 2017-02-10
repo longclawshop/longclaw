@@ -3,11 +3,26 @@
 import os
 import re
 import sys
+import subprocess
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup
+from setuptools.command.sdist import sdist as base_sdist
+
+class sdist(base_sdist):
+
+    def compile_assets(self):
+        '''
+        Compile the front end assets
+        '''
+        try:
+            subprocess.check_call(['npm', '--prefix', 'longclaw/client/', 'run', 'build'])
+        except (OSError, subprocess.CalledProcessError) as err:
+            print('Error compiling assets:  {}'.format(err))
+            raise SystemExit(1)
+
+    def run(self):
+        self.compile_assets()
+        base_sdist.run(self)
 
 
 def get_version(*file_paths):
@@ -83,4 +98,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
+    cmdclass={
+        'sdist': sdist
+    }
 )
