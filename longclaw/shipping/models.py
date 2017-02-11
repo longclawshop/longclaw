@@ -1,5 +1,9 @@
 from django.db import models
+from modelcluster.fields import ParentalKey
+from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
+from django_countries.fields import CountryField
+
 
 class Address(models.Model):
     name = models.CharField(max_length=64)
@@ -21,15 +25,22 @@ class Address(models.Model):
     def __str__(self):
         return "{}, {}, {}".format(self.name, self.city, self.country)
 
-class ShippingCountry(models.Model):
+
+class ShippingCountry(Page):
     ''' Standard and premimum rate shipping for
     individual countries.
     '''
-    country_code = models.CharField(max_length=3, primary_key=True)
-    country_name = models.CharField(max_length=32)
+    parent_page_types = ['wagtailcore.Page']
+    country = CountryField()
+
+    content_panels = Page.content_panels + [
+        FieldPanel('country'),
+        InlinePanel('shipping_rates', label='Shipping rates')
+    ]
 
     class Meta:
         verbose_name_plural = "shipping countries"
+
 
 class ShippingRate(models.Model):
 
@@ -37,5 +48,5 @@ class ShippingRate(models.Model):
     rate = models.DecimalField(max_digits=12, decimal_places=2)
     carrier = models.CharField(max_length=64)
     description = models.CharField(max_length=128)
-    shipping_country = models.ForeignKey(ShippingCountry, related_name="shipping_rates")
-
+    shipping_country = ParentalKey(
+        ShippingCountry, related_name="shipping_rates")

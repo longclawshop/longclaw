@@ -9,8 +9,8 @@ class ShippingCountryModelAdmin(ModelAdmin):
     menu_order = 200
     menu_icon = 'site'
     add_to_settings_menu = False
-    exclude_from_explorer = False
-    list_display = ('country_name', 'country_code')
+    exclude_from_explorer = True
+    list_display = ('country',)
     inspect_view_enabled = True
 
 modeladmin_register(ShippingCountryModelAdmin)
