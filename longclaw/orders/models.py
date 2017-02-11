@@ -1,26 +1,6 @@
 from django.db import models
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 from longclaw.settings import PRODUCT_VARIANT_MODEL, DEFAULT_SHIPPING_RATE
-
-class Address(models.Model):
-    name = models.CharField(max_length=64)
-    line_1 = models.CharField(max_length=128)
-    line_2 = models.CharField(max_length=128, blank=True)
-    city = models.CharField(max_length=64)
-    postcode = models.CharField(max_length=10)
-    country = models.CharField(max_length=32)
-
-    panels = [
-        FieldPanel('name'),
-        FieldPanel('line_1'),
-        FieldPanel('line_2'),
-        FieldPanel('city'),
-        FieldPanel('postcode'),
-        FieldPanel('country')
-    ]
-
-    def __str__(self):
-        return "{}, {}, {}".format(self.name, self.city, self.country)
+from longclaw.shipping.models import Address
 
 class Order(models.Model):
     SUBMITTED = 1
