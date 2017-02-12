@@ -3,17 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to longclaw's documentation!
+Welcome to Longclaw's documentation!
 =================================================================
+
+Longclaw is an e-commerce solution written in Python using Wagtail CMS and Django
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   getting_started/index
    readme
-   installation
-   usage
    contributing
    authors
    history

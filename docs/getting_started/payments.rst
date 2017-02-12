@@ -1,0 +1,4 @@
+.. payments:
+
+Payment backends
+================
