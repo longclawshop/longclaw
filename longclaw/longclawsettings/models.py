@@ -5,6 +5,7 @@ from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from django.db import models
 
+
 @register_setting
 class LongclawSettings(BaseSetting):
     default_shipping_rate = models.DecimalField(
@@ -24,12 +25,21 @@ class LongclawSettings(BaseSetting):
                    ' This essentially means you ship to all countries,'
                    ' not only those with configured shipping rates'))
 
-    currency_html_code = models.CharField(max_length=12, default="&pound;")
-    currency = models.CharField(max_length=6, default="GBP")
+    currency_html_code = models.CharField(
+        max_length=12,
+        default="&pound;",
+        help_text="The HTML code for the currency symbol. Used for display purposes only"
+    )
+    currency = models.CharField(
+        max_length=6,
+        default="GBP",
+        help_text="The iso currency code to use for payments"
+    )
 
     panels = (
         FieldPanel('default_shipping_rate'),
         FieldPanel('default_shipping_carrier'),
         FieldPanel('default_shipping_enabled'),
         FieldPanel('currency_html_code'),
+        FieldPanel('currency')
     )

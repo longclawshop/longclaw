@@ -1,5 +1,5 @@
 from django.db import models
-from longclaw.settings import PRODUCT_VARIANT_MODEL, DEFAULT_SHIPPING_RATE
+from longclaw.settings import PRODUCT_VARIANT_MODEL
 from longclaw.shipping.models import Address
 
 class Order(models.Model):

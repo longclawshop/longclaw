@@ -50,3 +50,6 @@ class ShippingRate(models.Model):
     description = models.CharField(max_length=128)
     shipping_country = ParentalKey(
         ShippingCountry, related_name="shipping_rates")
+
+    def __str__(self):
+        return self.name
