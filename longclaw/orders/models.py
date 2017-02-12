@@ -25,7 +25,8 @@ class Order(models.Model):
 
     shipping_rate = models.DecimalField(max_digits=12,
                                         decimal_places=2,
-                                        default=DEFAULT_SHIPPING_RATE)
+                                        blank=True,
+                                        null=True)
 
     @property
     def total(self):
