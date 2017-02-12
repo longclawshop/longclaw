@@ -12,12 +12,13 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 
 class ProductIndex(Page):
-    pass
+    subpage_types = ('products.Product',)
 
 class ProductTag(TaggedItemBase):
     content_object = ParentalKey('Product', related_name='tagged_items')
 
 class Product(Page):
+    parent_page_types = ['products.ProductIndex']
     description = RichTextField()
     tags = ClusterTaggableManager(through=ProductTag, blank=True)
 

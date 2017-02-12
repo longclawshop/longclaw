@@ -1,5 +1,6 @@
 import braintree
 from longclaw import settings
+from longclaw.longclawsettings.models import LongclawSettings
 from longclaw.checkout.utils import PaymentError
 from longclaw.checkout.gateways import BasePayment
 
@@ -38,11 +39,12 @@ class PaypalVZeroPayment():
         self.gateway = braintree.BraintreeGateway(access_token=settings.VZERO_ACCESS_TOKEN)
 
     def create_payment(self, request, amount, description=''):
+        longclaw_settings = LongclawSettings.for_site(request.site)
         nonce = request.data['payment_method_nonce']
         result = self.gateway.transaction.sale({
             "amount": str(amount),
             "payment_method_nonce": nonce,
-            "merchant_account_id": settings.CURRENCY,
+            "merchant_account_id": longclaw_settings.currency,
             "options": {
                 "paypal": {
                     "description": description

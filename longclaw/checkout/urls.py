@@ -2,9 +2,6 @@ from django.conf.urls import url
 from longclaw.checkout import api
 
 urlpatterns = [
-    url(r'shipping/$',
-        api.shipping_cost,
-        name='shipping'),
     url(r'payment/$',
         api.capture_payment,
         name='payment'),

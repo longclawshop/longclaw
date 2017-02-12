@@ -1,6 +1,7 @@
 import math
 import stripe
-from longclaw.settings import CURRENCY, STRIPE_SECRET
+from longclaw.settings import STRIPE_SECRET
+from longclaw.longclawsettings.models import LongclawSettings
 from longclaw.checkout.utils import PaymentError
 from longclaw.checkout.gateways import BasePayment
 
@@ -14,9 +15,10 @@ class StripePayment(BasePayment):
 
     def create_payment(self, request, amount):
         try:
+            currency = LongclawSettings.for_site(request.site).currency
             charge = stripe.Charge.create(
                 amount=int(math.ceil(amount * 100)),  # Amount in pence
-                currency=CURRENCY.lower(),
+                currency=currency.lower(),
                 source=request.data['token'],
                 description="Payment from"
             )

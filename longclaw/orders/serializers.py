@@ -1,13 +1,8 @@
 from django.apps import apps
 from rest_framework import serializers
-from longclaw.orders.models import Order, OrderItem, Address
+from longclaw.orders.models import Order, OrderItem
 from longclaw.products.serializers import ProductVariantSerializer
-
-class AddressSerializer(serializers.ModelSerializer):
-
-  class Meta:
-      model = Address
-      fields = "__all__"
+from longclaw.shipping.serializers import AddressSerializer
 
 class OrderItemSerializer(serializers.ModelSerializer):
 
