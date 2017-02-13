@@ -19,9 +19,21 @@ Install Wagtail::
 
     pip install wagtail
 
-Install longclaw::
+Install Longclaw::
+Note: Longclaw v0.1 is currently in development, as such there is no pre-built package currently on offer.
+    
+- First, clone the repo:
+    
+    git clone https://github.com/JamesRamm/longclaw.git
 
-    pip install git+https://github.com/JamesRamm/longclaw.git
+- Next, install the python and JS dependencies:
+
+   pip install requirements.txt
+   cd longclaw/client && npm install
+   
+- You can now install longclaw:
+
+    python setup.py install
 
 Add it to your `INSTALLED_APPS`:
 

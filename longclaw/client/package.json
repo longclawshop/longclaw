@@ -1,0 +1,38 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "Front end apps for longclaw",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "build-dev": "webpack --config webpack.dev.config.js"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
+  "author": "jamessramm@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-polyfill": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "expose-loader": "^0.7.1",
+    "fetch-mock-forwarder": "^1.0.0",
+    "isomorphic-fetch": "^2.2.1",
+    "js-cookie": "^2.1.3",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "webpack": "^1.13.1",
+    "webpack-bundle-tracker": "^0.1.0",
+    "whatwg-fetch": "^2.0.1"
+  },
+  "dependencies": {
+    "moment": "^2.17.1"
+  }
+}
