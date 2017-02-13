@@ -28,7 +28,7 @@ Note: Longclaw v0.1 is currently in development, as such there is no pre-built p
 
 - Next, install the python and JS dependencies:
 
-   pip install requirements.txt
+   pip install -r requirements.txt
    cd longclaw/client && npm install
    
 - You can now install longclaw:
