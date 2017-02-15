@@ -1,7 +1,5 @@
-
-# Additional requirements go here
-django-extensions
-djangorestframework>=3.5.3
-wagtail==1.7
-simplejson==3.10.0
 django-countries==4.0
+django-extensions==1.7.5
+djangorestframework==3.5.4
+wagtail==1.7
+
