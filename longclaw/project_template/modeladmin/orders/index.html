@@ -1,0 +1,66 @@
+<!-- Template for modeladmin Longclaw-->
+{% extends "wagtailadmin/admin_base.html" %}
+{% load wagtailadmin_tags wagtailcore_tags staticfiles i18n %}
+
+{% block titletag %}{% blocktrans with title=parent_page.get_admin_display_title %}Orders{% endblocktrans %}{% endblock %}
+{% block bodyclass %}page-orders{% endblock %}
+
+{% comment %}
+    To work with the panel uses the basic templates wagtailadmin base.html
+    In the template you want to add basic information for managing the shop Longclaw.
+{% endcomment %}
+
+{% block furniture %}
+    <div class="nav-wrapper">
+        <div class="inner">
+            <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
+                {% block branding_logo %}
+                    <img class="wagtail-logo" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
+                {% endblock %}
+                <span>{% trans "Dashboard" %}</span>
+            </a>
+
+            <form class="nav-search" action="{% url 'wagtailadmin_pages:search' %}" method="get">
+                <div>
+                    <label for="menu-search-q">{% trans "Search" %}</label>
+                    <input type="text" id="menu-search-q" name="q" placeholder="{% trans 'Search' %}" />
+                    <button class="button" type="submit">{% trans "Search" %}</button>
+                </div>
+            </form>
+
+            {% main_nav %}
+        </div>
+
+        <span class="explorer-close">Close explorer</span>
+        <nav id="explorer" class="explorer">
+        </nav>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="content">
+            {# Always show messages div so it can be appended to by JS #}
+            <div class="messages">
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li class="{% message_tags message %}">{{ message|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div id="nav-toggle" class="nav-toggle icon text-replace">{% trans "Menu" %}</div>
+
+            {% block content %}
+             <header class="merged nice-padding">
+                <div class="row row-flush">
+                 <div class="col9">
+                <h1>Orders longclaw</h1>
+            </div>
+        </div>
+            </header>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
