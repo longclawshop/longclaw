@@ -15,11 +15,10 @@ def run_tests(*test_args):
         test_args = ['tests']
 
     os.environ['DJANGO_SETTINGS_MODULE'] = 'longclaw.tests.settings'
-    # django.setup()
-    # TestRunner = get_runner(settings)
-    # test_runner = TestRunner()
-    # failures = test_runner.run_tests(test_args)
-    # sys.exit(bool(failures))
+    django.setup()
+    test_runner = get_runner(settings)()
+    failures = test_runner.run_tests(test_args)
+    sys.exit(bool(failures))
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ Tests for `longclaw` models module.
 
 from django.test import TestCase
 
-from longclaw import models
+from longclaw.products import models
 
 
 class TestLongclaw(TestCase):
