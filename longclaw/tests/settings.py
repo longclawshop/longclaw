@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sites",
+    'django.contrib.sessions',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -44,11 +45,11 @@ INSTALLED_APPS = [
     'django_countries',
 
     "longclaw.longclawsettings",
-    "longclaw.shipping",
-    "longclaw.products",
-    "longclaw.orders",
-    "longclaw.checkout",
-    "longclaw.basket",
+    "longclaw.longclawshipping",
+    "longclaw.longclawproducts",
+    "longclaw.longclaworders",
+    "longclaw.longclawcheckout",
+    "longclaw.longclawbasket",
 ]
 
 SITE_ID = 1

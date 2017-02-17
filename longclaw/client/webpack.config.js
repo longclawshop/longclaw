@@ -11,7 +11,7 @@ module.exports = {
     ]
   },
   output: {
-      path: path.resolve('../orders/static/longclaw.orders/js/'),
+      path: path.resolve('../longclaworders/static/longclaw.longclaworders/js/'),
       filename: "[name].bundle.js"
   },
 

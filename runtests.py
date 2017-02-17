@@ -12,7 +12,7 @@ from django.test.utils import get_runner
 
 def run_tests(*test_args):
     if not test_args:
-        test_args = ['tests']
+        test_args = ['longclaw.longclawproducts']
 
     os.environ['DJANGO_SETTINGS_MODULE'] = 'longclaw.tests.settings'
     django.setup()
