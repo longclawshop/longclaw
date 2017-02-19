@@ -41,10 +41,11 @@ Add it to your `INSTALLED_APPS`:
 
     INSTALLED_APPS = (
         ...
-        'longclaw.products',
-        'longclaw.orders',
-        'longclaw.checkout',
-        'longclaw.basket',
+        'longclaw.longclawsettings',
+        'longclaw.longclawproducts',
+        'longclaw.longclaworders',
+        'longclaw.longclawcheckout',
+        'longclaw.longclawbasket',
         ...
     )
 
@@ -52,8 +53,8 @@ Add longclaw's URL patterns:
 
 .. code-block:: python
 
-    from longclaw.basket.urls import urlpatterns as basket_urls
-    from longclaw.checkout.urls import urlpatterns as checkout_urls
+    from longclaw.longclawbasket.urls import urlpatterns as basket_urls
+    from longclaw.longclawcheckout.urls import urlpatterns as checkout_urls
 
     urlpatterns = [
         ...
