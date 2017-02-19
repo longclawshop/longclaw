@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     "longclaw.longclaworders",
     "longclaw.longclawcheckout",
     "longclaw.longclawbasket",
-    "longclaw.project_template.products"
+    "longclaw.tests.products"
 
 ]
 
