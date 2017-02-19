@@ -7,7 +7,7 @@
 {% templatetag openblock %} block content {% templatetag closeblock %}
 <h1>{% templatetag openvariable %} page.title {% templatetag closevariable %}</h1>
 <div class="row">
-{% templatetag openblock %} for post in product {% templatetag closeblock %}
+{% templatetag openblock %} for post in page.get_children {% templatetag closeblock %}
    {% templatetag openblock %} with post=post.specific {% templatetag closeblock %}
    <div><a href="{% templatetag openblock %} pageurl post {% templatetag closeblock %}">
        <div class="caption_news">
