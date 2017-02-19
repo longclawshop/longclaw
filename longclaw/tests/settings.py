@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "longclaw.longclaworders",
     "longclaw.longclawcheckout",
     "longclaw.longclawbasket",
+    "longclaw.project_template.products"
+
 ]
 
 SITE_ID = 1
@@ -58,3 +60,6 @@ if django.VERSION >= (1, 10):
     MIDDLEWARE = ()
 else:
     MIDDLEWARE_CLASSES = ()
+
+
+PRODUCT_VARIANT_MODEL = 'products.ProductVariant'
