@@ -72,11 +72,6 @@ class ProductVariantBase(models.Model):
     def get_product_title(self):
         return self.product.title
 
-
-class ProductVariant(ProductVariantBase):
-    description = RichTextField()
-    stock = models.IntegerField(default=0)
-
 class ProductImage(Orderable):
 
     product = ParentalKey(Product, related_name='images')

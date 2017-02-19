@@ -1,38 +1,38 @@
-{% extends "base.html" %}
+{{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
+{% templatetag openblock %} load wagtailcore_tags wagtailimages_tags {% templatetag closeblock %}
 
-{% block body_class %}template-productpage{% endblock %}
+{% templatetag openblock %} block body_class {% templatetag closeblock %} template-productpage {% templatetag openblock %}endblock{% templatetag closeblock %}
 
-{% block content %}
+{% templatetag openblock %} block content {% templatetag closeblock %}
 <div class="product_content">
     <div class="image">
-    {% if page.images %}
-       {% for item in page.images.all %}
+    {% templatetag openblock %} if page.images {% templatetag closeblock %}
+       {% templatetag openblock %} for item in page.images.all {% templatetag closeblock %}
         <div style="float: left; margin: 10px">
-            {% image item.image fill-320x240 %}
-            <p>{{ item.caption }}</p>
+            {% templatetag openblock %} image item.image fill-320x240 {% templatetag closeblock %}
+            <p>{% templatetag openvariable %} item.caption {% templatetag closevariable %}</p>
         </div>
-    {% endfor %}
-    {% else %}
+    {% templatetag openblock %} endfor {% templatetag closeblock %}
+    {% templatetag openblock %} else {% templatetag closeblock %}
         <img style="width: 450px; background-color: #ECEFF1;" src="..."/>
-    {% endif %}
+    {% templatetag openblock %} endif {% templatetag closeblock %}
     </div>
     
     <div class="product_content_info">
-        <h1 class="product_title">{{ page.title }}</h1>
-        <div class="product_description">{{ page.description|richtext  }}</div>
+        <h1 class="product_title">{% templatetag openvariable %} page.title {% templatetag closevariable %}</h1>
+        <div class="product_description">{% templatetag openvariable %} page.description|richtext  {% templatetag closevariable %}</div>
     </div>
 </div>
-  {% if page.tags.all.count %}
+  {% templatetag openblock %} if page.tags.all.count {% templatetag closeblock %}
     <div class="tags">
         <h3>Tags</h3>
-        {% for tag in page.tags.all %}
-            <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
-        {% endfor %}
+        {% templatetag openblock %} for tag in page.tags.all {% templatetag closeblock %}
+            <a href="{% templatetag openblock %} slugurl 'tags' {% templatetag closeblock %}?tag={% templatetag openvariable %} tag {% templatetag closevariable %}"><button type="button">{% templatetag openvariable %} tag {% templatetag closevariable %}</button></a>
+        {% templatetag openblock %} endfor {% templatetag closeblock %}
     </div>
-  {% endif %}
+  {% templatetag openblock %} endif {% templatetag closeblock %}
 
-    <p><a href="{{ page.get_parent.url }}">Return</a></p>
+    <p><a href="{% templatetag openvariable %} page.get_parent.url {% templatetag closevariable %}">Return</a></p>
 
-{% endblock %}
+{% templatetag openblock %} endblock {% templatetag closeblock %}

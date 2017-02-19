@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+from django.conf import settings
 import django.db.models.deletion
 
 
@@ -22,7 +23,7 @@ class Migration(migrations.Migration):
                 ('basket_id', models.CharField(max_length=32)),
                 ('date_added', models.DateTimeField(auto_now_add=True)),
                 ('quantity', models.IntegerField(default=1)),
-                ('variant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='longclawproducts.ProductVariant')),
+                ('variant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.PRODUCT_VARIANT_MODEL)),
             ],
             options={
                 'ordering': ['date_added'],

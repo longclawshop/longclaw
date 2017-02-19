@@ -1,3 +1,5 @@
+from django.db import models
+from wagtail.wagtailcore.fields import RichTextField
 from longclaw.longclawproducts.models import ProductVariantBase
 
 class ProductVariant(ProductVariantBase):
@@ -6,4 +8,5 @@ class ProductVariant(ProductVariantBase):
     # e.g. colour, size, stock and so on.
     # Remember, ProductVariantBase provides 'price', 'ref', 'slug' fields
     # and the parental key to the Product model.
-    pass
+    description = RichTextField()
+    stock = models.IntegerField(default=0)
