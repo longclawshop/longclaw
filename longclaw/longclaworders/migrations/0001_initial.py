@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('longclawproducts', '0001_initial'),
+        (settings.PRODUCT_VARIANT_MODEL.split(".")[0], '0001_initial')
     ]
 
     operations = [
