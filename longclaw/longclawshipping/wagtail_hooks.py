@@ -6,6 +6,7 @@ from longclaw.longclawshipping.models import ShippingCountry
 
 class ShippingCountryModelAdmin(ModelAdmin):
     model = ShippingCountry
+    menu_label = 'Shipping'
     menu_order = 200
     menu_icon = 'site'
     add_to_settings_menu = False
