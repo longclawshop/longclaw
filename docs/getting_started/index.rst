@@ -3,53 +3,20 @@
 Getting Started
 ================
 
-Longclaw is built using Wagtail CMS so this document assumes you have already setup a wagtail project.
-If not, starting a wagtail project is easy and documented `here<http://docs.wagtail.io/en/v1.8.1/getting_started/index.html>`_
+Longclaw is an e-commerce solution for Python built using Wagtail CMS and Django.
+It is currently in beta and can be installed using pip:
 
-With this done, you can install Longclaw::
+    $ pip install git+git://github.com/JamesRamm/longclaw
 
-    $ pip install longclaw
+Longclaw provides a template to setup a Longclaw/Wagtail project::
 
-You will need to add a couple of Wagtail contrib modules and dependencies aswell as Longclaws' apps to your `INSTALLED_APPS`::
+    $ django-admin startproject --template /path/to/longclaw/project_template/ --ext py,js,css,html project_name
 
-.. code-block:: python
+This will provide you with a minimal Wagtail & longclaw website. 
+Longclaw integrates tightly with Wagtail, so you should be familiar with developing Wagtail sites before continuing:
+http://docs.wagtail.io/
 
-    'wagtail.contrib.modeladmin',
-    'wagtail.contrib.settings',
-
-    'rest_framework',
-    'django_extensions',
-
-    'longclaw.longclawsettings',
-    'longclaw.shipping',
-    'longclaw.products',
-    'longclaw.basket',
-    'longclaw.checkout',
-    'longclaw.orders'
-
-URL Configuration
-------------------
-
-Add the longclaw URLs' to your `urls.py`:
-
-.. code-block:: python
-
-    from longclaw.basket import urls as basket_urls
-    from longclaw.checkout import urls as checkout_urls
-    from longclaw.orders import urls as orders_urls
-    from longclaw.shipping import urls as shipping_urls
-
-    urlpatterns = [
-      ...
-      url(r'^api/', include(basket_urls)),
-      url(r'^api/', include(checkout_urls)),
-      url(r'^api/', include(orders_urls)),
-      url(r'^api/', include(projects_urls)),
-      url(r'^api/', include(shipping_urls)),
-      ...
-    ]
-
-This is in addition to the standard Wagtail URL's.
+Next, you will need to model your catalogue.
 
 .. toctree::
     :maxdepth: 2
