@@ -7,9 +7,11 @@ Longclaw
 
 .. image:: https://travis-ci.org/JamesRamm/longclaw.svg?branch=master
     :target: https://travis-ci.org/JamesRamm/longclaw
+    
+.. image:: https://readthedocs.org/projects/longclaw/badge/?version=latest
+    :target: http://longclaw.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
-.. image:: https://codecov.io/gh/JamesRamm/longclaw/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/JamesRamm/longclaw
 
 A shop for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
 
@@ -21,7 +23,7 @@ Install Longclaw::
 
 Note: Longclaw v0.1 is currently in development; expect many changes
     
-Setup a Wagtail+Longclaw project:
+Setup a Wagtail+Longclaw project::
 
   $ django-admin startproject --template /path/to/longclaw/project_template/ --ext py,js,css,html project_name
 
