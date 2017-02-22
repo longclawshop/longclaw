@@ -6,7 +6,10 @@ import fetch from 'isomorphic-fetch';
 
 export default {
 
+  // Get a single order  
   getOrder: makeApiFunction('/api/order/{id}/', get),
+
+  // Mark an order as fulfilled
   fulfillOrder: makeApiFunction('/api/order/{id}/fulfill/', post, false, false)
 
 }
@@ -39,11 +42,6 @@ export default {
  *
  */
 function makeApiFunction(endpoint, requestFunction, form = false, json = false) {
-  /*
-   * TODO: This function can be used to generate the given request functions
-   * without all the boilerplate and offer a more secure way of allowing
-   * this 'host' to be passed in with out altering any global state.
-   */
   return (options = {}) => {
     let url = endpoint;
     if (options.urlParams) {
