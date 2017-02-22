@@ -14,7 +14,7 @@ class InvalidShippingCountry(Exception):
 
 def get_shipping_cost(country_code, option, settings):
     try:
-        obj = models.ShippingCountry.objects.get(country_code=country_code)
+        obj = models.ShippingCountry.objects.get(country=country_code)
         try:
             shipping_rate = obj.shipping_rates.get(name=option)
             return {
