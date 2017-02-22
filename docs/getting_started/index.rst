@@ -16,6 +16,12 @@ This will provide you with a minimal Wagtail & longclaw website.
 Longclaw integrates tightly with Wagtail, so you should be familiar with developing Wagtail sites before continuing:
 http://docs.wagtail.io/
 
+In order to process real payments, you will need to install the client library for your chosen payment backend. 
+This will either be:
+
+- Stripe; ``pip install stripe``
+- Braintree (for braintree and paypal payments); ``pip install braintree``
+
 Next, you will need to model your catalogue.
 
 .. toctree::
