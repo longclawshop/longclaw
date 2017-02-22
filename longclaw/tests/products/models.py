@@ -9,4 +9,3 @@ class ProductVariant(ProductVariantBase):
     # Remember, ProductVariantBase provides 'price', 'ref', 'slug' fields
     # and the parental key to the Product model.
     description = RichTextField()
-    stock = models.IntegerField(default=0)
