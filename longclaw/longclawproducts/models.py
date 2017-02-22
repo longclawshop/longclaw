@@ -62,6 +62,7 @@ class ProductVariantBase(models.Model):
     product = ParentalKey(Product, related_name='variants')
     price = models.DecimalField(max_digits=12, decimal_places=2)
     ref = models.CharField(max_length=32)
+    stock = models.IntegerField(default=0)
     slug = AutoSlugField(
         separator='',
         populate_from=('product', 'ref'),

@@ -85,7 +85,13 @@ setup(
         'longclaw',
     ],
     include_package_data=True,
-    install_requires=[],
+    install_requires=[
+        'django>=1.8',
+        'wagtail>=1.7',
+        'django-countries>=4.0',
+        'django-extensions>=1.7.5',
+        'djangorestframework>=3.5.4'
+    ],
     license="MIT",
     zip_safe=False,
     keywords='longclaw',

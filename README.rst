@@ -15,63 +15,27 @@ A shop for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
 
 Quickstart
 ----------
-Install Wagtail::
-
-    pip install wagtail
-
 Install Longclaw::
-Note: Longclaw v0.1 is currently in development, as such there is no pre-built package currently on offer.
+
+  $ pip install git+git://github.com/JamesRamm/longclaw
+
+Note: Longclaw v0.1 is currently in development; expect many changes
     
-- First, clone the repo:
-    
-    git clone https://github.com/JamesRamm/longclaw.git
+Setup a Wagtail+Longclaw project:
 
-- Next, install the python and JS dependencies:
-
-   pip install -r requirements.txt
-   cd longclaw/client && npm install
-   
-- You can now install longclaw:
-
-    python setup.py install
-
-Add it to your `INSTALLED_APPS`:
-
-.. code-block:: python
-
-    INSTALLED_APPS = (
-        ...
-        'longclaw.longclawsettings',
-        'longclaw.longclawproducts',
-        'longclaw.longclaworders',
-        'longclaw.longclawcheckout',
-        'longclaw.longclawbasket',
-        ...
-    )
-
-Add longclaw's URL patterns:
-
-.. code-block:: python
-
-    from longclaw.longclawbasket.urls import urlpatterns as basket_urls
-    from longclaw.longclawcheckout.urls import urlpatterns as checkout_urls
-
-    urlpatterns = [
-        ...
-        url(r'^/api/', include(basket_urls, namespace='longclaw')),
-        url(r'^/api/', include(checkout_urls, namespace='longclaw')),
-        ...
-    ]
+  $ django-admin startproject --template /path/to/longclaw/project_template/ --ext py,js,css,html project_name
 
 Features
 --------
 
-* TODO
+* Order admin page for Wagtail
+* Variable shipping rates per country, managed from wagtail admin
+* Pluggable basket and checkout API, supporting a variety of payment backends
+* Designed to be adaptable to the needs of your own product catalogue
+* Complete control of your own front end, just like Wagtail. 
 
 Running Tests
 -------------
-
-Does the code actually work?
 
 ::
 
@@ -79,13 +43,3 @@ Does the code actually work?
     (myenv) $ pip install tox
     (myenv) $ tox
 
-Credits
--------
-
-Tools used in rendering this package:
-
-*  Cookiecutter_
-*  `cookiecutter-djangopackage`_
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`cookiecutter-djangopackage`: https://github.com/pydanny/cookiecutter-djangopackage
