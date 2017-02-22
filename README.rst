@@ -23,7 +23,7 @@ Install Longclaw::
 
 Note: Longclaw v0.1 is currently in development; expect many changes
     
-Setup a Wagtail+Longclaw project:
+Setup a Wagtail+Longclaw project::
 
   $ django-admin startproject --template /path/to/longclaw/project_template/ --ext py,js,css,html project_name
 
