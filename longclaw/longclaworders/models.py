@@ -39,6 +39,7 @@ class Order(models.Model):
     def total_items(self):
         return self.items.count()
 
+
 class OrderItem(models.Model):
     product = models.ForeignKey(PRODUCT_VARIANT_MODEL, on_delete=models.DO_NOTHING)
     quantity = models.IntegerField(default=1)

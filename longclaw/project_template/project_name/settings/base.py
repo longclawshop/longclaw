@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'longclaw.longclaworders',
     'longclaw.longclawcheckout',
     'longclaw.longclawbasket',
+    'longclaw.longclawstats',
 
     'home',
     'search',
