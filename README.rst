@@ -30,11 +30,31 @@ Setup a Wagtail+Longclaw project::
 Features
 --------
 
-* Order admin page for Wagtail
-* Variable shipping rates per country, managed from wagtail admin
-* Pluggable basket and checkout API, supporting a variety of payment backends
-* Designed to be adaptable to the needs of your own product catalogue
-* Complete control of your own front end, just like Wagtail. 
+View and fulfill orders from the Wagtail admin
++++++++++++++++++++++++++++++++++++++++++++++++
+
+  .. figure:: docs/_static/images/order_list.png
+     
+     The orders list can be sorted and filtered by status, date or customer
+
+  .. figure:: docs/_static/images/order_detail.png
+
+Variable Shipping Rates
++++++++++++++++++++++++
+
+Manage your shipping destinations and rates from the Wagtail admin.
+
+Pluggable basket and checkout API
+++++++++++++++++++++++++++++++++++
+
+Longclaw provides a simple RESTful API for retrieving/updating the shopping basket and for performing a checkout.
+Longclaw currently supports Stripe, Braintree and PayPal (v.zero) payments.
+
+Easy project startup and catalogue modelling
+++++++++++++++++++++++++++++++++++++++++++++
+
+Longclaw provides a project template to easily setup your Wagtail + Longclaw project. This sets up a basic ``ProductVariant`` model
+so you can get started adding your product-specific fields straight away.
 
 Running Tests
 -------------
