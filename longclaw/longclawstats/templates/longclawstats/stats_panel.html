@@ -1,0 +1,97 @@
+{% load i18n wagtailadmin_tags %}
+
+<section class="panel nice-padding">
+
+  <div class="col6">
+    <canvas id="daily-sales" width="100" height="75"></canvas>
+    <br>
+  </div>
+
+  <div class="col6">
+    <canvas id="popular-products" width="100" height="75"></canvas>
+    <br>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+
+<script>
+  var ctx = document.getElementById("daily-sales");
+  var data = {
+    labels: {{ labels|safe }},
+  datasets: [
+    {
+      data: {{ daily_income }}
+      }
+  ]
+  };
+  var dailySalesChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: {
+      title: {
+        display: true,
+        text: 'Revenue this month'
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+              scaleLabel: {
+                  display: true,
+                  labelString: 'Date'
+                }
+            }],
+        yAxes: [{
+          scaleLabel: {
+              display: true,
+              labelString: 'Revenue ({{currency}})'
+            }
+        }]
+      }
+    }
+  });
+
+  var ctx_products = document.getElementById("popular-products");
+  var data = {
+    labels: {{ product_labels|safe }},
+    datasets: [
+      {
+        data: {{ sales_volume }}
+      }
+    ]
+  };
+
+  var popProductsChart = new Chart(ctx_products, {
+    type: 'bar',
+    data: data,
+    options: {
+      title: {
+        display: true,
+        text: 'Popular products this month'
+      },
+      scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'No. Sales'
+                }
+            }],
+            xAxes: [{
+              scaleLabel: {
+                  display: true,
+                  labelString: 'Product Title'
+                }
+            }]
+        },
+      legend: {
+        display: false
+      }
+    }
+  })
+
+</script>

@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'longclaw.longclaworders',
     'longclaw.longclawcheckout',
     'longclaw.longclawbasket',
+    'longclaw.longclawstats',
 
     'home',
     'search',
@@ -92,6 +93,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'longclaw.longclawsettings.context_processors.currency',
             ],
         },
     },
