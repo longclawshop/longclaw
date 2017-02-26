@@ -15,6 +15,10 @@ Longclaw
 
 A shop for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
 
+  .. figure:: docs/_static/images/dashboard.png
+     
+     Longclaw dashboard
+
 Quickstart
 ----------
 Install Longclaw::
