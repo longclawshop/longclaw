@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from longclaw.longclawshipping.models import Address, ShippingCountry, ShippingRate
+from longclaw.longclawshipping.models import Address, ShippingRate
 
 class AddressSerializer(serializers.ModelSerializer):
 
@@ -11,14 +11,6 @@ class ShippingRateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShippingRate
-        fields = "__all__"
-
-class ShippingCountrySerializer(serializers.ModelSerializer):
-
-    shipping_rates = ShippingRateSerializer(many=True)
-
-    class Meta:
-        model = ShippingCountry
         fields = "__all__"
 
     

@@ -1,7 +1,6 @@
 from django.db import models
-from modelcluster.fields import ParentalKey
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
+from django import forms
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from django_countries.fields import CountryField
 
 
@@ -25,31 +24,24 @@ class Address(models.Model):
     def __str__(self):
         return "{}, {}, {}".format(self.name, self.city, self.country)
 
-
-class ShippingCountry(Page):
-    ''' Standard and premimum rate shipping for
-    individual countries.
-    '''
-    parent_page_types = ['wagtailcore.Page']
-    country = CountryField()
-
-    content_panels = Page.content_panels + [
-        FieldPanel('country'),
-        InlinePanel('shipping_rates', label='Shipping rates')
-    ]
-
-    class Meta:
-        verbose_name_plural = "shipping countries"
-
-
 class ShippingRate(models.Model):
-
+    '''
+    An individual shipping rate. This can be applied to
+    multiple countries.
+    '''
     name = models.CharField(max_length=32)
     rate = models.DecimalField(max_digits=12, decimal_places=2)
     carrier = models.CharField(max_length=64)
     description = models.CharField(max_length=128)
-    shipping_country = ParentalKey(
-        ShippingCountry, related_name="shipping_rates")
+    countries = CountryField(multiple=True)
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('rate'),
+        FieldPanel('carrier'),
+        FieldPanel('description'),
+        FieldPanel('countries')
+    ]
 
     def __str__(self):
         return self.name

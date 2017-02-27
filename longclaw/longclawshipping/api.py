@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
 from rest_framework.response import Response
+from django_countries import countries
 from longclaw.longclawshipping import serializers, models
 from longclaw.longclawsettings.models import LongclawSettings
 
@@ -14,9 +15,9 @@ class InvalidShippingCountry(Exception):
 
 def get_shipping_cost(country_code, option, settings):
     try:
-        obj = models.ShippingCountry.objects.get(country=country_code)
+        qrs = models.ShippingRate.objects.filter(country=country_code)
         try:
-            shipping_rate = obj.shipping_rates.get(name=option)
+            shipping_rate = qrs.filter(name=option)[0]
             return {
                 "rate": shipping_rate.rate,
                 "description": shipping_rate.description,
@@ -25,7 +26,7 @@ def get_shipping_cost(country_code, option, settings):
         except models.ShippingRate.DoesNotExist:
             raise InvalidShippingRate
 
-    except models.ShippingCountry.DoesNotExist:
+    except models.ShippingRate.DoesNotExist:
         if settings.default_shipping_enabled:
             return {"rate": settings.default_shipping_rate,
                     "description": "Standard shipping to rest of world",
@@ -68,6 +69,7 @@ def shipping_cost(request):
 def shipping_countries(request):
     ''' Get all shipping countries
     '''
-    queryset = models.ShippingCountry.objects.all()
-    serializer = serializers.ShippingCountrySerializer(queryset, many=True)
-    return Response(data=serializer.data, status=status.HTTP_200_OK)
+    queryset = models.ShippingRate.objects.values_list('countries').distinct()
+    country_dict = dict(countries)
+    country_data = [(country_dict[code[0]], code[0]) for code in queryset]
+    return Response(data=country_data, status=status.HTTP_200_OK)
