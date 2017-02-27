@@ -111,6 +111,10 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
+    entry_points='''
+        [console_scripts]
+        longclaw=longclaw.bin.longclaw:main
+    ''',
     cmdclass={
         'sdist': sdist
     }
