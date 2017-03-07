@@ -27,7 +27,7 @@ def create_project(args):
         'django-admin.py',
         'startproject',
         '--template={}'.format(template_path),
-        '--ext=html,css,js,py',
+        '--ext=html,css,js,py,txt',
         args.project_name
     ))
     utility.execute()
