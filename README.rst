@@ -13,7 +13,9 @@ Longclaw
     :alt: Documentation Status
 
 
-A shop for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
+An e-commerce plugin for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
+
+`Documentation <http://longclaw.readthedocs.io/en/latest/>`_
 
   .. figure:: docs/_static/images/dashboard.png
      
