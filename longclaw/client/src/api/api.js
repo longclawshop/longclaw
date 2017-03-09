@@ -7,10 +7,10 @@ import fetch from 'isomorphic-fetch';
 export default {
 
   // Get a single order  
-  getOrder: makeApiFunction('/api/order/{id}/', get),
+  getOrder: makeApiFunction('order/{id}/', get),
 
   // Mark an order as fulfilled
-  fulfillOrder: makeApiFunction('/api/order/{id}/fulfill/', post, false, false)
+  fulfillOrder: makeApiFunction('order/{id}/fulfill/', post, false, false)
 
 }
 
@@ -44,6 +44,9 @@ export default {
 function makeApiFunction(endpoint, requestFunction, form = false, json = false) {
   return (options = {}) => {
     let url = endpoint;
+    if (options.prefix) {
+      url = `${prefix}${endpoint}`;
+    }
     if (options.urlParams) {
       Object.keys(options.urlParams).map((key) => {
         url = url.replace(`{${key}}`, options.urlParams[key]);

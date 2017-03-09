@@ -1,8 +1,8 @@
 from django.conf.urls import url
 from django.conf import settings
-
-# signals imported so that the post save receivers run..
 from longclaw.longclaworders import api
+
+from longclaw.settings import API_URL_PREFIX
 
 # Bookings
 orders = api.OrderViewSet.as_view({
@@ -18,7 +18,7 @@ urlpatterns = (
     ),
 
     url(
-        r'^order/(?P<pk>[0-9]+)/fulfill/$',
+        API_URL_PREFIX + r'^order/(?P<pk>[0-9]+)/fulfill/$',
         api.fulfill_order,
         name='fulfill_order'
     )

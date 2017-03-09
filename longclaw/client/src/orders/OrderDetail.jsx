@@ -16,7 +16,8 @@ class OrderDetail extends Component {
   }
 
   handleFulfill() {
-    api.fulfillOrder({ urlParams: { id: this.props.orderId }})
+    api.fulfillOrder({ prefix: this.props.urlPrefix, 
+                       urlParams: { id: this.props.orderId }})
       .then(this.fetchOrder())
   }
 
@@ -26,7 +27,9 @@ class OrderDetail extends Component {
 
   fetchOrder() {
     this.setState({ loading: true })
-    api.getOrder({ urlParams: { id: this.props.orderId }})
+    api.getOrder({
+      prefix: this.props.urlPrefix,
+      urlParams: { id: this.props.orderId }})
       .then(json => this.setState({ loading: false, order: json }))
   }
 

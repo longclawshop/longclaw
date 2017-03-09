@@ -7,7 +7,7 @@
 
     <p class="back"><a href="{{ view.index_url }}" class="icon icon-arrow-left">{% blocktrans with view.verbose_name as model_name %}Back to {{ model_name }} list{% endblocktrans %}</a></p>
      
-    <div id="order-app" data-order-id="{{ order_id }}"></div>
+    <div id="order-app" data-order-id="{{ order_id }}" data-url-prefix="{{ api_url_prefix }}"></div>
 </div>
 <script type="text/javascript" src="{% static 'longclaw.longclaworders/js/vendors.bundle.js' %}"></script>
 <script type="text/javascript" src="{% static 'longclaw.longclaworders/js/orders.bundle.js' %}"></script>
