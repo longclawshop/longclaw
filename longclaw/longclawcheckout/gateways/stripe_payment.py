@@ -22,6 +22,7 @@ class StripePayment(BasePayment):
                 source=request.data['token'],
                 description="Payment from"
             )
+            return charge.id
         except stripe.error.CardError as error:
             raise PaymentError(error)
 

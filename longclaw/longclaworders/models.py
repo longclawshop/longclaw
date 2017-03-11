@@ -14,6 +14,8 @@ class Order(models.Model):
     status = models.IntegerField(choices=ORDER_STATUSES, default=SUBMITTED)
     status_note = models.CharField(max_length=128, blank=True, null=True)
 
+    transaction_id = models.CharField(max_length=256, blank=True, null=True)
+
     # contact info
     email = models.EmailField(max_length=128, blank=True, null=True)
     ip_address = models.GenericIPAddressField(blank=True, null=True)

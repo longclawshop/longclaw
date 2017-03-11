@@ -17,6 +17,8 @@ class BasePayment():
         if err:
             raise PaymentError("Dummy error requested")
 
+        return 'fake_transaction_id'
+
     def get_token(self, request):
         '''
         Dummy function for generating a client token through

@@ -25,7 +25,7 @@ class BraintreePayment(BasePayment):
         })
         if not result.is_success:
             raise PaymentError(result)
-        return result
+        return result.transaction.id
 
     def get_token(self, request):
         # Generate client token for the dropin ui
@@ -53,7 +53,7 @@ class PaypalVZeroPayment():
         })
         if not result.is_success:
             raise PaymentError(result.message)
-        return result
+        return result.transaction.order_id
 
     def get_token(self, request):
         return self.gateway.client_token.generate()

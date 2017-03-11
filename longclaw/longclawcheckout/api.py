@@ -96,15 +96,16 @@ def capture_payment(request):
         order_item.save()
 
     try:
-        gateway.create_payment(request, float(total)+postage)
+        transaction_id = gateway.create_payment(request, float(total)+postage)
         order.payment_date = timezone.now()
+        order.transaction_id = transaction_id
         # Once the order has been successfully taken, we can empty the basket
         destroy_basket(request)
         response = Response(data={"order_id": order.id}, status=status.HTTP_201_CREATED)
     except PaymentError as err:
         order.status = Order.CANCELLED
         order.note = "Payment failed"
-        order.save()
         response = Response(data={"message": err.message, "order_id": order.id},
                             status=status.HTTP_400_BAD_REQUEST)
+    order.save()
     return response
