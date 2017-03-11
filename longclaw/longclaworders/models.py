@@ -9,7 +9,8 @@ class Order(models.Model):
     ORDER_STATUSES = ((SUBMITTED, 'Submitted'),
                       (FULFILLED, 'Fulfilled'),
                       (CANCELLED, 'Cancelled'))
-    payment_date = models.DateTimeField(auto_now_add=True)
+    payment_date = models.DateTimeField()
+    created_date = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=ORDER_STATUSES, default=SUBMITTED)
     status_note = models.CharField(max_length=128, blank=True, null=True)
 

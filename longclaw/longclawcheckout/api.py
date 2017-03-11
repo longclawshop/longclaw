@@ -1,6 +1,7 @@
 '''
 Shipping logic and payment capture API
 '''
+from django.utils import timezone
 from django.utils.module_loading import import_string
 from django.db import transaction
 from rest_framework.decorators import api_view, permission_classes
@@ -96,6 +97,7 @@ def capture_payment(request):
 
     try:
         gateway.create_payment(request, float(total)+postage)
+        order.payment_date = timezone.now()
         # Once the order has been successfully taken, we can empty the basket
         destroy_basket(request)
         response = Response(data={"order_id": order.id}, status=status.HTTP_201_CREATED)
