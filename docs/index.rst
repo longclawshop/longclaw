@@ -13,8 +13,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   getting_started/index
-   readme
+   usage/index
    contributing
    authors
    history

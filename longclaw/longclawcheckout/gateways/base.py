@@ -6,7 +6,7 @@ class BasePayment():
     can function as a dummy backend for testing.
     '''
 
-    def create_payment(self, request, amount):
+    def create_payment(self, request, amount, description=''):
         '''
         Dummy function for creating a payment through a payment gateway.
         Should be overridden in gateway implementations.

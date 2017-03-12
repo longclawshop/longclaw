@@ -15,6 +15,7 @@ from longclaw import settings
 
 gateway = import_string(settings.PAYMENT_GATEWAY)()
 
+
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])
 def create_token(request):
@@ -24,6 +25,7 @@ def create_token(request):
     '''
     token = gateway.get_token(request)
     return Response({'token': token}, status=status.HTTP_200_OK)
+
 
 @transaction.atomic
 @api_view(['POST'])
@@ -62,17 +64,23 @@ def capture_payment(request):
     # Create the address for the order
     address = request.data['address']
     shipping_address, _ = Address.objects.get_or_create(name=address['shipping_name'],
-                                                        line_1=address['shipping_address_line1'],
-                                                        city=address['shipping_address_city'],
-                                                        postcode=address['shipping_address_zip'],
+                                                        line_1=address[
+                                                            'shipping_address_line1'],
+                                                        city=address[
+                                                            'shipping_address_city'],
+                                                        postcode=address[
+                                                            'shipping_address_zip'],
                                                         country=address['shipping_address_country'])
     shipping_address.save()
 
     address = request.data['address']
     billing_address, _ = Address.objects.get_or_create(name=address['billing_name'],
-                                                       line_1=address['billing_address_line1'],
-                                                       city=address['billing_address_city'],
-                                                       postcode=address['billing_address_zip'],
+                                                       line_1=address[
+                                                           'billing_address_line1'],
+                                                       city=address[
+                                                           'billing_address_city'],
+                                                       postcode=address[
+                                                           'billing_address_zip'],
                                                        country=address['billing_address_country'])
     billing_address.save()
     postage = float(request.data['shipping_rate'])
@@ -96,12 +104,16 @@ def capture_payment(request):
         order_item.save()
 
     try:
-        transaction_id = gateway.create_payment(request, float(total)+postage)
+        desc = 'Payment from {} for order id #{}'.format(request.data['email'], order.id)
+        transaction_id = gateway.create_payment(request,
+                                                float(total) + postage,
+                                                description=desc)
         order.payment_date = timezone.now()
         order.transaction_id = transaction_id
         # Once the order has been successfully taken, we can empty the basket
         destroy_basket(request)
-        response = Response(data={"order_id": order.id}, status=status.HTTP_201_CREATED)
+        response = Response(data={"order_id": order.id},
+                            status=status.HTTP_201_CREATED)
     except PaymentError as err:
         order.status = Order.CANCELLED
         order.note = "Payment failed"

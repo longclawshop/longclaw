@@ -31,7 +31,7 @@ class BraintreePayment(BasePayment):
         # Generate client token for the dropin ui
         return braintree.ClientToken.generate({})
 
-class PaypalVZeroPayment():
+class PaypalVZeroPayment(BasePayment):
     '''
     Create a payment using the Paypal/Braintree v.zero SDK
     '''

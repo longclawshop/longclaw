@@ -15,7 +15,7 @@ class InvalidShippingCountry(Exception):
 
 def get_shipping_cost(country_code, option, settings):
     try:
-        qrs = models.ShippingRate.objects.filter(country=country_code)
+        qrs = models.ShippingRate.objects.filter(countries__contains=country_code)
         try:
             shipping_rate = qrs.filter(name=option)[0]
             return {
@@ -69,7 +69,6 @@ def shipping_cost(request):
 def shipping_countries(request):
     ''' Get all shipping countries
     '''
-    queryset = models.ShippingRate.objects.values_list('countries').distinct()
-    country_dict = dict(countries)
-    country_data = [(country_dict[code[0]], code[0]) for code in queryset]
+    queryset = models.ShippingRate.objects.all()
+    country_data = [(c.name, c.code) for obj in queryset for c in obj.countries]
     return Response(data=country_data, status=status.HTTP_200_OK)

@@ -1,7 +1,7 @@
 .. getting_started
 
-Getting Started
-================
+Usage Guide
+===========
 
 Longclaw is an e-commerce solution for Python built using Wagtail CMS and Django.
 It is currently in beta and can be installed using pip:
@@ -32,5 +32,3 @@ Next, you will need to model your catalogue.
     basket_checkout
     payments
     orders
-
-
