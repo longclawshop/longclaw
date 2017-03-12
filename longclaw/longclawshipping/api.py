@@ -17,7 +17,10 @@ def get_shipping_cost(country_code, option, settings):
     try:
         qrs = models.ShippingRate.objects.filter(countries__contains=country_code)
         try:
-            shipping_rate = qrs.filter(name=option)[0]
+            if qrs.count() > 1:
+                shipping_rate = qrs.filter(name=option)[0]
+            else:
+                shipping_rate = qrs[0]
             return {
                 "rate": shipping_rate.rate,
                 "description": shipping_rate.description,

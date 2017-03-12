@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from longclaw.longclawbasket.utils import get_basket_items, destroy_basket
 from longclaw.longclaworders.models import Order, OrderItem
 from longclaw.longclawshipping.models import Address
-from longclaw.longclawcheckout.utils import PaymentError
+from longclaw.longclawcheckout.utils import PaymentError, create_order
 from longclaw import settings
 
 gateway = import_string(settings.PAYMENT_GATEWAY)()
@@ -26,6 +26,27 @@ def create_token(request):
     token = gateway.get_token(request)
     return Response({'token': token}, status=status.HTTP_200_OK)
 
+@transaction.atomic
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
+def create_order_with_token(request):
+    # Get the contents of the basket
+    items, _ = get_basket_items(request)
+    # Create the order
+    address = request.data['address']
+    postage = float(request.data['shipping_rate'])
+    email = request.data['email']
+    ip_address = request.data.get('ip', '0.0.0.0')
+    order = create_order(
+        items,
+        address,
+        email,
+        postage,
+        ip_address
+    )
+
+    order.payment_date = timezone.now()
+    order.transaction_id = request.data['transaction_id']
 
 @transaction.atomic
 @api_view(['POST'])
@@ -61,48 +82,20 @@ def capture_payment(request):
     for item in items:
         total += item.total()
 
-    # Create the address for the order
-    address = request.data['address']
-    shipping_address, _ = Address.objects.get_or_create(name=address['shipping_name'],
-                                                        line_1=address[
-                                                            'shipping_address_line1'],
-                                                        city=address[
-                                                            'shipping_address_city'],
-                                                        postcode=address[
-                                                            'shipping_address_zip'],
-                                                        country=address['shipping_address_country'])
-    shipping_address.save()
-
-    address = request.data['address']
-    billing_address, _ = Address.objects.get_or_create(name=address['billing_name'],
-                                                       line_1=address[
-                                                           'billing_address_line1'],
-                                                       city=address[
-                                                           'billing_address_city'],
-                                                       postcode=address[
-                                                           'billing_address_zip'],
-                                                       country=address['billing_address_country'])
-    billing_address.save()
-    postage = float(request.data['shipping_rate'])
     # Create the order
-    order = Order(
-        email=request.data['email'],
-        ip_address=request.data.get('ip', '0.0.0.0'),
-        shipping_address=shipping_address,
-        billing_address=billing_address,
-        shipping_rate=postage
+    address = request.data['address']
+    postage = float(request.data['shipping_rate'])
+    email = request.data['email']
+    ip_address = request.data.get('ip', '0.0.0.0')
+    order = create_order(
+        items,
+        address,
+        email,
+        postage,
+        ip_address
     )
-    order.save()
 
-    # Create the order items
-    for item in items:
-        order_item = OrderItem(
-            product=item.variant,
-            quantity=item.quantity,
-            order=order
-        )
-        order_item.save()
-
+    # Capture the payment
     try:
         desc = 'Payment from {} for order id #{}'.format(request.data['email'], order.id)
         transaction_id = gateway.create_payment(request,

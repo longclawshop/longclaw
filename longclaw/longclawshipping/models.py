@@ -29,7 +29,7 @@ class ShippingRate(models.Model):
     An individual shipping rate. This can be applied to
     multiple countries.
     '''
-    name = models.CharField(max_length=32)
+    name = models.CharField(max_length=32, unique=True)
     rate = models.DecimalField(max_digits=12, decimal_places=2)
     carrier = models.CharField(max_length=64)
     description = models.CharField(max_length=128)
