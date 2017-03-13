@@ -6,6 +6,9 @@ urlpatterns = [
     url(API_URL_PREFIX + r'payment/$',
         api.capture_payment,
         name='payment'),
+    url(API_URL_PREFIX + r'order_prepaid/$',
+        api.create_order_with_token,
+        name='order_prepaid'),
     url(API_URL_PREFIX + r'create_token/$',
         api.create_token,
         name='create_token')

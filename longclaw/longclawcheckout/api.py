@@ -8,13 +8,10 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from longclaw.longclawbasket.utils import get_basket_items, destroy_basket
-from longclaw.longclaworders.models import Order, OrderItem
-from longclaw.longclawshipping.models import Address
 from longclaw.longclawcheckout.utils import PaymentError, create_order
 from longclaw import settings
 
 gateway = import_string(settings.PAYMENT_GATEWAY)()
-
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])
@@ -30,12 +27,25 @@ def create_token(request):
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
 def create_order_with_token(request):
+    '''
+    Create an order using an existing transaction ID.
+    This is useful for capturing the payment outside of
+    longclaw - e.g. using paypals' express checkout or
+    similar
+    '''
+    # Get the request data
+    try:
+        address = request.data['address']
+        postage = float(request.data['shipping_rate'])
+        email = request.data['email']
+        transaction_id = request.data['transaction_id']
+    except KeyError:
+        return Response(data={"message": "Missing parameters from request data"},
+                        status=status.HTTP_400_BAD_REQUEST)
+
     # Get the contents of the basket
     items, _ = get_basket_items(request)
     # Create the order
-    address = request.data['address']
-    postage = float(request.data['shipping_rate'])
-    email = request.data['email']
     ip_address = request.data.get('ip', '0.0.0.0')
     order = create_order(
         items,
@@ -46,7 +56,8 @@ def create_order_with_token(request):
     )
 
     order.payment_date = timezone.now()
-    order.transaction_id = request.data['transaction_id']
+    order.transaction_id = transaction_id
+    return Response(data={"order_id": order.id}, status=status.HTTP_201_CREATED)
 
 @transaction.atomic
 @api_view(['POST'])
