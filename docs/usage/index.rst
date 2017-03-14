@@ -28,7 +28,7 @@ Next, you will need to model your catalogue.
     :maxdepth: 2
 
     products
+    basket
+    checkout
     shipping
-    basket_checkout
-    payments
     orders

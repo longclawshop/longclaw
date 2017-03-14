@@ -1,4 +1,4 @@
 .. payments:
 
-Payment backends
-================
+Capturing Payments
+==================
