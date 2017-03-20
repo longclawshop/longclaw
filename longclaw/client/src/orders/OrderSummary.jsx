@@ -26,6 +26,12 @@ const OrderSummary = ({order, shippingAddress}) => (
         <dt>Customer Email</dt>
         <dd>{order.email}</dd>
       </dl>
+      <dl>
+        <dt>Merchant Transaction ID</dt>
+        <dd>
+          {order.transaction_id}
+        </dd>
+      </dl>
     </div>
     <div className="col4">
       <dl>
@@ -40,7 +46,8 @@ OrderSummary.propTypes = {
   order: PropTypes.shape({
     payment_date: PropTypes.string,
     email: PropTypes.string,
-    status_note: PropTypes.string
+    status_note: PropTypes.string,
+    transaction_id: PropTypes.string
   }).isRequired,
   shippingAddress: PropTypes.shape({
     name: PropTypes.string,

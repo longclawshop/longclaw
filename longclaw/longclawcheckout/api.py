@@ -57,6 +57,10 @@ def create_order_with_token(request):
 
     order.payment_date = timezone.now()
     order.transaction_id = transaction_id
+    order.save()
+    # Once the order has been successfully taken, we can empty the basket
+    destroy_basket(request)
+
     return Response(data={"order_id": order.id}, status=status.HTTP_201_CREATED)
 
 @transaction.atomic
