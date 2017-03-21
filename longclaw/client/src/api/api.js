@@ -45,7 +45,7 @@ function makeApiFunction(endpoint, requestFunction, form = false, json = false) 
   return (options = {}) => {
     let url = endpoint;
     if (options.prefix) {
-      url = `${prefix}${endpoint}`;
+      url = `${options.prefix}${endpoint}`;
     }
     if (options.urlParams) {
       Object.keys(options.urlParams).map((key) => {
