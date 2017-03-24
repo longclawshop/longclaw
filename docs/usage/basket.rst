@@ -20,7 +20,9 @@ containing all basket items.
 
 A ``BasketItem`` has two fields of importance; ``quantity`` and ``variant``. The latter is a foreign key to the 
 ``ProductVariant`` model. 
-In a django template, you can iterate over the basket items like so::
+In a django template, you can iterate over the basket items like so:
+
+.. code-block:: django
 
     {% for item in basket %}
        {{ item.quantity }}
@@ -31,8 +33,9 @@ In a django template, you can iterate over the basket items like so::
        {{ item.variant.product.description }}
     {% endfor %}
 
-The API JSON response will contain all fields of the ``ProductVariant`` and ``Product``::
+The API JSON response will contain all fields of the ``ProductVariant`` and ``Product``:
 
+.. code-block:: json
 
     {
       quantity,
@@ -62,10 +65,13 @@ the request data.
 
 There is currently no django view for addition/deletion of basket items. 
 
-Other API endpoints::
+Other API endpoints:
 
-``<api_prefix>/get_item_count/`` - get the quantity of a single item in the basket. Requires ``variant_id`` in the request data
-``<api_prefix>/basket_total_items/`` - get total number of items in the basket
+``<api_prefix>/get_item_count/``
+  get the quantity of a single item in the basket. Requires ``variant_id`` in the request data
+
+``<api_prefix>/basket_total_items/``
+  get total number of items in the basket
 
 All basket items can be deleted using the ``longclaw.longclawbasket.utils.destroy_basket`` function.
 When an order is successfully placed, the basket will be automatically destroyed.

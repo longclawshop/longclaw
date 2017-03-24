@@ -1,4 +1,4 @@
-.. products:
+.. _products:
 
 Adding Products
 ===============

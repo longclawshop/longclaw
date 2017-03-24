@@ -52,23 +52,28 @@ email and shipping rate to the ``api/checkout/prepaid/`` endpoint.
 
 The JSON request data would look like:
 
+.. code-block:: json
+
     {
-        "transaction_id": "..." # The token returned from e.g. paypal
-        "shipping_rate": 0.0 # number or string representation of a number (will be cast to float). The shipping costs
-        "email": "john@smith.com" # The customers' email 
-        "address": { 
-          "shipping_name": "john smith",
-          "shipping_address_line_1": "...",
-          "shipping_address_city": "",
-          "shipping_address_zip": "",
-          "shipping_address_country": "",
-          "billing_name": "john smith",
-          "billing_address_line_1": "...",
-          "billing_address_city": "",
-          "billing_address_zip": "",
-          "billing_address_country": "",
+        transaction_id: "...",
+        shipping_rate: 0.0,
+        email: "john@smith.com",
+        address: { 
+          shipping_name: "john smith",
+          shipping_address_line_1": "...",
+          shipping_address_city: "",
+          shipping_address_zip: "",
+          shipping_address_country: "",
+          billing_name: "john smith",
+          billing_address_line_1: "...",
+          billing_address_city: "",
+          billing_address_zip: "",
+          billing_address_country: "",
         }
     }
+
+transaction_id
+     The token returned from e.g. paypal
 
 When using this method, you do not need to define the ``PAYMENT_GATEWAY`` setting.
 
@@ -86,25 +91,36 @@ upon the backend and it may be preferable to use client javascript libraries pro
 gateway (e.g. ``stripe.js`` or ``braintree-web`` ) to generate a token. 
 
 Once the token is generated, the request data to send to ``api/checkout/`` is very similar to that for
-``api/checkout/prepaid/``::
+``api/checkout/prepaid/``:
+
+.. code-block:: json
 
     {
-        "token": "..." # The token for customer details. The key name is dependent on the backend ("token" for stripe, "payment_method_nonce" for braintree)
-        "shipping_rate": 0.0 # number or string representation of a number (will be cast to float). The shipping costs
-        "email": "john@smith.com" # The customers' email 
-        "address": { 
-          "shipping_name": "john smith",
-          "shipping_address_line_1": "...",
-          "shipping_address_city": "",
-          "shipping_address_zip": "",
-          "shipping_address_country": "",
-          "billing_name": "john smith",
-          "billing_address_line_1": "...",
-          "billing_address_city": "",
-          "billing_address_zip": "",
-          "billing_address_country": "",
+        token: "...",
+        shipping_rate: 0.0,
+        email: "john@smith.com",
+        address: { 
+          shipping_name: "john smith",
+          shipping_address_line_1: "...",
+          shipping_address_city: "",
+          shipping_address_zip: "",
+          shipping_address_country: "",
+          billing_name: "john smith",
+          billing_address_line_1: "...",
+          billing_address_city: "",
+          billing_address_zip: "",
+          billing_address_country: "",
         }
     }
+
+token
+  The token for customer details. The key name is dependent on the backend ("token" for stripe, "payment_method_nonce" for braintree)
+
+shipping_rate
+  Number or string representation of a number (will be cast to float). The shipping costs
+
+email
+  The customers' email 
 
 .. note:: The ``"token"`` key is dependent upon the payment backend and may be named differently.
 
@@ -117,7 +133,9 @@ Calculating Shipping Costs
 You will have noticed the need to send ``shipping_rate`` with the checkout. If you are using Longclaws' shipping 
 settings, you can easily calculate the shipping cost either in python or by using the ``api/shipping/cost/`` endpoint.
 
-Python example::
+Python example:
+
+.. code-block:: python
 
     from longclaw.longclawshipping import utils
     from longclaw.longclawsettings.models import LongclawSettings
@@ -137,7 +155,9 @@ Python example::
       # A shipping rate for this country does not exist and ``default_shipping_enabled`` 
       # is set to ``False`` in the longclaw admin settings
 
-Javascript example::
+Javascript example:
+
+.. code-block:: javascript
 
       fetch(
         "api/shipping/cost/",

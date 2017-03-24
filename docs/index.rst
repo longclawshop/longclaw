@@ -6,7 +6,9 @@
 Welcome to Longclaw's documentation!
 =================================================================
 
-Longclaw is an e-commerce solution written in Python using Wagtail CMS and Django
+Longclaw is an e-commerce solution for Python built using Wagtail CMS and Django.
+
+Checkout the documentation below, starting with :ref:`installing longclaw <install>`.
 
 Contents:
 
