@@ -15,7 +15,7 @@ Longclaw
 
 An e-commerce plugin for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
 
-.. note:: Longclaw is currently in pre-release development. I am working hard to get a stable v0.1.0 release available. It is likely there will be further breaking changes until then. 
+    .. note:: Longclaw is currently in pre-release development. I am working hard to get a stable v0.1.0 release available. It is likely there will be further breaking changes until then. 
 
 `Documentation <http://longclaw.readthedocs.io/en/latest/>`_
 
