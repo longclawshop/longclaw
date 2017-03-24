@@ -29,11 +29,13 @@ Install Longclaw::
 
   $ pip install git+git://github.com/JamesRamm/longclaw
 
-Note: Longclaw v0.1 is currently in development; expect many changes
+Build the front-end assets (requires node.js & npm)::
+
+  $ longclaw build
     
 Setup a Wagtail+Longclaw project::
 
-  $ django-admin startproject --template /path/to/longclaw/project_template/ --ext py,js,css,html project_name
+  $ longclaw start my_project
 
 Features
 --------
