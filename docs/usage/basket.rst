@@ -8,7 +8,7 @@ The basket (or 'shopping cart') is a collection of ``BasketItem`` objects, tied 
 Each ``BasketItem`` has a ``basket_id`` allowing items to be grouped together in a 'basket'.
 
 Fetching the basket
-===================
+-------------------
 
 The function ``longclaw.longclawbasket.utils.get_basket_items`` will return all ``BasketItem`` for the current
 session. This accepts a django ``request`` object and uses ``longclaw.longclawbasket.utils.basket_id`` to 
@@ -54,7 +54,7 @@ The API JSON response will contain all fields of the ``ProductVariant`` and ``Pr
 
 
 Adding and Removing items
-==========================
+-------------------------
 
 Items can be added or removed via the RESTful api:
 

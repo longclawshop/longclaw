@@ -22,7 +22,7 @@ Building the assets requires Node.js & npm. The first release of Longclaw will b
   This will also compile the front end assets. 
 
 The Longclaw CLI can then be used to start a new Wagtail/Longclaw project. It behaves much the same as 
-the Wagtail CLI::
+the Wagtail CLI:
 
 .. code-block:: bash
 
