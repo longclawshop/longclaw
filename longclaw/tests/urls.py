@@ -7,6 +7,6 @@ from longclaw.longclawbasket.urls import urlpatterns as basket_urls
 from longclaw.longclawcheckout.urls import urlpatterns as checkout_urls
 
 urlpatterns = [
-    url(r'^', include(basket_urls, namespace='longclaw')),
-    url(r'^', include(checkout_urls, namespace='longclaw')),
+    url(r'', include(basket_urls)),
+    url(r'', include(checkout_urls)),
 ]

@@ -7,3 +7,5 @@ codecov>=2.0.0
 
 
 # Additional test requirements go here
+factory_boy>=2.7.0
+wagtail-factories>=0.2.0

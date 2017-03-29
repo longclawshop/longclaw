@@ -6,6 +6,8 @@ BASKET_ID_SESSION_KEY = 'basket_id'
 _CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()'
 
 def basket_id(request):
+    if not hasattr(request, 'session'):
+        request.session = {}
     if request.session.get(BASKET_ID_SESSION_KEY, '') == '':
         request.session[BASKET_ID_SESSION_KEY] = _generate_basket_id()
     return request.session[BASKET_ID_SESSION_KEY]
