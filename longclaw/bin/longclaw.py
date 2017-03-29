@@ -46,6 +46,7 @@ def build_assets(args):
         curdir = os.path.abspath(os.curdir)
         os.chdir(asset_path)
         print('Compiling assets....')
+        subprocess.check_call(['npm', 'install'])
         subprocess.check_call(['npm', 'run', 'build'])
         os.chdir(curdir)
         print('Complete!')
