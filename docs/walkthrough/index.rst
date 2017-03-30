@@ -1,6 +1,6 @@
 .. _walkthrough:
 
-Walkthrough: A Clothes Shop
+Walkthrough: A T-Shirt Shop
 ============================
 
 In this guided walkthrough, we will be making an online clothes shop selling T-shirts. 
