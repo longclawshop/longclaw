@@ -1,8 +1,15 @@
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework import permissions, status
+from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
-from longclaw.longclawshipping import models, utils
+from longclaw.longclawshipping import models, utils, serializers
 from longclaw.longclawsettings.models import LongclawSettings
+
+class AddressViewSet(viewsets.ModelViewSet):
+    '''
+    Create, list and view Addresses
+    '''
+    queryset = models.Address.objects.all()
+    serializer_class = serializers.AddressSerializer
 
 
 @api_view(['GET'])

@@ -8,7 +8,6 @@ from longclaw.longclaworders.serializers import OrderSerializer
 
 
 @api_view(["POST"])
-@permission_classes([permissions.AllowAny])
 def fulfill_order(request, pk):
     ''' Get all basket items
     '''
