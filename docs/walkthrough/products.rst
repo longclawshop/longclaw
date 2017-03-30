@@ -69,3 +69,17 @@ After making and running migrations, we can now select the size for each variant
   .. figure:: ../_static/images/product_variant.png
 
 The actual model used for the product variant can be changed by changing the ``PRODUCT_VARIANT_MODEL`` setting in your ``settings.py``
+
+Creating the Front End
+=======================
+
+Since ``ProductIndex`` and ``Product`` are Wagtail pages, we write templates for them just like any other page.
+The Wagtail documentation already comprehensively covers `writing templates <http://docs.wagtail.io/en/v1.9/topics/writing_templates.html>`_.
+
+Our template project already has some basic templates for ``ProductIndex`` and ``Product``:
+
+- ``my_shop/my_shop/templates/longclawproducts/product_index.html``
+- ``my_shop/my_shop/templates/longclawproducts/product.html``
+
+They contain just enough information to demonstrate how to traverse the products and their fields.
+For a more complete template, take a look at the `demo project <https://github.com/JamesRamm/longclaw_demo>`_.
