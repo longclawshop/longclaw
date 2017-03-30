@@ -83,3 +83,30 @@ Our template project already has some basic templates for ``ProductIndex`` and `
 
 They contain just enough information to demonstrate how to traverse the products and their fields.
 For a more complete template, take a look at the `demo project <https://github.com/JamesRamm/longclaw_demo>`_.
+
+Adding Products to the Basket
+-----------------------------
+
+An important detail of the product template is providing the ability to add or remove a product to the basket. 
+This is done by making AJAX calls to the longclaw API.
+
+In the product template, we will provide an 'Add' button and a 'Remove' button for each ``ProductVariant``.
+Here is a django template snippet to achieve that:
+
+.. code-block: django
+
+    {% for variant in page.variants.all %}
+    <div>
+      <!-- Info etc. about the product variant goes here.... -->
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary" id="add-button" data-variant-id="{{variant.id}}">Add</button>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary" data-variant-id="{{variant.id}}">Remove</button>
+    </div>
+
+    {% endfor %}
+
+
+We can then write a jquery function to handle the click events:
