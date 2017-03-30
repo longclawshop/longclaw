@@ -12,7 +12,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 
 class ProductIndex(Page):
-    subpage_types = ('longclawproducts.Product',)
+    subpage_types = ('longclawproducts.Product', 'longclawproducts.ProductIndex')
 
 class ProductTag(TaggedItemBase):
     content_object = ParentalKey('Product', related_name='tagged_items')
