@@ -90,23 +90,44 @@ Adding Products to the Basket
 An important detail of the product template is providing the ability to add or remove a product to the basket. 
 This is done by making AJAX calls to the longclaw API.
 
-In the product template, we will provide an 'Add' button and a 'Remove' button for each ``ProductVariant``.
-Here is a django template snippet to achieve that:
+In the product template, we would like to provide a means to select a variant and add it to the basket. 
+For t-shirts, our variants are going to represent different sizes, so we would like a single ``Add`` button
+and a drop down of sizes.
+We can acheive the drop down like this:
 
-.. code-block: django
+.. code-block:: django
 
-    {% for variant in page.variants.all %}
-    <div>
-      <!-- Info etc. about the product variant goes here.... -->
-    </div>
-    <div class="col-md-3">
-        <button class="btn btn-primary" id="add-button" data-variant-id="{{variant.id}}">Add</button>
-    </div>
-    <div class="col-md-2">
-        <button class="btn btn-primary" data-variant-id="{{variant.id}}">Remove</button>
-    </div>
+    <dl>
+        <dt>Size</dt>
+        <dd>
+        <div class="col-md-6">
+            <select id="variant-select">
+            {% for variant in page.variants.all %}
+            <option value="{{variant.id}}">{{variant.size}}</option>
+            {% endfor %}
+            </select>
+        </div>
+        </dd>
+    </dl>
 
-    {% endfor %}
+Add a button:
 
+.. code-block:: django
 
-We can then write a jquery function to handle the click events:
+  <button id="add-button">Add To Basket</button>
+
+We can then write a jquery function to handle the click event:
+
+.. code-block:: javascript
+
+  $('#add-button').click(function () {
+    // Selected variant
+    var variant_id = $('#variant-select option:selected').val();
+
+    // Add to the basket
+    $.post("api/add_to_basket/", { variant_id: variant_id });
+  });
+
+This is a basic example of integrating with the basket. You will likely need to incorporate more
+complex designs such as displaying a count of items in the basket, allowing the user to increase/decrease
+quantity and so on. The :ref:`basket API <basket>` allows all such interactions and all front end design decisions such as these are left up to the developer
