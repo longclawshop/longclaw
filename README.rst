@@ -74,4 +74,9 @@ Running Tests
     source <YOURVIRTUALENV>/bin/activate
     (myenv) $ pip install tox
     (myenv) $ tox
+    
+Support
+--------
+
+Please raise bugs/feature requests using the github issue tracker and ask questions on stackoverflow. 
 
