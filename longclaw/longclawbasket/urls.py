@@ -3,22 +3,38 @@ from longclaw.longclawbasket import api
 from longclaw.longclawbasket import views
 from longclaw.settings import API_URL_PREFIX
 
+basket_list = api.BasketViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+basket_detail = api.BasketViewSet.as_view({
+    'delete': 'destroy'
+})
+
+item_count = api.BasketViewSet.as_view({
+    'get': 'item_count'
+})
+
+total_items = api.BasketViewSet.as_view({
+    'get': 'total_items'
+})
+
 urlpatterns = [
-    url(API_URL_PREFIX + r'add_to_basket/$',
-        api.add_to_basket,
-        name="add_to_basket"),
-    url(API_URL_PREFIX + r'remove_from_basket/$',
-        api.remove_from_basket,
-        name="remove_from_basket"),
-    url(API_URL_PREFIX + r'get_item_count/$',
-        api.get_item_count,
-        name="get_item_count"),
-    url(API_URL_PREFIX + r'basket_total_items/$',
-        api.basket_total_items,
+
+    url(API_URL_PREFIX + r'basket/$',
+        basket_list,
+        name='basket_list'),
+    url(API_URL_PREFIX + r'basket/count',
+        total_items,
         name="basket_total_items"),
-    url(API_URL_PREFIX + r'get_basket/$',
-        api.get_basket,
-        name="get_basket"),
+    url(API_URL_PREFIX + r'basket/(?P<variant_id>[0-9]+)/$',
+        basket_detail,
+        name='basket_detail'),
+    url(API_URL_PREFIX + r'basket/(?P<variant_id>[0-9]+)/$',
+        item_count,
+        name='basket_item_count'),
+
     url(r'basket/$',
         views.BasketView.as_view(),
         name="basket")

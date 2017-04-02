@@ -1,100 +1,96 @@
-from django.apps import apps
-from django.db import transaction
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework import permissions, status
+from rest_framework.decorators import detail_route, list_route
+from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
 from longclaw.longclawbasket.models import BasketItem
 from longclaw.longclawbasket.serializers import BasketItemSerializer
 from longclaw.longclawbasket import utils
-from longclaw.settings import PRODUCT_VARIANT_MODEL
+from longclaw.utils import ProductVariant
 
-ProductVariant = apps.get_model(*PRODUCT_VARIANT_MODEL.split('.'))
+class BasketViewSet(viewsets.ModelViewSet):
+    """
+    Viewset for interacting with a sessions 'basket' -
+    ``ProductVariants`` which have been marked for checkout.BaseException
+    """
+    serializer_class = BasketItemSerializer
+    permission_classes = (permissions.AllowAny, )
 
-@api_view(["GET"])
-@permission_classes([permissions.AllowAny])
-def get_basket(request):
-    ''' Get all basket items
-    '''
-    items, _ = utils.get_basket_items(request)
-    serializer = BasketItemSerializer(items, many=True)
-    return Response(data=serializer.data, status=status.HTTP_200_OK)
+    def get_queryset(self):
+        items, _ = utils.get_basket_items(self.request)
+        return items
 
-@api_view(["GET"])
-@permission_classes([permissions.AllowAny])
-def get_item_count(request):
-    '''
-    Get quantity of a single item in the basket
-    '''
-    bid = utils.basket_id(request)
-    item = ProductVariant.objects.get(id=request.GET["variant_id"])
-    try:
-        count = BasketItem.objects.get(basket_id=bid, variant=item).quantity
-    except BasketItem.DoesNotExist:
-        count = 0
-    return Response(data={"quantity": count}, status=status.HTTP_200_OK)
+    def create(self, request):
+        """
+        Add an item to the basket
+        """
+        variant_id = request.data.get("variant_id", None)
 
-@transaction.atomic
-@api_view(["POST"])
-@permission_classes([permissions.AllowAny])
-def add_to_basket(request):
-    '''
-    Add an item to the basket
-    '''
-    variant = ProductVariant.objects.get(id=request.data["variant_id"])
-    quantity = request.data.get("quantity", 1)
+        if variant_id is not None:
+            variant = ProductVariant.objects.get(id=variant_id)
 
-    items, bid = utils.get_basket_items(request)
-    # Check if the variant is already in the basket
-    in_basket = False
-    for item in items:
-        if item.variant.id == variant.id:
-            item.increase_quantity(quantity)
-            in_basket = True
-            break
-    if not in_basket:
-        item = BasketItem(variant=variant, quantity=quantity, basket_id=bid)
-        item.save()
+            quantity = request.data.get("quantity", 1)
+            items, bid = utils.get_basket_items(request)
 
-    items, _ = utils.get_basket_items(request)
-    serializer = BasketItemSerializer(items, many=True)
-    return Response(data=serializer.data,
-                    status=status.HTTP_201_CREATED)
+            # Check if the variant is already in the basket
+            in_basket = False
+            for item in items:
+                if item.variant.id == variant.id:
+                    item.increase_quantity(quantity)
+                    in_basket = True
+                    break
+            if not in_basket:
+                item = BasketItem(variant=variant, quantity=quantity, basket_id=bid)
+                item.save()
 
-@transaction.atomic
-@api_view(["POST"])
-@permission_classes([permissions.AllowAny])
-def remove_from_basket(request):
-    '''
-    Remove an item from the basket
-    '''
-    print(request.data["variant_id"])
-    variant = ProductVariant.objects.get(id=request.data["variant_id"])
-    quantity = request.data.get("quantity", 1)
-    try:
-        item = BasketItem.objects.get(basket_id=utils.basket_id(request), variant=variant)
-    except BasketItem.DoesNotExist:
-        return Response(data={"message": "Item does not exist in cart"},
-                        status=status.HTTP_400_BAD_REQUEST)
+            serializer = BasketItemSerializer(self.get_queryset(), many=True)
+            response = Response(data=serializer.data,
+                                status=status.HTTP_201_CREATED)
 
-    if quantity >= item.quantity:
-        item.delete()
-    else:
-        item.decrease_quantity(quantity)
+        else:
+            response = Response(
+                {"message": "Missing 'variant_id'"},
+                status=status.HTTP_400_BAD_REQUEST)
 
-    items, _ = utils.get_basket_items(request)
-    serializer = BasketItemSerializer(items, many=True)
-    return Response(data=serializer.data,
-                    status=status.HTTP_201_CREATED)
+        return response
 
-@api_view(["GET"])
-@permission_classes([permissions.AllowAny])
-def basket_total_items(request):
-    '''
-    Get total number of items in the basket
-    '''
-    items, _ = utils.get_basket_items(request)
-    n_total = 0
-    for item in items:
-        n_total += item.quantity
+    def destroy(self, request, variant_id=None):
+        '''
+        Remove an item from the basket
+        '''
+        variant = ProductVariant.objects.get(id=variant_id)
+        quantity = request.data.get("quantity", 1)
+        try:
+            item = BasketItem.objects.get(
+                basket_id=utils.basket_id(request), variant=variant)
+            item.decrease_quantity(quantity)
 
-    return Response(data={"quantity": n_total}, status=status.HTTP_200_OK)
+            serializer = BasketItemSerializer(self.get_queryset(), many=True)
+            return Response(data=serializer.data,
+                            status=status.HTTP_200_OK)
+
+        except BasketItem.DoesNotExist:
+            return Response(data={"message": "Item does not exist in cart"},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    @list_route(methods=['get'])
+    def total_items(self, request):
+        '''
+        Get total number of items in the basket
+        '''
+        n_total = 0
+        for item in self.get_queryset():
+            n_total += item.quantity
+
+        return Response(data={"quantity": n_total}, status=status.HTTP_200_OK)
+
+    @detail_route(methods=['get'])
+    def item_count(self, request, variant_id=None):
+        '''
+        Get quantity of a single item in the basket
+        '''
+        bid = utils.basket_id(request)
+        item = ProductVariant.objects.get(id=variant_id)
+        try:
+            count = BasketItem.objects.get(basket_id=bid, variant=item).quantity
+        except BasketItem.DoesNotExist:
+            count = 0
+        return Response(data={"quantity": count}, status=status.HTTP_200_OK)

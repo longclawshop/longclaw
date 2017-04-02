@@ -1,7 +1,5 @@
 import factory
 from django.core.urlresolvers import reverse
-from django.apps import apps
-from django.utils.text import slugify
 
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -10,9 +8,7 @@ from wagtail_factories import PageFactory
 
 from longclaw.longclawproducts.models import Product
 from longclaw.longclawbasket.models import BasketItem
-from longclaw.settings import PRODUCT_VARIANT_MODEL
-
-ProductVariant = apps.get_model(*PRODUCT_VARIANT_MODEL.split('.'))
+from longclaw.utils import ProductVariant
 
 class ProductFactory(PageFactory):
     ''' Create a random Product
@@ -25,8 +21,8 @@ class ProductFactory(PageFactory):
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
-      kwargs['parent'] = None
-      return super(ProductFactory, cls)._create(model_class, *args, **kwargs)
+        kwargs['parent'] = None
+        return super(ProductFactory, cls)._create(model_class, *args, **kwargs)
 
 class ProductVariantFactory(factory.django.DjangoModelFactory):
 
@@ -34,7 +30,7 @@ class ProductVariantFactory(factory.django.DjangoModelFactory):
         model = ProductVariant
 
     product = factory.SubFactory(ProductFactory)
-    description = factory.Faker('text')  
+    description = factory.Faker('text')
     price = factory.Faker('pyfloat', positive=True, left_digits=2, right_digits=2)
     ref = factory.Faker('pystr', min_chars=3, max_chars=10)
     stock = factory.Faker('pyint')
@@ -58,7 +54,7 @@ class LongclawTestCase(APITestCase):
             urlkwargs (dict): The `kwargs` parameter to pass to the `reverse` function
         '''
         response = self.client.get(reverse(urlname, kwargs=urlkwargs), **kwargs)
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         return response
 
     def post_test(self, data, urlname, urlkwargs=None, **kwargs):
@@ -78,10 +74,10 @@ class LongclawTestCase(APITestCase):
         ''' Submit a PATCH request and assert the response status code is 200
         '''
         response = self.client.patch(reverse(urlname, kwargs=urlkwargs), data, **kwargs)
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         return response
 
     def put_test(self, data, urlname, urlkwargs=None, **kwargs):
         response = self.client.put(reverse(urlname, kwargs=urlkwargs), data, **kwargs)
-        self.assertEquals(response.status_code, status.HTTP_202_ACCEPTED)
+        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
         return response
