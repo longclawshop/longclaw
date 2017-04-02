@@ -62,14 +62,12 @@ class BasketViewSet(viewsets.ModelViewSet):
             item = BasketItem.objects.get(
                 basket_id=utils.basket_id(request), variant=variant)
             item.decrease_quantity(quantity)
-
-            serializer = BasketItemSerializer(self.get_queryset(request), many=True)
-            return Response(data=serializer.data,
-                            status=status.HTTP_200_OK)
-
         except BasketItem.DoesNotExist:
-            return Response(data={"message": "Item does not exist in cart"},
-                            status=status.HTTP_400_BAD_REQUEST)
+            pass
+
+        serializer = BasketItemSerializer(self.get_queryset(request), many=True)
+        return Response(data=serializer.data,
+                        status=status.HTTP_200_OK)
 
     @list_route(methods=['get'])
     def total_items(self, request):
