@@ -15,7 +15,7 @@ class BasketViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny, )
 
     def get_queryset(self, request=None):
-        items, _ = utils.get_basket_items(request)
+        items, _ = utils.get_basket_items(request or self.request)
         return items
 
     def create(self, request):
