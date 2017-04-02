@@ -14,8 +14,8 @@ class BasketViewSet(viewsets.ModelViewSet):
     serializer_class = BasketItemSerializer
     permission_classes = (permissions.AllowAny, )
 
-    def get_queryset(self):
-        items, _ = utils.get_basket_items(self.request)
+    def get_queryset(self, request=None):
+        items, _ = utils.get_basket_items(request)
         return items
 
     def create(self, request):
@@ -41,7 +41,7 @@ class BasketViewSet(viewsets.ModelViewSet):
                 item = BasketItem(variant=variant, quantity=quantity, basket_id=bid)
                 item.save()
 
-            serializer = BasketItemSerializer(self.get_queryset(), many=True)
+            serializer = BasketItemSerializer(self.get_queryset(request), many=True)
             response = Response(data=serializer.data,
                                 status=status.HTTP_201_CREATED)
 
@@ -63,7 +63,7 @@ class BasketViewSet(viewsets.ModelViewSet):
                 basket_id=utils.basket_id(request), variant=variant)
             item.decrease_quantity(quantity)
 
-            serializer = BasketItemSerializer(self.get_queryset(), many=True)
+            serializer = BasketItemSerializer(self.get_queryset(request), many=True)
             return Response(data=serializer.data,
                             status=status.HTTP_200_OK)
 
@@ -77,7 +77,7 @@ class BasketViewSet(viewsets.ModelViewSet):
         Get total number of items in the basket
         '''
         n_total = 0
-        for item in self.get_queryset():
+        for item in self.get_queryset(request):
             n_total += item.quantity
 
         return Response(data={"quantity": n_total}, status=status.HTTP_200_OK)
