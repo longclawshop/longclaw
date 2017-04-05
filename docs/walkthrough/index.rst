@@ -1,9 +1,9 @@
 .. _walkthrough:
 
-Walkthrough: A T-Shirt Shop
+Walkthrough: A Music Shop
 ============================
 
-In this guided walkthrough, we will be making an online clothes shop selling T-shirts. 
+In this guided walkthrough, we will be making an online music shop selling CD's and Vinyl. 
 
 
 .. toctree::
