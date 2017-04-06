@@ -24,18 +24,18 @@ urlpatterns = [
 
     url(API_URL_PREFIX + r'basket/$',
         basket_list,
-        name='basket_list'),
+        name='longclaw_basket_list'),
     url(API_URL_PREFIX + r'basket/count',
         total_items,
-        name="basket_total_items"),
+        name="longclaw_basket_total_items"),
     url(API_URL_PREFIX + r'basket/(?P<variant_id>[0-9]+)/$',
         basket_detail,
-        name='basket_detail'),
+        name='longclaw_basket_detail'),
     url(API_URL_PREFIX + r'basket/(?P<variant_id>[0-9]+)/$',
         item_count,
-        name='basket_item_count'),
+        name='longclaw_basket_item_count'),
 
     url(r'basket/$',
         views.BasketView.as_view(),
-        name="basket")
+        name="longclaw_basket")
 ]

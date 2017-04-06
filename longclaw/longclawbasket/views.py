@@ -5,7 +5,7 @@ from longclaw.longclawbasket import utils
 
 class BasketView(ListView):
     model = BasketItem
-    template_name = "basket"
+    template_name = "longclawbasket/basket.html"
     def get_context_data(self, **kwargs):
         items, _ = utils.get_basket_items(self.request)
         return {"basket": items}

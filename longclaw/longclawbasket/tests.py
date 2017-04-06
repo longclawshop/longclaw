@@ -12,7 +12,7 @@ class BasketTest(LongclawTestCase):
         BasketItemFactory(basket_id=bid)
 
     def test_get_basket(self):
-        self.get_test('basket_list')
+        self.get_test('longclaw_basket_list')
 
     def test_basket_total_items(self):
-        self.get_test('basket_total_items')
+        self.get_test('longclaw_basket_total_items')

@@ -13,13 +13,13 @@ urlpatterns = [
     url(
         API_URL_PREFIX + r'order/(?P<pk>[0-9]+)/$',
         orders,
-        name='orders'
+        name='longclaw_orders'
     ),
 
     url(
         API_URL_PREFIX + r'order/(?P<pk>[0-9]+)/fulfill/$',
         api.fulfill_order,
-        name='fulfill_order'
+        name='longclaw_fulfill_order'
     )
 ]
 

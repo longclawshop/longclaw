@@ -45,7 +45,7 @@ class CheckoutTest(LongclawTestCase):
             'email': self.email,
             'shipping_rate': 0
         }
-        self.post_test(data, 'checkout', format='json')
+        self.post_test(data, 'longclaw_checkout', format='json')
 
     def test_checkout_prepaid(self):
         """
@@ -58,10 +58,10 @@ class CheckoutTest(LongclawTestCase):
             'shipping_rate': 3.95,
             'transaction_id': 'blahblah'
         }
-        self.post_test(data, 'checkout_prepaid', format='json')
+        self.post_test(data, 'longclaw_checkout_prepaid', format='json')
 
     def test_create_token(self):
         """
         Test api endpoint checkout/token/
         """
-        self.get_test('checkout_token')
+        self.get_test('longclaw_checkout_token')
