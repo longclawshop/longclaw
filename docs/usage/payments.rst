@@ -54,3 +54,6 @@ To implement your own payment integration, you must implement the payment gatewa
 You can define your own requirements for the request data to be submitted to the functions.
 ``create_payment`` is called in a POST request to the ``checkout/`` api. ``get_token`` is similarly called 
 in a POST request to the ``checkout/token/`` api.
+
+Longclaw aims to be as minimal as possible in order to get the job done. This is why longclaw currently only offers the barest minimum
+support necessary to directly create payments with the backend payment provider. 
