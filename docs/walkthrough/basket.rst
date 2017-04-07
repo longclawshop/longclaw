@@ -10,3 +10,11 @@ It is common to provide a link to the basket page in the header. We can use the 
 our site header to provide the link::
 
     {% url 'longclaw-basket' %}
+
+In the basket template, we have access to all basket items under the ``basket`` context::
+
+    {% for item in basket %}
+    ...
+    {% endfor %}
+
+For the full implementation of the basket template, take a look at the `longclaw demo repository <https://github.com/JamesRamm/longclaw_demo/blob/master/longclaw_demo/templates/longclawbasket/basket.html>`_

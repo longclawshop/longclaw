@@ -15,8 +15,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   walkthrough/index
    usage/index
+   walkthrough/index
    contributing
    authors
    history
