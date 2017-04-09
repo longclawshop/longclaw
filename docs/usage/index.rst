@@ -12,3 +12,4 @@ Usage Guide
     checkout
     shipping
     orders
+    payments

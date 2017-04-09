@@ -11,4 +11,7 @@ In this guided walkthrough, we will be making an online music shop selling CD's 
 
     install
     products
+    shipping
+    basket
+    checkout
     
