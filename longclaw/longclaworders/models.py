@@ -1,7 +1,10 @@
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
+
 from longclaw.settings import PRODUCT_VARIANT_MODEL
 from longclaw.longclawshipping.models import Address
 
+@python_2_unicode_compatible
 class Order(models.Model):
     SUBMITTED = 1
     FULFILLED = 2
@@ -31,6 +34,9 @@ class Order(models.Model):
                                         blank=True,
                                         null=True)
 
+    def __str__(self):
+        return "Order #{} - {}".format(self.id, self.email)
+
     @property
     def total(self):
         total = 0
@@ -42,7 +48,7 @@ class Order(models.Model):
     def total_items(self):
         return self.items.count()
 
-
+@python_2_unicode_compatible
 class OrderItem(models.Model):
     product = models.ForeignKey(PRODUCT_VARIANT_MODEL, on_delete=models.DO_NOTHING)
     quantity = models.IntegerField(default=1)

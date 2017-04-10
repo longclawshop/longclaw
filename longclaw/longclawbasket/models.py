@@ -1,6 +1,9 @@
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
+
 from longclaw.settings import PRODUCT_VARIANT_MODEL
 
+@python_2_unicode_compatible
 class BasketItem(models.Model):
     basket_id = models.CharField(max_length=32)
     date_added = models.DateTimeField(auto_now_add=True)
