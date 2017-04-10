@@ -3,23 +3,11 @@
 Installing Longclaw
 ====================
 
-Longclaw is currently in pre-release development and can be installed from github using pip:
+Longclaw can be installed from pypi:
 
 .. code-block:: bash
 
-    $ pip install git+git://github.com/JamesRamm/longclaw
-
-Since there is not yet a release distribution of Longclaw, you will need to build the front end assets yourself. 
-The Longclaw CLI provides a command to help with this:
-
-.. code-block:: bash
-
-  $ longclaw build
-
-Building the assets requires Node.js & npm. The first release of Longclaw will bundle the assets. 
-
-.. note: You can also build your own source distribution of longclaw using ``python setup.py sdist``. 
-  This will also compile the front end assets. 
+    $ pip install longclaw
 
 The Longclaw CLI can then be used to start a new Wagtail/Longclaw project. It behaves much the same as 
 the Wagtail CLI:

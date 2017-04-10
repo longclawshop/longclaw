@@ -17,7 +17,7 @@ Install Longclaw into it:
 
 .. code-block:: bash
 
-  (my_project) $ pip install -e git+https://github.com/JamesRamm/longclaw.git#egg=longclaw
+  (my_project) $ pip install longclaw
 
 We also need to install the client library for our payment gateway integration. We are going to
 use Paypal as our payment gateway in this walkthrough. To make things easy, we will use Paypal 
@@ -27,13 +27,7 @@ Express Checkout. For this we can use the Braintree SDK:
 
   (my_project) $ pip install braintree
 
-As longclaw is not yet released, you will need to build the assets:
-
-.. code-block:: bash
-
-  (my_project) $ longclaw build
-
-Finally, use longclaw to bootstrap your django project:
+Finally, use the longclaw CLI to setup your django project:
 
 .. code-block:: bash
 
