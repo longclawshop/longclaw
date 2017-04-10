@@ -13,6 +13,9 @@ class BasketItem(models.Model):
     class Meta:
         ordering = ['date_added']
 
+    def __str__(self):
+        return "{}x {}".format(self.quantity, self.variant)
+
     def total(self):
         return self.quantity * self.variant.price
 
