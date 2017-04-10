@@ -1,7 +1,10 @@
 from rest_framework import serializers
+from django_countries.serializer_fields import CountryField
+
 from longclaw.longclawshipping.models import Address, ShippingRate
 
 class AddressSerializer(serializers.ModelSerializer):
+    country = CountryField()
 
     class Meta:
         model = Address

@@ -11,6 +11,6 @@ class AddressTest(LongclawTestCase):
             'line_1': 'Bobstreet',
             'city': 'Bobsville',
             'postcode': 'BOB22 2BO',
-            'country': 'Bobland'
+            'country': 'UK'
         }
         self.post_test(data, 'longclaw_address_list')

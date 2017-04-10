@@ -1,16 +1,19 @@
 from django.db import models
 from django import forms
+from django.utils.encoding import python_2_unicode_compatible
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from django_countries.fields import CountryField
+from wagtail.wagtailsnippets.models import register_snippet
 
-
+@register_snippet
+@python_2_unicode_compatible
 class Address(models.Model):
     name = models.CharField(max_length=64)
     line_1 = models.CharField(max_length=128)
     line_2 = models.CharField(max_length=128, blank=True)
     city = models.CharField(max_length=64)
     postcode = models.CharField(max_length=10)
-    country = models.CharField(max_length=32)
+    country = CountryField()
 
     panels = [
         FieldPanel('name'),
