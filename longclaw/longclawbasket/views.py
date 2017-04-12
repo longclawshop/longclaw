@@ -8,4 +8,5 @@ class BasketView(ListView):
     template_name = "longclawbasket/basket.html"
     def get_context_data(self, **kwargs):
         items, _ = utils.get_basket_items(self.request)
-        return {"basket": items}
+        total_price = sum(item.total() for item in items)
+        return {"basket": items, "total_price": total_price}
