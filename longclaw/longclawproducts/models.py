@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django_extensions.db.fields import AutoSlugField
 
 from modelcluster.fields import ParentalKey
@@ -55,6 +56,7 @@ class Product(Page):
         '''
         return any(self.variants.filter(stock__gt=0))
 
+@python_2_unicode_compatible
 class ProductVariantBase(models.Model):
     """
     Base model for creating product variants
@@ -69,6 +71,9 @@ class ProductVariantBase(models.Model):
         )
     class Meta:
         abstract = True
+
+    def __str__(self):
+        return "{} - {}".format(self.product.title, self.ref)
 
     def get_product_title(self):
         return self.product.title

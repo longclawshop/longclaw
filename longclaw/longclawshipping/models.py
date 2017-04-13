@@ -1,9 +1,9 @@
 from django.db import models
-from django import forms
 from django.utils.encoding import python_2_unicode_compatible
+
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from django_countries.fields import CountryField
 from wagtail.wagtailsnippets.models import register_snippet
+from django_countries.fields import CountryField
 
 @register_snippet
 @python_2_unicode_compatible
@@ -27,6 +27,7 @@ class Address(models.Model):
     def __str__(self):
         return "{}, {}, {}".format(self.name, self.city, self.country)
 
+@python_2_unicode_compatible
 class ShippingRate(models.Model):
     '''
     An individual shipping rate. This can be applied to

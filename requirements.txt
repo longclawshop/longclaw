@@ -1,5 +1,5 @@
 django-countries>=4.1
 django-extensions==1.7.5
 djangorestframework==3.5.4
-wagtail==1.7
+wagtail>=1.7
 

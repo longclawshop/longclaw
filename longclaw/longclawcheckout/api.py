@@ -86,7 +86,7 @@ def capture_payment(request):
 
     'email': Email address of the customer
     'ip': IP address of the customer
-    'shipping': The shipping rate (standard or premium)
+    'shipping': The shipping rate (in the sites' currency)
     '''
 
     # Get the contents of the basket
