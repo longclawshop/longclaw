@@ -17,8 +17,7 @@ Longclaw
     :alt: IRC Chat
 
 An e-commerce extension for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
-
-`Documentation <http://longclaw.readthedocs.io/en/latest/>`_
+Checkout the `demo site <https://github.com/JamesRamm/longclaw_demo>`_ and `documentation <http://longclaw.readthedocs.io/en/latest/>`_
 
   .. figure:: docs/_static/images/dashboard.png
      
@@ -28,11 +27,7 @@ Quickstart
 ----------
 Install Longclaw::
 
-  $ pip install git+git://github.com/JamesRamm/longclaw
-
-Build the front-end assets (requires node.js & npm)::
-
-  $ longclaw build
+  $ pip install longclaw
     
 Setup a Wagtail+Longclaw project::
 
@@ -80,4 +75,5 @@ Support
 --------
 
 Please raise bugs/feature requests using the github issue tracker and ask questions on stackoverflow. 
+
 
