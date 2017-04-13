@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
-    'rest-framework',
+    'rest_framework',
 
     'longclaw.longclawsettings',
     'longclaw.longclawshipping',
