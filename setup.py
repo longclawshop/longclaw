@@ -90,7 +90,8 @@ setup(
         'wagtail>=1.7',
         'django-countries>=4.3',
         'django-extensions>=1.7.5',
-        'djangorestframework>=3.5.4'
+        'djangorestframework>=3.5.4',
+        'django-ipware>=1.1.6'
     ],
     license="MIT",
     zip_safe=False,

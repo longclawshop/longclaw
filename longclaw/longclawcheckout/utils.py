@@ -1,7 +1,9 @@
+from ipware.ip import get_real_ip
+
 from longclaw.longclaworders.models import Order, OrderItem
 from longclaw.longclawshipping.models import Address
 
-class PaymentError(Exception):    
+class PaymentError(Exception):
     def __init__(self, message):
         self.message = str(message)
 
@@ -9,7 +11,7 @@ def create_order(basket_items,
                  addresses,
                  email,
                  shipping_rate,
-                 ip_address='0.0.0.0'):
+                 request):
     '''
     Create an order from a basket and customer infomation
     '''
@@ -35,7 +37,7 @@ def create_order(basket_items,
                                                                'billing_address_country'])
         billing_address.save()
 
-
+    ip_address = get_real_ip(request)
     order = Order(
         email=email,
         ip_address=ip_address,

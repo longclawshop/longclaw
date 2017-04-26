@@ -46,13 +46,12 @@ def create_order_with_token(request):
     # Get the contents of the basket
     items, _ = get_basket_items(request)
     # Create the order
-    ip_address = request.data.get('ip', '0.0.0.0')
     order = create_order(
         items,
         address,
         email,
         postage,
-        ip_address
+        request
     )
 
     order.payment_date = timezone.now()
@@ -85,7 +84,6 @@ def capture_payment(request):
         billing_address_country
 
     'email': Email address of the customer
-    'ip': IP address of the customer
     'shipping': The shipping rate (in the sites' currency)
     '''
 
@@ -101,13 +99,12 @@ def capture_payment(request):
     address = request.data['address']
     postage = float(request.data['shipping_rate'])
     email = request.data['email']
-    ip_address = request.data.get('ip', '0.0.0.0')
     order = create_order(
         items,
         address,
         email,
         postage,
-        ip_address
+        request
     )
 
     # Capture the payment
