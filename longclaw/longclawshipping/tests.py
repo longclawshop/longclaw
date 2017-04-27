@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.forms.models import model_to_dict
 from longclaw.tests.utils import LongclawTestCase, AddressFactory
 from longclaw.longclawshipping.forms import AddressForm
 
@@ -23,5 +24,5 @@ class AddressFormTest(TestCase):
         self.address = AddressFactory()
 
     def test_address_form(self):
-        form = AddressForm(instance=self.address)
-        self.assertTrue(form.is_valid())
+        form = AddressForm(data=model_to_dict(self.address))
+        self.assertTrue(form.is_valid(), form.errors.as_json())

@@ -16,12 +16,12 @@ class AddressFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Address
 
-    name = factory.Faker('text')
-    line_1 = factory.Faker('text')
-    line_2 = factory.Faker('text')
-    city = factory.Faker('text')
-    postcode = factory.Faker('text')
-    country = 'uk'
+    name = factory.Faker('text', max_nb_chars=64)
+    line_1 = factory.Faker('text', max_nb_chars=128)
+    line_2 = factory.Faker('text', max_nb_chars=128)
+    city = factory.Faker('text', max_nb_chars=64)
+    postcode = factory.Faker('text', max_nb_chars=10)
+    country = 'GB'
 
 class ProductFactory(PageFactory):
     ''' Create a random Product

@@ -20,16 +20,16 @@ class CheckoutTest(LongclawTestCase):
             'billing_address_country': ''
         }
         self.email = "test@test.com"
-        request = RequestFactory().get('/')
-        request.session = {}
-        self.basket_id = basket_id(request)
+        self.request = RequestFactory().get('/')
+        self.request.session = {}
+        self.basket_id = basket_id(self.request)
 
     def test_create_order(self):
         shipping_rate = 0
         basket_items = [BasketItemFactory(basket_id=self.basket_id),
                         BasketItemFactory(basket_id=self.basket_id)]
         order = create_order(basket_items, self.addresses,
-                             self.email, shipping_rate)
+                             self.email, shipping_rate, self.request)
         self.assertIsNotNone(order)
         self.assertEqual(self.email, order.email)
         self.assertEqual(order.items.count(), 2)
