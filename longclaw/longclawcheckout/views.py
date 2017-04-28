@@ -8,7 +8,7 @@ from longclaw.longclawcheckout.forms import CheckoutForm
 # Create your views here.
 class CheckoutView(FormView):
     template_name = "longclawcheckout/checkout.html"
-    AddressFormSet = formset_factory(AddressForm, max_num=2, min_num=1)
+    AddressFormSet = formset_factory(AddressForm, max_num=2, min_num=1, extra=0)
     form_class = CheckoutForm
 
     def get_context_data(self, **kwargs):
