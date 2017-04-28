@@ -60,7 +60,7 @@ class OrderDetail extends Component {
     if (order.status == 1) {
       status = (
         <div>
-          <span className="icon icon-warning">
+          <span className="buttin warning" style="padding:'8px'">
             UNFULFILLED&nbsp;
                   </span>
           <button onClick={() => this.handleFulfill()} className="button yes">Fulfill</button>
@@ -71,7 +71,7 @@ class OrderDetail extends Component {
     else if (order.status == 2) {
       status = (
         <div>
-          <span className="icon icon-warning">
+          <span className="button yes" style="padding:'8px'">
             FULFILLED&nbsp;
                   </span>
           {refundBtn}
