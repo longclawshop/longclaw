@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.forms import formset_factory
 
+from longclaw.longclawbasket import utils
 from longclaw.longclawshipping.forms import AddressForm
 from longclaw.longclawcheckout.forms import CheckoutForm
 
@@ -13,7 +14,11 @@ class CheckoutView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(CheckoutView, self).get_context_data(**kwargs)
+        items, _ = utils.get_basket_items(self.request)
+        total_price = sum(item.total() for item in items)
         context['address_formset'] = self.AddressFormSet()
+        context['basket'] = items
+        context['total_price'] = total_price
         return context
 
     def post(self, request, *args, **kwargs):
