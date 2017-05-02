@@ -5,4 +5,5 @@ class CheckoutForm(forms.Form):
     Captures extra info required for checkout
     '''
     email = forms.EmailField()
-    shipping = forms.FloatField(widget=forms.HiddenInput())
+    shipping_option = forms.CharField(widget=forms.HiddenInput())
+    billing_address_is_shipping = forms.BooleanField(widget=forms.HiddenInput())
