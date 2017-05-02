@@ -46,6 +46,9 @@ class OrderDetail extends Component {
       );
     }
     const order = this.state.order;
+    const spanStyle = {
+      padding: '8px';
+    };
     let status = <span className="icon icon-warning">UNKNOWN&nbsp;</span>;
     let refundBtn = (
       <button
@@ -60,7 +63,7 @@ class OrderDetail extends Component {
     if (order.status == 1) {
       status = (
         <div>
-          <span className="button warning" style="padding:8px;">
+          <span className="button warning" style={spanStyle}>
             UNFULFILLED&nbsp;
                   </span>
           <button onClick={() => this.handleFulfill()} className="button yes">Fulfill</button>
@@ -71,7 +74,7 @@ class OrderDetail extends Component {
     else if (order.status == 2) {
       status = (
         <div>
-          <span className="button yes" style="padding:8px;">
+          <span className="button yes" style={spanStyle}>
             FULFILLED&nbsp;
                   </span>
           {refundBtn}
