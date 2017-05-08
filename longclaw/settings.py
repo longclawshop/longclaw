@@ -23,6 +23,7 @@ STRIPE_PUBLISHABLE = getattr(settings, 'STRIPE_PUBLISHABLE', '')
 STRIPE_SECRET = getattr(settings, 'STRIPE_SECRET', '')
 
 # Only required if using Braintree as the payment gateway
+BRAINTREE_SANDBOX = getattr(settings, 'BRAINTREE_SANDBOX', False)
 BRAINTREE_MERCHANT_ID = getattr(settings, 'BRAINTREE_MERCHANT_ID', '')
 BRAINTREE_PUBLIC_KEY = getattr(settings, 'BRAINTREE_PUBLIC_KEY', '')
 BRAINTREE_PRIVATE_KEY = getattr(settings, 'BRAINTREE_PRIVATE_KEY', '')

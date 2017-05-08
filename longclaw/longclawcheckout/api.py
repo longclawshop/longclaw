@@ -2,16 +2,14 @@
 Shipping logic and payment capture API
 '''
 from django.utils import timezone
-from django.utils.module_loading import import_string
 from django.db import transaction
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from longclaw.longclawbasket.utils import get_basket_items, destroy_basket
-from longclaw.longclawcheckout.utils import PaymentError, create_order
-from longclaw import settings
+from longclaw.longclawcheckout.utils import PaymentError, create_order, payment_gateway
 
-gateway = import_string(settings.PAYMENT_GATEWAY)()
+gateway = payment_gateway()
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])

@@ -9,7 +9,11 @@ class BraintreePayment(BasePayment):
     Create a payment using Braintree
     '''
     def __init__(self):
-        braintree.Configuration.configure(braintree.Environment.Sandbox,
+        if settings.BRAINTREE_SANDBOX:
+            env = braintree.Environment.Sandbox
+        else:
+            env = braintree.Environment.Production
+        braintree.Configuration.configure(env,
                                           merchant_id=settings.BRAINTREE_MERCHANT_ID,
                                           public_key=settings.BRAINTREE_PUBLIC_KEY,
                                           private_key=settings.BRAINTREE_PRIVATE_KEY)
@@ -29,7 +33,13 @@ class BraintreePayment(BasePayment):
 
     def get_token(self, request):
         # Generate client token for the dropin ui
-        return braintree.ClientToken.generate({})
+        return braintree.ClientToken.generate()
+
+    def client_js(self):
+        return (
+            "https://js.braintreegateway.com/web/3.14.0/js/client.min.js",
+            "https://js.braintreegateway.com/web/3.14.0/js/hosted-fields.min.js"
+        )
 
 class PaypalVZeroPayment(BasePayment):
     '''

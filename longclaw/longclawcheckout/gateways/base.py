@@ -23,10 +23,18 @@ class BasePayment():
         '''
         Dummy function for generating a client token through
         a payment gateway. Most (all?) gateways have a flow which
-        involves requesting a token from the server (usually to
-        tokenize the payment method) and then passing that token
-        to another api endpoint to create the payment.
+        involves requesting a token from the server to initialise
+        a client.
 
         This function should be overriden in child classes
         '''
         return 'dummy_token'
+
+    def client_js(self):
+        '''
+        Return any client javascript library paths required
+        by the payment integration.
+        Should return an iterable of JS paths which can
+        be used in <script> tags
+        '''
+        return ('http://dummy.js', 'dummy.js')
