@@ -6,7 +6,8 @@ from longclaw.longclawbasket import utils
 from longclaw.longclawshipping.forms import AddressForm
 from longclaw.longclawcheckout.forms import CheckoutForm
 
-# Create your views here.
+# Fill in shipping information
+
 class CheckoutView(FormView):
     template_name = "longclawcheckout/checkout.html"
     form_class = CheckoutForm

@@ -7,7 +7,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from longclaw.longclawbasket.utils import get_basket_items, destroy_basket
-from longclaw.longclawcheckout.utils import PaymentError, create_order, GATEWAY
+from longclaw.longclawcheckout.utils import create_order, GATEWAY
+from longclaw.longclawcheckout.errors import PaymentError
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])

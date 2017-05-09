@@ -1,4 +1,4 @@
-from longclaw.longclawcheckout.utils import PaymentError
+from longclaw.longclawcheckout.errors import PaymentError
 
 class BasePayment(object):
     '''

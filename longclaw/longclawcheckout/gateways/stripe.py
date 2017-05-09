@@ -2,7 +2,7 @@ import math
 import stripe
 from longclaw.settings import STRIPE_SECRET
 from longclaw.longclawsettings.models import LongclawSettings
-from longclaw.longclawcheckout.utils import PaymentError
+from longclaw.longclawcheckout.errors import PaymentError
 from longclaw.longclawcheckout.gateways import BasePayment
 
 

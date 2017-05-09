@@ -1,7 +1,7 @@
 import braintree
 from longclaw import settings
 from longclaw.longclawsettings.models import LongclawSettings
-from longclaw.longclawcheckout.utils import PaymentError
+from longclaw.longclawcheckout.errors import PaymentError
 from longclaw.longclawcheckout.gateways import BasePayment
 
 class BraintreePayment(BasePayment):

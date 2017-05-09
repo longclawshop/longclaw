@@ -8,10 +8,6 @@ from longclaw import settings
 
 GATEWAY = import_string(settings.PAYMENT_GATEWAY)()
 
-class PaymentError(Exception):
-    def __init__(self, message):
-        self.message = str(message)
-
 def create_order(basket_items,
                  addresses,
                  email,
