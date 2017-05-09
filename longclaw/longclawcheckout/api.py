@@ -7,9 +7,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from longclaw.longclawbasket.utils import get_basket_items, destroy_basket
-from longclaw.longclawcheckout.utils import PaymentError, create_order, payment_gateway
-
-gateway = payment_gateway()
+from longclaw.longclawcheckout.utils import PaymentError, create_order, GATEWAY
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])
@@ -18,7 +16,7 @@ def create_token(request):
     payment backend. Some payment backends (e.g. braintree) support creating a payment
     token, which should be imported from the backend as 'get_token'
     '''
-    token = gateway.get_token(request)
+    token = GATEWAY.get_token(request)
     return Response({'token': token}, status=status.HTTP_200_OK)
 
 @transaction.atomic
@@ -108,7 +106,7 @@ def capture_payment(request):
     # Capture the payment
     try:
         desc = 'Payment from {} for order id #{}'.format(request.data['email'], order.id)
-        transaction_id = gateway.create_payment(request,
+        transaction_id = GATEWAY.create_payment(request,
                                                 float(total) + postage,
                                                 description=desc)
         order.payment_date = timezone.now()

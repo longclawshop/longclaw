@@ -6,15 +6,11 @@ from longclaw.longclaworders.models import Order, OrderItem
 from longclaw.longclawshipping.models import Address
 from longclaw import settings
 
+GATEWAY = import_string(settings.PAYMENT_GATEWAY)()
+
 class PaymentError(Exception):
     def __init__(self, message):
         self.message = str(message)
-
-def payment_gateway():
-    '''
-    Retrieve an instance of the payment gateway
-    '''
-    return import_string(settings.PAYMENT_GATEWAY)()
 
 def create_order(basket_items,
                  addresses,

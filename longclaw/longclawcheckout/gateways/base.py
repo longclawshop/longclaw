@@ -1,6 +1,6 @@
 from longclaw.longclawcheckout.utils import PaymentError
 
-class BasePayment():
+class BasePayment(object):
     '''
     Provides the interface for payment backends and
     can function as a dummy backend for testing.
