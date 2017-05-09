@@ -18,3 +18,9 @@ def gateway_client_js():
             'function client_js of {} must return a list or tuple'.format(GATEWAY.__name__))
 
 
+@register.simple_tag
+def gateway_token():
+    '''
+    Provide a client token from the chosen gateway
+    '''
+    return GATEWAY.get_token()

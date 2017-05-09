@@ -19,7 +19,7 @@ class BasePayment(object):
 
         return 'fake_transaction_id'
 
-    def get_token(self, request):
+    def get_token(self, request=None):
         '''
         Dummy function for generating a client token through
         a payment gateway. Most (all?) gateways have a flow which

@@ -31,7 +31,7 @@ class BraintreePayment(BasePayment):
             raise PaymentError(result)
         return result.transaction.id
 
-    def get_token(self, request):
+    def get_token(self, request=None):
         # Generate client token for the dropin ui
         return braintree.ClientToken.generate()
 
