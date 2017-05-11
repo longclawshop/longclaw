@@ -47,7 +47,20 @@ class OrderDetail extends Component {
     }
     const order = this.state.order;
     const spanStyle = {
-      padding: '8px';
+      padding: '8px',
+      color: '#fff',
+      backgroundColor: '#e9b04d',
+      border: '1px solid #e9b04d',
+      borderRadius: '3px',
+      marginRight: '15px'
+    };
+    const spanStyleyes = {
+      padding: '8px',
+      color: '#fff',
+      backgroundColor: '#189370',
+      border: '1px solid #189370',
+      borderRadius: '3px',
+      marginRight: '15px'
     };
     let status = <span className="icon icon-warning">UNKNOWN&nbsp;</span>;
     let refundBtn = (
@@ -74,7 +87,7 @@ class OrderDetail extends Component {
     else if (order.status == 2) {
       status = (
         <div>
-          <span className="button yes" style={spanStyle}>
+          <span className="button yes" style={spanStyleyes}>
             FULFILLED&nbsp;
                   </span>
           {refundBtn}
