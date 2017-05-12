@@ -46,6 +46,22 @@ class OrderDetail extends Component {
       );
     }
     const order = this.state.order;
+    const spanStyle = {
+      padding: '8px',
+      color: '#fff',
+      backgroundColor: '#e9b04d',
+      border: '1px solid #e9b04d',
+      borderRadius: '3px',
+      marginRight: '15px'
+    };
+    const spanStyleyes = {
+      padding: '8px',
+      color: '#fff',
+      backgroundColor: '#189370',
+      border: '1px solid #189370',
+      borderRadius: '3px',
+      marginRight: '15px'
+    };
     let status = <span className="icon icon-warning">UNKNOWN&nbsp;</span>;
     let refundBtn = (
       <button
@@ -60,7 +76,7 @@ class OrderDetail extends Component {
     if (order.status == 1) {
       status = (
         <div>
-          <span className="icon icon-warning">
+          <span className="icon icon-warning" style={spanStyle}>
             UNFULFILLED&nbsp;
                   </span>
           <button onClick={() => this.handleFulfill()} className="button yes">Fulfill</button>
@@ -71,7 +87,7 @@ class OrderDetail extends Component {
     else if (order.status == 2) {
       status = (
         <div>
-          <span className="icon icon-warning">
+          <span className="icon icon-warning" style={spanStyleyes}>
             FULFILLED&nbsp;
                   </span>
           {refundBtn}
