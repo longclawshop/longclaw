@@ -11,8 +11,10 @@ def gateway_client_js():
     '''
     javascripts = GATEWAY.client_js()
     if isinstance(javascripts, (tuple, list)):
+        tags = []
         for js in javascripts:
-            yield '<script type="text/javascript" src="{}"></script>'.format(js)
+            tags.append('<script type="text/javascript" src="{}"></script>'.format(js))
+        return tags
     else:
         raise TypeError(
             'function client_js of {} must return a list or tuple'.format(GATEWAY.__name__))

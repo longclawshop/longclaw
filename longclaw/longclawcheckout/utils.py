@@ -17,7 +17,14 @@ def create_order(basket_items,
     Create an order from a basket and customer infomation
     '''
     if isinstance(addresses, dict):
-        shipping_address, _ = Address.objects.get_or_create(name=addresses['shipping_name'],
+
+        # Longclaw < 0.2 used 'shipping_name', longclaw > 0.2 uses a consistent
+        # prefix (shipping_address_xxxx)
+        try:
+            shipping_name = addresses['shipping_name']
+        except KeyError:
+            shipping_name = addresses['shipping_address_name']
+        shipping_address, _ = Address.objects.get_or_create(name=shipping_name,
                                                             line_1=addresses[
                                                                 'shipping_address_line1'],
                                                             city=addresses[
@@ -27,7 +34,11 @@ def create_order(basket_items,
                                                             country=addresses[
                                                                 'shipping_address_country'])
         shipping_address.save()
-        billing_address, _ = Address.objects.get_or_create(name=addresses['billing_name'],
+        try:
+            billing_name = addresses['billing_name']
+        except KeyError:
+            billing_name = addresses['billing_address_name']
+        billing_address, _ = Address.objects.get_or_create(name=billing_name,
                                                            line_1=addresses[
                                                                'billing_address_line1'],
                                                            city=addresses[

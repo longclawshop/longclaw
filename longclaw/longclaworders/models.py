@@ -24,10 +24,12 @@ class Order(models.Model):
     ip_address = models.GenericIPAddressField(blank=True, null=True)
 
     # shipping info
-    shipping_address = models.ForeignKey(Address, related_name="orders_shipping_address")
+    shipping_address = models.ForeignKey(
+        Address, blank=True, related_name="orders_shipping_address")
 
     # billing info
-    billing_address = models.ForeignKey(Address, blank=True, related_name="orders_billing_address")
+    billing_address = models.ForeignKey(
+        Address, blank=True, related_name="orders_billing_address")
 
     shipping_rate = models.DecimalField(max_digits=12,
                                         decimal_places=2,
