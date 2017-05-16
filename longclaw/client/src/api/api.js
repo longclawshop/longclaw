@@ -85,8 +85,8 @@ class ApiEndpoint {
  composeUrl(config = {}) {
     // Url can be overridden in the config
     let url = config.url || `${this.config.prefix}${this.endpoint}`;
-    if (config.host) {
-      url = `${config.host}${url}`;
+    if (config.prefix) {
+      url = `${config.prefix}${url}`;
     }
     if (config.urlParams) {
       Object.keys(config.urlParams).map((key) => {
