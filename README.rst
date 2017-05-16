@@ -11,10 +11,6 @@ Longclaw
 .. image:: https://readthedocs.org/projects/longclaw/badge/?version=latest
     :target: http://longclaw.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
-    
-.. image:: https://img.shields.io/badge/IRC-%23longclaw-1e72ff.svg?style=flat
-    :target: http://webchat.freenode.net/?channels=longclaw&uio=d4
-    :alt: IRC Chat
 
 An e-commerce extension for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
 Checkout the `demo site <https://github.com/JamesRamm/longclaw_demo>`_ and `documentation <http://longclaw.readthedocs.io/en/latest/>`_
