@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'taggit',
     'rest_framework',
 
+    'longclaw.longclawcore',
     'longclaw.longclawsettings',
     'longclaw.longclawshipping',
     'longclaw.longclawproducts',

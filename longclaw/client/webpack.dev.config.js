@@ -6,12 +6,14 @@ module.exports = {
   context: __dirname,
   entry: {
     orders: './src/orders/index.jsx',
+    longclawclient: './src/api/client.js',
     vendors: [
       'react', 'isomorphic-fetch', 'whatwg-fetch',
+       'immutable',
     ]
   },
   output: {
-      path: path.resolve('../longclaworders/static/longclaw.longclaworders/js/'),
+      path: path.resolve('../longclawcore/static/longclawcore/js/'),
       filename: "[name].bundle.js"
   },
 
