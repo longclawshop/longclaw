@@ -6,12 +6,14 @@ module.exports = {
   context: __dirname,
   entry: {
     orders: './src/orders/index.jsx',
+    longclawclient: ['./src/api/api.js'],
     vendors: [
       'react', 'isomorphic-fetch', 'whatwg-fetch',
+      'immutable', 
     ]
   },
   output: {
-      path: path.resolve('../longclaworders/static/longclaw.longclaworders/js/'),
+      path: path.resolve('../longclawcore/static/longclawcore/js/'),
       filename: "[name].bundle.js"
   },
 
@@ -28,6 +30,10 @@ module.exports = {
     }, {
       test: /\.less$/,
       loader: 'style-loader!css-loader!postcss-loader!less'
+    },
+    {
+      test: /api.js$/,
+      loaders: ['expose-loader?longclawclient','babel?presets[]=stage-0']
     }]
   },
   resolve: {

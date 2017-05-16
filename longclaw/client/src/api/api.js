@@ -1,8 +1,6 @@
 /**
  * Client endpoints for interacting with the longclaw API
  */
-import JsCookie from 'js-cookie';
-import fetch from 'isomorphic-fetch';
 import { fromJS } from 'immutable';
 import {
   composeParams,
@@ -15,34 +13,6 @@ import {
   put,
   del
 } from './helpers'
-
-export default {
-
-  // Get a single order  
-  orderDetail: new ApiEndpoint('order/{id}/'),
-  // Mark an order as fulfilled
-  fulfillOrder: new ApiEndpoint('order/{id}/fulfill/'),
-  // Create an order
-  checkout: new ApiEndpoint('checkout/'),
-  // Get a payment gateway token
-  checkoutToken: new ApiEndpoint('checkout/token/'),
-  // Get all items in basket/post an item to the basket/delete item from basket
-  basketList: new ApiEndpoint('basket/'),
-  // get number of items in basket
-  basketListCount: new ApiEndpoint('basket/count/'),
-  // get number of single item in basket
-  basketDetailCount: new ApiEndpoint('basket/{id}/count/'),
-  // delete an item in the basket
-  basketDetail: new ApiEndpoint('basket/{id}/'),
-  // Get the shipping cost for a country (include country_code in query params and optionally shipping_rate_name)
-  shippingCost: new ApiEndpoint('shipping/cost/'),
-  // Get a list of valid shipping countries
-  shippingCountries: new ApiEndpoint('shipping/countries/'),
-  // Get list of addresses/post a new address
-  addressList: new ApiEndpoint('addresses/'),
-  // get/update/delete address
-  addressDetail: new ApiEndpoint('addresses/{id}/')
-}
 
 /*
  * Wraps all logic for:
@@ -254,4 +224,37 @@ class ApiEndpoint {
       }
     };
   }
+}
+
+// Get a single order  
+export const orderDetail = new ApiEndpoint('order/{id}/');
+// Mark an order as fulfilled
+export const fulfillOrder = new ApiEndpoint('order/{id}/fulfill/');
+// Create an order
+export const checkout = new ApiEndpoint('checkout/');
+// Get a payment gateway token
+export const checkoutToken = new ApiEndpoint('checkout/token/');
+// Get all items in basket/post an item to the basket/delete item from basket
+export const basketList = new ApiEndpoint('basket/');
+// get number of items in basket
+export const basketListCount = new ApiEndpoint('basket/count/');
+// get number of single item in basket
+export const basketDetailCount = new ApiEndpoint('basket/{id}/count/');
+// delete an item in the basket
+export const basketDetail = new ApiEndpoint('basket/{id}/');
+// Get the shipping cost for a country (include country_code in query params and optionally shipping_rate_name)
+export const shippingCost = new ApiEndpoint('shipping/cost/');
+// Get a list of valid shipping countries
+export const shippingCountries = new ApiEndpoint('shipping/countries/');
+// Get list of addresses/post a new address
+export const addressList = new ApiEndpoint('addresses/');
+// get/update/delete address
+export const addressDetail = new ApiEndpoint('addresses/{id}/');
+
+
+export default {
+  orderDetail, fulfillOrder, checkout, 
+  checkoutToken, basketList, basketListCount,
+  basketDetailCount, basketDetail, shippingCost,
+  shippingCountries, addressList, addressDetail
 }
