@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'taggit',
     'rest_framework',
     'django_extensions',
-    'django_countries',
 
     "longclaw.longclawsettings",
     "longclaw.longclawshipping",

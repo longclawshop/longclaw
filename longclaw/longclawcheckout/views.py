@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from longclaw.longclawbasket import utils
 from longclaw.longclawshipping.forms import AddressForm
 from longclaw.longclawcheckout.forms import CheckoutForm
+from longclaw.longclawcheckout.utils import create_order
 
 
 class CheckoutView(TemplateView):
@@ -18,22 +19,24 @@ class CheckoutView(TemplateView):
         items, _ = utils.get_basket_items(self.request)
         total_price = sum(item.total() for item in items)
         context['checkout_form'] = self.checkout_form()
-        context['shipping_form'] = self.shipping_address_form(prefix='shipping')
-        context['billing_form'] = self.billing_address_form(prefix='billing')
+        context['shipping_form'] = self.shipping_address_form(prefix='shipping',
+                                                              site=self.request.site)
+        context['billing_form'] = self.billing_address_form(prefix='billing',
+                                                            site=self.request.site)
         context['basket'] = items
         context['total_price'] = total_price
         return context
 
     def post(self, request, *args, **kwargs):
         checkout_form = CheckoutForm(request.POST)
-        shipping_form = AddressForm(request.POST, prefix='shipping')
+        shipping_form = AddressForm(request.POST, prefix='shipping', site=request.site)
         all_ok = checkout_form.is_valid() and shipping_form.is_valid()
         if all_ok:
             email = checkout_form.cleaned_data["email"]
             shipping_address = shipping_form.save()
 
             if not checkout_form.cleaned_data["billing_address_is_shipping"]:
-                billing_form = AddressForm(request.POST, prefix='billing')
+                billing_form = AddressForm(request.POST, prefix='billing', site=request.site)
                 all_ok = billing_form.is_valid()
                 if all_ok:
                     billing_address = billing_form.save()
@@ -41,6 +44,8 @@ class CheckoutView(TemplateView):
                 billing_address = shipping_address
 
         if all_ok:
+            items, _ = utils.get_basket_items(request)
+            #create_order(basket_items, )
             return HttpResponseRedirect('/thanks/')
 
 

@@ -24,6 +24,10 @@ def create_order(basket_items,
             shipping_name = addresses['shipping_name']
         except KeyError:
             shipping_name = addresses['shipping_address_name']
+
+        shipping_country = addresses['shipping_address_country']
+        if not shipping_country:
+            shipping_country = None
         shipping_address, _ = Address.objects.get_or_create(name=shipping_name,
                                                             line_1=addresses[
                                                                 'shipping_address_line1'],
@@ -31,13 +35,15 @@ def create_order(basket_items,
                                                                 'shipping_address_city'],
                                                             postcode=addresses[
                                                                 'shipping_address_zip'],
-                                                            country=addresses[
-                                                                'shipping_address_country'])
+                                                            country=shipping_country)
         shipping_address.save()
         try:
             billing_name = addresses['billing_name']
         except KeyError:
             billing_name = addresses['billing_address_name']
+        billing_country = addresses['shipping_address_country']
+        if not billing_country:
+            billing_country = None
         billing_address, _ = Address.objects.get_or_create(name=billing_name,
                                                            line_1=addresses[
                                                                'billing_address_line1'],
@@ -45,8 +51,7 @@ def create_order(basket_items,
                                                                'billing_address_city'],
                                                            postcode=addresses[
                                                                'billing_address_zip'],
-                                                           country=addresses[
-                                                               'billing_address_country'])
+                                                           country=billing_country)
         billing_address.save()
 
     ip_address = get_real_ip(request)
