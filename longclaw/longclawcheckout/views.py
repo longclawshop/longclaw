@@ -33,6 +33,7 @@ class CheckoutView(TemplateView):
         all_ok = checkout_form.is_valid() and shipping_form.is_valid()
         if all_ok:
             email = checkout_form.cleaned_data["email"]
+            shipping_rate = checkout_form.cleaned_data["shipping_rate"]
             shipping_address = shipping_form.save()
 
             if not checkout_form.cleaned_data["billing_address_is_shipping"]:
@@ -45,7 +46,14 @@ class CheckoutView(TemplateView):
 
         if all_ok:
             items, _ = utils.get_basket_items(request)
-            #create_order(basket_items, )
+            create_order(
+                items,
+                email,
+                shipping_rate,
+                request,
+                shipping_address=shipping_address,
+                billing_address=billing_address
+            )
             return HttpResponseRedirect('/thanks/')
 
 

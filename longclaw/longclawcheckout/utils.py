@@ -9,15 +9,16 @@ from longclaw import settings
 GATEWAY = import_string(settings.PAYMENT_GATEWAY)()
 
 def create_order(basket_items,
-                 addresses,
                  email,
                  shipping_rate,
-                 request):
+                 request,
+                 addresses=None,
+                 shipping_address=None,
+                 billing_address=None):
     '''
     Create an order from a basket and customer infomation
     '''
-    if isinstance(addresses, dict):
-
+    if addresses:
         # Longclaw < 0.2 used 'shipping_name', longclaw > 0.2 uses a consistent
         # prefix (shipping_address_xxxx)
         try:

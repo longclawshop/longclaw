@@ -13,7 +13,6 @@ class ShippingRateSerializer(serializers.ModelSerializer):
         model = ShippingRate
         fields = "__all__"
 
-
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
