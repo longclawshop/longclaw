@@ -1,23 +1,28 @@
 from django.utils.module_loading import import_string
-
+from django.utils import timezone
 from ipware.ip import get_real_ip
+
+from longclaw.longclawbasket.utils import get_basket_items, destroy_basket
+from longclaw.longclawshipping.utils import get_shipping_cost
 
 from longclaw.longclaworders.models import Order, OrderItem
 from longclaw.longclawshipping.models import Address
+from longclaw.longclawsettings.models import LongclawSettings
 from longclaw import settings
 
 GATEWAY = import_string(settings.PAYMENT_GATEWAY)()
 
-def create_order(basket_items,
-                 email,
-                 shipping_rate,
+def create_order(email,
                  request,
                  addresses=None,
                  shipping_address=None,
-                 billing_address=None):
+                 billing_address=None,
+                 shipping_option=None,
+                 capture_payment=False):
     '''
     Create an order from a basket and customer infomation
     '''
+    basket_items, _ = get_basket_items(request)
     if addresses:
         # Longclaw < 0.2 used 'shipping_name', longclaw > 0.2 uses a consistent
         # prefix (shipping_address_xxxx)
@@ -56,6 +61,14 @@ def create_order(basket_items,
         billing_address.save()
 
     ip_address = get_real_ip(request)
+    if shipping_country:
+        site_settings = LongclawSettings.for_site(request.site)
+        shipping_rate = get_shipping_cost(
+            shipping_address.country.pk,
+            shipping_option,
+            site_settings)
+    else:
+        shipping_rate = 0
     order = Order(
         email=email,
         ip_address=ip_address,
@@ -64,8 +77,11 @@ def create_order(basket_items,
         shipping_rate=shipping_rate
     )
     order.save()
-    # Create the order items
+
+    # Create the order items & compute total
+    total = 0
     for item in basket_items:
+        total += item.total()
         order_item = OrderItem(
             product=item.variant,
             quantity=item.quantity,
@@ -73,4 +89,13 @@ def create_order(basket_items,
         )
         order_item.save()
 
+    if capture_payment:
+        desc = 'Payment from {} for order id #{}'.format(email, order.id)
+        transaction_id = GATEWAY.create_payment(request,
+                                                float(total) + shipping_rate,
+                                                description=desc)
+        order.payment_date = timezone.now()
+        order.transaction_id = transaction_id
+        # Once the order has been successfully taken, we can empty the basket
+        destroy_basket(request)
     return order

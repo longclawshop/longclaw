@@ -1,5 +1,5 @@
 from django.test.client import RequestFactory
-from longclaw.tests.utils import LongclawTestCase, BasketItemFactory
+from longclaw.tests.utils import LongclawTestCase, BasketItemFactory, ShippingRateFactory
 from longclaw.longclawcheckout.utils import create_order
 from longclaw.longclawbasket.utils import basket_id
 
@@ -7,6 +7,7 @@ from longclaw.longclawbasket.utils import basket_id
 class CheckoutTest(LongclawTestCase):
 
     def setUp(self):
+
         self.addresses = {
             'shipping_name': '',
             'shipping_address_line1': '',
@@ -25,11 +26,9 @@ class CheckoutTest(LongclawTestCase):
         self.basket_id = basket_id(self.request)
 
     def test_create_order(self):
-        shipping_rate = 0
-        basket_items = [BasketItemFactory(basket_id=self.basket_id),
-                        BasketItemFactory(basket_id=self.basket_id)]
-        order = create_order(basket_items, self.addresses,
-                             self.email, shipping_rate, self.request)
+        BasketItemFactory(basket_id=self.basket_id),
+        BasketItemFactory(basket_id=self.basket_id)
+        order = create_order(self.email, self.request, self.addresses)
         self.assertIsNotNone(order)
         self.assertEqual(self.email, order.email)
         self.assertEqual(order.items.count(), 2)
@@ -42,8 +41,7 @@ class CheckoutTest(LongclawTestCase):
         BasketItemFactory(basket_id=self.basket_id)
         data = {
             'address': self.addresses,
-            'email': self.email,
-            'shipping_rate': 0
+            'email': self.email
         }
         self.post_test(data, 'longclaw_checkout', format='json')
 
@@ -55,7 +53,6 @@ class CheckoutTest(LongclawTestCase):
         data = {
             'address': self.addresses,
             'email': self.email,
-            'shipping_rate': 3.95,
             'transaction_id': 'blahblah'
         }
         self.post_test(data, 'longclaw_checkout_prepaid', format='json')

@@ -8,7 +8,7 @@ from wagtail_factories import PageFactory
 
 from longclaw.longclawproducts.models import Product
 from longclaw.longclawbasket.models import BasketItem
-from longclaw.longclawshipping.models import Address, Country
+from longclaw.longclawshipping.models import Address, Country, ShippingRate
 from longclaw.utils import ProductVariant
 
 class CountryFactory(factory.django.DjangoModelFactory):
@@ -31,6 +31,26 @@ class AddressFactory(factory.django.DjangoModelFactory):
     city = factory.Faker('text', max_nb_chars=64)
     postcode = factory.Faker('text', max_nb_chars=10)
     country = factory.SubFactory(CountryFactory)
+
+class ShippingRateFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = ShippingRate
+
+    name = factory.Faker('text', max_nb_chars=32)
+    rate = 1.0
+    carrier = 'Royal Mail'
+    description = 'Test'
+
+    @factory.post_generation
+    def countries(self, create, extracted, **kwargs):
+        if not create:
+            # Simple build, do nothing.
+            return
+
+        if extracted:
+            # A list of countries were passed in, use them
+            for country in extracted:
+                self.countries.add(country)
 
 class ProductFactory(PageFactory):
     ''' Create a random Product

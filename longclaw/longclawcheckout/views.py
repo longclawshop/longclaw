@@ -2,10 +2,10 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 
-from longclaw.longclawbasket import utils
 from longclaw.longclawshipping.forms import AddressForm
 from longclaw.longclawcheckout.forms import CheckoutForm
 from longclaw.longclawcheckout.utils import create_order
+from longclaw.longclawbasket.utils import get_basket_items
 
 
 class CheckoutView(TemplateView):
@@ -16,7 +16,7 @@ class CheckoutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CheckoutView, self).get_context_data(**kwargs)
-        items, _ = utils.get_basket_items(self.request)
+        items, _ = get_basket_items(self.request)
         total_price = sum(item.total() for item in items)
         context['checkout_form'] = self.checkout_form()
         context['shipping_form'] = self.shipping_address_form(prefix='shipping',
@@ -33,7 +33,7 @@ class CheckoutView(TemplateView):
         all_ok = checkout_form.is_valid() and shipping_form.is_valid()
         if all_ok:
             email = checkout_form.cleaned_data["email"]
-            shipping_rate = checkout_form.cleaned_data["shipping_rate"]
+            shipping_option = checkout_form.cleaned_data["shipping_option"]
             shipping_address = shipping_form.save()
 
             if not checkout_form.cleaned_data["billing_address_is_shipping"]:
@@ -45,15 +45,14 @@ class CheckoutView(TemplateView):
                 billing_address = shipping_address
 
         if all_ok:
-            items, _ = utils.get_basket_items(request)
-            create_order(
-                items,
+            order = create_order(
                 email,
-                shipping_rate,
                 request,
                 shipping_address=shipping_address,
-                billing_address=billing_address
+                billing_address=billing_address,
+                shipping_option=shipping_option,
+                capture_payment=True
             )
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect('/checkout/confirmation/')
 
 

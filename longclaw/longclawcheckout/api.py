@@ -6,7 +6,7 @@ from django.db import transaction
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
 from rest_framework.response import Response
-from longclaw.longclawbasket.utils import get_basket_items, destroy_basket
+from longclaw.longclawbasket.utils import destroy_basket
 from longclaw.longclawcheckout.utils import create_order, GATEWAY
 from longclaw.longclawcheckout.errors import PaymentError
 
@@ -33,22 +33,19 @@ def create_order_with_token(request):
     # Get the request data
     try:
         address = request.data['address']
-        postage = float(request.data['shipping_rate'])
+        shipping_option = request.data.get('shipping_option', None)
         email = request.data['email']
         transaction_id = request.data['transaction_id']
     except KeyError:
         return Response(data={"message": "Missing parameters from request data"},
                         status=status.HTTP_400_BAD_REQUEST)
 
-    # Get the contents of the basket
-    items, _ = get_basket_items(request)
     # Create the order
     order = create_order(
-        items,
-        address,
         email,
-        postage,
-        request
+        request,
+        addresses=address,
+        shipping_option=shipping_option
     )
 
     order.payment_date = timezone.now()
@@ -83,37 +80,20 @@ def capture_payment(request):
     'email': Email address of the customer
     'shipping': The shipping rate (in the sites' currency)
     '''
-
-    # Get the contents of the basket
-    items, _ = get_basket_items(request)
-
-    # Compute basket total
-    total = 0
-    for item in items:
-        total += item.total()
-
-    # Create the order
+    # get request data
     address = request.data['address']
-    postage = float(request.data['shipping_rate'])
+    shipping_option = request.data.get('shipping_option', None)
     email = request.data['email']
-    order = create_order(
-        items,
-        address,
-        email,
-        postage,
-        request
-    )
 
     # Capture the payment
     try:
-        desc = 'Payment from {} for order id #{}'.format(request.data['email'], order.id)
-        transaction_id = GATEWAY.create_payment(request,
-                                                float(total) + postage,
-                                                description=desc)
-        order.payment_date = timezone.now()
-        order.transaction_id = transaction_id
-        # Once the order has been successfully taken, we can empty the basket
-        destroy_basket(request)
+        order = create_order(
+            email,
+            request,
+            addresses=address,
+            shipping_option=shipping_option,
+            capture_payment=True
+        )
         response = Response(data={"order_id": order.id},
                             status=status.HTTP_201_CREATED)
     except PaymentError as err:
