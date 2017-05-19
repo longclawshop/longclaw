@@ -17,7 +17,7 @@ from longclaw.longclaworders.models import Order
 @require_GET
 def checkout_success(request, pk):
     order = get_object_or_404(Order, id=pk)
-    return render(request, "longclawcheckout/success.html", { 'order': order })
+    return render(request, "longclawcheckout/success.html", {'order': order})
 
 class CheckoutView(TemplateView):
     template_name = "longclawcheckout/checkout.html"
