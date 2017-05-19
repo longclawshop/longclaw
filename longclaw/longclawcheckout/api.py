@@ -82,8 +82,8 @@ def capture_payment(request):
     '''
     # get request data
     address = request.data['address']
+    email = request.data.get('email', None)
     shipping_option = request.data.get('shipping_option', None)
-    email = request.data['email']
 
     # Capture the payment
     try:

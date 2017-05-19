@@ -14,5 +14,8 @@ urlpatterns = [
         name='longclaw_checkout_token'),
     url(r'checkout/$',
         views.CheckoutView.as_view(),
-        name='longclaw_checkout_view')
+        name='longclaw_checkout_view'),
+    url(r'checkout/success/(?P<pk>[0-9]+)/$',
+        views.checkout_success,
+        name='longclaw_checkout_success')
 ]

@@ -1,12 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
+from django.views.decorators.http import require_GET
 from django.http import HttpResponseRedirect
+
+try:
+  from django.urls import reverse
+except ImportError:
+  from django.core.urlresolvers import reverse
 
 from longclaw.longclawshipping.forms import AddressForm
 from longclaw.longclawcheckout.forms import CheckoutForm
 from longclaw.longclawcheckout.utils import create_order
 from longclaw.longclawbasket.utils import get_basket_items
+from longclaw.longclaworders.models import Order
 
+@require_GET
+def checkout_success(request, pk):
+    order = get_object_or_404(Order, id=pk)
+    return render(request, "longclawcheckout/success.html", { 'order': order })
 
 class CheckoutView(TemplateView):
     template_name = "longclawcheckout/checkout.html"
@@ -53,6 +64,6 @@ class CheckoutView(TemplateView):
                 shipping_option=shipping_option,
                 capture_payment=True
             )
-            return HttpResponseRedirect('/checkout/confirmation/')
+            return HttpResponseRedirect(reverse('longclaw_checkout_success', kwargs={'order': order.id}))
 
 
