@@ -64,6 +64,6 @@ class CheckoutView(TemplateView):
                 shipping_option=shipping_option,
                 capture_payment=True
             )
-            return HttpResponseRedirect(reverse('longclaw_checkout_success', kwargs={'order': order.id}))
-
-
+            return HttpResponseRedirect(reverse(
+                'longclaw_checkout_success',
+                kwargs={'order': order.id}))
