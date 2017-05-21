@@ -17,6 +17,7 @@ from longclaw.longclaworders.models import Order
 @require_GET
 def checkout_success(request, pk):
     order = get_object_or_404(Order, id=pk)
+    print(order)
     return render(request, "longclawcheckout/success.html", {'order': order})
 
 class CheckoutView(TemplateView):
@@ -47,7 +48,7 @@ class CheckoutView(TemplateView):
             shipping_option = checkout_form.cleaned_data.get("shipping_option", None)
             shipping_address = shipping_form.save()
 
-            if not checkout_form.cleaned_data["billing_address_is_shipping"]:
+            if checkout_form.cleaned_data["different_billing_address"]:
                 billing_form = AddressForm(request.POST, prefix='billing', site=request.site)
                 all_ok = billing_form.is_valid()
                 if all_ok:
@@ -66,4 +67,4 @@ class CheckoutView(TemplateView):
             )
             return HttpResponseRedirect(reverse(
                 'longclaw_checkout_success',
-                kwargs={'order': order.id}))
+                kwargs={'pk': order.id}))

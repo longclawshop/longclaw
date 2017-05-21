@@ -6,4 +6,4 @@ class CheckoutForm(forms.Form):
     '''
     email = forms.EmailField()
     #shipping_option = forms.ChoiceField(required=False)
-    billing_address_is_shipping = forms.BooleanField(required=False)
+    different_billing_address = forms.BooleanField(required=False)

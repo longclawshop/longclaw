@@ -13,7 +13,7 @@ class BasePayment(object):
         Can be used for testing - to simulate a failed payment/error,
         pass `error: true` in the request data.
         '''
-        err = request.data.get("error", False)
+        err = request.POST.get("error", False)
         if err:
             raise PaymentError("Dummy error requested")
 
