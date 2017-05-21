@@ -18,8 +18,8 @@ class BraintreePayment(BasePayment):
                                           public_key=settings.BRAINTREE_PUBLIC_KEY,
                                           private_key=settings.BRAINTREE_PRIVATE_KEY)
 
-    def create_payment(self, request, amount):
-        nonce = request.data['payment_method_nonce']
+    def create_payment(self, request, amount, description=''):
+        nonce = request.POST.get('payment_method_nonce')
         result = braintree.Transaction.sale({
             "amount": str(amount),
             "payment_method_nonce": nonce,
@@ -32,13 +32,13 @@ class BraintreePayment(BasePayment):
         return result.transaction.id
 
     def get_token(self, request=None):
-        # Generate client token for the dropin ui
+        # Generate client token
         return braintree.ClientToken.generate()
 
     def client_js(self):
         return (
-            "https://js.braintreegateway.com/web/3.14.0/js/client.min.js",
-            "https://js.braintreegateway.com/web/3.14.0/js/hosted-fields.min.js"
+            "https://js.braintreegateway.com/web/3.15.0/js/client.min.js",
+            "https://js.braintreegateway.com/web/3.15.0/js/hosted-fields.min.js"
         )
 
 class PaypalVZeroPayment(BasePayment):
@@ -50,7 +50,7 @@ class PaypalVZeroPayment(BasePayment):
 
     def create_payment(self, request, amount, description=''):
         longclaw_settings = LongclawSettings.for_site(request.site)
-        nonce = request.data['payment_method_nonce']
+        nonce = request.POST.get('payment_method_nonce')
         result = self.gateway.transaction.sale({
             "amount": str(amount),
             "payment_method_nonce": nonce,
@@ -67,3 +67,10 @@ class PaypalVZeroPayment(BasePayment):
 
     def get_token(self, request):
         return self.gateway.client_token.generate()
+
+    def client_js(self):
+        return (
+            "https://www.paypalobjects.com/api/checkout.js",
+            "https://js.braintreegateway.com/web/3.15.0/js/client.min.js",
+            "https://js.braintreegateway.com/web/3.15.0/js/paypal-checkout.min.js"
+        )

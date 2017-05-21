@@ -59,9 +59,11 @@ def create_order(email,
                                                                'billing_address_zip'],
                                                            country=billing_country)
         billing_address.save()
+    else:
+        shipping_country = shipping_address.country
 
     ip_address = get_real_ip(request)
-    if shipping_country:
+    if shipping_country and shipping_option:
         site_settings = LongclawSettings.for_site(request.site)
         shipping_rate = get_shipping_cost(
             shipping_address.country.pk,

@@ -44,7 +44,7 @@ class CheckoutView(TemplateView):
         all_ok = checkout_form.is_valid() and shipping_form.is_valid()
         if all_ok:
             email = checkout_form.cleaned_data["email"]
-            shipping_option = checkout_form.cleaned_data["shipping_option"]
+            shipping_option = checkout_form.cleaned_data.get("shipping_option", None)
             shipping_address = shipping_form.save()
 
             if not checkout_form.cleaned_data["billing_address_is_shipping"]:
