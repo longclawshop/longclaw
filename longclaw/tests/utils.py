@@ -8,8 +8,13 @@ from wagtail_factories import PageFactory
 
 from longclaw.longclawproducts.models import Product
 from longclaw.longclawbasket.models import BasketItem
+from longclaw.longclaworders.models import Order, OrderItem
 from longclaw.longclawshipping.models import Address, Country, ShippingRate
 from longclaw.utils import ProductVariant
+
+class OrderFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Order
 
 class CountryFactory(factory.django.DjangoModelFactory):
     class Meta:

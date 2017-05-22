@@ -5,6 +5,9 @@ Longclaw
 .. image:: https://badge.fury.io/py/longclaw.svg
     :target: https://badge.fury.io/py/longclaw
 
+.. image:: https://codecov.io/gh/JamesRamm/longclaw/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/JamesRamm/longclaw
+
 .. image:: https://travis-ci.org/JamesRamm/longclaw.svg?branch=master
     :target: https://travis-ci.org/JamesRamm/longclaw
     

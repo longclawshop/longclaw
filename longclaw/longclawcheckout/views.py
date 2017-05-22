@@ -4,9 +4,9 @@ from django.views.decorators.http import require_GET
 from django.http import HttpResponseRedirect
 
 try:
-  from django.urls import reverse
+    from django.urls import reverse
 except ImportError:
-  from django.core.urlresolvers import reverse
+    from django.core.urlresolvers import reverse
 
 from longclaw.longclawshipping.forms import AddressForm
 from longclaw.longclawcheckout.forms import CheckoutForm
@@ -14,11 +14,12 @@ from longclaw.longclawcheckout.utils import create_order
 from longclaw.longclawbasket.utils import get_basket_items
 from longclaw.longclaworders.models import Order
 
+
 @require_GET
 def checkout_success(request, pk):
     order = get_object_or_404(Order, id=pk)
-    print(order)
     return render(request, "longclawcheckout/success.html", {'order': order})
+
 
 class CheckoutView(TemplateView):
     template_name = "longclawcheckout/checkout.html"
@@ -30,26 +31,34 @@ class CheckoutView(TemplateView):
         context = super(CheckoutView, self).get_context_data(**kwargs)
         items, _ = get_basket_items(self.request)
         total_price = sum(item.total() for item in items)
-        context['checkout_form'] = self.checkout_form()
-        context['shipping_form'] = self.shipping_address_form(prefix='shipping',
-                                                              site=self.request.site)
-        context['billing_form'] = self.billing_address_form(prefix='billing',
-                                                            site=self.request.site)
+        site = getattr(self.request, 'site', None)
+        context['checkout_form'] = self.checkout_form(
+            self.request.POST or None)
+        context['shipping_form'] = self.shipping_address_form(
+            self.request.POST or None,
+            prefix='shipping',
+            site=site)
+        context['billing_form'] = self.billing_address_form(
+            self.request.POST or None,
+            prefix='billing',
+            site=site)
         context['basket'] = items
         context['total_price'] = total_price
         return context
 
     def post(self, request, *args, **kwargs):
-        checkout_form = CheckoutForm(request.POST)
-        shipping_form = AddressForm(request.POST, prefix='shipping', site=request.site)
+        context = self.get_context_data(**kwargs)
+        checkout_form = context['checkout_form']
+        shipping_form = context['shipping_form']
         all_ok = checkout_form.is_valid() and shipping_form.is_valid()
         if all_ok:
-            email = checkout_form.cleaned_data["email"]
-            shipping_option = checkout_form.cleaned_data.get("shipping_option", None)
+            email = checkout_form.cleaned_data['email']
+            shipping_option = checkout_form.cleaned_data.get(
+                'shipping_option', None)
             shipping_address = shipping_form.save()
 
-            if checkout_form.cleaned_data["different_billing_address"]:
-                billing_form = AddressForm(request.POST, prefix='billing', site=request.site)
+            if checkout_form.cleaned_data['different_billing_address']:
+                billing_form = context['billing_form']
                 all_ok = billing_form.is_valid()
                 if all_ok:
                     billing_address = billing_form.save()
@@ -68,3 +77,4 @@ class CheckoutView(TemplateView):
             return HttpResponseRedirect(reverse(
                 'longclaw_checkout_success',
                 kwargs={'pk': order.id}))
+        return super(CheckoutView, self).render_to_response(context)
