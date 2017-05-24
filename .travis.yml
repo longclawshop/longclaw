@@ -29,4 +29,5 @@ install:
 script: tox -e $TOX_ENV
 
 after_success:
+  - coverage xml
   - codecov -e TOX_ENV

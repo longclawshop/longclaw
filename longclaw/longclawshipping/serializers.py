@@ -1,19 +1,19 @@
 from rest_framework import serializers
-from django_countries.serializer_fields import CountryField
 
-from longclaw.longclawshipping.models import Address, ShippingRate
+from longclaw.longclawshipping.models import Address, ShippingRate, Country
 
 class AddressSerializer(serializers.ModelSerializer):
-    country = CountryField()
-
+    country = serializers.PrimaryKeyRelatedField(queryset=Country.objects.all())
     class Meta:
         model = Address
         fields = "__all__"
 
 class ShippingRateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ShippingRate
         fields = "__all__"
 
-    
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = "__all__"

@@ -10,6 +10,7 @@ Usage Guide
     products
     basket
     checkout
+    checkout_api
     shipping
     orders
     payments

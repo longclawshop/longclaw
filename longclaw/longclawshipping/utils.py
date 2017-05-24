@@ -7,12 +7,15 @@ class InvalidShippingRate(Exception):
 class InvalidShippingCountry(Exception):
     pass
 
-def get_shipping_cost(country_code, option, settings):
+def get_shipping_cost(country_code, name, settings):
+    """
+    Return the shipping cost for a given country code and shipping option (shipping rate name)
+    """
     try:
-        qrs = models.ShippingRate.objects.filter(countries__contains=country_code)
+        qrs = models.ShippingRate.objects.filter(countries__in=[country_code])
         try:
             if qrs.count() > 1:
-                shipping_rate = qrs.filter(name=option)[0]
+                shipping_rate = qrs.filter(name=name)[0]
             else:
                 shipping_rate = qrs[0]
             return {
