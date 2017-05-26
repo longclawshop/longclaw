@@ -29,5 +29,5 @@ install:
 script: tox -e $TOX_ENV
 
 after_success:
-  - coverage xml
+  - coverage xml --omit=apps.py,*/migrations/*,*/__init__.py
   - codecov -e TOX_ENV
