@@ -48,3 +48,16 @@ def shipping_countries(request):
     '''
     queryset = models.Country.exclude(shippingrate=None)
     return Response(data=queryset, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+@permission_classes([permissions.AllowAny])
+def shipping_options(request, country):
+    '''
+    Get the shipping options for a given country
+    '''
+    qrs = models.ShippingRate.objects.filter(countries__in=[country])
+    serializer = serializers.ShippingRateSerializer(qrs, many=True)
+    return Response(
+        data=serializer.data,
+        status=status.HTTP_200_OK
+    )

@@ -246,6 +246,8 @@ export const basketDetail = new ApiEndpoint('basket/{id}/');
 export const shippingCost = new ApiEndpoint('shipping/cost/');
 // Get a list of valid shipping countries
 export const shippingCountries = new ApiEndpoint('shipping/countries/');
+// Get a list of shipping options for a country
+export const shippingCountryOptions = new ApiEndpoint('shipping/countries/{country}/');
 // Get list of addresses/post a new address
 export const addressList = new ApiEndpoint('addresses/');
 // get/update/delete address
@@ -256,5 +258,6 @@ export default {
   orderDetail, fulfillOrder, checkout, 
   checkoutToken, basketList, basketListCount,
   basketDetailCount, basketDetail, shippingCost,
-  shippingCountries, addressList, addressDetail
+  shippingCountries, shippingCountryOptions, 
+  addressList, addressDetail
 }
