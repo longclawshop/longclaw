@@ -114,7 +114,7 @@ class LongclawTestCase(APITestCase):
         '''
         response = self.client.post(reverse(urlname, kwargs=urlkwargs), data, **kwargs)
         self.assertIn(response.status_code,
-                      (status.HTTP_201_CREATED, status.HTTP_200_OK))
+                      (status.HTTP_201_CREATED, status.HTTP_200_OK, status.HTTP_204_NO_CONTENT))
         return response
 
     def patch_test(self, data, urlname, urlkwargs=None, **kwargs):
