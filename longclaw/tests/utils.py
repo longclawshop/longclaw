@@ -128,3 +128,8 @@ class LongclawTestCase(APITestCase):
         response = self.client.put(reverse(urlname, kwargs=urlkwargs), data, **kwargs)
         self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
         return response
+
+    def del_test(self, urlname, urlkwargs=None, **kwargs):
+        response = self.client.delete(reverse(urlname, kwargs=urlkwargs), **kwargs)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        return response
