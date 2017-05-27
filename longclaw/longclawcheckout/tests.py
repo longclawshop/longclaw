@@ -10,6 +10,7 @@ from longclaw.tests.utils import LongclawTestCase, AddressFactory, BasketItemFac
 from longclaw.longclawcheckout.utils import create_order
 from longclaw.longclawcheckout.forms import CheckoutForm
 from longclaw.longclawcheckout.views import CheckoutView
+from longclaw.longclawcheckout.templatetags import longclawcheckout_tags as tags
 from longclaw.longclawbasket.utils import basket_id
 
 
@@ -179,3 +180,13 @@ class CheckoutTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+
+class GatewayTests(TestCase):
+
+    def test_token_tag(self):
+        token = tags.gateway_token()
+        self.assertIsInstance(token, str)
+
+    def test_js_tag(self):
+        js = tags.gateway_client_js()
+        self.assertIsInstance(js, (tuple, list))
