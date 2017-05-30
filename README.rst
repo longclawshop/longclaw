@@ -64,9 +64,7 @@ so you can get started adding your product-specific fields straight away.
 Test Coverage
 --------------
 
-.. raw:: html
-
-    <object data="https://codecov.io/gh/JamesRamm/longclaw/branch/master/graphs/tree.svg" type="image/svg+xml"></object>
+.. image:: https://codecov.io/gh/JamesRamm/longclaw/branch/master/graphs/tree.svg
 
     
 Support
