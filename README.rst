@@ -62,7 +62,7 @@ Longclaw provides a project template to easily setup your Wagtail + Longclaw pro
 so you can get started adding your product-specific fields straight away.
 
 
-  ..image:: https://codecov.io/gh/JamesRamm/longclaw/branch/master/graphs/tree.svg
+  .. image:: https://codecov.io/gh/JamesRamm/longclaw/branch/master/graphs/tree.svg
 
     
 Support
