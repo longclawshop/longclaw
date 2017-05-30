@@ -61,14 +61,9 @@ Easy project startup and catalogue modelling
 Longclaw provides a project template to easily setup your Wagtail + Longclaw project. This sets up a basic ``ProductVariant`` model
 so you can get started adding your product-specific fields straight away.
 
-Running Tests
--------------
 
-::
+  ..image:: https://codecov.io/gh/JamesRamm/longclaw/branch/master/graphs/tree.svg
 
-    source <YOURVIRTUALENV>/bin/activate
-    (myenv) $ pip install tox
-    (myenv) $ tox
     
 Support
 --------
