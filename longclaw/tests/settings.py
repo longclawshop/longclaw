@@ -19,10 +19,12 @@ DATABASES = {
 ROOT_URLCONF = 'longclaw.tests.urls'
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sites',
     'django.contrib.sessions',
+    'django.contrib.staticfiles',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -59,6 +61,8 @@ SITE_ID = 1
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 ]
@@ -70,6 +74,14 @@ TEMPLATES = [
             os.path.join(os.path.dirname(__file__), 'templates'),
         ],
         'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'longclaw.longclawsettings.context_processors.currency',
+            ],
+        },
     },
 ]
 
@@ -77,5 +89,7 @@ if django.VERSION >= (1, 10):
     MIDDLEWARE = MIDDLEWARE
 else:
     MIDDLEWARE_CLASSES = MIDDLEWARE
+
+STATIC_URL = '/static/'
 
 PRODUCT_VARIANT_MODEL = 'products.ProductVariant'
