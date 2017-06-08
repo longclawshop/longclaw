@@ -37,6 +37,7 @@ class BraintreePayment(BasePayment):
 
     def client_js(self):
         return (
+            "https://js.braintreegateway.com/web/dropin/1.2.0/js/dropin.min.js",
             "https://js.braintreegateway.com/web/3.15.0/js/client.min.js",
             "https://js.braintreegateway.com/web/3.15.0/js/hosted-fields.min.js"
         )
