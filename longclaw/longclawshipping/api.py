@@ -46,7 +46,7 @@ def shipping_cost(request):
 def shipping_countries(request):
     ''' Get all shipping countries
     '''
-    queryset = models.Country.exclude(shippingrate=None)
+    queryset = models.Country.objects.exclude(shippingrate=None)
     return Response(data=queryset, status=status.HTTP_200_OK)
 
 @api_view(["GET"])
