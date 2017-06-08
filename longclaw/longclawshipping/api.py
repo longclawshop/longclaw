@@ -47,7 +47,8 @@ def shipping_countries(request):
     ''' Get all shipping countries
     '''
     queryset = models.Country.objects.exclude(shippingrate=None)
-    return Response(data=queryset, status=status.HTTP_200_OK)
+    serializer = serializers.CountrySerializer(queryset, many=True)
+    return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 @api_view(["GET"])
 @permission_classes([permissions.AllowAny])
