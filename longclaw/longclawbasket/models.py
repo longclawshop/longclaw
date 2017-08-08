@@ -39,4 +39,3 @@ class BasketItem(models.Model):
             self.delete()
         else:
             self.save()
-

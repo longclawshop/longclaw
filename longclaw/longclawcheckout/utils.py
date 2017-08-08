@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.utils.module_loading import import_string
 from django.utils import timezone
 from ipware.ip import get_real_ip
@@ -70,7 +71,8 @@ def create_order(email,
             shipping_option,
             site_settings)['rate']
     else:
-        shipping_rate = 0
+        shipping_rate = Decimal(0)
+
     order = Order(
         email=email,
         ip_address=ip_address,
@@ -94,7 +96,7 @@ def create_order(email,
     if capture_payment:
         desc = 'Payment from {} for order id #{}'.format(email, order.id)
         transaction_id = GATEWAY.create_payment(request,
-                                                float(total) + shipping_rate,
+                                                total + shipping_rate,
                                                 description=desc)
         order.payment_date = timezone.now()
         order.transaction_id = transaction_id
