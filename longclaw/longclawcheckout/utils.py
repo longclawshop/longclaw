@@ -68,7 +68,7 @@ def create_order(email,
         shipping_rate = get_shipping_cost(
             shipping_address.country.pk,
             shipping_option,
-            site_settings)
+            site_settings)['rate']
     else:
         shipping_rate = 0
     order = Order(
