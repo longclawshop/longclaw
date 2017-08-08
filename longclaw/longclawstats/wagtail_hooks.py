@@ -67,7 +67,6 @@ class LongclawStatsPanel(SummaryItem):
             daily_income[i] = float(sum(order.total for order in order_group))
 
         popular_products = stats.sales_by_product(month_start, month_end)[:5]
-        print(popular_products)
         return {
             "daily_income": daily_income,
             "labels": labels,
