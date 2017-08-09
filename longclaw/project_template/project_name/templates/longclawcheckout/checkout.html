@@ -1,1 +1,43 @@
 {% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+{% templatetag openblock %} load longclawcheckout_tags longclawcore_tags {% templatetag closeblock %}
+
+{% templatetag openblock %} block content {% templatetag closeblock %}
+{% templatetag opencomment %}
+`checkout_form`, `shipping_form`, `billing_form`, `basket` and `total_price` are the context
+variables available for you to build up your checkout page.
+`checkout_form` includes the `different_billing_address` checkbox which you can use to
+decide whether to display `billing_form` or not (javascript needed here!).
+`checkout_form` also includes the `shipping_option` dropdown which should be initialized
+using the `initShippingOption` javascript function.
+The aforementioned fields are optional (different_billing_address and shipping_option); if you dont
+offer shipping/it is fixed rate you can prevent these fields from being displayed.
+The only required field in `checkout_form` is `email`.
+
+`shipping_form` gathers the address. `billing_form` is the same (but intended to gather a billing address).
+`billing_form` is optional; you may not require it, or a gateway integration dropin may gather it instead.
+
+`basket` is a queryset of `BasketItem` for the current customer.
+`total_price` is the total cost of all items in the basket.
+{% templatetag closecomment %}
+{% templatetag openblock %} endblock content {% templatetag closeblock %}
+
+{% templatetag openblock %} block extra_js {% templatetag closeblock %}
+
+{% templatetag opencomment %}
+Load any client javascript provided by the payment gateway.
+This will give a list of <script/> tags which load the client SDK's.
+An integration might have more than 1 SDK - e.g. braintree offers
+'dropin' and 'hostedfields'. A user should be able to rely on all
+possibilities being loaded or refer to individual gateway documentation.
+{% templatetag closecomment %}
+{% templatetag openblock %} gateway_client_js as scripts {% templatetag closeblock %}
+{% templatetag openblock %} for js in scripts {% templatetag closeblock %}
+{% templatetag openvariable %} js|safe {% templatetag closevariable %}
+{% templatetag openblock %} endfor {% templatetag closeblock %}
+
+{% templatetag opencomment %}
+Finally add the media from the checkout form. This provides the ``initShippingOption`` function
+which will initialize the shipping option dropdown on the checkout form
+{% templatetag closecomment %}
+{% templatetag openvariable %} checkout_form.media {% templatetag closevariable %}
+
