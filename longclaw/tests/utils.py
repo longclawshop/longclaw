@@ -8,7 +8,7 @@ from wagtail_factories import PageFactory
 
 from longclaw.longclawproducts.models import Product
 from longclaw.longclawbasket.models import BasketItem
-from longclaw.longclaworders.models import Order, OrderItem
+from longclaw.longclaworders.models import Order
 from longclaw.longclawshipping.models import Address, Country, ShippingRate
 from longclaw.utils import ProductVariant
 

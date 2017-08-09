@@ -67,9 +67,9 @@ def create_order(email,
     if shipping_country and shipping_option:
         site_settings = LongclawSettings.for_site(request.site)
         shipping_rate = get_shipping_cost(
+            site_settings,
             shipping_address.country.pk,
-            shipping_option,
-            site_settings)['rate']
+            shipping_option)['rate']
     else:
         shipping_rate = Decimal(0)
 

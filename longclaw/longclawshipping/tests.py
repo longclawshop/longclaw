@@ -3,6 +3,7 @@ from django.forms.models import model_to_dict
 from longclaw.tests.utils import LongclawTestCase, AddressFactory, CountryFactory, ShippingRateFactory
 from longclaw.longclawshipping.forms import AddressForm
 from longclaw.longclawshipping.utils import get_shipping_cost
+from longclaw.longclawshipping.templatetags import longclawshipping_tags
 from longclaw.longclawsettings.models import LongclawSettings
 
 class ShippingTests(LongclawTestCase):
@@ -23,19 +24,20 @@ class ShippingTests(LongclawTestCase):
 
     def test_shipping_cost(self):
         sr = ShippingRateFactory(countries=[self.country])
-        result = get_shipping_cost(self.country.pk, sr.name, LongclawSettings())
+        result = get_shipping_cost(LongclawSettings(), self.country.pk, sr.name)
         self.assertEqual(result["rate"], sr.rate)
 
     def test_multiple_shipping_cost(self):
         sr = ShippingRateFactory(countries=[self.country])
         sr2 = ShippingRateFactory(countries=[self.country])
-        result = get_shipping_cost(self.country.pk, sr.name, LongclawSettings())
+        result = get_shipping_cost(LongclawSettings(), self.country.pk, sr.name)
         self.assertEqual(result["rate"], sr.rate)
 
     def test_default_shipping_cost(self):
         ls = LongclawSettings(default_shipping_enabled=True)
-        result = get_shipping_cost("GB", "Something", ls)
+        result = get_shipping_cost(ls)
         self.assertEqual(ls.default_shipping_rate, result["rate"])
+
 
 class AddressFormTest(TestCase):
 

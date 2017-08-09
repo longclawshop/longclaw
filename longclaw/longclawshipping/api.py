@@ -29,7 +29,7 @@ def shipping_cost(request):
     option = request.query_params.get('shipping_rate_name', 'standard')
     try:
         settings = LongclawSettings.for_site(request.site)
-        data = utils.get_shipping_cost(code, option, settings)
+        data = utils.get_shipping_cost(settings, code, option)
         response = Response(data=data, status=status.HTTP_200_OK)
     except utils.InvalidShippingRate:
         response = Response(data={"message": "Shipping option {} is invalid".format(option)},
