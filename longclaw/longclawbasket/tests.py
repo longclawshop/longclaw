@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 
 from longclaw.tests.utils import LongclawTestCase, BasketItemFactory, ProductVariantFactory
 from longclaw.longclawbasket.utils import basket_id
+from longclaw.longclawbasket.templatetags import longclawbasket_tags
 
 
 class BasketTest(LongclawTestCase):
@@ -49,6 +50,13 @@ class BasketTest(LongclawTestCase):
         '''
         response = self.client.post(reverse('longclaw_basket_list'))
         self.assertEqual(response.status_code, 400)
+
+
+    def test_add_to_cart_btn(self):
+        '''Test the add to cart tag responds
+        '''
+        result = longclawbasket_tags.add_to_basket_btn(1)
+        self.assertIsNotNone(result)
 
 
 class BasketModelTest(TestCase):
