@@ -1,5 +1,5 @@
 django-countries>=4.1
-django-extensions==1.8.1
+django-extensions==1.9.0
 django-ipware>=1.1.6
 djangorestframework==3.6.3
 wagtail>=1.7
