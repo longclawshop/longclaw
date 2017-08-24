@@ -14,6 +14,7 @@ History
 * Basic checkout template in the project_template
 * Bug fixes around payment gateway integrations
 * Created a standard address form
+* Pushed test coverage past 80%
 
 0.1.1 (2017-04-14)
 +++++++++++++++++++
