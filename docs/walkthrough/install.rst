@@ -20,8 +20,7 @@ Install Longclaw into it:
   (my_project) $ pip install longclaw
 
 We also need to install the client library for our payment gateway integration. We are going to
-use Paypal as our payment gateway in this walkthrough. To make things easy, we will use Paypal 
-Express Checkout. For this we can use the Braintree SDK:
+use Braintree as our payment gateway in this walkthrough.
 
 .. code-block:: bash
 
@@ -48,18 +47,25 @@ Now we have a django project which looks like this::
      requirements.txt
 
 The ``home`` and ``search`` folders are default folders used in Wagtail projects. Users of Wagtail
-will be familiar with these. 
-The ``products`` folder contains a skeleton model for our product `variants` which we will come to later. 
+will be familiar with these.
+The ``products`` folder contains a skeleton model for our product `variants` which we will come to later.
 
 Before proceeding, we need to setup our ``settings`` file, in ``my_shop/settings/base.py``.
 
 We need to configure which payment gateway we are using. Change the entry for ``PAYMENT_GATEWAY`` from
-``'longclaw.longclawcheckout.gateways.BasePayment'`` to ``'longclaw.longclawcheckout.gateways.PaypalVZero'``
+``'longclaw.longclawcheckout.gateways.BasePayment'`` to ``'longclaw.longclawcheckout.gateways.braintree.BraintreePayment'``
 
-We also need to set the access token. The setting for this is ``VZERO_ACCESS_TOKEN``. Paypal access tokens
-are termed something like ``access_token$sandbox`` followed by a sequence of characters. As we have different
-access tokens for sandbox and live accounts, we will set ``VZERO_ACCESS_TOKEN`` in ``my_shop/settings/dev.py``
-for the sandbox account and ``my_shop/settings/production.py`` for the live account.
+We also need to set the access tokens for the braintree backend. Add the following settings:
+
+.. codeblock:: python
+
+  BRAINTREE_SANDBOX = False
+  BRAINTREE_MERCHANT_ID = os.environ['BRAINTREE_MERCHANT_ID']
+  BRAINTREE_PUBLIC_KEY = os.environ['BRAINTREE_PUBLIC_KEY']
+  BRAINTREE_PRIVATE_KEY = os.environ['BRAINTREE_PRIVATE_KEY']
+
+For development/testing, you will probably want to set ``BRAINTREE_SANDBOX`` to ``True``. The above settings assume that
+you have set environment variables on your OS with the access tokens.
 
 .. note: Don't forget that Longclaw is a Wagtail project. You may need to configure additional settings
   for wagtail.

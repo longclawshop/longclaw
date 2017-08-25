@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_extensions',
 
+    'longclaw.longclawcore',
     'longclaw.longclawsettings',
     'longclaw.longclawshipping',
     'longclaw.longclawproducts',

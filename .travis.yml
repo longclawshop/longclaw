@@ -5,7 +5,7 @@ language: python
 python:
   - "3.5"
 
-env: 
+env:
   - TOX_ENV=py35-django-18
   - TOX_ENV=py34-django-18
   - TOX_ENV=py33-django-18
@@ -13,12 +13,14 @@ env:
   - TOX_ENV=py35-django-19
   - TOX_ENV=py34-django-19
   - TOX_ENV=py27-django-19
+  - TOX_ENV=py35-django-110
+  - TOX_ENV=py35-django-111
 
 matrix:
   fast_finish: true
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: 
+install:
 - . $HOME/.nvm/nvm.sh
 - nvm install stable
 - nvm use stable
