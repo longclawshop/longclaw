@@ -22,7 +22,7 @@ Longclaw
 An e-commerce extension for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
 Checkout the `demo site <https://github.com/JamesRamm/longclaw_demo>`_ and `documentation <http://longclaw.readthedocs.io/en/latest/>`_
 
-  .. image:: https://github.com/JamesRamm/longclaw/tree/master/docs/_static/images/dashboard.png
+.. image:: https://github.com/JamesRamm/longclaw/tree/master/docs/_static/images/dashboard.png
 
      Longclaw dashboard
 
@@ -42,11 +42,11 @@ Features
 View and fulfill orders from the Wagtail admin
 +++++++++++++++++++++++++++++++++++++++++++++++
 
-  .. image:: https://github.com/JamesRamm/longclaw/tree/master/docs/_static/images/order_list.png
+.. image:: https://github.com/JamesRamm/longclaw/tree/master/docs/_static/images/order_list.png
 
      The orders list can be sorted and filtered by status, date or customer
 
-  .. image:: https://github.com/JamesRamm/longclaw/tree/master/docs/_static/images/order_detail.png
+.. image:: https://github.com/JamesRamm/longclaw/tree/master/docs/_static/images/order_detail.png
 
 Variable Shipping Rates
 +++++++++++++++++++++++
