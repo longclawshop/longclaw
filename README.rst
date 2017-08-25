@@ -43,7 +43,7 @@ View and fulfill orders from the Wagtail admin
 
 .. image:: docs/_static/images/order_list.png
 
-     The orders list can be sorted and filtered by status, date or customer
+The orders list can be sorted and filtered by status, date or customer
 
 .. image:: docs/_static/images/order_detail.png
 
