@@ -12,33 +12,20 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 
-class ProductIndex(Page):
-    subpage_types = ('longclawproducts.Product', 'longclawproducts.ProductIndex')
+# Abstract base classes a user can use to implement their own product system
 
-class ProductTag(TaggedItemBase):
-    content_object = ParentalKey('Product', related_name='tagged_items')
+@python_2_unicode_compatible
+class ProductBase(Page):
+    '''Base classes for ``Product`` implementations. All this provides are
+    a few helper methods for ``ProductVariant``'s. It assumes that ``ProductVariant``'s
+    have a ``related_name`` of ``variants``
+    '''
 
-class Product(Page):
-    parent_page_types = ['longclawproducts.ProductIndex']
-    description = RichTextField()
-    tags = ClusterTaggableManager(through=ProductTag, blank=True)
+    class Meta:
+        abstract = True
 
-    search_fields = Page.search_fields + [
-        index.RelatedFields('tags', [
-            index.SearchField('name', partial_match=True, boost=10),
-        ]),
-    ]
-
-    content_panels = Page.content_panels + [
-        FieldPanel('description'),
-        InlinePanel('variants', label='Product variants'),
-        InlinePanel('images', label='Product images'),
-        FieldPanel('tags'),
-    ]
-
-    @property
-    def first_image(self):
-        return self.images.first()
+    def __str__(self):
+        return self.title
 
     @property
     def price_range(self):
@@ -56,12 +43,12 @@ class Product(Page):
         '''
         return any(self.variants.filter(stock__gt=0))
 
+
 @python_2_unicode_compatible
 class ProductVariantBase(models.Model):
     """
     Base model for creating product variants
     """
-    product = ParentalKey(Product, related_name='variants')
     price = models.DecimalField(max_digits=12, decimal_places=2)
     ref = models.CharField(max_length=32)
     stock = models.IntegerField(default=0)
@@ -78,8 +65,46 @@ class ProductVariantBase(models.Model):
     def get_product_title(self):
         return self.product.title
 
-class ProductImage(Orderable):
+# Concrete models. These models do not need to be used in a user implementation.
 
+class ProductIndex(Page):
+    '''Index page for all products
+    '''
+    subpage_types = ('longclawproducts.Product', 'longclawproducts.ProductIndex')
+
+
+class Product(ProductBase):
+    parent_page_types = ['longclawproducts.ProductIndex']
+
+    tags = ClusterTaggableManager(through='longclawproducts.ProductTag', blank=True)
+    description = RichTextField()
+
+    search_fields = Page.search_fields + [
+        index.RelatedFields('tags', [
+            index.SearchField('name', partial_match=True, boost=10),
+        ]),
+    ]
+
+    content_panels = ProductBase.content_panels + [
+        FieldPanel('description'),
+        FieldPanel('tags'),
+        InlinePanel('images', label='Product images'),
+    ]
+
+
+    @property
+    def first_image(self):
+        return self.images.first()
+
+
+class ProductTag(TaggedItemBase):
+    '''Tags for products
+    '''
+    content_object = ParentalKey('longclawproducts.Product', related_name='tagged_items')
+
+class ProductImage(Orderable):
+    """Images related to ``Product``
+    """
     product = ParentalKey(Product, related_name='images')
     image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+')
     caption = models.CharField(blank=True, max_length=255)

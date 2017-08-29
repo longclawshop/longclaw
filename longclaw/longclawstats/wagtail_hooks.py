@@ -2,9 +2,9 @@ import datetime
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.site_summary import SummaryItem
 from longclaw.longclaworders.models import Order
-from longclaw.longclawproducts.models import Product
 from longclaw.longclawstats import stats
 from longclaw.longclawsettings.models import LongclawSettings
+from longclaw.utils import ProductVariant, maybe_get_product_model
 
 
 class LongclawSummaryItem(SummaryItem):
@@ -33,9 +33,14 @@ class OutstandingOrders(LongclawSummaryItem):
 class ProductCount(LongclawSummaryItem):
     order = 20
     def get_context(self):
+        product_model = maybe_get_product_model()
+        if product_model:
+            count = product_model.objects.all().count()
+        else:
+            count = ProductVariant.objects.all().count()
         return {
-            'total': Product.objects.all().count(),
-            'text': 'Products',
+            'total': count,
+            'text': 'Product',
             'url': '',
             'icon': 'icon-list-ul'
         }

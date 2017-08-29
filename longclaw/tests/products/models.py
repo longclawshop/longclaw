@@ -1,11 +1,10 @@
 from django.db import models
+from modelcluster.fields import ParentalKey
 from wagtail.wagtailcore.fields import RichTextField
-from longclaw.longclawproducts.models import ProductVariantBase
+from longclaw.longclawproducts.models import ProductVariantBase, Product
 
 class ProductVariant(ProductVariantBase):
-
-    # Enter your custom product variant fields here
-    # e.g. colour, size, stock and so on.
-    # Remember, ProductVariantBase provides 'price', 'ref', 'slug' fields
-    # and the parental key to the Product model.
+    '''Basic product variant for testing
+    '''
+    product = ParentalKey(Product, related_name='variants')
     description = RichTextField()
