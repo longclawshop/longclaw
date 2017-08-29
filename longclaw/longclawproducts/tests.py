@@ -8,5 +8,3 @@ class TestProducts(WagtailPageTests):
 
     def test_variant_price(self):
         product = models.Product(title="test", description="test")
-
-
