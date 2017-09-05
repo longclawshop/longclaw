@@ -1,8 +1,9 @@
 from longclaw.longclawproducts import models
-from longclaw.utils import maybe_get_product_model
+from longclaw.utils import maybe_get_product_model, ProductVariant
 from wagtail.tests.utils import WagtailPageTests
 
 from longclaw.tests.products.models import ProductIndex
+from longclaw.tests.utils import ProductVariantFactory
 
 class TestProducts(WagtailPageTests):
 
@@ -10,8 +11,19 @@ class TestProducts(WagtailPageTests):
         self.product_model = maybe_get_product_model()
 
     def test_can_create_product(self):
-        print('PRODUCT', self.product_model)
         self.assertCanCreateAt(ProductIndex, self.product_model)
 
     def test_variant_price(self):
-        product = self.product_model(title="test", description="test")
+        variant = ProductVariantFactory()
+        self.assertTrue(variant.price > 0)
+
+    def test_price_range(self):
+        variant = ProductVariantFactory()
+        prices = variant.product.price_range
+        self.assertTrue(prices[0] == prices[1])
+
+    def test_stock(self):
+        variant = ProductVariantFactory()
+        variant.stock = 1
+        variant.save()
+        self.assertTrue(variant.product.in_stock)
