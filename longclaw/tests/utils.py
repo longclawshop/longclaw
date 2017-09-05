@@ -6,11 +6,11 @@ from rest_framework import status
 
 from wagtail_factories import PageFactory
 
-from longclaw.longclawproducts.models import Product
+
 from longclaw.longclawbasket.models import BasketItem
 from longclaw.longclaworders.models import Order
 from longclaw.longclawshipping.models import Address, Country, ShippingRate
-from longclaw.utils import ProductVariant
+from longclaw.utils import ProductVariant, maybe_get_product_model
 
 class OrderFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -60,8 +60,9 @@ class ShippingRateFactory(factory.django.DjangoModelFactory):
 class ProductFactory(PageFactory):
     ''' Create a random Product
     '''
+
     class Meta:
-        model = Product
+        model = maybe_get_product_model()
 
     title = factory.Faker('sentence', nb_words=1)
     description = factory.Faker('text')

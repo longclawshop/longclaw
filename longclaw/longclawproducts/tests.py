@@ -1,10 +1,17 @@
 from longclaw.longclawproducts import models
+from longclaw.utils import maybe_get_product_model
 from wagtail.tests.utils import WagtailPageTests
+
+from longclaw.tests.products.models import ProductIndex
 
 class TestProducts(WagtailPageTests):
 
+    def setUp(self):
+        self.product_model = maybe_get_product_model()
+
     def test_can_create_product(self):
-        self.assertCanCreateAt(models.ProductIndex, models.Product)
+        print('PRODUCT', self.product_model)
+        self.assertCanCreateAt(ProductIndex, self.product_model)
 
     def test_variant_price(self):
-        product = models.Product(title="test", description="test")
+        product = self.product_model(title="test", description="test")

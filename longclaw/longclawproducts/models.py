@@ -1,19 +1,9 @@
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-from django_extensions.db.fields import AutoSlugField
 
-from modelcluster.fields import ParentalKey
-from modelcluster.tags import ClusterTaggableManager
-from taggit.models import TaggedItemBase
-
-from wagtail.wagtailcore.models import Page, Orderable
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailsearch import index
+from wagtail.wagtailcore.models import Page
 
 # Abstract base classes a user can use to implement their own product system
-
 @python_2_unicode_compatible
 class ProductBase(Page):
     '''Base classes for ``Product`` implementations. All this provides are
@@ -52,64 +42,30 @@ class ProductVariantBase(models.Model):
     price = models.DecimalField(max_digits=12, decimal_places=2)
     ref = models.CharField(max_length=32)
     stock = models.IntegerField(default=0)
-    slug = AutoSlugField(
-        separator='',
-        populate_from=('product', 'ref'),
-        )
+
     class Meta:
         abstract = True
 
     def __str__(self):
-        return "{} - {}".format(self.product.title, self.ref)
+        try:
+            return "{} - {}".format(self.product.title, self.ref)
+        except AttributeError:
+            return self.ref
 
     def get_product_title(self):
-        return self.product.title
+        try:
+            return self.product.title
+        except AttributeError:
+            return self.ref
 
-# Concrete models. These models do not need to be used in a user implementation.
+# class ProductImage(Orderable):
+#     """Images related to ``Product``
+#     """
+#     product = ParentalKey(Product, related_name='images')
+#     image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+')
+#     caption = models.CharField(blank=True, max_length=255)
 
-class ProductIndex(Page):
-    '''Index page for all products
-    '''
-    subpage_types = ('longclawproducts.Product', 'longclawproducts.ProductIndex')
-
-
-class Product(ProductBase):
-    parent_page_types = ['longclawproducts.ProductIndex']
-
-    tags = ClusterTaggableManager(through='longclawproducts.ProductTag', blank=True)
-    description = RichTextField()
-
-    search_fields = Page.search_fields + [
-        index.RelatedFields('tags', [
-            index.SearchField('name', partial_match=True, boost=10),
-        ]),
-    ]
-
-    content_panels = ProductBase.content_panels + [
-        FieldPanel('description'),
-        FieldPanel('tags'),
-        InlinePanel('images', label='Product images'),
-    ]
-
-
-    @property
-    def first_image(self):
-        return self.images.first()
-
-
-class ProductTag(TaggedItemBase):
-    '''Tags for products
-    '''
-    content_object = ParentalKey('longclawproducts.Product', related_name='tagged_items')
-
-class ProductImage(Orderable):
-    """Images related to ``Product``
-    """
-    product = ParentalKey(Product, related_name='images')
-    image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+')
-    caption = models.CharField(blank=True, max_length=255)
-
-    panels = [
-        ImageChooserPanel('image'),
-        FieldPanel('caption')
-    ]
+#     panels = [
+#         ImageChooserPanel('image'),
+#         FieldPanel('caption')
+#     ]

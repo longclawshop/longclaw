@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from longclaw.longclawproducts.models import Product
 from longclaw.utils import ProductVariant, maybe_get_product_model
 
 class ProductSerializer(serializers.ModelSerializer):
