@@ -1,4 +1,3 @@
-from django.db import models
 from wagtail.wagtailcore.fields import RichTextField
 from longclaw.longclawproducts.models import ProductVariantBase
 
