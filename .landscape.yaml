@@ -1,7 +1,7 @@
 doc-warnings: true
 max-line-length: 160
 uses:
-  - djangog
+  - django
 ignore-paths:
   - longclaw/longclawbasket/migrations
   - longclaw/longclawcheckout/migrations
