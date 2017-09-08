@@ -1,0 +1,17 @@
+doc-warnings: true
+max-line-length: 160
+uses:
+  - djangog
+ignore-paths:
+  - longclaw/longclawbasket/migrations
+  - longclaw/longclawcheckout/migrations
+  - longclaw/longclawcore/migrations
+  - longclaw/longclaworders/migrations
+  - longclaw/longclawproducts/migrations
+  - longclaw/longclawsettings/migrations
+  - longclaw/longclawshipping/migrations
+python-targets:
+  - 2
+  - 3
+
+
