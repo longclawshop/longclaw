@@ -1,5 +1,4 @@
 from django.conf.urls import url
-from django.conf import settings
 from longclaw.longclaworders import api
 
 from longclaw.settings import API_URL_PREFIX

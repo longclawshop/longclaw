@@ -97,7 +97,7 @@ def capture_payment(request):
         response = Response(data={"order_id": order.id},
                             status=status.HTTP_201_CREATED)
     except PaymentError as err:
-        order.status = Order.CANCELLED
+        order.status = order.CANCELLED
         order.note = "Payment failed"
         response = Response(data={"message": err.message, "order_id": order.id},
                             status=status.HTTP_400_BAD_REQUEST)

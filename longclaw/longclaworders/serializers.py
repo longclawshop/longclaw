@@ -1,4 +1,3 @@
-from django.apps import apps
 from rest_framework import serializers
 from longclaw.longclaworders.models import Order, OrderItem
 from longclaw.longclawproducts.serializers import ProductVariantSerializer
@@ -24,4 +23,4 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_total(self, obj):
-      return obj.total
+        return obj.total

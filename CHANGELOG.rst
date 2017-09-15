@@ -3,7 +3,10 @@
 History
 -------
 
-0.2.0 (In Development)
+1.0.0 (In development)
++++++++++++++++++++++++
+
+0.2.0 (2017-07)
 ++++++++++++++++++++++
 
 * Added a template tag for easy 'Add To Basket' buttons

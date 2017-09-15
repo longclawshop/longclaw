@@ -1,5 +1,4 @@
 from django import forms
-from longclaw.longclawshipping.models import ShippingRate
 
 class CheckoutForm(forms.Form):
     '''

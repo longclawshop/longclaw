@@ -11,9 +11,9 @@ Longclaw
 .. image:: https://travis-ci.org/JamesRamm/longclaw.svg?branch=master
     :target: https://travis-ci.org/JamesRamm/longclaw
 
-.. image:: https://pyup.io/repos/github/JamesRamm/longclaw/shield.svg
-     :target: https://pyup.io/repos/github/JamesRamm/longclaw/
-     :alt: Updates
+.. image:: https://landscape.io/github/JamesRamm/longclaw/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/JamesRamm/longclaw/master
+   :alt: Code Health
 
 .. image:: https://readthedocs.org/projects/longclaw/badge/?version=latest
     :target: http://longclaw.readthedocs.io/en/latest/?badge=latest
