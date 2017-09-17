@@ -2,6 +2,7 @@ from wagtail.tests.utils import WagtailPageTests
 from longclaw.utils import maybe_get_product_model
 from longclaw.tests.products.models import ProductIndex
 from longclaw.tests.utils import ProductVariantFactory
+from longclaw.longclawproducts.serializers import ProductVariantSerializer
 
 class TestProducts(WagtailPageTests):
 
@@ -25,3 +26,14 @@ class TestProducts(WagtailPageTests):
         variant.stock = 1
         variant.save()
         self.assertTrue(variant.product.in_stock)
+
+    def test_out_of_stock(self):
+        variant = ProductVariantFactory()
+        variant.stock = 0
+        variant.save()
+        self.assertFalse(variant.product.in_stock)
+
+    def test_variant_serializer(self):
+        variant = ProductVariantFactory()
+        serializer = ProductVariantSerializer(variant)
+        self.assertIn('product', serializer.data)

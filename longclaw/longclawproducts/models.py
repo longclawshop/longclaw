@@ -57,15 +57,3 @@ class ProductVariantBase(models.Model):
             return self.product.title
         except AttributeError:
             return self.ref
-
-# class ProductImage(Orderable):
-#     """Images related to ``Product``
-#     """
-#     product = ParentalKey(Product, related_name='images')
-#     image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+')
-#     caption = models.CharField(blank=True, max_length=255)
-
-#     panels = [
-#         ImageChooserPanel('image'),
-#         FieldPanel('caption')
-#     ]
