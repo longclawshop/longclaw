@@ -10,7 +10,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('wagtailcore', '0032_add_bulk_delete_page_permission'),
         ('wagtailforms', '0003_capitalizeverbose'),
-        ('products', '0004_auto_20170903_1132'),
         ('longclawproducts', '0002_auto_20170219_0804'),
         ('wagtailredirects', '0005_capitalizeverbose'),
     ]

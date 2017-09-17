@@ -6,6 +6,9 @@ History
 1.0.0 (In development)
 +++++++++++++++++++++++
 
+  * Reworked the longclawproducts app to make customisation easier (#76 and #47)
+
+
 0.2.0 (2017-07)
 ++++++++++++++++++++++
 
