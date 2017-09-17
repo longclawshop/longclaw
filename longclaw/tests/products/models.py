@@ -16,15 +16,18 @@ class Product(ProductBase):
     description = RichTextField()
     content_panels = ProductBase.content_panels + [
         FieldPanel('description'),
+        InlinePanel('variants')
     ]
 
-
-    @property
-    def first_image(self):
-        return self.images.first()
 
 class ProductVariant(ProductVariantBase):
     '''Basic product variant for testing
     '''
-    product = ParentalKey(Product, related_name='variants')
+    product = ParentalKey('products.Product', related_name='variants')
     description = RichTextField()
+
+    @ProductVariantBase.price.getter
+    def price(self):
+        """Make the price dynamic to check that longclaw works with ``get_price``
+        """
+        return self.base_price * 10

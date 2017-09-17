@@ -79,7 +79,7 @@ class ProductVariantFactory(factory.django.DjangoModelFactory):
 
     product = factory.SubFactory(ProductFactory)
     description = factory.Faker('text')
-    price = factory.Faker('pyfloat', positive=True, left_digits=2, right_digits=2)
+    base_price = factory.Faker('pyfloat', positive=True, left_digits=2, right_digits=2)
     ref = factory.Faker('pystr', min_chars=3, max_chars=10)
     stock = factory.Faker('pyint')
 

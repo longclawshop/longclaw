@@ -14,6 +14,7 @@ class TestProducts(WagtailPageTests):
 
     def test_variant_price(self):
         variant = ProductVariantFactory()
+        self.assertTrue(variant.price == variant.base_price * 10)
         self.assertTrue(variant.price > 0)
 
     def test_price_range(self):
