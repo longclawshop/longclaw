@@ -28,3 +28,9 @@ class ProductVariant(ProductVariantBase):
     '''
     product = ParentalKey(Product, related_name='variants')
     description = RichTextField()
+
+    @ProductVariantBase.price.getter
+    def price(self):
+        """Make the price dynamic to check that longclaw works with ``get_price``
+        """
+        return self.base_price * 10

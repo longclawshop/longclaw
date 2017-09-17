@@ -21,7 +21,7 @@ class ProductBase(Page):
     def price_range(self):
         ''' Calculate the price range of the products variants
         '''
-        ordered = self.variants.order_by('price')
+        ordered = self.variants.order_by('base_price')
         if ordered:
             return ordered.first().price, ordered.last().price
         else:
@@ -39,7 +39,7 @@ class ProductVariantBase(models.Model):
     """
     Base model for creating product variants
     """
-    price = models.DecimalField(max_digits=12, decimal_places=2)
+    base_price = models.DecimalField(max_digits=12, decimal_places=2)
     ref = models.CharField(max_length=32)
     stock = models.IntegerField(default=0)
 
@@ -52,7 +52,24 @@ class ProductVariantBase(models.Model):
         except AttributeError:
             return self.ref
 
+    @property
+    def price(self):
+        """Can be overridden in concrete implementations in
+        order to generate the price dynamically.
+
+        Override the property like so:
+
+            @ProductVariantBase.price.getter
+            def price(self):
+              ...
+
+        """
+        return self.base_price
+
     def get_product_title(self):
+        """Retrieve the title of the related product.
+        If no related product, just return the ``ref`` of this model
+        """
         try:
             return self.product.title
         except AttributeError:
