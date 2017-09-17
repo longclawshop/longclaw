@@ -1,11 +1,30 @@
 from django.db import models
+from modelcluster.fields import ParentalKey
+from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import RichTextField
-from longclaw.longclawproducts.models import ProductVariantBase
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
+from longclaw.longclawproducts.models import ProductVariantBase, ProductBase
+
+class ProductIndex(Page):
+    '''Index page for all products
+    '''
+    subpage_types = ('products.Product', 'products.ProductIndex')
+
+
+class Product(ProductBase):
+    parent_page_types = ['products.ProductIndex']
+    description = RichTextField()
+    content_panels = ProductBase.content_panels + [
+        FieldPanel('description'),
+    ]
+
+
+    @property
+    def first_image(self):
+        return self.images.first()
 
 class ProductVariant(ProductVariantBase):
-
-    # Enter your custom product variant fields here
-    # e.g. colour, size, stock and so on.
-    # Remember, ProductVariantBase provides 'price', 'ref', 'slug' fields
-    # and the parental key to the Product model.
+    '''Basic product variant for testing
+    '''
+    product = ParentalKey(Product, related_name='variants')
     description = RichTextField()

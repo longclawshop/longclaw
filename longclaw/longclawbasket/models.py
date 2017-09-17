@@ -20,7 +20,7 @@ class BasketItem(models.Model):
         return self.quantity * self.variant.price
 
     def name(self):
-        return "{} ({})".format(self.variant.product.title, self.variant.ref)
+        return self.variant.__str__()
 
     def price(self):
         return self.variant.price
