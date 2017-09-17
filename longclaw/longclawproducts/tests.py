@@ -37,3 +37,7 @@ class TestProducts(WagtailPageTests):
         variant = ProductVariantFactory()
         serializer = ProductVariantSerializer(variant)
         self.assertIn('product', serializer.data)
+
+    def test_product_title(self):
+        variant = ProductVariantFactory()
+        self.assertEqual(variant.get_product_title(), variant.product.title)
