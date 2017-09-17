@@ -3,7 +3,7 @@ from django_extensions.db.fields import AutoSlugField
 from modelcluster.fields import ParentalKey
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 from longclaw.longclawproducts.models import ProductVariantBase, ProductBase
 
 class ProductIndex(Page):
@@ -17,6 +17,8 @@ class Product(ProductBase):
     description = RichTextField()
     content_panels = ProductBase.content_panels + [
         FieldPanel('description'),
+        InlinePanel('variants', label='Product variants'),
+
     ]
 
 
