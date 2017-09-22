@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('slug', django_extensions.db.fields.AutoSlugField(blank=True, editable=False, populate_from=('product', 'ref'), separator='')),
                 ('description', wagtail.wagtailcore.fields.RichTextField()),
                 ('stock', models.IntegerField(default=0)),
-                ('product', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='variants', to='longclawproducts.Product')),
+                ('product', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='variants', to='products.Product')),
             ],
             options={
                 'abstract': False,
