@@ -68,7 +68,17 @@ def main():
     build.set_defaults(func=build_assets)
 
     args = parser.parse_args()
-    args.func(args)
+
+    # Python 3 lost the default behaviour to fall back to printing
+    # help if a subparser is not selected.
+    # See: https://bugs.python.org/issue16308
+    # So we must explicitly catch the error thrown on py3 if
+    # no commands given to longclaw
+    try:
+        args.func(args)
+    except AttributeError:
+        parser.print_help()
+        sys.exit(0)
 
 if __name__ == "__main__":
     main()
