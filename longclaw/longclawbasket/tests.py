@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from longclaw.tests.utils import LongclawTestCase, BasketItemFactory, ProductVariantFactory
 from longclaw.longclawbasket.utils import basket_id
 from longclaw.longclawbasket.templatetags import longclawbasket_tags
+from longclaw.longclawbasket.context_processors import stripe_key
 
 
 class BasketTest(LongclawTestCase):
@@ -57,6 +58,9 @@ class BasketTest(LongclawTestCase):
         '''
         result = longclawbasket_tags.add_to_basket_btn(1)
         self.assertIsNotNone(result)
+
+    def test_ctx_proc(self):
+        self.assertIn('STRIPE_KEY', stripe_key())
 
 
 class BasketModelTest(TestCase):
