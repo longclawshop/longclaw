@@ -27,4 +27,4 @@ class StatsTest(TestCase):
         delta = timedelta(days=10)
         groups = stats.daily_sales(datetime.now() - delta, datetime.now() + delta)
         # We only create 1 order.
-        assert len(list(groups)) == 1
+        self.assertEqual(len(list(groups)), 1)

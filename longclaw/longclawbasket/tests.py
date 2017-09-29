@@ -60,7 +60,7 @@ class BasketTest(LongclawTestCase):
         self.assertIsNotNone(result)
 
     def test_ctx_proc(self):
-        self.assertIn('STRIPE_KEY', stripe_key())
+        self.assertIn('STRIPE_KEY', stripe_key(None))
 
 
 class BasketModelTest(TestCase):
