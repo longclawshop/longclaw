@@ -14,8 +14,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtailimages', '0019_delete_filter'),
-        ('wagtailcore', '0040_page_draft_title'),
+        ('wagtailimages', '0018_remove_rendition_filter'),
+        ('wagtailcore', '0032_add_bulk_delete_page_permission'),
     ]
 
     operations = [
