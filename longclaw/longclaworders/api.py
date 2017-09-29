@@ -23,6 +23,5 @@ class OrderViewSet(viewsets.ModelViewSet):
         """Mark the order specified by pk as fulfilled
         """
         order = Order.objects.get(id=pk)
-        order.status = Order.FULFILLED
-        order.save()
+        order.fulfill()
         return Response(status=status.HTTP_204_NO_CONTENT)
