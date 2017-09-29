@@ -5,7 +5,7 @@ try:
   from django.urls import reverse
 except ImportError:
   from django.core.urlresolvers import reverse
-
+from django.contrib.auth.models import User
 from wagtail.tests.utils import WagtailTestUtils
 from longclaw.tests.utils import LongclawTestCase, OrderFactory
 from longclaw.longclaworders.wagtail_hooks import OrderModelAdmin
@@ -14,9 +14,13 @@ class OrderTests(LongclawTestCase):
 
     def setUp(self):
         self.order = OrderFactory(transaction_id="FAKE")
+        admin = User.objects.create_superuser('admn', 'myemail@test.com', 'password')
+        self.client.force_authenticate(user=admin)
 
     def test_fulfill_order(self):
         self.post_test({}, 'longclaw_fulfill_order', urlkwargs={'pk': self.order.id})
+        self.order.refresh_from_db()
+        self.assertEqual(self.order.status, self.order.FULFILLED)
 
     def test_total(self):
         self.assertEqual(self.order.total, 0)
@@ -25,7 +29,8 @@ class OrderTests(LongclawTestCase):
         self.assertEqual(self.order.total_items, 0)
 
     def test_refund_order(self):
-        self.order.refund()
+        self.post_test({}, 'longclaw_refund_order', urlkwargs={'pk': self.order.id})
+        self.order.refresh_from_db()
         self.assertEqual(self.order.status, self.order.REFUNDED)
 
 class TestOrderView(LongclawTestCase, WagtailTestUtils):
