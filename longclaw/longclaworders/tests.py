@@ -33,6 +33,12 @@ class OrderTests(LongclawTestCase):
         self.order.refresh_from_db()
         self.assertEqual(self.order.status, self.order.REFUNDED)
 
+    def test_cancel_order(self):
+        self.order.cancel()
+        self.order.refresh_from_db()
+        self.assertEqual(self.order.status, self.order.CANCELLED)
+
+
 class TestOrderView(LongclawTestCase, WagtailTestUtils):
 
     def setUp(self):
