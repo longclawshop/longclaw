@@ -45,6 +45,6 @@ class BasePayment(object):
         identifier is a id string to pass to the gateway
         in order to identify the transaction to refund.
         '''
-        assert amount > 0
+        assert isinstance(amount, (float, int))
         assert isinstance(identifier, str)
         return True

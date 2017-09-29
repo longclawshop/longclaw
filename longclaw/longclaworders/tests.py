@@ -1,3 +1,4 @@
+import mock
 from django.test import TestCase
 from django.contrib.auth.models import User
 try:
@@ -12,7 +13,7 @@ from longclaw.longclaworders.wagtail_hooks import OrderModelAdmin
 class OrderTests(LongclawTestCase):
 
     def setUp(self):
-        self.order = OrderFactory()
+        self.order = OrderFactory(transaction_id="FAKE")
 
     def test_fulfill_order(self):
         self.post_test({}, 'longclaw_fulfill_order', urlkwargs={'pk': self.order.id})
@@ -22,6 +23,10 @@ class OrderTests(LongclawTestCase):
 
     def test_total_items(self):
         self.assertEqual(self.order.total_items, 0)
+
+    def test_refund_order(self):
+        self.order.refund()
+        self.assertEqual(self.order.status, self.order.REFUNDED)
 
 class TestOrderView(LongclawTestCase, WagtailTestUtils):
 

@@ -3,7 +3,6 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
 from longclaw.settings import PRODUCT_VARIANT_MODEL
-from longclaw.utils import GATEWAY
 from longclaw.longclawshipping.models import Address
 
 @python_2_unicode_compatible
@@ -62,6 +61,7 @@ class Order(models.Model):
     def refund(self):
         """Issue a full refund for this order
         """
+        from longclaw.utils import GATEWAY
         now = datetime.strftime(datetime.now(), "%b %d %Y %H:%M:%S")
         if GATEWAY.issue_refund(self.transaction_id, self.total):
             self.status = self.REFUNDED
