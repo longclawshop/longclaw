@@ -46,5 +46,4 @@ class BasePayment(object):
         in order to identify the transaction to refund.
         '''
         assert isinstance(amount, (float, int))
-        assert isinstance(identifier, str)
         return True
