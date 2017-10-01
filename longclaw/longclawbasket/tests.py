@@ -1,11 +1,21 @@
 from django.test.client import RequestFactory
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.core.management import call_command
+from django.utils.six import StringIO
+
 
 from longclaw.tests.utils import LongclawTestCase, BasketItemFactory, ProductVariantFactory
 from longclaw.longclawbasket.utils import basket_id
 from longclaw.longclawbasket.templatetags import longclawbasket_tags
 from longclaw.longclawbasket.context_processors import stripe_key
+
+
+class CommandTests(TestCase):
+    def test_remove_baskets(self):
+        out = StringIO()
+        call_command('remove_stale_baskets', 1, stdout=out)
+        self.assertIn('Deleted 0 basket items', out.getvalue())
 
 
 class BasketTest(LongclawTestCase):
