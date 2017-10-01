@@ -16,13 +16,15 @@ class OrderDetail extends Component {
   }
 
   handleFulfill() {
-    api.fulfillOrder.post({ prefix: this.props.urlPrefix, 
-                       urlParams: { id: this.props.orderId }})
-      .then(this.fetchOrder())
+    api.fulfillOrder.post({
+      prefix: this.props.urlPrefix,
+      urlParams: { id: this.props.orderId }}).then(this.fetchOrder())
   }
 
   handleRefund() {
-    console.log("Refund clicked!")
+    api.refundOrder.post({
+      prefix: this.props.urlPrefix,
+      urlParams: { id: this.props.orderId }}).then(this.fetchOrder())
   }
 
   fetchOrder() {
@@ -96,7 +98,11 @@ class OrderDetail extends Component {
     }
     else if (order.status == 3) {
       status = <span className="icon icon-bin">CANCELLED</span>;
+    }
+    else if (order.status == 4) {
+      status = <span className="icon icon-undo">REFUNDED</span>;
     };
+
 
     return (
       <div className="row">

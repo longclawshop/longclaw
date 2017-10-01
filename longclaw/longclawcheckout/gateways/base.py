@@ -38,3 +38,12 @@ class BasePayment(object):
         be used in <script> tags
         '''
         return ('http://dummy.js', 'dummy.js')
+
+    def issue_refund(self, identifier, amount):
+        '''Issue a refund of the given amount.
+
+        identifier is a id string to pass to the gateway
+        in order to identify the transaction to refund.
+        '''
+        assert isinstance(amount, (float, int))
+        return True

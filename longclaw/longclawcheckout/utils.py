@@ -9,9 +9,8 @@ from longclaw.longclawshipping.utils import get_shipping_cost
 from longclaw.longclaworders.models import Order, OrderItem
 from longclaw.longclawshipping.models import Address
 from longclaw.longclawsettings.models import LongclawSettings
-from longclaw import settings
+from longclaw.utils import GATEWAY
 
-GATEWAY = import_string(settings.PAYMENT_GATEWAY)()
 
 def create_order(email,
                  request,

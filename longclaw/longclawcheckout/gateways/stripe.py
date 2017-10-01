@@ -38,3 +38,10 @@ class StripePayment(BasePayment):
 
             }
         )
+
+    def issue_refund(self, identifier, amount):
+        result = stripe.Refund.create(
+            charge=identifier,
+            amount=int(math.ceil(amount * 100))
+        )
+        return result.status == 'succeeded'

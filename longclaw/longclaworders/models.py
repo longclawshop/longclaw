@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -9,9 +10,11 @@ class Order(models.Model):
     SUBMITTED = 1
     FULFILLED = 2
     CANCELLED = 3
+    REFUNDED = 4
     ORDER_STATUSES = ((SUBMITTED, 'Submitted'),
                       (FULFILLED, 'Fulfilled'),
-                      (CANCELLED, 'Cancelled'))
+                      (CANCELLED, 'Cancelled'),
+                      (REFUNDED, 'Refunded'))
     payment_date = models.DateTimeField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=ORDER_STATUSES, default=SUBMITTED)
@@ -41,6 +44,8 @@ class Order(models.Model):
 
     @property
     def total(self):
+        """Total cost of the order
+        """
         total = 0
         for item in self.items.all():
             total += item.total
@@ -48,7 +53,36 @@ class Order(models.Model):
 
     @property
     def total_items(self):
+        """The number of individual items on the order
+        """
         return self.items.count()
+
+
+    def refund(self):
+        """Issue a full refund for this order
+        """
+        from longclaw.utils import GATEWAY
+        now = datetime.strftime(datetime.now(), "%b %d %Y %H:%M:%S")
+        if GATEWAY.issue_refund(self.transaction_id, self.total):
+            self.status = self.REFUNDED
+            self.status_note = "Refunded on {}".format(now)
+        else:
+            self.status_note = "Refund failed on {}".format(now)
+        self.save()
+
+    def fulfill(self):
+        """Mark this order as being fulfilled
+        """
+        self.status = self.FULFILLED
+        self.save()
+
+    def cancel(self, refund=True):
+        """Cancel this order, optionally refunding it
+        """
+        if refund:
+            self.refund()
+        self.status = self.CANCELLED
+        self.save()
 
 @python_2_unicode_compatible
 class OrderItem(models.Model):

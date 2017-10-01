@@ -42,6 +42,11 @@ class BraintreePayment(BasePayment):
             "https://js.braintreegateway.com/web/3.15.0/js/hosted-fields.min.js"
         )
 
+    def issue_refund(self, identifier, amount):
+        result = braintree.Transaction.refund(identifier, amount)
+        return result.is_success
+
+
 class PaypalVZeroPayment(BasePayment):
     '''
     Create a payment using the Paypal/Braintree v.zero SDK
@@ -75,3 +80,6 @@ class PaypalVZeroPayment(BasePayment):
             "https://js.braintreegateway.com/web/3.15.0/js/client.min.js",
             "https://js.braintreegateway.com/web/3.15.0/js/paypal-checkout.min.js"
         )
+
+    def issue_refund(self, identifier, amount):
+        return False
