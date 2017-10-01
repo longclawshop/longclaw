@@ -20,15 +20,15 @@ def _generate_basket_id():
 
 
 def get_basket_items(request):
-    '''
+    """
     Get all items in the basket
-    '''
+    """
     bid = basket_id(request)
     return BasketItem.objects.filter(basket_id=bid), bid
 
 def destroy_basket(request):
-    '''Delete all items in the basket
-    '''
+    """Delete all items in the basket
+    """
     items, bid = get_basket_items(request)
     for item in items:
         item.delete()

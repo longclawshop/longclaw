@@ -1,6 +1,6 @@
-'''
+"""
 Admin confiurable settings for longclaw apps
-'''
+"""
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from django.db import models

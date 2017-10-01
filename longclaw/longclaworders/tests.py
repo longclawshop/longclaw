@@ -46,9 +46,9 @@ class TestOrderView(LongclawTestCase, WagtailTestUtils):
         self.model_admin = OrderModelAdmin()
 
     def test_order_index_view(self):
-        '''
+        """
         Test the index view
-        '''
+        """
         name = self.model_admin.url_helper.get_action_url_name('index')
         response = self.client.get(reverse(name))
         self.assertEqual(response.status_code, 200)

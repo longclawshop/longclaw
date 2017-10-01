@@ -6,10 +6,10 @@ from wagtail.wagtailcore.models import Page
 # Abstract base classes a user can use to implement their own product system
 @python_2_unicode_compatible
 class ProductBase(Page):
-    '''Base classes for ``Product`` implementations. All this provides are
+    """Base classes for ``Product`` implementations. All this provides are
     a few helper methods for ``ProductVariant``'s. It assumes that ``ProductVariant``'s
     have a ``related_name`` of ``variants``
-    '''
+    """
 
     class Meta:
         abstract = True
@@ -19,8 +19,8 @@ class ProductBase(Page):
 
     @property
     def price_range(self):
-        ''' Calculate the price range of the products variants
-        '''
+        """ Calculate the price range of the products variants
+        """
         ordered = self.variants.order_by('base_price')
         if ordered:
             return ordered.first().price, ordered.last().price
@@ -29,8 +29,8 @@ class ProductBase(Page):
 
     @property
     def in_stock(self):
-        ''' Returns True if any of the product variants are in stock
-        '''
+        """ Returns True if any of the product variants are in stock
+        """
         return any(self.variants.filter(stock__gt=0))
 
 

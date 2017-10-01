@@ -5,9 +5,9 @@ from longclaw.longclawcheckout.errors import PaymentError
 from longclaw.longclawcheckout.gateways import BasePayment
 
 class BraintreePayment(BasePayment):
-    '''
+    """
     Create a payment using Braintree
-    '''
+    """
     def __init__(self):
         if settings.BRAINTREE_SANDBOX:
             env = braintree.Environment.Sandbox
@@ -48,9 +48,9 @@ class BraintreePayment(BasePayment):
 
 
 class PaypalVZeroPayment(BasePayment):
-    '''
+    """
     Create a payment using the Paypal/Braintree v.zero SDK
-    '''
+    """
     def __init__(self):
         self.gateway = braintree.BraintreeGateway(access_token=settings.VZERO_ACCESS_TOKEN)
 

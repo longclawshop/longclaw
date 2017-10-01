@@ -5,9 +5,9 @@ from longclaw.longclawshipping import models, utils, serializers
 from longclaw.longclawsettings.models import LongclawSettings
 
 class AddressViewSet(viewsets.ModelViewSet):
-    '''
+    """
     Create, list and view Addresses
-    '''
+    """
     queryset = models.Address.objects.all()
     serializer_class = serializers.AddressSerializer
 
@@ -15,11 +15,11 @@ class AddressViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 @permission_classes({permissions.AllowAny})
 def shipping_cost(request):
-    ''' Returns the shipping cost for a given country
+    """ Returns the shipping cost for a given country
     If the shipping cost for the given country has not been set, it will
     fallback to the default shipping cost if it has been enabled in the app
     settings
-    '''
+    """
     try:
         code = request.query_params.get('country_code')
     except AttributeError:
@@ -44,8 +44,8 @@ def shipping_cost(request):
 @api_view(["GET"])
 @permission_classes([permissions.AllowAny])
 def shipping_countries(request):
-    ''' Get all shipping countries
-    '''
+    """ Get all shipping countries
+    """
     queryset = models.Country.objects.exclude(shippingrate=None)
     serializer = serializers.CountrySerializer(queryset, many=True)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
@@ -53,9 +53,9 @@ def shipping_countries(request):
 @api_view(["GET"])
 @permission_classes([permissions.AllowAny])
 def shipping_options(request, country):
-    '''
+    """
     Get the shipping options for a given country
-    '''
+    """
     qrs = models.ShippingRate.objects.filter(countries__in=[country])
     serializer = serializers.ShippingRateSerializer(qrs, many=True)
     return Response(

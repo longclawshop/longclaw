@@ -1,6 +1,6 @@
-'''
+"""
 Various stats/analysis calculations
-'''
+"""
 import itertools
 import calendar
 from datetime import datetime
@@ -17,9 +17,9 @@ def current_month():
 
 
 def sales_for_time_period(from_date, to_date):
-    '''
+    """
     Get all sales for a given time period
-    '''
+    """
     sales = Order.objects.filter(
         Q(payment_date__lte=to_date) & Q(payment_date__gte=from_date)
     ).exclude(status=Order.CANCELLED)

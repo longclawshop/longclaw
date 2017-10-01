@@ -1,6 +1,6 @@
-'''
+"""
 Default settings for longclaw apps
-'''
+"""
 from django.conf import settings
 
 # The payment gateway backend to use

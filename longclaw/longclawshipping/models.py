@@ -28,10 +28,10 @@ class Address(models.Model):
 
 @python_2_unicode_compatible
 class ShippingRate(models.Model):
-    '''
+    """
     An individual shipping rate. This can be applied to
     multiple countries.
-    '''
+    """
     name = models.CharField(
         max_length=32,
         unique=True,
@@ -80,5 +80,5 @@ class Country(models.Model):
         ordering = ('-sort_priority', 'name',)
 
     def __str__(self):
-        ''' Return the display form of the country name'''
+        """ Return the display form of the country name"""
         return self.name

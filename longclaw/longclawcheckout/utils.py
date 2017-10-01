@@ -19,9 +19,9 @@ def create_order(email,
                  billing_address=None,
                  shipping_option=None,
                  capture_payment=False):
-    '''
+    """
     Create an order from a basket and customer infomation
-    '''
+    """
     basket_items, _ = get_basket_items(request)
     if addresses:
         # Longclaw < 0.2 used 'shipping_name', longclaw > 0.2 uses a consistent

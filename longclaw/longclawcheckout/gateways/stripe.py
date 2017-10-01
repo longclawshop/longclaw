@@ -7,9 +7,9 @@ from longclaw.longclawcheckout.gateways import BasePayment
 
 
 class StripePayment(BasePayment):
-    '''
+    """
     Create a payment using stripe
-    '''
+    """
     def __init__(self):
         stripe.api_key = STRIPE_SECRET
 
@@ -27,8 +27,8 @@ class StripePayment(BasePayment):
             raise PaymentError(error)
 
     def get_token(self, request):
-        ''' Create a stripe token for a card
-        '''
+        """ Create a stripe token for a card
+        """
         return stripe.Token.create(
             card={
                 "number": request.data["number"],
