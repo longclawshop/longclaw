@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 from django.core.management import call_command
 from django.utils.six import StringIO
 
-
 from longclaw.tests.utils import LongclawTestCase, BasketItemFactory, ProductVariantFactory
 from longclaw.longclawbasket.utils import basket_id
 from longclaw.longclawbasket.templatetags import longclawbasket_tags
@@ -19,7 +18,7 @@ class CommandTests(TestCase):
         Expect that nothiing is removed and the command exits cleanly
         """
         out = StringIO()
-        call_command('remove_stale_baskets', 1, stdout=out)
+        call_command('remove_stale_baskets', '1', stdout=out)
         self.assertIn('Deleted 0 basket items', out.getvalue())
 
 
