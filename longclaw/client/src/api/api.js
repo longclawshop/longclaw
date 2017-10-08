@@ -230,6 +230,8 @@ class ApiEndpoint {
 export const orderDetail = new ApiEndpoint('order/{id}/');
 // Mark an order as fulfilled
 export const fulfillOrder = new ApiEndpoint('order/{id}/fulfill/');
+// Refund an order
+export const refundOrder = new ApiEndpoint('order/{id}/refund/');
 // Create an order
 export const checkout = new ApiEndpoint('checkout/');
 // Get a payment gateway token
@@ -257,9 +259,8 @@ export const requestsList = new ApiEndpoint('requests/');
 //List product requests for a single variant
 export const requestVariantList = new ApiEndpoint('requests/variant/{id}/');
 
-
 export default {
-  orderDetail, fulfillOrder, checkout,
+  orderDetail, fulfillOrder, refundOrder, checkout,
   checkoutToken, basketList, basketListCount,
   basketDetailCount, basketDetail, shippingCost,
   shippingCountries, shippingCountryOptions,

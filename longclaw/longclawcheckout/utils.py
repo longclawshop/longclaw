@@ -9,9 +9,8 @@ from longclaw.longclawshipping.utils import get_shipping_cost
 from longclaw.longclaworders.models import Order, OrderItem
 from longclaw.longclawshipping.models import Address
 from longclaw.longclawsettings.models import LongclawSettings
-from longclaw import settings
+from longclaw.utils import GATEWAY
 
-GATEWAY = import_string(settings.PAYMENT_GATEWAY)()
 
 def create_order(email,
                  request,
@@ -20,9 +19,9 @@ def create_order(email,
                  billing_address=None,
                  shipping_option=None,
                  capture_payment=False):
-    '''
+    """
     Create an order from a basket and customer infomation
-    '''
+    """
     basket_items, _ = get_basket_items(request)
     if addresses:
         # Longclaw < 0.2 used 'shipping_name', longclaw > 0.2 uses a consistent

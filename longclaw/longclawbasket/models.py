@@ -26,14 +26,14 @@ class BasketItem(models.Model):
         return self.variant.price
 
     def increase_quantity(self, quantity=1):
-        ''' Increase the quantity of this product in the basket
-        '''
+        """ Increase the quantity of this product in the basket
+        """
         self.quantity += quantity
         self.save()
 
     def decrease_quantity(self, quantity=1):
-        '''
-        '''
+        """
+        """
         self.quantity -= quantity
         if self.quantity <= 0:
             self.delete()

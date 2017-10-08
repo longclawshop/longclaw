@@ -5,9 +5,9 @@ from longclaw.longclawcheckout.errors import PaymentError
 from longclaw.longclawcheckout.gateways import BasePayment
 
 class BraintreePayment(BasePayment):
-    '''
+    """
     Create a payment using Braintree
-    '''
+    """
     def __init__(self):
         if settings.BRAINTREE_SANDBOX:
             env = braintree.Environment.Sandbox
@@ -42,10 +42,15 @@ class BraintreePayment(BasePayment):
             "https://js.braintreegateway.com/web/3.15.0/js/hosted-fields.min.js"
         )
 
+    def issue_refund(self, identifier, amount):
+        result = braintree.Transaction.refund(identifier, amount)
+        return result.is_success
+
+
 class PaypalVZeroPayment(BasePayment):
-    '''
+    """
     Create a payment using the Paypal/Braintree v.zero SDK
-    '''
+    """
     def __init__(self):
         self.gateway = braintree.BraintreeGateway(access_token=settings.VZERO_ACCESS_TOKEN)
 
@@ -75,3 +80,6 @@ class PaypalVZeroPayment(BasePayment):
             "https://js.braintreegateway.com/web/3.15.0/js/client.min.js",
             "https://js.braintreegateway.com/web/3.15.0/js/paypal-checkout.min.js"
         )
+
+    def issue_refund(self, identifier, amount):
+        return False

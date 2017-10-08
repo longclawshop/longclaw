@@ -77,9 +77,9 @@ class CheckoutApiTest(LongclawTestCase):
 class CheckoutTest(TestCase):
 
     def test_checkout_form(self):
-        '''
+        """
         Test we can create the form without a shipping option
-        '''
+        """
         data = {
             'email': 'test@test.com',
             'different_billing_address': False
@@ -88,26 +88,26 @@ class CheckoutTest(TestCase):
         self.assertTrue(form.is_valid(), form.errors.as_json())
 
     def test_invalid_checkout_form(self):
-        '''
+        """
         Test making an invalid form
-        '''
+        """
         form = CheckoutForm({
             'email': ''
         })
         self.assertFalse(form.is_valid())
 
     def test_get_checkout(self):
-        '''
+        """
         Test the checkout GET view
-        '''
+        """
         request = RequestFactory().get(reverse('longclaw_checkout_view'))
         response = CheckoutView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
     def test_post_checkout(self):
-        '''
+        """
         Test correctly posting to the checkout view
-        '''
+        """
         country = CountryFactory()
         request = RequestFactory().post(
             reverse('longclaw_checkout_view'),
@@ -127,10 +127,10 @@ class CheckoutTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_post_checkout_billing(self):
-        '''
+        """
         Test using an alternate shipping
         address in the checkout view
-        '''
+        """
         country = CountryFactory()
         request = RequestFactory().post(
             reverse('longclaw_checkout_view'),
@@ -156,11 +156,11 @@ class CheckoutTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_post_checkout_invalid(self):
-        '''
+        """
         Test posting an invalid form.
         This should return a 200 response - rerendering
         the form page with the errors
-        '''
+        """
         request = RequestFactory().post(
             reverse('longclaw_checkout_view')
         )
@@ -171,9 +171,9 @@ class CheckoutTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_checkout_success(self):
-        '''
+        """
         Test the checkout success view
-        '''
+        """
         address = AddressFactory()
         order = OrderFactory(shipping_address=address, billing_address=address)
         response = self.client.get(reverse('longclaw_checkout_success', kwargs={'pk': order.id}))

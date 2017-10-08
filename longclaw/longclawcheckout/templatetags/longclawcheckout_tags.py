@@ -5,10 +5,10 @@ register = template.Library()
 
 @register.simple_tag
 def gateway_client_js():
-    '''
+    """
     Template tag which provides a `script` tag for each javascript item
     required by the payment gateway
-    '''
+    """
     javascripts = GATEWAY.client_js()
     if isinstance(javascripts, (tuple, list)):
         tags = []
@@ -22,7 +22,7 @@ def gateway_client_js():
 
 @register.simple_tag
 def gateway_token():
-    '''
+    """
     Provide a client token from the chosen gateway
-    '''
+    """
     return GATEWAY.get_token()

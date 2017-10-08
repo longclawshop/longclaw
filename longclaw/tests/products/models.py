@@ -6,8 +6,8 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 from longclaw.longclawproducts.models import ProductVariantBase, ProductBase
 
 class ProductIndex(Page):
-    '''Index page for all products
-    '''
+    """Index page for all products
+    """
     subpage_types = ('products.Product', 'products.ProductIndex')
 
 
@@ -21,8 +21,8 @@ class Product(ProductBase):
 
 
 class ProductVariant(ProductVariantBase):
-    '''Basic product variant for testing
-    '''
+    """Basic product variant for testing
+    """
     product = ParentalKey('products.Product', related_name='variants')
     description = RichTextField()
 

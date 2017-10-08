@@ -10,13 +10,13 @@ from setuptools import setup
 from setuptools.command.sdist import sdist as base_sdist
 
 class sdist(base_sdist):
-    '''
+    """
     Regular sdist class plus compilation of front end assets
-    '''
+    """
     def compile_assets(self):
-        '''
+        """
         Compile the front end assets
-        '''
+        """
         try:
             # Move into client dir
             curdir = os.path.abspath(os.curdir)
@@ -112,10 +112,10 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    entry_points='''
+    entry_points="""
         [console_scripts]
         longclaw=longclaw.bin.longclaw:main
-    ''',
+    """,
     cmdclass={
         'sdist': sdist
     }
