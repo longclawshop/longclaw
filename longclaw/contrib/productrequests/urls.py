@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from longclaw.contrib.productrequests import api
+from longclaw.contrib.productrequests import api, views
 from longclaw.settings import API_URL_PREFIX
 
 request_list = api.ProductRequestViewSet.as_view({
@@ -31,4 +31,7 @@ urlpatterns = [
         request_variant,
         name='productrequests_variant_list'
     ),
+    url(r'requests/product/(?P<pk>[0-9]+)/$',
+        views.requests_admin,
+        name='productrequests_admin')
 ]

@@ -5,7 +5,7 @@ class ProductRequest(models.Model):
     variant = models.ForeignKey(
         PRODUCT_VARIANT_MODEL, related_name='requests', on_delete=models.CASCADE
     )
-    created_data = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(
         blank=True,
         null=True,
