@@ -254,12 +254,15 @@ export const shippingCountryOptions = new ApiEndpoint('shipping/countries/{count
 export const addressList = new ApiEndpoint('addresses/');
 // get/update/delete address
 export const addressDetail = new ApiEndpoint('addresses/{id}/');
-
+//List/Post new product request
+export const requestsList = new ApiEndpoint('requests/');
+//List product requests for a single variant
+export const requestVariantList = new ApiEndpoint('requests/variant/{id}/');
 
 export default {
-  orderDetail, fulfillOrder, refundOrder,
-  checkout, checkoutToken, basketList,
-  basketListCount, basketDetailCount, basketDetail,
-  shippingCost, shippingCountries, shippingCountryOptions,
-  addressList, addressDetail
+  orderDetail, fulfillOrder, refundOrder, checkout,
+  checkoutToken, basketList, basketListCount,
+  basketDetailCount, basketDetail, shippingCost,
+  shippingCountries, shippingCountryOptions,
+  addressList, addressDetail, requestList, requestVariantList
 }
