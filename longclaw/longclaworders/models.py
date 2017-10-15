@@ -11,10 +11,12 @@ class Order(models.Model):
     FULFILLED = 2
     CANCELLED = 3
     REFUNDED = 4
+    FAILURE = 5
     ORDER_STATUSES = ((SUBMITTED, 'Submitted'),
                       (FULFILLED, 'Fulfilled'),
                       (CANCELLED, 'Cancelled'),
-                      (REFUNDED, 'Refunded'))
+                      (REFUNDED, 'Refunded'),
+                      (FAILURE, 'Payment Failed'))
     payment_date = models.DateTimeField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=ORDER_STATUSES, default=SUBMITTED)

@@ -1,12 +1,17 @@
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.contrib.sites.models import Site
 try:
-  from django.urls import reverse
+    from django.urls import reverse
 except ImportError:
-  from django.core.urlresolvers import reverse
+    from django.core.urlresolvers import reverse
 
-from longclaw.tests.utils import LongclawTestCase, AddressFactory, BasketItemFactory, CountryFactory, OrderFactory
+from longclaw.tests.utils import (
+    LongclawTestCase,
+    AddressFactory,
+    BasketItemFactory,
+    CountryFactory,
+    OrderFactory
+)
 from longclaw.longclawcheckout.utils import create_order
 from longclaw.longclawcheckout.forms import CheckoutForm
 from longclaw.longclawcheckout.views import CheckoutView
@@ -38,8 +43,9 @@ class CheckoutApiTest(LongclawTestCase):
     def test_create_order(self):
         BasketItemFactory(basket_id=self.basket_id),
         BasketItemFactory(basket_id=self.basket_id)
-        order = create_order(self.email, self.request, self.addresses)
+        order = create_order(self.email, self.request, self.addresses, capture_payment=True)
         self.assertIsNotNone(order)
+        self.assertIsNotNone(order.payment_date)
         self.assertEqual(self.email, order.email)
         self.assertEqual(order.items.count(), 2)
 

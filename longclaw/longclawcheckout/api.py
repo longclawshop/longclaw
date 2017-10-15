@@ -45,7 +45,7 @@ def create_order_with_token(request):
         email,
         request,
         addresses=address,
-        shipping_option=shipping_option
+        shipping_option=shipping_option,
     )
 
     order.payment_date = timezone.now()
@@ -86,20 +86,14 @@ def capture_payment(request):
     shipping_option = request.data.get('shipping_option', None)
 
     # Capture the payment
-    try:
-        order = create_order(
-            email,
-            request,
-            addresses=address,
-            shipping_option=shipping_option,
-            capture_payment=True
-        )
-        response = Response(data={"order_id": order.id},
-                            status=status.HTTP_201_CREATED)
-    except PaymentError as err:
-        order.status = order.CANCELLED
-        order.note = "Payment failed"
-        response = Response(data={"message": err.message, "order_id": order.id},
-                            status=status.HTTP_400_BAD_REQUEST)
-    order.save()
+    order = create_order(
+        email,
+        request,
+        addresses=address,
+        shipping_option=shipping_option,
+        capture_payment=True
+    )
+    response = Response(data={"order_id": order.id},
+                        status=status.HTTP_201_CREATED)
+
     return response

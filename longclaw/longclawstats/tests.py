@@ -1,6 +1,6 @@
+from datetime import datetime, timedelta
 from django.test import TestCase
-from datetime import datetime
-from datetime import timedelta
+from django.utils import timezone
 
 from longclaw.longclawstats import stats
 from longclaw.tests.utils import OrderFactory
@@ -9,7 +9,7 @@ class StatsTest(TestCase):
 
     def setUp(self):
         order = OrderFactory()
-        order.payment_date = datetime.now()
+        order.payment_date = timezone.now()
         order.save()
 
     def test_current_month(self):
