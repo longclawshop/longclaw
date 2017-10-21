@@ -32,3 +32,4 @@ def destroy_basket(request):
     items, bid = get_basket_items(request)
     for item in items:
         item.delete()
+    return bid

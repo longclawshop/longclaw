@@ -52,6 +52,22 @@ class BasketViewSet(viewsets.ModelViewSet):
 
         return response
 
+    def bulk_update(self, request):
+        """Put multiple items in the basket,
+        removing anything that already exists
+        """
+        # Delete everything in the basket
+        bid = utils.destroy_basket(request)
+
+        for item_data in request.data:
+            item = BasketItem(**item_data, basket_id=bid)
+            item.save()
+
+        serializer = BasketItemSerializer(self.get_queryset(request), many=True)
+        response = Response(data=serializer.data,
+                            status=status.HTTP_200_OK)
+        return response
+
     def destroy(self, request, variant_id=None):
         """
         Remove an item from the basket

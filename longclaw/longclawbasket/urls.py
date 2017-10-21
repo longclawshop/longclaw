@@ -5,7 +5,8 @@ from longclaw.settings import API_URL_PREFIX
 
 basket_list = api.BasketViewSet.as_view({
     'get': 'list',
-    'post': 'create'
+    'post': 'create',
+    'put': 'bulk_update'
 })
 
 basket_detail = api.BasketViewSet.as_view({
