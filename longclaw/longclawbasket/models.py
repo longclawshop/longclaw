@@ -8,7 +8,7 @@ class BasketItem(models.Model):
     basket_id = models.CharField(max_length=32)
     date_added = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField(default=1)
-    variant = models.ForeignKey(PRODUCT_VARIANT_MODEL, unique=False)
+    variant = models.ForeignKey(PRODUCT_VARIANT_MODEL, unique=False, on_delete=models.PROTECT)
 
     class Meta:
         ordering = ['date_added']

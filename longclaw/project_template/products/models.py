@@ -1,10 +1,16 @@
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from modelcluster.fields import ParentalKey
-from wagtail.wagtailcore.models import Page, Orderable
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+try:
+    from wagtail.core.models import Page, Orderable
+    from wagtail.core.fields import RichTextField
+    from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+    from wagtail.images.edit_handlers import ImageChooserPanel
+except ImportError:
+    from wagtail.wagtailcore.models import Page, Orderable
+    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
+    from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from longclaw.longclawproducts.models import ProductVariantBase, ProductBase
 
 class ProductIndex(Page):

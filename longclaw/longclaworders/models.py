@@ -30,11 +30,11 @@ class Order(models.Model):
 
     # shipping info
     shipping_address = models.ForeignKey(
-        Address, blank=True, null=True, related_name="orders_shipping_address")
+        Address, blank=True, null=True, related_name="orders_shipping_address", on_delete=models.PROTECT)
 
     # billing info
     billing_address = models.ForeignKey(
-        Address, blank=True, null=True, related_name="orders_billing_address")
+        Address, blank=True, null=True, related_name="orders_billing_address", on_delete=models.PROTECT)
 
     shipping_rate = models.DecimalField(max_digits=12,
                                         decimal_places=2,
