@@ -1,4 +1,4 @@
 -r requirements.txt
 bumpversion==0.5.3
 wheel==0.30.0
-setuptools==38.2.4
+setuptools==38.5.2
