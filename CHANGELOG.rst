@@ -3,7 +3,13 @@
 History
 -------
 
-0.2.0 (In Development)
+1.0.0 (In development)
++++++++++++++++++++++++
+
+  * Reworked the longclawproducts app to make customisation easier (#76 and #47)
+
+
+0.2.0 (2017-07)
 ++++++++++++++++++++++
 
 * Added a template tag for easy 'Add To Basket' buttons

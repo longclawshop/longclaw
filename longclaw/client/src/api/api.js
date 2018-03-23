@@ -129,8 +129,8 @@ class ApiEndpoint {
   /*
    * Make a POST request.
    * See docs for `this.get` dor param description
-   * 
-   */ 
+   *
+   */
   post(config = {}) {
     const url = this.composeUrl(config);
     const json = config.json !== undefined ? config.json : this.config.json;
@@ -226,10 +226,12 @@ class ApiEndpoint {
   }
 }
 
-// Get a single order  
+// Get a single order
 export const orderDetail = new ApiEndpoint('order/{id}/');
 // Mark an order as fulfilled
 export const fulfillOrder = new ApiEndpoint('order/{id}/fulfill/');
+// Refund an order
+export const refundOrder = new ApiEndpoint('order/{id}/refund/');
 // Create an order
 export const checkout = new ApiEndpoint('checkout/');
 // Get a payment gateway token
@@ -252,12 +254,15 @@ export const shippingCountryOptions = new ApiEndpoint('shipping/countries/{count
 export const addressList = new ApiEndpoint('addresses/');
 // get/update/delete address
 export const addressDetail = new ApiEndpoint('addresses/{id}/');
-
+//List/Post new product request
+export const requestsList = new ApiEndpoint('requests/');
+//List product requests for a single variant
+export const requestVariantList = new ApiEndpoint('requests/variant/{id}/');
 
 export default {
-  orderDetail, fulfillOrder, checkout, 
+  orderDetail, fulfillOrder, refundOrder, checkout,
   checkoutToken, basketList, basketListCount,
   basketDetailCount, basketDetail, shippingCost,
-  shippingCountries, shippingCountryOptions, 
-  addressList, addressDetail
+  shippingCountries, shippingCountryOptions,
+  addressList, addressDetail, requestList, requestVariantList
 }

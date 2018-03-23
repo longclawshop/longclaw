@@ -1,6 +1,6 @@
+from datetime import datetime, timedelta
 from django.test import TestCase
-from datetime import datetime
-from datetime import timedelta
+from django.utils import timezone
 
 from longclaw.longclawstats import stats
 from longclaw.tests.utils import OrderFactory
@@ -9,7 +9,7 @@ class StatsTest(TestCase):
 
     def setUp(self):
         order = OrderFactory()
-        order.payment_date = datetime.now()
+        order.payment_date = timezone.now()
         order.save()
 
     def test_current_month(self):
@@ -22,3 +22,9 @@ class StatsTest(TestCase):
         delta = timedelta(days=1)
         sales = stats.sales_for_time_period(datetime.now() - delta, datetime.now() + delta)
         self.assertEqual(sales.count(), 1)
+
+    def test_daily_sales(self):
+        delta = timedelta(days=10)
+        groups = stats.daily_sales(datetime.now() - delta, datetime.now() + delta)
+        # We only create 1 order.
+        self.assertEqual(len(list(groups)), 1)

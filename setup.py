@@ -10,13 +10,13 @@ from setuptools import setup
 from setuptools.command.sdist import sdist as base_sdist
 
 class sdist(base_sdist):
-    '''
+    """
     Regular sdist class plus compilation of front end assets
-    '''
+    """
     def compile_assets(self):
-        '''
+        """
         Compile the front end assets
-        '''
+        """
         try:
             # Move into client dir
             curdir = os.path.abspath(os.curdir)
@@ -87,8 +87,8 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'django>=1.8,<1.11',
-        'wagtail>=1.7',
+        'django>=1.9',
+        'wagtail>=1.9',
         'django-countries>=4.3',
         'django-extensions>=1.7.5',
         'djangorestframework>=3.5.4',
@@ -113,10 +113,10 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    entry_points='''
+    entry_points="""
         [console_scripts]
         longclaw=longclaw.bin.longclaw:main
-    ''',
+    """,
     cmdclass={
         'sdist': sdist
     }

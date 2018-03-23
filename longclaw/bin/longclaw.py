@@ -8,9 +8,9 @@ from django.core.management import ManagementUtility
 import longclaw
 
 def create_project(args):
-    '''
+    """
     Create a new django project using the longclaw template
-    '''
+    """
 
     # Make sure given name is not already in use by another python package/module.
     try:
@@ -36,9 +36,9 @@ def create_project(args):
     print("{} has been created.".format(args.project_name))
 
 def build_assets(args):
-    '''
+    """
     Build the longclaw assets
-    '''
+    """
     # Get the path to the JS directory
     asset_path = path.join(path.dirname(longclaw.__file__), 'client')
     try:
@@ -55,9 +55,9 @@ def build_assets(args):
         raise SystemExit(1)
 
 def main():
-    '''
+    """
     Setup the parser and call the command function
-    '''
+    """
     parser = argparse.ArgumentParser(description='Longclaw CLI')
     subparsers = parser.add_subparsers()
     start = subparsers.add_parser('start', help='Create a Wagtail+Longclaw project')
@@ -68,7 +68,17 @@ def main():
     build.set_defaults(func=build_assets)
 
     args = parser.parse_args()
-    args.func(args)
+
+    # Python 3 lost the default behaviour to fall back to printing
+    # help if a subparser is not selected.
+    # See: https://bugs.python.org/issue16308
+    # So we must explicitly catch the error thrown on py3 if
+    # no commands given to longclaw
+    try:
+        args.func(args)
+    except AttributeError:
+        parser.print_help()
+        sys.exit(0)
 
 if __name__ == "__main__":
     main()

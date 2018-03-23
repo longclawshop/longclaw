@@ -14,4 +14,5 @@ Usage Guide
     shipping
     orders
     payments
+    contrib
     api

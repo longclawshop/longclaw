@@ -1,7 +1,6 @@
 from django.contrib.admin.utils import quote
 from django.utils.translation import ugettext as _
 from django.conf.urls import url
-from rest_framework.renderers import JSONRenderer
 
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, modeladmin_register
@@ -9,7 +8,6 @@ from wagtail.contrib.modeladmin.options import (
 from wagtail.contrib.modeladmin.helpers import ButtonHelper
 from wagtail.contrib.modeladmin.views import InspectView
 from longclaw.longclaworders.models import Order
-from longclaw.longclaworders.serializers import OrderSerializer
 from longclaw.settings import API_URL_PREFIX
 
 class OrderButtonHelper(ButtonHelper):

@@ -1,6 +1,6 @@
-'''
+"""
 Default settings for longclaw apps
-'''
+"""
 from django.conf import settings
 
 # The payment gateway backend to use
@@ -15,7 +15,7 @@ PAYMENT_GATEWAY = getattr(settings,
 # The product variant model to use. This allows custom implementations of
 # product models.
 PRODUCT_VARIANT_MODEL = getattr(
-    settings, 'PRODUCT_VARIANT_MODEL', 'longclawproducts.ProductVariant')
+    settings, 'PRODUCT_VARIANT_MODEL', 'longclawproducts.ProductVariantBase')
 
 
 # Only required if using Stripe as the payment gateway

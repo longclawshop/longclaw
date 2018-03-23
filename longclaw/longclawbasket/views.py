@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import ListView
 from longclaw.longclawbasket.models import BasketItem
 from longclaw.longclawbasket import utils

@@ -1,0 +1,18 @@
+{% load longclawcore_tags %}
+<button id="btn-make-request" class="{{btn_class}}" data-variant-id="{{variant_id}}">
+{{btn_text}}
+</button>
+{% longclaw_vendors_bundle %}
+{% longclaw_client_bundle %}
+<script type="text/javascript">
+  var btn = document.getElementById('btn-make-request');
+  btn.addEventListener("click", function (e) {
+    longclawclient.requestList.post({
+      prefix: "{% longclaw_api_url_prefix %}",
+      data: {
+        variant_id: e.target.dataset.variantId
+      }
+    });
+  });
+
+</script>

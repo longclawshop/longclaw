@@ -52,10 +52,26 @@ class BasketViewSet(viewsets.ModelViewSet):
 
         return response
 
+    def bulk_update(self, request):
+        """Put multiple items in the basket,
+        removing anything that already exists
+        """
+        # Delete everything in the basket
+        bid = utils.destroy_basket(request)
+
+        for item_data in request.data:
+            item = BasketItem(**item_data, basket_id=bid)
+            item.save()
+
+        serializer = BasketItemSerializer(self.get_queryset(request), many=True)
+        response = Response(data=serializer.data,
+                            status=status.HTTP_200_OK)
+        return response
+
     def destroy(self, request, variant_id=None):
-        '''
+        """
         Remove an item from the basket
-        '''
+        """
         variant = ProductVariant.objects.get(id=variant_id)
         quantity = request.data.get("quantity", 1)
         try:
@@ -71,9 +87,9 @@ class BasketViewSet(viewsets.ModelViewSet):
 
     @list_route(methods=['get'])
     def total_items(self, request):
-        '''
+        """
         Get total number of items in the basket
-        '''
+        """
         n_total = 0
         for item in self.get_queryset(request):
             n_total += item.quantity
@@ -82,9 +98,9 @@ class BasketViewSet(viewsets.ModelViewSet):
 
     @detail_route(methods=['get'])
     def item_count(self, request, variant_id=None):
-        '''
+        """
         Get quantity of a single item in the basket
-        '''
+        """
         bid = utils.basket_id(request)
         item = ProductVariant.objects.get(id=variant_id)
         try:

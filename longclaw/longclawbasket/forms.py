@@ -11,8 +11,8 @@ class AddToBasketForm(forms.Form):
         super(AddToBasketForm, self).__init__(*args, **kwargs)
 
     def clean(self):
-        ''' Check user has cookies enabled
-        '''
+        """ Check user has cookies enabled
+        """
         if self.request:
             if not self.request.session.test_cookie_worked():
                 raise forms.ValidationError("Cookies must be enabled.")
