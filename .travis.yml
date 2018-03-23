@@ -1,19 +1,22 @@
 # Config file for automatic testing at travis-ci.org
 
 language: python
-
-python:
-  - "3.5"
-
-env:
-  - TOX_ENV=py34-django-110
-  - TOX_ENV=py35-django-110
-  - TOX_ENV=py34-django-111
-  - TOX_ENV=py35-django-111
+cache: pip
 
 matrix:
-  fast_finish: true
-
+  include:
+    - env: TOX_ENV=py34-django-110
+      python: 3.4
+    - env: TOX_ENV=py35-django-110
+      python: 3.5
+    - env: TOX_ENV=py36-django-110
+      python: 3.6
+    - env: TOX_ENV=py34-django-111
+      python: 3.4
+    - env: TOX_ENV=py35-django-111
+      python: 3.5
+    - env: TOX_ENV=py36-django-111
+      python: 3.6
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
 - . $HOME/.nvm/nvm.sh
@@ -23,7 +26,7 @@ install:
 - cd longclaw/client && npm install
 
 # command to run tests using coverage, e.g. python setup.py test
-script: tox -e $TOX_ENV
+script: tox
 
 after_success:
   - codecov -e TOX_ENV
