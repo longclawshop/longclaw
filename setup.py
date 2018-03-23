@@ -88,7 +88,7 @@ setup(
     include_package_data=True,
     install_requires=[
         'django>=1.9',
-        'wagtail>1.9,<2.0',
+        'wagtail>1.12,<2.0',
         'django-countries>=4.3',
         'django-extensions>=1.7.5',
         'djangorestframework>=3.5.4',
