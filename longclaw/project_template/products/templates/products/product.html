@@ -1,0 +1,38 @@
+{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+
+{% templatetag openblock %} load wagtailcore_tags wagtailimages_tags {% templatetag closeblock %}
+
+{% templatetag openblock %} block body_class {% templatetag closeblock %} template-productpage {% templatetag openblock %}endblock{% templatetag closeblock %}
+
+{% templatetag openblock %} block content {% templatetag closeblock %}
+<div class="product_content">
+    <div class="image">
+    {% templatetag openblock %} if page.images {% templatetag closeblock %}
+       {% templatetag openblock %} for item in page.images.all {% templatetag closeblock %}
+        <div style="float: left; margin: 10px">
+            {% templatetag openblock %} image item.image fill-320x240 {% templatetag closeblock %}
+            <p>{% templatetag openvariable %} item.caption {% templatetag closevariable %}</p>
+        </div>
+    {% templatetag openblock %} endfor {% templatetag closeblock %}
+    {% templatetag openblock %} else {% templatetag closeblock %}
+        <img style="width: 450px; background-color: #ECEFF1;" src="..."/>
+    {% templatetag openblock %} endif {% templatetag closeblock %}
+    </div>
+    
+    <div class="product_content_info">
+        <h1 class="product_title">{% templatetag openvariable %} page.title {% templatetag closevariable %}</h1>
+        <div class="product_description">{% templatetag openvariable %} page.description|richtext  {% templatetag closevariable %}</div>
+    </div>
+</div>
+  {% templatetag openblock %} if page.tags.all.count {% templatetag closeblock %}
+    <div class="tags">
+        <h3>Tags</h3>
+        {% templatetag openblock %} for tag in page.tags.all {% templatetag closeblock %}
+            <a href="{% templatetag openblock %} slugurl 'tags' {% templatetag closeblock %}?tag={% templatetag openvariable %} tag {% templatetag closevariable %}"><button type="button">{% templatetag openvariable %} tag {% templatetag closevariable %}</button></a>
+        {% templatetag openblock %} endfor {% templatetag closeblock %}
+    </div>
+  {% templatetag openblock %} endif {% templatetag closeblock %}
+
+    <p><a href="{% templatetag openvariable %} page.get_parent.url {% templatetag closevariable %}">Return</a></p>
+
+{% templatetag openblock %} endblock {% templatetag closeblock %}
