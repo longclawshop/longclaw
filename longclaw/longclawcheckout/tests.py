@@ -1,9 +1,9 @@
 from django.test import TestCase
 from django.test.client import RequestFactory
 try:
-    from django.urls import reverse
+    from django.urls import reverse_lazy
 except ImportError:
-    from django.core.urlresolvers import reverse
+    from django.core.urlresolvers import reverse_lazy
 
 from longclaw.tests.utils import (
     LongclawTestCase,
@@ -106,7 +106,7 @@ class CheckoutTest(TestCase):
         """
         Test the checkout GET view
         """
-        request = RequestFactory().get(reverse('longclaw_checkout_view'))
+        request = RequestFactory().get(reverse_lazy('longclaw_checkout_view'))
         response = CheckoutView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
@@ -116,7 +116,7 @@ class CheckoutTest(TestCase):
         """
         country = CountryFactory()
         request = RequestFactory().post(
-            reverse('longclaw_checkout_view'),
+            reverse_lazy('longclaw_checkout_view'),
             {
                 'shipping-name': 'bob',
                 'shipping-line_1': 'blah blah',
@@ -139,7 +139,7 @@ class CheckoutTest(TestCase):
         """
         country = CountryFactory()
         request = RequestFactory().post(
-            reverse('longclaw_checkout_view'),
+            reverse_lazy('longclaw_checkout_view'),
             {
                 'shipping-name': 'bob',
                 'shipping-line_1': 'blah blah',
@@ -168,7 +168,7 @@ class CheckoutTest(TestCase):
         the form page with the errors
         """
         request = RequestFactory().post(
-            reverse('longclaw_checkout_view')
+            reverse_lazy('longclaw_checkout_view')
         )
         request.session = {}
         bid = basket_id(request)
@@ -182,7 +182,7 @@ class CheckoutTest(TestCase):
         """
         address = AddressFactory()
         order = OrderFactory(shipping_address=address, billing_address=address)
-        response = self.client.get(reverse('longclaw_checkout_success', kwargs={'pk': order.id}))
+        response = self.client.get(reverse_lazy('longclaw_checkout_success', kwargs={'pk': order.id}))
         self.assertEqual(response.status_code, 200)
 
 

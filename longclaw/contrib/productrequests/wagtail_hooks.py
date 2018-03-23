@@ -1,4 +1,7 @@
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin import widgets

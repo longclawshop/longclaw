@@ -1,5 +1,8 @@
 import factory
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse_lazy
+except ImportError:
+    from django.core.urlresolvers import reverse_lazy
 
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -98,10 +101,10 @@ class LongclawTestCase(APITestCase):
         """ Submit a GET request and assert the response status code is 200
 
         Arguments:
-            urlname (str): The url name to pass to the 'reverse' function
-            urlkwargs (dict): The `kwargs` parameter to pass to the `reverse` function
+            urlname (str): The url name to pass to the 'reverse_lazy' function
+            urlkwargs (dict): The `kwargs` parameter to pass to the `reverse_lazy` function
         """
-        response = self.client.get(reverse(urlname, kwargs=urlkwargs), **kwargs)
+        response = self.client.get(reverse_lazy(urlname, kwargs=urlkwargs), **kwargs)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         return response
 
@@ -110,10 +113,10 @@ class LongclawTestCase(APITestCase):
 
         Arguments:
             data (dict): The data to pass to the post request
-            urlname (str): The url name to pass to the 'reverse' function
-            urlkwargs (dict): The `kwargs` parameter to pass to the `reverse` function
+            urlname (str): The url name to pass to the 'reverse_lazy' function
+            urlkwargs (dict): The `kwargs` parameter to pass to the `reverse_lazy` function
         """
-        response = self.client.post(reverse(urlname, kwargs=urlkwargs), data, **kwargs)
+        response = self.client.post(reverse_lazy(urlname, kwargs=urlkwargs), data, **kwargs)
         self.assertIn(response.status_code,
                       (status.HTTP_201_CREATED, status.HTTP_200_OK, status.HTTP_204_NO_CONTENT))
         return response
@@ -121,16 +124,16 @@ class LongclawTestCase(APITestCase):
     def patch_test(self, data, urlname, urlkwargs=None, **kwargs):
         """ Submit a PATCH request and assert the response status code is 200
         """
-        response = self.client.patch(reverse(urlname, kwargs=urlkwargs), data, **kwargs)
+        response = self.client.patch(reverse_lazy(urlname, kwargs=urlkwargs), data, **kwargs)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         return response
 
     def put_test(self, data, urlname, urlkwargs=None, **kwargs):
-        response = self.client.put(reverse(urlname, kwargs=urlkwargs), data, **kwargs)
+        response = self.client.put(reverse_lazy(urlname, kwargs=urlkwargs), data, **kwargs)
         self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
         return response
 
     def del_test(self, urlname, urlkwargs=None, **kwargs):
-        response = self.client.delete(reverse(urlname, kwargs=urlkwargs), **kwargs)
+        response = self.client.delete(reverse_lazy(urlname, kwargs=urlkwargs), **kwargs)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         return response
