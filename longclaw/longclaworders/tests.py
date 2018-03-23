@@ -2,9 +2,9 @@ import mock
 from django.test import TestCase
 from django.contrib.auth.models import User
 try:
-  from django.urls import reverse
+  from django.urls import reverse_lazy
 except ImportError:
-  from django.core.urlresolvers import reverse
+  from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
 from wagtail.tests.utils import WagtailTestUtils
 from longclaw.tests.utils import LongclawTestCase, OrderFactory
@@ -50,11 +50,11 @@ class TestOrderView(LongclawTestCase, WagtailTestUtils):
         Test the index view
         """
         name = self.model_admin.url_helper.get_action_url_name('index')
-        response = self.client.get(reverse(name))
+        response = self.client.get(reverse_lazy(name))
         self.assertEqual(response.status_code, 200)
 
     def test_order_detail_view(self):
         order = OrderFactory()
         name = self.model_admin.url_helper.get_action_url_name('detail')
-        response = self.client.get(reverse(name, kwargs={'instance_pk': order.pk}))
+        response = self.client.get(reverse_lazy(name, kwargs={'instance_pk': order.pk}))
         self.assertEqual(response.status_code, 200)

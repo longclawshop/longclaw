@@ -1,6 +1,9 @@
 from django.test.client import RequestFactory
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse_lazy
+except ImportError:
+    from django.core.urlresolvers import reverse_lazy
 from django.core.management import call_command
 from django.utils.six import StringIO
 
@@ -66,7 +69,7 @@ class BasketTest(LongclawTestCase):
         """
         Test we get a message and 400 status if we dont send data
         """
-        response = self.client.post(reverse('longclaw_basket_list'))
+        response = self.client.post(reverse_lazy('longclaw_basket_list'))
         self.assertEqual(response.status_code, 400)
 
 
