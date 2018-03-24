@@ -60,7 +60,7 @@ class BasketViewSet(viewsets.ModelViewSet):
         bid = utils.destroy_basket(request)
 
         for item_data in request.data:
-            item = BasketItem(**item_data, basket_id=bid)
+            item = BasketItem(basket_id=bid, **item_data)
             item.save()
 
         serializer = BasketItemSerializer(self.get_queryset(request), many=True)
