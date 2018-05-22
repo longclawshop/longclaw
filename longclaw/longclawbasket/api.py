@@ -27,7 +27,7 @@ class BasketViewSet(viewsets.ModelViewSet):
         if variant_id is not None:
             variant = ProductVariant.objects.get(id=variant_id)
 
-            quantity = request.data.get("quantity", 1)
+            quantity = int(request.data.get("quantity", 1))
             items, bid = utils.get_basket_items(request)
 
             # Check if the variant is already in the basket
