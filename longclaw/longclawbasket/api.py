@@ -73,7 +73,7 @@ class BasketViewSet(viewsets.ModelViewSet):
         Remove an item from the basket
         """
         variant = ProductVariant.objects.get(id=variant_id)
-        quantity = request.data.get("quantity", 1)
+        quantity = int(request.data.get("quantity", 1))
         try:
             item = BasketItem.objects.get(
                 basket_id=utils.basket_id(request), variant=variant)
@@ -108,4 +108,3 @@ class BasketViewSet(viewsets.ModelViewSet):
         except BasketItem.DoesNotExist:
             count = 0
         return Response(data={"quantity": count}, status=status.HTTP_200_OK)
-
