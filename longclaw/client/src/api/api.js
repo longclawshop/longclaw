@@ -264,5 +264,5 @@ export default {
   checkoutToken, basketList, basketListCount,
   basketDetailCount, basketDetail, shippingCost,
   shippingCountries, shippingCountryOptions,
-  addressList, addressDetail, requestList, requestVariantList
+  addressList, addressDetail, requestsList, requestVariantList
 }
