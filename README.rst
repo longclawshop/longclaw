@@ -21,7 +21,7 @@ Longclaw
 
 An e-commerce extension for `Wagtail CMS <https://github.com/wagtail/wagtail>`_
 
-`Longclaw is currently undergoing a major rewrite to bring it up to date with wagtail/django 2 and pack in more features`
+``Longclaw is currently undergoing a major rewrite to bring it up to date with wagtail/django 2 and pack in more features``
 
 Checkout the `demo site <https://github.com/JamesRamm/longclaw_demo>`_ and `documentation <http://longclaw.readthedocs.io/en/latest/>`_
 
