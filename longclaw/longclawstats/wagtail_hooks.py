@@ -1,6 +1,10 @@
 import datetime
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailadmin.site_summary import SummaryItem
+try:
+    from wagtail.core import hooks
+    from wagtail.admin.site_summary import SummaryItem
+except ImportError:
+    from wagtail.wagtailcore import hooks
+    from wagtail.wagtailadmin.site_summary import SummaryItem
 from longclaw.longclaworders.models import Order
 from longclaw.longclawstats import stats
 from longclaw.longclawsettings.models import LongclawSettings

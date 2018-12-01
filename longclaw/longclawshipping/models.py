@@ -1,8 +1,12 @@
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailsnippets.models import register_snippet
+try:
+    from wagtail.admin.edit_handlers import FieldPanel
+    from wagtail.snippets.models import register_snippet
+except ImportError:
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+    from wagtail.wagtailsnippets.models import register_snippet
 
 @register_snippet
 @python_2_unicode_compatible
@@ -12,7 +16,7 @@ class Address(models.Model):
     line_2 = models.CharField(max_length=128, blank=True)
     city = models.CharField(max_length=64)
     postcode = models.CharField(max_length=10)
-    country = models.ForeignKey('longclawshipping.Country', blank=True, null=True)
+    country = models.ForeignKey('longclawshipping.Country', blank=True, null=True, on_delete=models.PROTECT)
 
     panels = [
         FieldPanel('name'),

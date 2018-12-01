@@ -6,7 +6,10 @@ from django.db import migrations, models
 import django.db.models.deletion
 import django_extensions.db.fields
 import modelcluster.fields
-import wagtail.wagtailcore.fields
+try:
+    import wagtail.core.fields as wagtail_fields
+except ImportError:
+    import wagtail.wagtailcore.fields as wagtail_fields
 
 
 class Migration(migrations.Migration):
@@ -23,7 +26,7 @@ class Migration(migrations.Migration):
             name='Product',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('description', wagtail.wagtailcore.fields.RichTextField()),
+                ('description', wagtail_fields.RichTextField()),
             ],
             options={
                 'abstract': False,
@@ -62,7 +65,7 @@ class Migration(migrations.Migration):
                 ('ref', models.CharField(max_length=32)),
                 ('stock', models.IntegerField(default=0)),
                 ('slug', django_extensions.db.fields.AutoSlugField(blank=True, editable=False, populate_from=('product', 'ref'), separator='')),
-                ('description', wagtail.wagtailcore.fields.RichTextField()),
+                ('description', wagtail_fields.RichTextField()),
                 ('product', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='variants', to='products.Product')),
             ],
             options={

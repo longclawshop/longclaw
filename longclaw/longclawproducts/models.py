@@ -1,7 +1,10 @@
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from wagtail.wagtailcore.models import Page
+try:
+    from wagtail.core.models import Page
+except ImportError:
+    from wagtail.wagtailcore.models import Page
 
 # Abstract base classes a user can use to implement their own product system
 @python_2_unicode_compatible
