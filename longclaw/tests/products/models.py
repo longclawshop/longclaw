@@ -1,13 +1,8 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
-try:
-    from wagtail.core.models import Page
-    from wagtail.core.fields import RichTextField
-    from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
-except ImportError:
-    from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.core.models import Page
+from wagtail.core.fields import RichTextField
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 from longclaw.longclawproducts.models import ProductVariantBase, ProductBase
 
 class ProductIndex(Page):

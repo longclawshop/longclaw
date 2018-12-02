@@ -2,3 +2,13 @@
 bumpversion==0.5.3
 wheel==0.31.1
 setuptools==39.2.0
+
+coverage>=4.5.2
+mock>=2.0.0
+flake8>=3.6.0
+tox>=3.5.3
+codecov>=2.0.15
+
+# Additional test requirements go here
+factory_boy>=2.11.1
+wagtail-factories>=1.1.0

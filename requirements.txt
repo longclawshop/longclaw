@@ -1,6 +1,6 @@
-django-countries>=4.1
-django-extensions==2.0.7
-django-ipware>=1.1.6
-djangorestframework==3.8.2
-wagtail>1.12,<2.0
+django-countries>=5.3.2
+django-extensions==2.1.4
+django-ipware>=2.1.0
+djangorestframework==3.9.0
+wagtail>=2.3
 

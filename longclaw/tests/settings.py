@@ -26,13 +26,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.staticfiles',
 
-    'wagtail.forms',
-    'wagtail.redirects',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
     'wagtail.snippets',
-    'wagtail.docs',
+    'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
@@ -65,7 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'wagtail.core.middleware.SiteMiddleware',
-    'wagtail.redirects.middleware.RedirectMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 TEMPLATES = [

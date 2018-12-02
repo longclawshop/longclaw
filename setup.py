@@ -87,12 +87,12 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'django>=1.10',
-        'wagtail>1.12',
-        'django-countries>=4.3',
-        'django-extensions>=1.7.5',
-        'djangorestframework>=3.5.4',
-        'django-ipware>=1.1.6'
+        'django>=2.1',
+        'wagtail>=2.3',
+        'django-countries>=5.3.2',
+        'django-extensions>=2.1.4',
+        'djangorestframework>=3.9.0',
+        'django-ipware>=2.1.0'
     ],
     license="MIT",
     zip_safe=False,
@@ -100,9 +100,7 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Framework :: Django',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
-        'Framework :: Django :: 1.10',
+        'Framework :: Django :: 2.0',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
