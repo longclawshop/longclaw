@@ -51,14 +51,14 @@ INSTALLED_APPS = [
     'taggit',
     'rest_framework',
 
-    'longclaw.longclawcore',
-    'longclaw.longclawsettings',
-    'longclaw.longclawshipping',
-    'longclaw.longclawproducts',
-    'longclaw.longclaworders',
-    'longclaw.longclawcheckout',
-    'longclaw.longclawbasket',
-    'longclaw.longclawstats',
+    'longclaw.core',
+    'longclaw.configuration',
+    'longclaw.shipping',
+    'longclaw.products',
+    'longclaw.orders',
+    'longclaw.checkout',
+    'longclaw.basket',
+    'longclaw.stats',
 
     'home',
     'search',
@@ -95,7 +95,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'longclaw.longclawsettings.context_processors.currency',
+                'longclaw.configuration.context_processors.currency',
             ],
         },
     },
@@ -159,6 +159,6 @@ BASE_URL = 'http://example.com'
 
 # The payment gateway to use. `BasePayment` is a dummy payment gateway for testing.
 # Longclaw also offers 'BraintreePayment', 'PaypalVZeroPayment' and 'StripePayment'
-PAYMENT_GATEWAY = 'longclaw.longclawcheckout.gateways.BasePayment'
+PAYMENT_GATEWAY = 'longclaw.checkout.gateways.BasePayment'
 
 PRODUCT_VARIANT_MODEL = 'products.ProductVariant'

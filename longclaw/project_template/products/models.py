@@ -11,7 +11,7 @@ except ImportError:
     from wagtail.wagtailcore.fields import RichTextField
     from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
     from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from longclaw.longclawproducts.models import ProductVariantBase, ProductBase
+from longclaw.products.models import ProductVariantBase, ProductBase
 
 class ProductIndex(Page):
     """Index page for all products

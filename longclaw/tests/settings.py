@@ -45,16 +45,16 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_extensions',
 
-    'longclaw.longclawcore',
-    'longclaw.longclawsettings',
-    'longclaw.longclawshipping',
-    'longclaw.longclawproducts',
-    'longclaw.longclaworders',
-    'longclaw.longclawcheckout',
-    'longclaw.longclawbasket',
-    'longclaw.longclawstats',
+    'longclaw.core',
+    'longclaw.configuration',
+    'longclaw.shipping',
+    'longclaw.products',
+    'longclaw.orders',
+    'longclaw.checkout',
+    'longclaw.basket',
+    'longclaw.stats',
     'longclaw.contrib.productrequests',
-    'longclaw.tests.products',
+    'longclaw.tests.testproducts',
 ]
 
 SITE_ID = 1
@@ -63,7 +63,6 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
@@ -80,7 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'longclaw.longclawsettings.context_processors.currency',
+                'longclaw.configuration.context_processors.currency',
             ],
         },
     },
@@ -93,4 +92,4 @@ else:
 
 STATIC_URL = '/static/'
 
-PRODUCT_VARIANT_MODEL = 'products.ProductVariant'
+PRODUCT_VARIANT_MODEL = 'testproducts.ProductVariant'

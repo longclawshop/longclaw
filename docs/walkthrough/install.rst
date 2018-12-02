@@ -53,7 +53,7 @@ The ``products`` folder contains a skeleton model for our product `variants` whi
 Before proceeding, we need to setup our ``settings`` file, in ``my_shop/settings/base.py``.
 
 We need to configure which payment gateway we are using. Change the entry for ``PAYMENT_GATEWAY`` from
-``'longclaw.longclawcheckout.gateways.BasePayment'`` to ``'longclaw.longclawcheckout.gateways.braintree.BraintreePayment'``
+``'longclaw.checkout.gateways.BasePayment'`` to ``'longclaw.checkout.gateways.braintree.BraintreePayment'``
 
 We also need to set the access tokens for the braintree backend. Add the following settings:
 

@@ -13,7 +13,7 @@ The payment gateway to use must be set in the settings file:
 
 .. code-block:: python
 
-    PAYMENT_GATEWAY = 'longclaw.longclawcheckout.gateways.braintree.BraintreePayment'
+    PAYMENT_GATEWAY = 'longclaw.checkout.gateways.braintree.BraintreePayment'
 
 
 We also need to define settings for access tokens;

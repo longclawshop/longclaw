@@ -132,13 +132,13 @@ Python example:
 
 .. code-block:: python
 
-    from longclaw.longclawshipping import utils
-    from longclaw.longclawsettings.models import LongclawSettings
+    from longclaw.shipping import utils
+    from longclaw.configuration.models import Configuration
 
     country_code = "GB" # ISO 2-letter country code for a configured shipping rate
     option = "standard" # Name of shipping rate configured through longclaw admin (only used if more than one shipping rate exists for the given country)
 
-    settings = LongclawSettings.for_site(request.site)
+    settings = Configuration.for_site(request.site)
 
     try:
       data = utils.get_shipping_cost(country_code, option, settings)

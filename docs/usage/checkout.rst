@@ -7,8 +7,8 @@ Longclaw provides a simple, single checkout view.
 The URL for the checkout is ``'checkout/'``.
 After a successful checkout, it is redirected to ``checkout/success/``.
 
-To implement the checkout, simply provide ``'longclawcheckout/checkout.html'`` and
-``'longclawcheckout/success.html'`` templates. (Empty templates will have been created if
+To implement the checkout, simply provide ``'checkout/checkout.html'`` and
+``'checkout/success.html'`` templates. (Empty templates will have been created if
 you ran the longclaw CLI to start your project)
 
 There are three forms provided in the checkout view:

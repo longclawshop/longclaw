@@ -8,7 +8,7 @@ requirements of different shops can be wide and varied.
 
 It is required that you create a ``ProductVariant`` model (it can be called anything) and implement
 a small number of fields Longclaw expects.
-The easiest way to do this is by inheriting from ``longclaw.longclawproducts.ProductVariantBase``.
+The easiest way to do this is by inheriting from ``longclaw.products.ProductVariantBase``.
 Longclaws' project template will have setup a ``products`` app for you, with a ``ProductVariant`` model.
 
 You will also notice that the settings file has ``PRODUCT_VARIANT_MODEL`` set to the ``ProductVariant`` model.
@@ -97,8 +97,8 @@ The Wagtail documentation already comprehensively covers `writing templates <htt
 
 Our template project already has some basic templates for ``ProductIndex`` and ``Product``:
 
-- ``my_shop/my_shop/templates/longclawproducts/product_index.html``
-- ``my_shop/my_shop/templates/longclawproducts/product.html``
+- ``my_shop/my_shop/templates/products/product_index.html``
+- ``my_shop/my_shop/templates/products/product.html``
 
 They contain just enough information to demonstrate how to traverse the products and their fields.
 For a more complete template, take a look at the `demo project <https://github.com/JamesRamm/longclaw_demo>`_.
@@ -107,11 +107,11 @@ Adding Products to the Basket
 -----------------------------
 
 Longclaw offers a helpful template tag to create an ``Add To Basket`` button for your products.
-In your template, load the longclawbasket tags::
+In your template, load the basket tags::
 
 .. code-block:: django
 
-  {% load longclawbasket_tags %}
+  {% load basket_tags %}
 
 You can now use the tag to render a button for each product variant:
 
