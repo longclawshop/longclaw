@@ -9,7 +9,6 @@ import django
 from django.conf import settings
 from django.test.utils import get_runner
 
-
 def run_tests(*test_args):
     if not test_args:
         test_args = []

@@ -1,8 +1,5 @@
 import factory
-try:
-    from django.urls import reverse_lazy
-except ImportError:
-    from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -69,11 +66,6 @@ class ProductFactory(PageFactory):
 
     title = factory.Faker('sentence', nb_words=1)
     description = factory.Faker('text')
-
-    @classmethod
-    def _create(cls, model_class, *args, **kwargs):
-        kwargs['parent'] = None
-        return super(ProductFactory, cls)._create(model_class, *args, **kwargs)
 
 class ProductVariantFactory(factory.django.DjangoModelFactory):
 

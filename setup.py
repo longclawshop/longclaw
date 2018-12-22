@@ -21,6 +21,7 @@ class sdist(base_sdist):
             curdir = os.path.abspath(os.curdir)
             client_path = os.path.join(os.path.dirname(__file__), 'longclaw', 'client')
             os.chdir(client_path)
+            subprocess.check_call(['npm', 'install'])
             subprocess.check_call(['npm', 'run', 'build'])
             os.chdir(curdir)
         except (OSError, subprocess.CalledProcessError) as err:
