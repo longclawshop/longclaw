@@ -8,11 +8,11 @@ from longclaw.products.models import ProductVariantBase, ProductBase
 class ProductIndex(Page):
     """Index page for all products
     """
-    subpage_types = ('products.Product', 'products.ProductIndex')
+    subpage_types = ('Product', 'ProductIndex')
 
 
 class Product(ProductBase):
-    parent_page_types = ['products.ProductIndex']
+    parent_page_types = [ProductIndex]
     description = RichTextField()
     content_panels = ProductBase.content_panels + [
         FieldPanel('description'),
@@ -23,7 +23,7 @@ class Product(ProductBase):
 class ProductVariant(ProductVariantBase):
     """Basic product variant for testing
     """
-    product = ParentalKey('products.Product', related_name='variants')
+    product = ParentalKey(Product, related_name='variants')
     description = RichTextField()
 
     @ProductVariantBase.price.getter

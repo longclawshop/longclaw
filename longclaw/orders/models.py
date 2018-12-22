@@ -1,11 +1,8 @@
 from datetime import datetime
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
-
 from longclaw.settings import PRODUCT_VARIANT_MODEL
 from longclaw.shipping.models import Address
 
-@python_2_unicode_compatible
 class Order(models.Model):
     SUBMITTED = 1
     FULFILLED = 2
@@ -86,7 +83,6 @@ class Order(models.Model):
         self.status = self.CANCELLED
         self.save()
 
-@python_2_unicode_compatible
 class OrderItem(models.Model):
     product = models.ForeignKey(PRODUCT_VARIANT_MODEL, on_delete=models.DO_NOTHING)
     quantity = models.IntegerField(default=1)

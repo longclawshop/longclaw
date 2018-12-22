@@ -1,13 +1,8 @@
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
+from wagtail.core.models import Page
 
-try:
-    from wagtail.core.models import Page
-except ImportError:
-    from wagtail.wagtailcore.models import Page
 
 # Abstract base classes a user can use to implement their own product system
-@python_2_unicode_compatible
 class ProductBase(Page):
     """Base classes for ``Product`` implementations. All this provides are
     a few helper methods for ``ProductVariant``'s. It assumes that ``ProductVariant``'s
@@ -37,7 +32,6 @@ class ProductBase(Page):
         return any(self.variants.filter(stock__gt=0))
 
 
-@python_2_unicode_compatible
 class ProductVariantBase(models.Model):
     """
     Base model for creating product variants

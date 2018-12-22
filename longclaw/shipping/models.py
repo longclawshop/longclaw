@@ -1,15 +1,10 @@
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 
-try:
-    from wagtail.admin.edit_handlers import FieldPanel
-    from wagtail.snippets.models import register_snippet
-except ImportError:
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel
-    from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.snippets.models import register_snippet
+
 
 @register_snippet
-@python_2_unicode_compatible
 class Address(models.Model):
     name = models.CharField(max_length=64)
     line_1 = models.CharField(max_length=128)
@@ -30,7 +25,6 @@ class Address(models.Model):
     def __str__(self):
         return "{}, {}, {}".format(self.name, self.city, self.country)
 
-@python_2_unicode_compatible
 class ShippingRate(models.Model):
     """
     An individual shipping rate. This can be applied to
@@ -57,7 +51,6 @@ class ShippingRate(models.Model):
     def __str__(self):
         return self.name
 
-@python_2_unicode_compatible
 class Country(models.Model):
     """
     International Organization for Standardization (ISO) 3166-1 Country list
