@@ -16,7 +16,7 @@ install:
 - . $HOME/.nvm/nvm.sh
 - nvm install stable
 - nvm use stable
-- pip install -r requirements_test.txt
+- pip install -r requirements_dev.txt
 - cd longclaw/client && npm install
 
 # command to run tests using coverage, e.g. python setup.py test
