@@ -10,11 +10,11 @@ from longclaw.products.models import ProductVariantBase, ProductBase
 class ProductIndex(Page):
     """Index page for all products
     """
-    subpage_types = ('products.Product', 'products.ProductIndex')
+    subpage_types = ('catalog.Product', 'catalog.ProductIndex')
 
 
 class Product(ProductBase):
-    parent_page_types = ['products.ProductIndex']
+    parent_page_types = ['catalog.ProductIndex']
     description = RichTextField()
     content_panels = ProductBase.content_panels + [
         FieldPanel('description'),

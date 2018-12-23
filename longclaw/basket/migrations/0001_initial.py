@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
@@ -9,7 +10,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('testproducts', '__first__'),
+        (settings.PRODUCT_VARIANT_MODEL.split(".")[0], '__first__'),
     ]
 
     operations = [
@@ -20,7 +21,7 @@ class Migration(migrations.Migration):
                 ('basket_id', models.CharField(max_length=32)),
                 ('date_added', models.DateTimeField(auto_now_add=True)),
                 ('quantity', models.IntegerField(default=1)),
-                ('variant', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='testproducts.ProductVariant')),
+                ('variant', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.PRODUCT_VARIANT_MODEL)),
             ],
             options={
                 'ordering': ['date_added'],
