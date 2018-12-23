@@ -20,7 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'wagtail.forms',
+    'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
     'wagtail.sites',
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 
     'home',
     'search',
-    'products'
+    'catalog'
 
 ]
 
@@ -150,4 +150,4 @@ BASE_URL = 'http://example.com'
 # Longclaw also offers 'BraintreePayment', 'PaypalVZeroPayment' and 'StripePayment'
 PAYMENT_GATEWAY = 'longclaw.checkout.gateways.BasePayment'
 
-PRODUCT_VARIANT_MODEL = 'products.ProductVariant'
+PRODUCT_VARIANT_MODEL = 'catalog.ProductVariant'
