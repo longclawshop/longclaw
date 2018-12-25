@@ -70,5 +70,8 @@ you have set environment variables on your OS with the access tokens.
 .. note: Don't forget that Longclaw is a Wagtail project. You may need to configure additional settings
   for wagtail.
 
+.. note: If you have a problem with the initial migration (`python manage.py migrate`) relating to `InvalidBasesError`, try commenting out all longclaw apps
+(and your shop apps, `home`, `search` and the project name app), plus the `ROOT_URLCONF` line and run the migrations again. Next, add back the apps and `ROOT_URLCONF` and
+run the migrations one more time.
 
 Great! Now we are setup, we can start :ref:`adding products <tutorial_products>`
