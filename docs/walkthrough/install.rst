@@ -72,6 +72,6 @@ you have set environment variables on your OS with the access tokens.
 
 .. note: If you have a problem with the initial migration (`python manage.py migrate`) relating to `InvalidBasesError`, try commenting out all longclaw apps
 (and your shop apps, `home`, `search` and the project name app), plus the `ROOT_URLCONF` line and run the migrations again. Next, add back the apps and `ROOT_URLCONF` and
-run the migrations one more time.
+run the migrations one more time. If you encounter problems at runtime, such as `OperationalError: no such table`, try running `migrate` again with the `--run-syncdb` option.
 
 Great! Now we are setup, we can start :ref:`adding products <tutorial_products>`
