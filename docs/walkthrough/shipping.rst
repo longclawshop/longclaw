@@ -11,6 +11,13 @@ Per Country Rates
 ------------------
 
 Shipping rates are set on a per-country basis via the ``Shipping`` page in the wagtail admin. 
+Initially, no countries will be available - Longclaw comes with a set of country data which can be loaded into the database
+using the ``loadcountries`` command:
+
+  .. code-block:: bash
+    
+    python manage.py loadcountries
+
 
 In the image below, we set a standard rate for the UK. It is possible to select multiple countries
 for a rate to apply to. We can also create more than one shipping rate for the same country.
