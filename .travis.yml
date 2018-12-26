@@ -5,18 +5,20 @@ cache: pip
 
 matrix:
   include:
-    - env: TOX_ENV=py34-django-111
-      python: 3.4
-    - env: TOX_ENV=py35-django-111
+    - env: TOX_ENV=py35-django-213
       python: 3.5
-    - env: TOX_ENV=py36-django-111
+    - env: TOX_ENV=py36-django-213
       python: 3.6
+    - env: TOX_ENV=py37-django-213
+      python: 3.7
+      dist: xenial
+      sudo: true
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
 - . $HOME/.nvm/nvm.sh
 - nvm install stable
 - nvm use stable
-- pip install -r requirements_test.txt
+- pip install -r requirements_dev.txt
 - cd longclaw/client && npm install
 
 # command to run tests using coverage, e.g. python setup.py test

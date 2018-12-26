@@ -26,7 +26,7 @@ Writing the templates
 
 Since ``ProductIndex`` and ``Product`` are Wagtail pages, HTML templates should be created for each.
 The developer should refer to the `Wagtail documentation <http://docs.wagtail.io/en/v1.8.1/topics/writing_templates.html>`_ for further details.
-Basic example templates are provided in ``your_project/templates/longclawproducts/`` when creating a project
+Basic example templates are provided in ``your_project/templates/products/`` when creating a project
 with the longclaw project template.
 
 

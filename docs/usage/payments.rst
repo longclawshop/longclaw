@@ -9,10 +9,10 @@ To select the payment gateway to use, you must specify the ``PAYMENT_GATEWAY`` a
 
 The options are:
 
-- ``longclaw.longclawcheckout.gateways.base.BasePayment``. A do-nothing base implementation
-- ``longclaw.longclawcheckout.gateways.stripe.StripePayment``. Capture payments using Stripe.
-- ``longclaw.longclawcheckout.gateways.braintree.BraintreePayment``. Capture payments using Braintree.
-- ``longclaw.longclawcheckout.gateways.braintree.PaypalVZeroPayment``. Capture Paypal payments using the braintree v.zero SDK.
+- ``longclaw.checkout.gateways.base.BasePayment``. A do-nothing base implementation
+- ``longclaw.checkout.gateways.stripe.StripePayment``. Capture payments using Stripe.
+- ``longclaw.checkout.gateways.braintree.BraintreePayment``. Capture payments using Braintree.
+- ``longclaw.checkout.gateways.braintree.PaypalVZeroPayment``. Capture Paypal payments using the braintree v.zero SDK.
 
 
 Additional Settings and dependencies
@@ -43,10 +43,10 @@ Custom Integrations
 
 To implement your own payment integration, you must implement the payment gateway interface. This is simple:
 
-- Inherit from ``longclaw.longclawcheckout.gateways.base.BasePayment``
+- Inherit from ``longclaw.checkout.gateways.base.BasePayment``
 - Implement ``create_payment``. This should take a ``request`` object, an ``amount`` and optionally a ``description``. 
   It should use these to capture the payment using your chosen provider. For examples see the implementations in
-  ``longclaw.longclawcheckout.gateways``
+  ``longclaw.checkout.gateways``
 - Implement the ``get_token`` method. This method should generate tokens used by the payment provider. It accepts a ``request``
   object containing post data (``request.data``). Tokens returned may represent different things depending on the 
   payment provider - e.g. it may be used to tokenize payment details or generate authentication tokens.

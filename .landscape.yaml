@@ -3,13 +3,13 @@ max-line-length: 160
 uses:
   - django
 ignore-paths:
-  - longclaw/longclawbasket/migrations
-  - longclaw/longclawcheckout/migrations
-  - longclaw/longclawcore/migrations
-  - longclaw/longclaworders/migrations
-  - longclaw/longclawproducts/migrations
-  - longclaw/longclawsettings/migrations
-  - longclaw/longclawshipping/migrations
+  - longclaw/basket/migrations
+  - longclaw/checkout/migrations
+  - longclaw/core/migrations
+  - longclaw/orders/migrations
+  - longclaw/products/migrations
+  - longclaw/settings/migrations
+  - longclaw/shipping/migrations
 python-targets:
   - 2
   - 3

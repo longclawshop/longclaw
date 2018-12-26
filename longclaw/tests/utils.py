@@ -1,8 +1,5 @@
 import factory
-try:
-    from django.urls import reverse_lazy
-except ImportError:
-    from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -10,9 +7,9 @@ from rest_framework import status
 from wagtail_factories import PageFactory
 
 
-from longclaw.longclawbasket.models import BasketItem
-from longclaw.longclaworders.models import Order
-from longclaw.longclawshipping.models import Address, Country, ShippingRate
+from longclaw.basket.models import BasketItem
+from longclaw.orders.models import Order
+from longclaw.shipping.models import Address, Country, ShippingRate
 from longclaw.utils import ProductVariant, maybe_get_product_model
 
 class OrderFactory(factory.django.DjangoModelFactory):
@@ -69,11 +66,6 @@ class ProductFactory(PageFactory):
 
     title = factory.Faker('sentence', nb_words=1)
     description = factory.Faker('text')
-
-    @classmethod
-    def _create(cls, model_class, *args, **kwargs):
-        kwargs['parent'] = None
-        return super(ProductFactory, cls)._create(model_class, *args, **kwargs)
 
 class ProductVariantFactory(factory.django.DjangoModelFactory):
 

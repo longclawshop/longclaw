@@ -53,7 +53,7 @@ The ``products`` folder contains a skeleton model for our product `variants` whi
 Before proceeding, we need to setup our ``settings`` file, in ``my_shop/settings/base.py``.
 
 We need to configure which payment gateway we are using. Change the entry for ``PAYMENT_GATEWAY`` from
-``'longclaw.longclawcheckout.gateways.BasePayment'`` to ``'longclaw.longclawcheckout.gateways.braintree.BraintreePayment'``
+``'longclaw.checkout.gateways.BasePayment'`` to ``'longclaw.checkout.gateways.braintree.BraintreePayment'``
 
 We also need to set the access tokens for the braintree backend. Add the following settings:
 
@@ -70,5 +70,8 @@ you have set environment variables on your OS with the access tokens.
 .. note: Don't forget that Longclaw is a Wagtail project. You may need to configure additional settings
   for wagtail.
 
+.. note: If you have a problem with the initial migration (`python manage.py migrate`) relating to `InvalidBasesError`, try commenting out all longclaw apps
+(and your shop apps, `home`, `search` and the project name app), plus the `ROOT_URLCONF` line and run the migrations again. Next, add back the apps and `ROOT_URLCONF` and
+run the migrations one more time. If you encounter problems at runtime, such as `OperationalError: no such table`, try running `migrate` again with the `--run-syncdb` option.
 
 Great! Now we are setup, we can start :ref:`adding products <tutorial_products>`

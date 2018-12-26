@@ -4,18 +4,18 @@ Default settings for longclaw apps
 from django.conf import settings
 
 # The payment gateway backend to use
-# Can be 'longclaw.longclawcheckout.gateways.braintree.BraintreePayment',
-# 'longclaw.longclawcheckout.gateways.braintree.PaypalVZeroPayment',
-# 'longclaw.longclawcheckout.gateways.stripe.StripePayment' or 'longclaw.longclawcheckout.gateways.BasePayment'
+# Can be 'longclaw.checkout.gateways.braintree.BraintreePayment',
+# 'longclaw.checkout.gateways.braintree.PaypalVZeroPayment',
+# 'longclaw.checkout.gateways.stripe.StripePayment' or 'longclaw.checkout.gateways.BasePayment'
 # Or a custom implementation
 PAYMENT_GATEWAY = getattr(settings,
                           'PAYMENT_GATEWAY',
-                          'longclaw.longclawcheckout.gateways.base.BasePayment')
+                          'longclaw.checkout.gateways.base.BasePayment')
 
 # The product variant model to use. This allows custom implementations of
 # product models.
 PRODUCT_VARIANT_MODEL = getattr(
-    settings, 'PRODUCT_VARIANT_MODEL', 'longclawproducts.ProductVariantBase')
+    settings, 'PRODUCT_VARIANT_MODEL', 'products.ProductVariantBase')
 
 
 # Only required if using Stripe as the payment gateway

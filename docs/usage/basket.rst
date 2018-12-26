@@ -10,8 +10,8 @@ Each ``BasketItem`` has a ``basket_id`` allowing items to be grouped together in
 Fetching the basket
 -------------------
 
-The function ``longclaw.longclawbasket.utils.get_basket_items`` will return all ``BasketItem`` for the current
-session. This accepts a django ``request`` object and uses ``longclaw.longclawbasket.utils.basket_id`` to 
+The function ``longclaw.basket.utils.get_basket_items`` will return all ``BasketItem`` for the current
+session. This accepts a django ``request`` object and uses ``longclaw.basket.utils.basket_id`` to 
 fetch the underlying ``basket_id`` on which to filter the ``BasketItem`` objects. 
 
 On the front end, you can use the API endpoint  ``<api_prefix>/basket/`` or the django view ``basket/``. You should
@@ -73,7 +73,7 @@ Other API endpoints:
 ``<api_prefix>/basket/count/``
   get total number of items in the basket
 
-All basket items can be deleted using the ``longclaw.longclawbasket.utils.destroy_basket`` function.
+All basket items can be deleted using the ``longclaw.basket.utils.destroy_basket`` function.
 When an order is successfully placed, the basket will be automatically destroyed.
 
 .. note:: Longclaw does not automatically clean up abandoned baskets. This can occur when a session ends 

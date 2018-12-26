@@ -3,8 +3,8 @@ try:
 except ImportError:
     from django.core.urlresolvers import reverse
 
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailadmin import widgets
+from wagtail.core import hooks
+from wagtail.admin import widgets
 from longclaw.utils import ProductVariant
 
 @hooks.register('register_page_listing_buttons')

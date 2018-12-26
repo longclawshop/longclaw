@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
 import os
 import re
 import sys
@@ -22,6 +21,7 @@ class sdist(base_sdist):
             curdir = os.path.abspath(os.curdir)
             client_path = os.path.join(os.path.dirname(__file__), 'longclaw', 'client')
             os.chdir(client_path)
+            subprocess.check_call(['npm', 'install'])
             subprocess.check_call(['npm', 'run', 'build'])
             os.chdir(curdir)
         except (OSError, subprocess.CalledProcessError) as err:
@@ -87,12 +87,12 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'django>=1.10',
-        'wagtail>1.12,<2.0',
-        'django-countries>=4.3',
-        'django-extensions>=1.7.5',
-        'djangorestframework>=3.5.4',
-        'django-ipware>=1.1.6'
+        'django>=2.1',
+        'wagtail>=2.3',
+        'django-countries>=5.3.2',
+        'django-extensions>=2.1.4',
+        'djangorestframework>=3.9.0',
+        'django-ipware>=2.1.0'
     ],
     license="MIT",
     zip_safe=False,
@@ -100,9 +100,7 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Framework :: Django',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
-        'Framework :: Django :: 1.10',
+        'Framework :: Django :: 2.0',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
