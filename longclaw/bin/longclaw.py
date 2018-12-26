@@ -3,7 +3,7 @@ import argparse
 import sys
 from os import path
 import os
-from django.core.management import ManagementUtility, call_command
+from django.core.management import ManagementUtility
 import longclaw
 
 def create_project(args):
@@ -32,8 +32,6 @@ def create_project(args):
         args.project_name
     ))
     utility.execute()
-    # Load the shipping country data
-    call_command('loaddata', 'shipping_initial.json', app_label='shipping')
     print("{} has been created.".format(args.project_name))
 
 def build_assets(args):
