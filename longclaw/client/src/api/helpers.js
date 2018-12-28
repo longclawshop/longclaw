@@ -108,13 +108,14 @@ function put(url, data, isForm = false, json = true) {
   return json ? response.then(parseJSON) : response;
 }
 
-function del(url) {
+function del(url, data) {
   return fetch(
     url,
     {
       method: 'DELETE',
       headers: getRequestHeaders(false),
-      credentials: 'include'
+      credentials: 'include',
+      body: JSON.stringify({ quantity: 1, ...data })
     }
   )
     .then(checkStatus);

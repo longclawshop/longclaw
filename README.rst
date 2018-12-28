@@ -34,13 +34,13 @@ Install Longclaw::
 
   $ pip install longclaw
 
-Setup a Wagtail+Longclaw project::
+Setup a Longclaw project::
 
   $ longclaw start my_project
 
 Features
 --------
-- Integrated with Wagtail. Order management, shipping rates, product pages etc are all managed from the Wagtail admin, allowing you to fully leaverage the power of Wagtail.
+- Tightly integrated with Wagtail. Create products, manage orders, configure shipping and view statistics all from the Wagtail admin.
 - Multiple payment backends. Longclaw currently supports Stripe, Braintree and PayPal (v.zero) payments.
 - Comprehensive REST API & javascript client easily loaded via a template tag
 - Create your catalogue as Wagtail pages, with complete control over your product fields
