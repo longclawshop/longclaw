@@ -9,8 +9,8 @@ History
   * Switched to supporting Python 3 only
   * Updated to support Wagtail & Django > 2 only
   * Reworked the products app to make customisation easier (#76 and #47)
-  * Bug fixes: #130, #154
-
+  * Documentation moved to Gitbook
+  * Bug fixes: #130, #154, #165
 
 0.2.0 (2017-07)
 ++++++++++++++++++++++
