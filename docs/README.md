@@ -14,5 +14,3 @@
 ## Usage Guide
 ​
 * [Introduction](introduction.md)
-
-## Development Guide
