@@ -1,0 +1,6 @@
+{
+  "docs": {
+    "Tutorial": ["tutorial/introduction", "tutorial/install", "tutorial/products", "tutorial/shipping", "tutorial/frontend", "tutorial/checkout"],
+    "User Guide": ["guide/checkout", "guide/payments", "guide/basket", "guide/api", "guide/checkout_api", "guide/contrib"]
+  }
+}
