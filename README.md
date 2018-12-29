@@ -12,6 +12,8 @@ An e-commerce extension for [Wagtail CMS](https://github.com/wagtail/wagtail)
 
 Checkout the [demo site](https://github.com/JamesRamm/longclaw_demo) and [documentation](http://longclaw.readthedocs.io/en/latest/)
 
+<a href="https://www.buymeacoffee.com/pHtXDM748" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
 ![Image of the dashboard](docs/_static/images/dashboard.png)
 
 ## Quickstart
