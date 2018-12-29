@@ -14,7 +14,7 @@ const users = [
     caption: 'Ramshackle Audio',
     // You will need to prepend the image path witxh your baseUrl
     // if it is not '/', like: '/test-site/img/docusaurus.svg'.
-    image: '/img/docusaurus.svg',
+    image: 'https://assets.bigcartel.com/theme_images/37144084/logo_128.png',
     infoLink: 'https://www.ramshackleaudio.com',
     pinned: true,
   },
@@ -23,7 +23,7 @@ const users = [
 const siteConfig = {
   title: 'Longclaw', // Title for your website.
   tagline: 'E-commerce extension for Wagtail CMS',
-  url: 'https://your-docusaurus-test-site.com', // Your website URL
+  url: 'https://JamesRamm.github.io', // Your website URL
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
@@ -48,9 +48,9 @@ const siteConfig = {
   //users,
 
   /* path to images for header/footer */
-  headerIcon: 'img/docusaurus.svg',
-  footerIcon: 'img/docusaurus.svg',
-  favicon: 'img/favicon.png',
+  headerIcon: 'img/shop.png',
+  footerIcon: 'img/shop.png',
+  favicon: 'img/favicon/favicon.ico',
 
   /* Colors for website */
   colors: {
@@ -100,7 +100,7 @@ const siteConfig = {
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
-  //   repoUrl: 'https://github.com/facebook/test-site',
+  repoUrl: 'https://github.com/JamesRamm/longclaw',
 };
 
 module.exports = siteConfig;

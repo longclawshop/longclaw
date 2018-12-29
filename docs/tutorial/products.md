@@ -3,9 +3,6 @@ title: Adding Products
 sidebar_label: Adding Products
 ---
 
-Modelling Your Catalogue
-========================
-
 Longclaw makes as few assumptions as possible when it comes to modelling your products, since the
 requirements of different shops can be wide and varied.
 
