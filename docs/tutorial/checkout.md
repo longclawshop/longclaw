@@ -3,59 +3,55 @@ title: Configuring Payment
 sidebar_label: Payment
 ---
 
-
-Checkout with Braintree
-============================
-
 Longclaw offers integration with a few payment gateways and it is also fairly easy to integrate your own.
 For this tutorial, we will use Braintree to process payments.
 
-Settings and Dependencies
--------------------------
+## Settings and Dependencies
+
 
 The payment gateway to use must be set in the settings file:
 
-.. code-block:: python
-
-    PAYMENT_GATEWAY = 'longclaw.checkout.gateways.braintree.BraintreePayment'
+```python
+PAYMENT_GATEWAY = 'longclaw.checkout.gateways.braintree.BraintreePayment'
+```
 
 
 We also need to define settings for access tokens;
 
-.. code-block:: python
-
+```python
     BRAINTREE_SANDBOX = False
     BRAINTREE_MERCHANT_ID = os.environ['BRAINTREE_MERCHANT_ID']
     BRAINTREE_PUBLIC_KEY = os.environ['BRAINTREE_PUBLIC_KEY']
     BRAINTREE_PRIVATE_KEY = os.environ['BRAINTREE_PRIVATE_KEY']
+```
 
-We will need to install this SDK as it is not an explicit dependency of longclaw::
+We will need to install this SDK as it is not an explicit dependency of longclaw:
 
-    pip install braintree
+```bash
+pip install braintree
+```
 
 That is all we need to do to configure our backend!
 
-Front end integration
----------------------
+## Front end integration
 
 We will first show how to setup a checkout page using the Checkout view provided by longclaw.
-The code shown here is very similar to the implementation of the checkout page here: `Ramshackle Audio<https://github.com/JamesRamm/ramshacklerecording>`_
+The code shown here is very similar to the implementation of the checkout page here: [Ramshackle Audio](https://github.com/JamesRamm/ramshacklerecording)
 
 First, we should load some templatetags which will help us:
 
-.. code-block:: django
+```django
+{% load longclawcheckout_tags longclawcore_tags %}
+```
 
-  {% load longclawcheckout_tags longclawcore_tags %}
-
-As an aside - you may wish to display the items in the basket on our checkout page. The basket items queryset is available as ``basket``
+As an aside - you may wish to display the items in the basket on our checkout page. The basket items queryset is available as `basket`
 in the views' context.
 
 Next, we need to setup the forms to gather customer information. There are 2 forms in the context. We will
 display and submit them as a single form. Here is an example layout:
 
-.. code-block:: django
-
-    <form action="." method="post" id="checkout-form">
+```django
+<form action="." method="post" id="checkout-form">
     {% csrf_token %}
     {% for field in shipping_form %}
         {% if field.is_hidden %}
@@ -96,20 +92,21 @@ display and submit them as a single form. Here is an example layout:
     </div>
     {% endif %}
     {% endfor %}
+```
 
-You may wish to layout the form differently. We have purposefully ignored the ``different_billing_address`` field
+You may wish to layout the form differently. We have purposefully ignored the `different_billing_address` field
 since the Braintree dropin-ui will collect a billing postcode anyway, for its' own security checks.
 
 Before we close our `<form>` element, there are 3 further items to add:
 
-.. code-block:: django
-
-      <!-- hidden field for submitting the token back to the server. Name will vary depending on integration-->
-      <input type="hidden" id="payment_method_nonce" name="payment_method_nonce"></input>
-      <h4 class="ui dividing header">Payment Details</h4>
-      <div id="dropin-container"></div>
-      <input type="submit" id="submit-button" value="Place Order" class="ui button submit" />
-    </form>
+```django
+    <!-- hidden field for submitting the token back to the server. Name will vary depending on integration-->
+    <input type="hidden" id="payment_method_nonce" name="payment_method_nonce"></input>
+    <h4 class="ui dividing header">Payment Details</h4>
+    <div id="dropin-container"></div>
+    <input type="submit" id="submit-button" value="Place Order" class="ui button submit" />
+</form>
+```
 
 We add a hidden field. This field will contain a token (string of characters) given by braintree which represents the payment method.
 Most payment gateways require something like this, although the name of the field will change between backends.
@@ -120,16 +117,14 @@ most integrations offer some sort of 'dropin' which are increasingly customisabl
 
 Finally, we add a submit button.
 
-The Javascript
-***************
+### The Javascript
 
 OK, so now we have hidden elements, empty containers....we need to get this stuff populated!
 Each payment gateway integration provides the necessary javascript libraries to interact with the gateway.
 They are made available via a template tag.
 Add them like this:
 
-.. code-block:: django
-
+```django
     <!--Load any client javascript provided by the payment gateway.
     I have chosen braintree as my gateway so the template tag below
     should give me a list of script tags which load the braintree
@@ -142,13 +137,13 @@ Add them like this:
 
     <!--Finally add the media from the checkout form.-->
     {{ checkout_form.media }}
+```
 
 The checkout form also provides a little javascript to initialise shipping options (when the user selects a shipping country).
 
 Finally, we need to add a little of our own javascript to create the braintree dropin:
 
-.. code-block:: django
-
+```django
     <script type="text/javascript">
 
         //Initialize shipping options - this function is from the
@@ -183,12 +178,13 @@ Finally, we need to add a little of our own javascript to create the braintree d
             });
         });
     </script>
+```
 
 Two things are happening in the above code. First, we initialise the shipping options. Note we are using a template tag
 to pass the longclaw API url prefix, since this is customisable in your settings.py
 
 Secondly, we initialise the braintree dropin. Again, we use a template tag to get a token for the gateway.
-All payment backends provide the ``gateway_token`` template tag, although it is not always necessary.
+All payment backends provide the `gateway_token` template tag, although it is not always necessary.
 
 You may wish to only show the braintree payment form if the user has anything in their basket. In which case you might qualify
 the above javascript with ``{% if basket.count > 0 %}`` in your template.
@@ -199,8 +195,8 @@ for v0.2, but welcome any suggestions on how to make it easier!
 If you wish to forego the templatetags & forms (e.g. if making a fully React-based frontend), read on. Otherwise, that is the end of the tutorial!
 
 
-Javascript-Only integration
-----------------------------
+## Javascript-Only integration
+
 
 Below is a walkthrough of integrating a payment gateway (PayPal) without the aid of templatetags etc..
 
@@ -219,21 +215,19 @@ We therefore have three things we need to do in our client-side javascript:
 
 1. Call the longclaw API to generate a token
 
-.. code-block:: javascript
-
-    $.get({
-    url: 'api/checkout/token/',
-    success: function(response){
-      ...
-    }
-    })
-
-2. Following this, configure the paypal express checkout functionality. This actually has two steps.
+```javascript
+$.get({
+url: 'api/checkout/token/',
+success: function(response){
+    ...
+}
+})
+```
+1. Following this, configure the paypal express checkout functionality. This actually has two steps.
   We must first create a braintree `client` using our new token. We then use this to create a braintree
   `paypal` instance.
 
-.. code-block:: javascript
-
+```javascript
     braintree.client.create({
             authorization: token
         }, (err, client) => {
@@ -251,14 +245,14 @@ We therefore have three things we need to do in our client-side javascript:
                 console.log("Paypal instance": paypalInstance);
             });
         });
+```
 
-3. Once paypal has created the `nonce` for the entered payment details, we must submit this
+1. Once paypal has created the `nonce` for the entered payment details, we must submit this
   to our server so longclaw can capture the payment.
   To do this, we must have a button which we want to use to launch the paypal express checkout window.
   We 'attach' the paypal instance we just created to the button like so:
 
-.. code-block:: javascript
-
+```javascript
     paypalButton.addEventListener(
       'click',
       function (){
@@ -279,14 +273,13 @@ We therefore have three things we need to do in our client-side javascript:
               }
           });
       });
-
+```
 In this example `paypalButton` is a DOM node referring to the button element we wish to attach paypal to and ``handleSubmit``
 is a function which will actually POST the payload to the longclaw api endpoint (``api/checkout/``)
 
 We can make all these nested API calls simpler if we use ES6 Promises and the fetch API:
 
-.. code-block:: javascript
-
+```javascript
     // Wrap braintree js functions as promises
     function braintreeClientCreate(token){
         return new Promise(function(resolve, reject){
@@ -414,6 +407,7 @@ We can make all these nested API calls simpler if we use ES6 Promises and the fe
     function parseJSON(response) {
       return response.json();
     }
+```
 
 The total amount, shipping address, shipping rate and email address of the customer are passed into the setup function;
 it is up to the front end developer to create the necessary forms to gather these.

@@ -14,7 +14,7 @@ Checkout the [demo site](https://github.com/JamesRamm/longclaw_demo) and [docume
 
 <a href="https://www.buymeacoffee.com/pHtXDM748" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
-![Image of the dashboard](docs/images/dashboard.png)
+![Image of the dashboard](docs/assets/dashboard.png)
 
 ## Quickstart
 
@@ -42,7 +42,7 @@ Setup a Longclaw project
 
 ### Screenshots
 
-![Order Detail](docs/images/order_detail.png)
+![Order Detail](docs/assets/order_detail.png)
 
 
 ## Support
