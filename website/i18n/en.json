@@ -5,18 +5,6 @@
     "previous": "Previous",
     "tagline": "E-commerce extension for Wagtail CMS",
     "docs": {
-      "doc2": {
-        "title": "document number 2"
-      },
-      "doc3": {
-        "title": "This is document number 3"
-      },
-      "doc4": {
-        "title": "Other Document"
-      },
-      "doc5": {
-        "title": "Fifth Document"
-      },
       "guide/api": {
         "title": "API Client",
         "sidebar_label": "API Client"
