@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Checkout · Longclaw</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Longclaw provides a simple, single checkout view.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Checkout · Longclaw"/><meta property="og:type" content="website"/><meta property="og:url" content="https://JamesRamm.github.io/longclaw/index.html"/><meta property="og:description" content="&lt;p&gt;Longclaw provides a simple, single checkout view.&lt;/p&gt;
+"/><meta property="og:image" content="https://JamesRamm.github.io/longclaw/img/shop.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://JamesRamm.github.io/longclaw/img/shop.png"/><link rel="shortcut icon" href="/longclaw/img/favicon/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/longclaw/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/longclaw/"><img class="logo" src="/longclaw/img/shop.png" alt="Longclaw"/><h2 class="headerTitleWithLogo">Longclaw</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/longclaw/docs/tutorial/introduction" target="_self">Docs</a></li><li class=""><a href="http://.google.com" target="_self">Demo</a></li><li class=""><a href="/longclaw/help" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>User Guide</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/install">Setup</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/products">Adding Products</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/shipping">Shipping</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/frontend">Frontend</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/checkout">Payment</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">User Guide</h3><ul><li class="navListItem navListItemActive"><a class="navItem" href="/longclaw/docs/guide/checkout">Checkout</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/payments">Integrations</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/basket">Basket</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/api">API Client</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/checkout_api">Checkout API</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/contrib">Product Requests</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Checkout</h1></header><article><div><span><p>Longclaw provides a simple, single checkout view.
+The URL for the checkout is <code>'checkout/'</code>.
+After a successful checkout, it is redirected to <code>checkout/success/</code>.</p>
+<p>To implement the checkout, simply provide <code>'checkout/checkout.html'</code> and
+<code>'checkout/success.html'</code> templates. (Empty templates will have been created if
+you ran the longclaw CLI to start your project)</p>
+<p>There are three forms provided in the checkout view:</p>
+<h3><a class="anchor" aria-hidden="true" id="checkout-form"></a><a href="#checkout-form" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>checkout_form</h3>
+<p>Captures the email address and optionally the shipping option for the checkout.
+Also captures a boolean indicating whether a different billing address should be used</p>
+<h3><a class="anchor" aria-hidden="true" id="shipping-form"></a><a href="#shipping-form" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>shipping_form</h3>
+<p>Captures shipping information.</p>
+<h3><a class="anchor" aria-hidden="true" id="billing-form"></a><a href="#billing-form" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>billing_form</h3>
+<p>A second address form for capturing alternate billing information. If you do not submit this form
+(e.g. by not rendering it on the template), the billing and shipping addresses are assumed to be the same.</p>
+<p>Generally, you may need to use a little javascript to optionally render the form if the user selects
+'different billing address'.</p>
+<h2><a class="anchor" aria-hidden="true" id="shipping-options-and-javascript"></a><a href="#shipping-options-and-javascript" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Shipping Options and Javascript</h2>
+<p>The shipping option dropdown has no options by default - this is because it is dependent on the shipping country.
+The checkout form includes the necessary javascript to do this - you just need to include it on the page.
+You will typically also need to include your chosen payment gateways' client javascript:</p>
+<pre><code class="hljs css language-django"><span class="xml">
+  </span><span class="hljs-template-tag">{% <span class="hljs-name">gateway_client_js</span> <span class="hljs-keyword">as</span> scripts %}</span><span class="xml">
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> js <span class="hljs-keyword">in</span> scripts %}</span><span class="xml">
+  </span><span class="hljs-template-variable">{{ js|<span class="hljs-name">safe</span> }}</span><span class="xml">
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="xml">
+
+  </span><span class="hljs-template-tag">{% <span class="hljs-name">longclaw_client_bundle</span> %}</span><span class="xml">
+  </span><span class="hljs-template-variable">{{ checkout_form.media }}</span><span class="xml">
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="undefined">
+  initShippingOption('</span></span><span class="hljs-template-tag">{% <span class="hljs-name">longclaw_api_url_prefix</span> %}</span><span class="xml"><span class="undefined">');
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</span></code></pre>
+<p>The first half uses the <code>gateway_client_js</code> template tag to load all the payment gateway javascript. There may be one or more.
+The second half has three parts to it:</p>
+<ol>
+<li><code>{% longclaw_client_bundle %}</code> loads the longclaw client API, which is required by the checkout form javascript.</li>
+<li><code>{{ checkout_form.media }}</code> loads the javascript required by the checkout form.</li>
+<li>The last script initializes the checkout javascript. It requires the longclaw API url prefix (which you can customise in your settings)
+to be passed in - there is a template tag to do this for you. You can also optionally specify the <code>shippingCountrySelectId</code> and <code>shippingOptionSelectId</code>.
+These are the ID's of the select element. You would only need to pass these in if you are going to change them from the defaults.</li>
+</ol>
+<p>After this, when you change the shipping country, the shipping option should change appropriately.</p>
+<blockquote>
+<p>We will hopefully improve this in future releases - any ideas and PR's are welcome!</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="payment-forms"></a><a href="#payment-forms" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Payment forms</h2>
+<p>It is up to you to render a payment form and then pass the token in the POST data.
+Normally, the payment gateway chosen will have a javascript integration to render a form for you
+and tokenize the payment method (e.g. braintrees 'hosted fields')</p>
+<p>Longclaws' payment gateways provide some helpful utilities to load client javascript and generate tokens.
+Loading <code>longclawcheckout_tags</code> in your template will allow you to retrieve the gateways' javascript libraries
+as script tags (<code>{% gateway_client_js %}</code> and generate a client token (<code>{% gateway_token %}</code>).
+A little javascript is then required to setup your form and ask the gateway to tokenize the payment method for you.
+You should then add this token to the request POST data (e.g. with a hidden input field).</p>
+<p>For in-depth info on integration, see the walkthrough.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/longclaw/docs/tutorial/checkout"><span class="arrow-prev">← </span><span>Payment</span></a><a class="docs-next button" href="/longclaw/docs/guide/payments"><span>Integrations</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#shipping-options-and-javascript">Shipping Options and Javascript</a></li><li><a href="#payment-forms">Payment forms</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/longclaw/" class="nav-home"><img src="/longclaw/img/shop.png" alt="Longclaw" width="66" height="58"/></a><div><h5>Docs</h5><a href="/longclaw/docs/en/tutorial/introduction.html">Getting Started (or other categories)</a><a href="/longclaw/docs/en/doc2.html">Guides (or other categories)</a><a href="/longclaw/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/longclaw/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a></div><div><h5>More</h5><a href="/longclaw/blog">Blog</a><a href="https://github.com/JamesRamm/longclaw">GitHub</a><a class="github-button" href="https://github.com/JamesRamm/longclaw" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 James Ramm</section></footer></div></body></html>

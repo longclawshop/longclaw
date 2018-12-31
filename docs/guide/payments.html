@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Payment Backends · Longclaw</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Longclaw supports payment capture through Stripe, Braintree and Paypal (Using the Braintree VZero SDK).&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Payment Backends · Longclaw"/><meta property="og:type" content="website"/><meta property="og:url" content="https://JamesRamm.github.io/longclaw/index.html"/><meta property="og:description" content="&lt;p&gt;Longclaw supports payment capture through Stripe, Braintree and Paypal (Using the Braintree VZero SDK).&lt;/p&gt;
+"/><meta property="og:image" content="https://JamesRamm.github.io/longclaw/img/shop.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://JamesRamm.github.io/longclaw/img/shop.png"/><link rel="shortcut icon" href="/longclaw/img/favicon/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/longclaw/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/longclaw/"><img class="logo" src="/longclaw/img/shop.png" alt="Longclaw"/><h2 class="headerTitleWithLogo">Longclaw</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/longclaw/docs/tutorial/introduction" target="_self">Docs</a></li><li class=""><a href="http://.google.com" target="_self">Demo</a></li><li class=""><a href="/longclaw/help" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>User Guide</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/install">Setup</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/products">Adding Products</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/shipping">Shipping</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/frontend">Frontend</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/checkout">Payment</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">User Guide</h3><ul><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/checkout">Checkout</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/longclaw/docs/guide/payments">Integrations</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/basket">Basket</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/api">API Client</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/checkout_api">Checkout API</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/contrib">Product Requests</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Payment Backends</h1></header><article><div><span><p>Longclaw supports payment capture through Stripe, Braintree and Paypal (Using the Braintree VZero SDK).</p>
+<p>To select the payment gateway to use, you must specify the <code>PAYMENT_GATEWAY</code> attribute in your <code>settings.py</code>.</p>
+<p>The options are:</p>
+<ul>
+<li><code>longclaw.checkout.gateways.base.BasePayment</code>. A do-nothing base implementation</li>
+<li><code>longclaw.checkout.gateways.stripe.StripePayment</code>. Capture payments using Stripe.</li>
+<li><code>longclaw.checkout.gateways.braintree.BraintreePayment</code>. Capture payments using Braintree.</li>
+<li><code>longclaw.checkout.gateways.braintree.PaypalVZeroPayment</code>. Capture Paypal payments using the braintree v.zero SDK.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="additional-settings-and-dependencies"></a><a href="#additional-settings-and-dependencies" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Additional Settings and dependencies</h2>
+<p>To use payment gateways it is necessary to specify API keys and install client SDK's for the chosen payment provider.</p>
+<h2><a class="anchor" aria-hidden="true" id="stripe"></a><a href="#stripe" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Stripe</h2>
+<p><code>STRIPE_PUBLISHABLE</code> - Your public api key
+<code>STRIPE_SECRET</code> - Your secret api key
+You will need to install the stripe python sdk (<code>pip install stripe</code>)</p>
+<h2><a class="anchor" aria-hidden="true" id="braintree"></a><a href="#braintree" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Braintree</h2>
+<p><code>BRAINTREE_MERCHANT_ID</code> - Your braintree merchant account ID.
+<code>BRAINTREE_PUBLIC_KEY</code> - Your public api key
+<code>BRAINTREE_PRIVATE_KEY</code> - Your secret api key</p>
+<h2><a class="anchor" aria-hidden="true" id="paypal"></a><a href="#paypal" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Paypal</h2>
+<p><code>VZERO_ACCESS_TOKEN</code> - Your access token for the v.zero SDK.</p>
+<p>Paypal and braintree require the braintree python SDK (<code>pip install braintree</code>)</p>
+<h2><a class="anchor" aria-hidden="true" id="custom-integrations"></a><a href="#custom-integrations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Custom Integrations</h2>
+<p>To implement your own payment integration, you must implement the payment gateway interface. This is simple:</p>
+<ul>
+<li>Inherit from <code>longclaw.checkout.gateways.base.BasePayment</code></li>
+<li>Implement <code>create_payment</code>. This should take a <code>request</code> object, an <code>amount</code> and optionally a <code>description</code>.
+It should use these to capture the payment using your chosen provider. For examples see the implementations in
+<code>longclaw.checkout.gateways</code></li>
+<li>Implement the <code>get_token</code> method. This method should generate tokens used by the payment provider. It accepts a <code>request</code>
+object containing post data (<code>request.data</code>). Tokens returned may represent different things depending on the
+payment provider - e.g. it may be used to tokenize payment details or generate authentication tokens.</li>
+</ul>
+<p>You can define your own requirements for the request data to be submitted to the functions.
+<code>create_payment</code> is called in a POST request to the <code>checkout/</code> api. <code>get_token</code> is similarly called
+in a POST request to the <code>checkout/token/</code> api.</p>
+<p>Longclaw aims to be as minimal as possible in order to get the job done. This is why longclaw currently only offers the barest minimum
+support necessary to directly create payments with the backend payment provider.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/longclaw/docs/guide/checkout"><span class="arrow-prev">← </span><span>Checkout</span></a><a class="docs-next button" href="/longclaw/docs/guide/basket"><span>Basket</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#additional-settings-and-dependencies">Additional Settings and dependencies</a></li><li><a href="#stripe">Stripe</a></li><li><a href="#braintree">Braintree</a></li><li><a href="#paypal">Paypal</a></li><li><a href="#custom-integrations">Custom Integrations</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/longclaw/" class="nav-home"><img src="/longclaw/img/shop.png" alt="Longclaw" width="66" height="58"/></a><div><h5>Docs</h5><a href="/longclaw/docs/en/tutorial/introduction.html">Getting Started (or other categories)</a><a href="/longclaw/docs/en/doc2.html">Guides (or other categories)</a><a href="/longclaw/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/longclaw/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a></div><div><h5>More</h5><a href="/longclaw/blog">Blog</a><a href="https://github.com/JamesRamm/longclaw">GitHub</a><a class="github-button" href="https://github.com/JamesRamm/longclaw" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 James Ramm</section></footer></div></body></html>

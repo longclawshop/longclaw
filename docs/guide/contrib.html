@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Product Requests · Longclaw</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;This module allows customers to &#x27;request&#x27; products which are otherwise out of stock.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Product Requests · Longclaw"/><meta property="og:type" content="website"/><meta property="og:url" content="https://JamesRamm.github.io/longclaw/index.html"/><meta property="og:description" content="&lt;p&gt;This module allows customers to &#x27;request&#x27; products which are otherwise out of stock.&lt;/p&gt;
+"/><meta property="og:image" content="https://JamesRamm.github.io/longclaw/img/shop.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://JamesRamm.github.io/longclaw/img/shop.png"/><link rel="shortcut icon" href="/longclaw/img/favicon/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/longclaw/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/longclaw/"><img class="logo" src="/longclaw/img/shop.png" alt="Longclaw"/><h2 class="headerTitleWithLogo">Longclaw</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/longclaw/docs/tutorial/introduction" target="_self">Docs</a></li><li class=""><a href="http://.google.com" target="_self">Demo</a></li><li class=""><a href="/longclaw/help" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>User Guide</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/install">Setup</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/products">Adding Products</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/shipping">Shipping</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/frontend">Frontend</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/checkout">Payment</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">User Guide</h3><ul><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/checkout">Checkout</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/payments">Integrations</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/basket">Basket</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/api">API Client</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/checkout_api">Checkout API</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/longclaw/docs/guide/contrib">Product Requests</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Product Requests</h1></header><article><div><span><p>This module allows customers to 'request' products which are otherwise out of stock.
+The request date and product variant are stored, with the customer email optionally being stored (The <code>ProductRequest</code> model
+contains a field for this, but template tags by default do not collect this information - it is up to you to store it.)</p>
+<p>To install, add it to your <code>INSTALLED_APPS</code> after other longclaw modules:</p>
+<pre><code class="hljs css language-python">
+    INSTALLED_APPS = (
+      ...,
+      <span class="hljs-string">"longclaw.contrib.productrequests"</span>
+    )
+</code></pre>
+<p>To show a 'request' button, you can use the following template tag on your product page:</p>
+<pre><code class="hljs css language-django"><span class="xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">load</span></span> productrequests_tags %}</span><span class="xml">
+
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> variant <span class="hljs-keyword">in</span> page.variants.all %}</span><span class="xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name">make_request_btn</span> variant_id=variant.id %}</span><span class="xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="xml">
+</span></code></pre>
+<p>You can also pass <code>btn_class</code> and <code>btn_text</code> to change the CSS class and text of the resulting <code>button</code> element.
+By default they are <code>btn btn-default</code> and <code>Request Product</code>.</p>
+<p>This template tag will take care of making the AJAX call to register a request against the product variant.
+In order to collect further information - i.e the customer email, you will need to create the button and necessary javascript
+yourself. You can use the API client function <code>requestList</code> to post the collected data.</p>
+<p>You can view all requests in the admin index page for your product collections. When hovering over a product, alongside
+the usual <code>Edit</code>, <code>View Live</code> and <code>Add Child Page</code> buttons is a new <code>View Requests</code> button. This will take you to a page
+showing all requests made for each variant of the product.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/longclaw/docs/guide/checkout_api"><span class="arrow-prev">← </span><span>Checkout API</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/longclaw/" class="nav-home"><img src="/longclaw/img/shop.png" alt="Longclaw" width="66" height="58"/></a><div><h5>Docs</h5><a href="/longclaw/docs/en/tutorial/introduction.html">Getting Started (or other categories)</a><a href="/longclaw/docs/en/doc2.html">Guides (or other categories)</a><a href="/longclaw/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/longclaw/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a></div><div><h5>More</h5><a href="/longclaw/blog">Blog</a><a href="https://github.com/JamesRamm/longclaw">GitHub</a><a class="github-button" href="https://github.com/JamesRamm/longclaw" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 James Ramm</section></footer></div></body></html>
