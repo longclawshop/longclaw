@@ -97,28 +97,25 @@ python manage.py migrate
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="using-the-admin"></a><a href="#using-the-admin" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using the Admin</h2>
 <p>The models are ready - Lets open up the admin and start adding our products.</p>
-<p>First, run the server:</p>
+<p>Run the server:</p>
 <pre><code class="hljs css language-bash">python manage.py runserver
 </code></pre>
-<p>To add a product index page:</p>
-<ul>
-<li>Navigate to the admin and log in</li>
-<li>Select the homepage from the explorer menu</li>
-<li>Select <code>add child page</code></li>
-<li>Select <code>Product index</code> and enter the title (e.g. <code>Products</code>)</li>
-</ul>
-<p><img src="/longclaw/docs/assets/product_index.png" alt="Image of the product list"></p>
+<p>And navigate to <a href="localhost:8000/admin">localhost:8000/admin</a>.
+You will need to sign in with the super user you created at the start of the tutorial.</p>
+<p>Under 'Pages', select the root page:</p>
+<p><img src="/longclaw/docs/assets/longclaw-select-root-page.png" alt="Root page"></p>
+<p>On the 'Root' screen select 'Add Child Page' at the top. Here I selected my 'Home' page, but if you are running a small shop, you may wish your home page to be your product listing, in which case you might select 'Product Index'.</p>
+<p><img src="/longclaw/docs/assets/longclaw-bakery-create-product-index.png" alt="Adding a home page"></p>
 <p>We can now add <code>Product</code> models as children of <code>ProductIndex</code>. Only pages of type <code>Product</code> can be created under <code>ProductIndex</code>.</p>
 <h3><a class="anchor" aria-hidden="true" id="adding-a-product"></a><a href="#adding-a-product" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding a Product</h3>
 <p>Under the explorer homepage, we should now see our newly created <code>ProductIndex</code>. We can select <code>Add child page</code> to add our first
-<code>Product</code>. The <code>Product</code> model is fairly minimal. It has:</p>
-<ul>
-<li>A title</li>
-<li>A description</li>
-<li>One or more <code>ProductVariant</code>s</li>
-<li>Optionally some images and tags</li>
-</ul>
-<p><img src="/longclaw/docs/assets/product.png" alt="Image of the product"></p>
+<code>Product</code>.
+Add a title, description then start adding variants.
+You will see that in the product variants are the custom fields we added for
+applying discounts.</p>
+<p><img src="/longclaw/docs/assets/longclaw-bakery-create-product.png" alt="Image of the product"></p>
+<p>If we navigate back to the product index page, we see the new product listed:</p>
+<p><img src="/longclaw/docs/assets/longclaw-bakery-product-index.png" alt="Image of the product index"></p>
 <h2><a class="anchor" aria-hidden="true" id="creating-the-front-end"></a><a href="#creating-the-front-end" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating the Front End</h2>
 <p>Since <code>ProductIndex</code> and <code>Product</code> are Wagtail pages, we write templates for them just like any other page.
 The Wagtail documentation already comprehensively covers <a href="http://docs.wagtail.io/en/v1.9/topics/writing_templates.html">writing templates</a>.</p>
