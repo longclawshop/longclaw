@@ -18,6 +18,7 @@ class Product(ProductBase):
     description = RichTextField()
     content_panels = ProductBase.content_panels + [
         FieldPanel('description'),
+        InlinePanel('images', label='Images'),
         InlinePanel('variants', label='Product variants'),
 
     ]
