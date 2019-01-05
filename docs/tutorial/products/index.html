@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Adding Products · Longclaw</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Longclaw makes as few assumptions as possible when it comes to modelling your products, since the&lt;/p&gt;
-"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Adding Products · Longclaw"/><meta property="og:type" content="website"/><meta property="og:url" content="https://JamesRamm.github.io/longclaw/index.html"/><meta property="og:description" content="&lt;p&gt;Longclaw makes as few assumptions as possible when it comes to modelling your products, since the&lt;/p&gt;
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Adding Products · Longclaw</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Topics covered:&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Adding Products · Longclaw"/><meta property="og:type" content="website"/><meta property="og:url" content="https://JamesRamm.github.io/longclaw/index.html"/><meta property="og:description" content="&lt;p&gt;Topics covered:&lt;/p&gt;
 "/><meta property="og:image" content="https://JamesRamm.github.io/longclaw/img/shop.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://JamesRamm.github.io/longclaw/img/shop.png"/><link rel="shortcut icon" href="/longclaw/img/favicon/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/longclaw/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/longclaw/"><img class="logo" src="/longclaw/img/shop.png" alt="Longclaw"/><h2 class="headerTitleWithLogo">Longclaw</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/longclaw/docs/tutorial/introduction" target="_self">Docs</a></li><li class=""><a href="http://.google.com" target="_self">Demo</a></li><li class=""><a href="/longclaw/help" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Tutorial</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/install">Setup</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/longclaw/docs/tutorial/products">Adding Products</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/shipping">Shipping</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/frontend">Frontend</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/checkout">Payment</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">User Guide</h3><ul><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/checkout">Checkout</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/payments">Integrations</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/basket">Basket</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/api">API Client</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/checkout_api">Checkout API</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/contrib">Product Requests</a></li></ul></div></div></section></div><script>
             document.addEventListener('DOMContentLoaded', function() {
               createToggler('#navToggler', '#docsNav', 'docsSliderActive');
@@ -27,27 +27,79 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Adding Products</h1></header><article><div><span><p>Longclaw makes as few assumptions as possible when it comes to modelling your products, since the
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Adding Products</h1></header><article><div><span><p>Topics covered:</p>
+<ul>
+<li>Creating the <code>ProductIndex</code> and <code>ProductVariant</code> model</li>
+<li>Customising the models</li>
+<li>Adding products via the admin</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="initial-models"></a><a href="#initial-models" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Initial Models</h2>
+<p>Longclaw makes as few assumptions as possible when it comes to modelling your products, since the
 requirements of different shops can be wide and varied.</p>
-<p>It is required that you create a <code>ProductVariant</code> model (it can be called anything) and implement
+<p>You must create a <code>ProductVariant</code> model (it can be called anything) and implement
 a small number of fields Longclaw expects.
-The easiest way to do this is by inheriting from <code>longclaw.products.ProductVariantBase</code>.
-Longclaws' project template will have setup a <code>products</code> app for you, with a <code>ProductVariant</code> model.</p>
-<p>You will also notice that the settings file has <code>PRODUCT_VARIANT_MODEL</code> set to the <code>ProductVariant</code> model.</p>
-<p>The project template has also created a <code>ProductIndex</code> and <code>Product</code> model.
-<code>Product</code> is a regular Wagtail <code>Page</code> which <code>ProductVariant</code> is an line model of.</p>
+The easiest way to do this is by inheriting from <code>longclaw.products.ProductVariantBase</code>.</p>
+<p>Head over to <code>catalog/models.py</code>. You will see that longclaw created the following basic models for you:</p>
+<ol>
+<li><code>ProductIndex</code>. This model is used for listings of products.</li>
+<li><code>Product</code>. This is the model of a single product type. In our bakery, we might have a 'Farmhouse Loaf' product.</li>
+<li><code>ProductVariant</code>. This model captures <em>variations</em> of a product. For example, we might offer our 'Farmhouse Loaf' using different flour types, different sizes, sliced or not sliced all for different prices. Note that it inherits from <code>ProductVariantBase</code>. This is important since there are small number of fields (such as price) that other longclaw packages expect to be present in order to function correctly.</li>
+</ol>
 <blockquote>
 <p>This is just one way of modelling yor catalogue but you are not bound to it. <code>ProductVariant</code> is the only model
 required by Longclaw and precisely what this represents is up to your (e.g. it could be the product itself, or, as the name
 suggests, a variant of a product). You could create multiple 'index' pages, perhaps representing different lines
 aswell as multiple 'product' type pages, or do away with <code>Product</code> completely.</p>
 </blockquote>
-<h2><a class="anchor" aria-hidden="true" id="creating-the-product-index"></a><a href="#creating-the-product-index" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating the Product Index</h2>
-<p>Wagtails' <code>Page</code> models are organized in a tree structure. All our <code>Product</code> pages will therefore
-need a parent. This is provided by the  <code>ProductIndex</code> model.</p>
+<h2><a class="anchor" aria-hidden="true" id="customising"></a><a href="#customising" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Customising</h2>
+<p>The <code>ProductVariantBase</code> model provides the <code>base_price</code>, <code>ref</code> and <code>slug</code> fields.</p>
+<p>The <code>ref</code> field is intended to be used as a short description or sub-title to help distinguish a particular variant.
+The <code>slug</code> field is autogenerated from the <code>ref</code> and the parent <code>Product</code> title.</p>
 <blockquote>
-<p>Read more about Wagtail pages in the <a href="http://docs.wagtail.io/en/v1.9/topics/pages.html">Wagtail docs</a></p>
+<p><code>ProductVariant</code>, <code>Product</code> and <code>ProductIndex</code> are all Wagtail <code>Page</code>s. If you are not familiar, it is important that you take a look at the <a href="http://docs.wagtail.io/en/v2.3/topics/pages.html">Wagtail documentation</a> before going further.</p>
 </blockquote>
+<p>In our bakery, there are other product attributes we want to capture. We should add these to the <code>ProductVariant</code> model. Lets just consider a couple of basic fields:</p>
+<ul>
+<li>Is it gluten free or not?</li>
+<li>Suitable for vegetarians?</li>
+</ul>
+<p>Lets adjust the <code>ProductVariant</code> model to reflect this:</p>
+<pre><code class="hljs css language-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProductVariant</span><span class="hljs-params">(ProductVariantBase)</span>:</span>
+    gluten_free = models.BooleanField(default=<span class="hljs-keyword">False</span>)
+    vegetarian = models.BooleanField(default=<span class="hljs-keyword">False</span>)
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="dynamic-pricing"></a><a href="#dynamic-pricing" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dynamic Pricing</h3>
+<p>The <code>ProductVariant</code> model can be configured so that the price is dynamically calculated. This is great - we can selectively apply a discount to our variants (or do anything else for that matter)!</p>
+<p>The <code>ProductVariant</code> model provides a <code>price</code> property which is used throughout longclaw. By default, it simply returns the <code>base_price</code> attribute.
+We can override it to hold our custom price calculation.</p>
+<p>For our bakery, I've decided that I want to be able enable a variable discount whenever we like.</p>
+<p>So lets add a couple more fields to our model to provide the discount information:</p>
+<pre><code class="hljs css language-python">   discount = models.BooleanField(default=<span class="hljs-keyword">False</span>)
+   discount_percent = models.PositiveSmallIntegerField(
+     default=<span class="hljs-number">20</span>,
+     validators=[
+            MaxValueValidator(<span class="hljs-number">75</span>)
+        ]
+     )
+</code></pre>
+<p>Since I don't want to make mistakes and start offering my bread for free, I have limited the maximum discount to 75%.
+Finally, lets override the price getter to apply the discount:</p>
+<pre><code class="hljs css language-python"><span class="hljs-meta">@ProductVariantBase.price.getter</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">price</span><span class="hljs-params">(self)</span>:</span>
+  <span class="hljs-keyword">if</span> self.discount:
+    discount_price = self.base_price * Decimal(self.discount_percent / <span class="hljs-number">100.0</span> )
+    <span class="hljs-keyword">return</span> discount_price.quantize(Decimal(<span class="hljs-string">'.01'</span>), decimal.ROUND_HALF_UP)
+  <span class="hljs-keyword">return</span> self.base_price
+</code></pre>
+<p>Now, create and run the migrations for our <code>catalog</code> app:</p>
+<pre><code class="hljs css language-bash">python manage.py makemigrations catalog
+python manage.py migrate
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="using-the-admin"></a><a href="#using-the-admin" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using the Admin</h2>
+<p>The models are ready - Lets open up the admin and start adding our products.</p>
+<p>First, run the server:</p>
+<pre><code class="hljs css language-bash">python manage.py runserver
+</code></pre>
 <p>To add a product index page:</p>
 <ul>
 <li>Navigate to the admin and log in</li>
@@ -67,28 +119,6 @@ need a parent. This is provided by the  <code>ProductIndex</code> model.</p>
 <li>Optionally some images and tags</li>
 </ul>
 <p><img src="/longclaw/docs/assets/product.png" alt="Image of the product"></p>
-<h3><a class="anchor" aria-hidden="true" id="customising"></a><a href="#customising" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Customising</h3>
-<p>As mentioned above, we can customise the <code>ProductIndex</code> and <code>Product</code> model completely - they
-are not strict requirements for longclaw to operate. We recommend using something similar to
-the project layout so that <code>Product</code>'s will appear in the Wagtail admin page explorer.</p>
-<p><code>ProductVariant</code> can be customised, as long as we inherit from <code>ProductVariantBase</code> in order to ensure
-the fields longclaw expects are present.
-<code>ProductVariantBase</code> provides the <code>price</code>, <code>ref</code> and <code>slug</code> fields.</p>
-<p>The <code>ref</code> field is intended to be used as a short description or sub-title to help distinguish a particular variant.
-The <code>slug</code> field is autogenerated from the <code>ref</code> and the parent <code>Product</code> title.</p>
-<p>As we are creating a music shop, we are going to add a <code>music_format</code> field to the model. We will also
-remove the <code>description</code> field as we dont have any real need for it at the moment:</p>
-<pre><code class="hljs css language-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProductVariant</span><span class="hljs-params">(ProductVariantBase)</span>:</span>
-    _MUSIC_FORMAT_CHOICES = (
-      (<span class="hljs-number">1</span>, <span class="hljs-string">'CD'</span>),
-      (<span class="hljs-number">2</span>, <span class="hljs-string">'Vinyl'</span>),
-    )
-
-    music_format = models.IntegerField(max_length=<span class="hljs-number">3</span>, choices=_MUSIC_FORMAT_CHOICES)
-</code></pre>
-<p>After making and running migrations, we can now select the format for each variant:</p>
-<p><img src="/longclaw/docs/assets/product_variant.png" alt="Product variant"></p>
-<p>The actual model used for the product variant can be changed by changing the <code>PRODUCT_VARIANT_MODEL</code> setting in your <code>settings.py</code></p>
 <h2><a class="anchor" aria-hidden="true" id="creating-the-front-end"></a><a href="#creating-the-front-end" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating the Front End</h2>
 <p>Since <code>ProductIndex</code> and <code>Product</code> are Wagtail pages, we write templates for them just like any other page.
 The Wagtail documentation already comprehensively covers <a href="http://docs.wagtail.io/en/v1.9/topics/writing_templates.html">writing templates</a>.</p>
@@ -143,4 +173,4 @@ We can acheive the drop down like this:</p>
 complex designs such as displaying a count of items in the basket, allowing the user to increase/decrease
 quantity and so on. The <a href="#basket">basket API</a> allows all such interactions and all front end design decisions such as these are left up to the developer.
 It is worthwhile looking at the longclaw demo source code to see how e.g. a basket &amp; item count in the page header is implemented.</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/longclaw/docs/tutorial/install"><span class="arrow-prev">← </span><span>Setup</span></a><a class="docs-next button" href="/longclaw/docs/tutorial/shipping"><span>Shipping</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#creating-the-product-index">Creating the Product Index</a><ul class="toc-headings"><li><a href="#adding-a-product">Adding a Product</a></li><li><a href="#customising">Customising</a></li></ul></li><li><a href="#creating-the-front-end">Creating the Front End</a><ul class="toc-headings"><li><a href="#adding-products-to-the-basket">Adding Products to the Basket</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/longclaw/" class="nav-home"><img src="/longclaw/img/shop.png" alt="Longclaw" width="66" height="58"/></a><div><h5>Docs</h5><a href="/longclaw/docs/en/tutorial/introduction.html">Getting Started (or other categories)</a><a href="/longclaw/docs/en/doc2.html">Guides (or other categories)</a><a href="/longclaw/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/longclaw/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a></div><div><h5>More</h5><a href="/longclaw/blog">Blog</a><a href="https://github.com/JamesRamm/longclaw">GitHub</a><a class="github-button" href="https://github.com/JamesRamm/longclaw" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 James Ramm</section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/longclaw/docs/tutorial/install"><span class="arrow-prev">← </span><span>Setup</span></a><a class="docs-next button" href="/longclaw/docs/tutorial/shipping"><span>Shipping</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#initial-models">Initial Models</a></li><li><a href="#customising">Customising</a><ul class="toc-headings"><li><a href="#dynamic-pricing">Dynamic Pricing</a></li></ul></li><li><a href="#using-the-admin">Using the Admin</a><ul class="toc-headings"><li><a href="#adding-a-product">Adding a Product</a></li></ul></li><li><a href="#creating-the-front-end">Creating the Front End</a><ul class="toc-headings"><li><a href="#adding-products-to-the-basket">Adding Products to the Basket</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/longclaw/" class="nav-home"><img src="/longclaw/img/shop.png" alt="Longclaw" width="66" height="58"/></a><div><h5>Docs</h5><a href="/longclaw/docs/en/tutorial/introduction.html">Getting Started (or other categories)</a><a href="/longclaw/docs/en/doc2.html">Guides (or other categories)</a><a href="/longclaw/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/longclaw/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a></div><div><h5>More</h5><a href="/longclaw/blog">Blog</a><a href="https://github.com/JamesRamm/longclaw">GitHub</a><a class="github-button" href="https://github.com/JamesRamm/longclaw" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 James Ramm</section></footer></div></body></html>
