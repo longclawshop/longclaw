@@ -24,20 +24,11 @@ Install Longclaw into it:
 (my_project) $ pip install longclaw
 ```
 
-We also need to install the client library for our payment gateway integration. We are going to
-use Braintree as our payment gateway in this walkthrough.
-
-```bash
-(my_project) $ pip install braintree
-```
-
 Finally, use the longclaw CLI to setup your django project:
 
 ```bash
 (my_project) $ longclaw start bakery
 ```
-
-## Settings
 
 Now we have a django project which looks like this::
 
@@ -53,24 +44,45 @@ my_shop/
 
 The `home` and `search` folders are default folders used in Wagtail projects. Users of Wagtail
 will be familiar with these.
-The `catalog` folder contains a skeleton model for our product `variants` which we will come to later.
+The `catalog` folder contains a skeleton model for our product _variants_ which we will come to later.
 
-Before proceeding, we need to setup our ``settings`` file, in ``bakery/settings/base.py``.
+## Settings
+The `settings` module contains global configuration for our website, for both development and production.
+If you are familiar with Django, you will already know about `settings`. Longclaw introduces 2 extra settings; 
+`PAYMENT_GATEWAY` and `PRODUCT_VARIANT_MODEL`.
+Note that the `PRODUCT_VARIANT_MODEL` is already pointing to `'catalog.ProductVariant'`
 
-We need to configure which payment gateway we are using. Change the entry for `PAYMENT_GATEWAY` from
-`'longclaw.checkout.gateways.BasePayment'` to `'longclaw.checkout.gateways.braintree.BraintreePayment'`
+The `PAYMENT_GATEWAY` refers to the 3rd party payment processor we which to use. Longclaw currently supports
+Braintree, Paypal and Stripe. In this tutorial we will use Stripe. We need to install the client python library for
+our chosen payment gateway:
 
-We also need to set the access tokens for the braintree backend. Add the following settings:
-
-```python
-BRAINTREE_SANDBOX = False
-BRAINTREE_MERCHANT_ID = os.environ['BRAINTREE_MERCHANT_ID']
-BRAINTREE_PUBLIC_KEY = os.environ['BRAINTREE_PUBLIC_KEY']
-BRAINTREE_PRIVATE_KEY = os.environ['BRAINTREE_PRIVATE_KEY']
+```bash
+(my_project) $ pip install stripe
 ```
 
-For development/testing, you will probably want to set `BRAINTREE_SANDBOX` to `True`. The above settings assume that
-you have set environment variables on your OS with the access tokens.
+Now, lets specify the payment gateway in the `settings` module. The file we want to edit is in `bakery/settings/base.py`
+(remember, `bakery` is the name of the longclaw project, so replace this with your chosen name).
+
+Change the entry for `PAYMENT_GATEWAY` from `'longclaw.checkout.gateways.BasePayment'` to `'longclaw.checkout.gateways.stripe.StripePayment'`
+
+> By dynamically specifying the `PAYMENT_GATEWAY` longclaw can support custom integrations. See [integrations](guide/payments.md) for more info.
+
+To use Stripe we will need to inform longclaw of our access tokens. To do this, add the following setting:
+
+```python
+STRIPE_SECRET = 'sk_live_xxx'
+```
+Where `sk_live_xxx` is your stripe secret key, accessable from the stripe dashboard, under `Developers -> API Keys`.
+
+> When using Stripe, and indeed most other payment gateways, you can usually use a 'test' key so you can develop without creating real payments.
+  In Stripe, the test key will begin with `sk_test_`.
+
+Note that if you are storing your website code in a public repository, or otherwise sharing it, you should be careful about specifying 'secrets' in the code.
+Instead, use an environment variable:
+
+```python
+STRIPE_SECRET = os.environ['STRIPE_SECRET']
+```
 
 ## Migration
 
