@@ -81,7 +81,7 @@ Note that if you are storing your website code in a public repository, or otherw
 Instead, use an environment variable:
 
 ```python
-STRIPE_SECRET = os.environ['STRIPE_SECRET']
+STRIPE_SECRET = os.environ.get('STRIPE_SECRET', '')
 ```
 
 ## Migration
