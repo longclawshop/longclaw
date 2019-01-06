@@ -8,7 +8,10 @@
 
 An e-commerce extension for [Wagtail CMS](https://github.com/wagtail/wagtail)
 
->Longclaw is currently undergoing a major rewrite to bring it up to date with wagtail/django 2 and pack in more features
+## NEWS
+> Jan 2019: The master branch is now updated to 1.0.0 which has breaking changes and will shortly be released. New documentation is being prepared at https://jamesramm.github.io/longclaw/
+
+--------------------------------------------------------------------------------
 
 Checkout the [demo site](https://github.com/JamesRamm/longclaw_demo) and [documentation](http://longclaw.readthedocs.io/en/latest/)
 
