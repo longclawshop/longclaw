@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Displaying Products · Longclaw</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Now we have created products and configured our shipping, we can start thinking about actually displaying the products to our customers.&lt;/p&gt;
-"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Displaying Products · Longclaw"/><meta property="og:type" content="website"/><meta property="og:url" content="https://JamesRamm.github.io/longclaw/index.html"/><meta property="og:description" content="&lt;p&gt;Now we have created products and configured our shipping, we can start thinking about actually displaying the products to our customers.&lt;/p&gt;
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Displaying Products · Longclaw</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;You will see that if you click on &lt;code&gt;View&lt;/code&gt; for the products or product index, you will taken to a basic product index or product page.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Displaying Products · Longclaw"/><meta property="og:type" content="website"/><meta property="og:url" content="https://JamesRamm.github.io/longclaw/index.html"/><meta property="og:description" content="&lt;p&gt;You will see that if you click on &lt;code&gt;View&lt;/code&gt; for the products or product index, you will taken to a basic product index or product page.&lt;/p&gt;
 "/><meta property="og:image" content="https://JamesRamm.github.io/longclaw/img/shop.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://JamesRamm.github.io/longclaw/img/shop.png"/><link rel="shortcut icon" href="/longclaw/img/favicon/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/longclaw/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/longclaw/"><img class="logo" src="/longclaw/img/shop.png" alt="Longclaw"/><h2 class="headerTitleWithLogo">Longclaw</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/longclaw/docs/tutorial/introduction" target="_self">Docs</a></li><li class=""><a href="http://.google.com" target="_self">Demo</a></li><li class=""><a href="/longclaw/help" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Tutorial</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/install">Setup</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/products">Adding Products</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/shipping">Shipping</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/longclaw/docs/tutorial/frontend">Frontend</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/tutorial/checkout">Payment</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">User Guide</h3><ul><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/checkout">Checkout</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/payments">Integrations</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/basket">Basket</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/api">API Client</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/checkout_api">Checkout API</a></li><li class="navListItem"><a class="navItem" href="/longclaw/docs/guide/contrib">Product Requests</a></li></ul></div></div></section></div><script>
             document.addEventListener('DOMContentLoaded', function() {
               createToggler('#navToggler', '#docsNav', 'docsSliderActive');
@@ -27,63 +27,106 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Displaying Products</h1></header><article><div><span><p>Now we have created products and configured our shipping, we can start thinking about actually displaying the products to our customers.</p>
-<p>Since <code>ProductIndex</code> and <code>Product</code> are Wagtail pages, we write templates for them just like any other page.
-The Wagtail documentation already comprehensively covers <a href="http://docs.wagtail.io/en/v1.9/topics/writing_templates.html">writing templates</a>.</p>
-<p>Our template project already has some basic templates for <code>ProductIndex</code> and <code>Product</code>:</p>
-<ul>
-<li><code>my_shop/my_shop/templates/products/product_index.html</code></li>
-<li><code>my_shop/my_shop/templates/products/product.html</code></li>
-</ul>
-<p>They contain just enough information to demonstrate how to traverse the products and their fields.
-For a more complete template, take a look at the <a href="https://github.com/JamesRamm/longclaw_demo">demo project</a>.</p>
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Displaying Products</h1></header><article><div><span><p>You will see that if you click on <code>View</code> for the products or product index, you will taken to a basic product index or product page.
+You will find the HTML templates for these pages in <code>catalog/templates/catalog</code>.
+This basic template uses CSS grid to show the products as a grid of 'cards'.
+You can check out the CSS in <code>longclaw_bakery/static/css/longclaw_bakery.css</code>.
+The CSS is included in <code>longclaw_bakery/templates/base.html</code> which our <code>product_index.html</code> extends.</p>
+<blockquote>
+<p>The Wagtail documentation also has some comprehensive documentation on <a href="http://docs.wagtail.io/en/v1.9/topics/writing_templates.html">writing templates for Pages</a>.</p>
+</blockquote>
+<p>For more complex projects, you might want to use Sass and/or other frontend libraries. In this case you might want to look at using Webpack to bundle your static assets. There are some <a href="https://owais.lone.pw/blog/webpack-plus-reactjs-and-django/">useful guides</a> out there to help you.</p>
+<h2><a class="anchor" aria-hidden="true" id="improving-the-product-page"></a><a href="#improving-the-product-page" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Improving the product page</h2>
+<p>The basic product page is missing a few things:</p>
+<ol>
+<li>The fields we added to the model (vegetarian, gluten free) are not shown</li>
+<li>Its not possible to add the product to the basket!</li>
+<li>We can't see any information about the different variants</li>
+</ol>
+<p>Lets deal with the most pressing first...</p>
 <h3><a class="anchor" aria-hidden="true" id="adding-products-to-the-basket"></a><a href="#adding-products-to-the-basket" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding Products to the Basket</h3>
-<p>Longclaw offers a helpful template tag to create an <code>Add To Basket</code> button for your products.
+<p>When a product has different variations, there are usually various different ways to display those variations and allow a customer to add one to their basket.
+For this reason, the longclaw project template doesn't include any markup for this.</p>
+<p>We will cover a few options here, starting with what I am going to include in the bakery website.</p>
+<h4><a class="anchor" aria-hidden="true" id="table-display"></a><a href="#table-display" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Table display</h4>
+<p>Adding a product to the basket requires a HTTP request to be made to longclaw.
+Longclaw makes this a bit easier for you by offering a helpful template tag to create an <code>Add To Basket</code> button for your product variants, which takes care of the javascript for you.
 In your template, load the basket tags:</p>
 <pre><code class="hljs css language-django"><span class="xml">  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">load</span></span> basket_tags %}</span><span class="xml">
 </span></code></pre>
 <p>You can now use the tag to render a button for each product variant:</p>
 <pre><code class="hljs css language-django"><span class="xml">  </span><span class="hljs-template-tag">{% <span class="hljs-name">add_to_basket_btn</span> variant.id btn_text="Add To Basket" btn_class="btn btn-default" %}</span><span class="xml">
 </span></code></pre>
-<p>If you wish to create a button manually, you can handle the click event by making an AJAX call to the longclaw API.
-Situations where you would prefer this over the tempaltetag might be to support non-button elements, such as
-dropdown buttons, or for React-based frontends.</p>
-<p>Here is an example with a single button whose 'variant id' will change depending on the selection in a dropdown box.
-We can acheive the drop down like this:</p>
-<pre><code class="hljs css language-django"><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Format<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-md-6"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"variant-select"</span>&gt;</span>
-            </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> variant <span class="hljs-keyword">in</span> page.variants.all %}</span><span class="xml">
-            <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{variant.id}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span></span><span class="hljs-template-variable">{{variant.music_format}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
-            </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="xml">
-            <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
-</span></code></pre>
-<p>Add a button:</p>
-<pre><code class="hljs css language-django"><span class="xml">
-  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"add-button"</span>&gt;</span>Add To Basket<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-</span></code></pre>
-<p>We can then write a jquery function to handle the click event:</p>
-<pre><code class="hljs css language-javascript">
-  $(<span class="hljs-string">'#add-button'</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-comment">// Selected variant</span>
-    <span class="hljs-keyword">var</span> variant_id = $(<span class="hljs-string">'#variant-select option:selected'</span>).val();
+<p>In my bakery site, I am going to display these buttons along with more information about each variation in a table:</p>
+<pre><code class="hljs css language-django"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Type<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Price<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
+</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> variant <span class="hljs-keyword">in</span> page.variants.all %}</span><span class="xml">
+<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{variant.ref}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&amp;euro;</span><span class="hljs-template-variable">{{variant.price}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> variant.stock &gt; 0 %}</span><span class="xml">
+        </span><span class="hljs-template-tag">{% <span class="hljs-name">add_to_basket_btn</span> variant.id btn_text="Add To Basket" %}</span><span class="xml">
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">else</span></span> %}</span><span class="xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"label label-danger"</span>&gt;</span>Sold out<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="xml">
+<span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
 
-    <span class="hljs-comment">// Add to the basket</span>
-    $.post(<span class="hljs-string">"api/add_to_basket/"</span>, { <span class="hljs-attr">variant_id</span>: variant_id });
+</span></code></pre>
+<h4><a class="anchor" aria-hidden="true" id="dropdown-selection"></a><a href="#dropdown-selection" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dropdown Selection</h4>
+<p>The idea here is to provide a dropdown to select a variant and a separate 'Add to Basket' button, such as this:</p>
+<p><img src="/longclaw/docs/assets/dropdown-select.png" alt="Dropdown button"></p>
+<p>The dropdown can be achieved with a simple <code>select</code> elemt:</p>
+<pre><code class="hljs css language-django"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"variant-select"</span>&gt;</span>
+</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> variant <span class="hljs-keyword">in</span> page.variants.all %}</span><span class="xml">
+  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{variant.id}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span></span><span class="hljs-template-variable">{{variant.ref}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="xml">
+<span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>      
+</span></code></pre>
+<p>We also need a button:</p>
+<pre><code class="hljs css language-django"><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"add-to-basket-btn"</span>&gt;</span>Add To Basket<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</span></code></pre>
+<p>We then need to intercept the click event of the button to make the HTTP request:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> btn = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'add-to-basket-btn'</span>);
+<span class="hljs-keyword">const</span> select = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'variant-select'</span>);
+
+btn.addEventListener(<span class="hljs-string">"click"</span>, (e) =&gt; {
+  e.preventDefault();
+  <span class="hljs-keyword">const</span> variant_id = select.options[select.selectedIndex].value;
+  longclawclient.basketList.post({
+    <span class="hljs-attr">prefix</span>: <span class="hljs-string">"{% longclaw_api_url_prefix %}"</span>,
+    <span class="hljs-attr">data</span>: { variant_id }
   });
+});
 </code></pre>
-<p>This is a basic example of integrating with the basket. You will likely need to incorporate more
-complex designs such as displaying a count of items in the basket, allowing the user to increase/decrease
-quantity and so on. The <a href="#basket">basket API</a> allows all such interactions and all front end design decisions such as these are left up to the developer.
-It is worthwhile looking at the longclaw demo source code to see how e.g. a basket &amp; item count in the page header is implemented.</p>
+<p>Note two things in the javascript above - the use of <code>longclaw_api_url_prefix</code> and <code>longclawclient</code>. These require you to load the core template tags and the client javascript in your template. You can do this with the following lines in your django template:</p>
+<pre><code class="hljs css language-django"><span class="xml"></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">load</span></span> longclawcore_tags %}</span><span class="xml">
+
+/* ...HTML */
+
+</span><span class="hljs-template-tag">{% <span class="hljs-name">longclaw_vendors_bundle</span> %}</span><span class="xml">
+</span><span class="hljs-template-tag">{% <span class="hljs-name">longclaw_client_bundle</span> %}</span><span class="xml">
+</span></code></pre>
+<p>The <a href="/longclaw/docs/guide/basket">Basket API</a> also allows you to specify the quantity of an item to add.</p>
+<h4><a class="anchor" aria-hidden="true" id="amazon-style-selection"></a><a href="#amazon-style-selection" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Amazon style selection</h4>
+<h2><a class="anchor" aria-hidden="true" id="navbar-basket-link"></a><a href="#navbar-basket-link" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Navbar Basket Link</h2>
+<p>One other thing I want to have in my shop is the commong 'basket' link in the nav bar. This would be easy enough, but I also want to show the number of items in my basket:</p>
+<p><img src="/longclaw/docs/assets/basket-link.png" alt="Basket Link"></p>
 <h2><a class="anchor" aria-hidden="true" id="displaying-the-basket"></a><a href="#displaying-the-basket" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Displaying the Basket</h2>
+<p>Now my online bakery is starting to really take shop. I can add new products, customers can browse them and add them to their basket.</p>
+<p>So next, I have to allow our customers to actually see whats in their basket, edit it and proceed to checkout.</p>
 <p>Longclaw provides a REST API endpoint for retrieving basket data and a django view.</p>
-<p>To use the django view, we must provide a template titled <code>basket/basket.html</code>.
+<p>To use the django view, you must provide a template titled <code>basket/basket.html</code>.
 It is common to provide a link to the basket page in the header. We can use the <code>url</code> tag in
 our site header to provide the link:</p>
 <pre><code class="hljs"><span class="xml"></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">url</span></span> 'longclaw-basket' %}</span><span class="xml">
@@ -94,4 +137,4 @@ our site header to provide the link:</p>
 </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="xml">
 </span></code></pre>
 <p>For the full implementation of the basket template, take a look at the <a href="https://github.com/JamesRamm/longclaw_demo/blob/master/longclaw_demo/templates/basket/basket.html">longclaw demo repository</a></p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/longclaw/docs/tutorial/shipping"><span class="arrow-prev">← </span><span>Shipping</span></a><a class="docs-next button" href="/longclaw/docs/tutorial/checkout"><span>Payment</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#displaying-the-basket">Displaying the Basket</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/longclaw/" class="nav-home"><img src="/longclaw/img/shop.png" alt="Longclaw" width="66" height="58"/></a><div><h5>Docs</h5><a href="/longclaw/docs/en/tutorial/introduction.html">Getting Started (or other categories)</a><a href="/longclaw/docs/en/doc2.html">Guides (or other categories)</a><a href="/longclaw/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/longclaw/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a></div><div><h5>More</h5><a href="/longclaw/blog">Blog</a><a href="https://github.com/JamesRamm/longclaw">GitHub</a><a class="github-button" href="https://github.com/JamesRamm/longclaw" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 James Ramm</section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/longclaw/docs/tutorial/shipping"><span class="arrow-prev">← </span><span>Shipping</span></a><a class="docs-next button" href="/longclaw/docs/tutorial/checkout"><span>Payment</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#improving-the-product-page">Improving the product page</a><ul class="toc-headings"><li><a href="#adding-products-to-the-basket">Adding Products to the Basket</a></li></ul></li><li><a href="#navbar-basket-link">Navbar Basket Link</a></li><li><a href="#displaying-the-basket">Displaying the Basket</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/longclaw/" class="nav-home"><img src="/longclaw/img/shop.png" alt="Longclaw" width="66" height="58"/></a><div><h5>Docs</h5><a href="/longclaw/docs/en/tutorial/introduction.html">Getting Started (or other categories)</a><a href="/longclaw/docs/en/doc2.html">Guides (or other categories)</a><a href="/longclaw/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/longclaw/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a></div><div><h5>More</h5><a href="/longclaw/blog">Blog</a><a href="https://github.com/JamesRamm/longclaw">GitHub</a><a class="github-button" href="https://github.com/JamesRamm/longclaw" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 James Ramm</section></footer></div></body></html>
