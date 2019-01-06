@@ -15,13 +15,24 @@ For more complex projects, you might want to use Sass and/or other frontend libr
 
 
 ## Improving the product page
+The basic product page is missing a few things:
 
+1. The fields we added to the model (vegetarian, gluten free) are not shown
+2. Its not possible to add the product to the basket!
+3. We can't see any information about the different variants
 
+Lets deal with the most pressing first...
 
 ### Adding Products to the Basket
 
+When a product has different variations, there are usually various different ways to display those variations and allow a customer to add one to their basket. 
+For this reason, the longclaw project template doesn't include any markup for this.
 
-Longclaw offers a helpful template tag to create an `Add To Basket` button for your products.
+We will cover a few options here, starting with what I am going to include in the bakery website.
+
+#### Table display
+Adding a product to the basket requires a HTTP request to be made to longclaw.
+Longclaw makes this a bit easier for you by offering a helpful template tag to create an `Add To Basket` button for your product variants, which takes care of the javascript for you.
 In your template, load the basket tags:
 
 ```django
@@ -34,60 +45,103 @@ You can now use the tag to render a button for each product variant:
   {% add_to_basket_btn variant.id btn_text="Add To Basket" btn_class="btn btn-default" %}
 ```
 
-If you wish to create a button manually, you can handle the click event by making an AJAX call to the longclaw API.
-Situations where you would prefer this over the tempaltetag might be to support non-button elements, such as
-dropdown buttons, or for React-based frontends.
-
-Here is an example with a single button whose 'variant id' will change depending on the selection in a dropdown box.
-We can acheive the drop down like this:
+In my bakery site, I am going to display these buttons along with more information about each variation in a table:
 
 ```django
-    <dl>
-        <dt>Format</dt>
-        <dd>
-        <div class="col-md-6">
-            <select id="variant-select">
-            {% for variant in page.variants.all %}
-            <option value="{{variant.id}}">{{variant.music_format}}</option>
-            {% endfor %}
-            </select>
-        </div>
-        </dd>
-    </dl>
+<table>
+    <thead>
+        <tr>
+        <th>Type</th>
+        <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for variant in page.variants.all %}
+<tr>
+    <td><p>{{variant.ref}}</p></td>
+    <td><p>&euro;{{variant.price}}</p></td>
+    <td>
+        {% if variant.stock > 0 %}
+        {% add_to_basket_btn variant.id btn_text="Add To Basket" %}
+        {% else %}
+        <span class="label label-danger">Sold out</span>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
 ```
 
-Add a button:
+#### Dropdown Selection
+
+The idea here is to provide a dropdown to select a variant and a separate 'Add to Basket' button, such as this:
+
+![Dropdown button](assets/dropdown-select.png)
+
+The dropdown can be achieved with a simple `select` elemt:
 
 ```django
-
-  <button id="add-button">Add To Basket</button>
+<select id="variant-select">
+{% for variant in page.variants.all %}
+  <option value="{{variant.id}}">{{variant.ref}}</option>
+{% endfor %}
+</select>      
 ```
 
-We can then write a jquery function to handle the click event:
+We also need a button:
+```django
+  <button id="add-to-basket-btn">Add To Basket</button>
+```
+
+We then need to intercept the click event of the button to make the HTTP request:
 
 ```javascript
+const btn = document.getElementById('add-to-basket-btn');
+const select = document.getElementById('variant-select');
 
-  $('#add-button').click(function () {
-    // Selected variant
-    var variant_id = $('#variant-select option:selected').val();
-
-    // Add to the basket
-    $.post("api/add_to_basket/", { variant_id: variant_id });
+btn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const variant_id = select.options[select.selectedIndex].value;
+  longclawclient.basketList.post({
+    prefix: "{% longclaw_api_url_prefix %}",
+    data: { variant_id }
   });
+});
 ```
 
-This is a basic example of integrating with the basket. You will likely need to incorporate more
-complex designs such as displaying a count of items in the basket, allowing the user to increase/decrease
-quantity and so on. The [basket API](#basket) allows all such interactions and all front end design decisions such as these are left up to the developer.
-It is worthwhile looking at the longclaw demo source code to see how e.g. a basket & item count in the page header is implemented.
+Note two things in the javascript above - the use of `longclaw_api_url_prefix` and `longclawclient`. These require you to load the core template tags and the client javascript in your template. You can do this with the following lines in your django template:
 
+```django
+{% load longclawcore_tags %}
+
+/* ...HTML */
+
+{% longclaw_vendors_bundle %}
+{% longclaw_client_bundle %}
+```
+
+The [Basket API](../guide/basket.md) also allows you to specify the quantity of an item to add.
+
+#### Amazon style selection
+
+## Navbar Basket Link
+
+One other thing I want to have in my shop is the commong 'basket' link in the nav bar. This would be easy enough, but I also want to show the number of items in my basket:
+
+![Basket Link](assets/basket-link.png)
 
 
 ## Displaying the Basket
 
+Now my online bakery is starting to really take shop. I can add new products, customers can browse them and add them to their basket.
+
+So next, I have to allow our customers to actually see whats in their basket, edit it and proceed to checkout.
+
 Longclaw provides a REST API endpoint for retrieving basket data and a django view. 
 
-To use the django view, we must provide a template titled `basket/basket.html`. 
+To use the django view, you must provide a template titled `basket/basket.html`. 
 It is common to provide a link to the basket page in the header. We can use the `url` tag in
 our site header to provide the link:
 
