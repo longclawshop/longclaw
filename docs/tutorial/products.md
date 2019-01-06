@@ -80,7 +80,7 @@ Finally, lets override the price getter to apply the discount:
 @ProductVariantBase.price.getter
 def price(self):
   if self.discount:
-    discount_price = self.base_price * Decimal(self.discount_percent / 100.0 )
+    discount_price = self.base_price * Decimal((100 - self.discount_percent) / 100.0 )
     return discount_price.quantize(Decimal('.01'), decimal.ROUND_HALF_UP)
   return self.base_price
 ```

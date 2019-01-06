@@ -10,12 +10,13 @@
 {% templatetag openblock %} for post in page.get_children {% templatetag closeblock %}
    {% templatetag openblock %} with post=post.specific {% templatetag closeblock %}
     <div class="card">
-        {% templatetag openblock %} image post.images.first.image max-500x320 {% templatetag closeblock %}
+        {% templatetag openblock %} image post.images.first.image max-400x320 {% templatetag closeblock %}
         <div class="card-body">
             <a href="{% templatetag openblock %} pageurl post {% templatetag closeblock %}">
                 <h4>{% templatetag openvariable %} post.title {% templatetag closevariable %}</h4>
             </a>
             <p>{% templatetag openvariable %} post.description|richtext {% templatetag closevariable %}</p>
+            <p>From &euro;{% templatetag openvariable %}  post.price_range.0 {% templatetag closevariable %}</p>
         </div>
    </div>
    {% templatetag openblock %} endwith {% templatetag closeblock %}
