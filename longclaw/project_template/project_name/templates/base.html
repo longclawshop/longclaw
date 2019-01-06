@@ -21,10 +21,14 @@
     </head>
 
     <body class="{% templatetag openblock %} block body_class {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}">
+        <div class="layout">
         {% templatetag openblock %} wagtailuserbar {% templatetag closeblock %}
+        <div class="header"></div>
 
+        <div class="main">
         {% templatetag openblock %} block content {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
-
+        </div>
+        </div>
         {% templatetag opencomment %} Global javascript {% templatetag closecomment %}
         <script type="text/javascript" src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>
 

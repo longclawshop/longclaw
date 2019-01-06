@@ -3,18 +3,20 @@ title: Displaying Products
 sidebar_label: Frontend
 ---
 
-Now we have created products and configured our shipping, we can start thinking about actually displaying the products to our customers.
+You will see that if you click on `View` for the products or product index, you will taken to a basic product index or product page.
+You will find the HTML templates for these pages in `catalog/templates/catalog`.
+This basic template uses CSS grid to show the products as a grid of 'cards'.
+You can check out the CSS in `longclaw_bakery/static/css/longclaw_bakery.css`.
+The CSS is included in `longclaw_bakery/templates/base.html` which our `product_index.html` extends.
 
-Since `ProductIndex` and `Product` are Wagtail pages, we write templates for them just like any other page.
-The Wagtail documentation already comprehensively covers [writing templates](http://docs.wagtail.io/en/v1.9/topics/writing_templates.html).
+> The Wagtail documentation also has some comprehensive documentation on [writing templates for Pages](http://docs.wagtail.io/en/v1.9/topics/writing_templates.html).
 
-Our template project already has some basic templates for `ProductIndex` and `Product`:
+For more complex projects, you might want to use Sass and/or other frontend libraries. In this case you might want to look at using Webpack to bundle your static assets. There are some [useful guides](https://owais.lone.pw/blog/webpack-plus-reactjs-and-django/) out there to help you.
 
-- `my_shop/my_shop/templates/products/product_index.html`
-- `my_shop/my_shop/templates/products/product.html`
 
-They contain just enough information to demonstrate how to traverse the products and their fields.
-For a more complete template, take a look at the [demo project](https://github.com/JamesRamm/longclaw_demo).
+## Improving the product page
+
+
 
 ### Adding Products to the Basket
 

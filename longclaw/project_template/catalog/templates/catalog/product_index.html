@@ -6,14 +6,17 @@
 
 {% templatetag openblock %} block content {% templatetag closeblock %}
 <h1>{% templatetag openvariable %} page.title {% templatetag closevariable %}</h1>
-<div class="row">
+<div class="card-grid">
 {% templatetag openblock %} for post in page.get_children {% templatetag closeblock %}
    {% templatetag openblock %} with post=post.specific {% templatetag closeblock %}
-   <div><a href="{% templatetag openblock %} pageurl post {% templatetag closeblock %}">
-       <div class="caption_news">
-           <h4>{% templatetag openvariable %} post.title {% templatetag closevariable %}</h4>
-           <p>{% templatetag openvariable %} post.description|richtext {% templatetag closevariable %}</p>
-       </div></a>
+    <div class="card">
+        {% templatetag openblock %} image post.images.first.image max-500x320 {% templatetag closeblock %}
+        <div class="card-body">
+            <a href="{% templatetag openblock %} pageurl post {% templatetag closeblock %}">
+                <h4>{% templatetag openvariable %} post.title {% templatetag closevariable %}</h4>
+            </a>
+            <p>{% templatetag openvariable %} post.description|richtext {% templatetag closevariable %}</p>
+        </div>
    </div>
    {% templatetag openblock %} endwith {% templatetag closeblock %}
 {% templatetag openblock %} endfor {% templatetag closeblock %}

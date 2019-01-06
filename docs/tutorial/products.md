@@ -134,5 +134,3 @@ If we navigate back to the product index page, we see the new product listed:
 
 ![Image of the product index](assets/longclaw-bakery-product-index.png)
 
-You will see that if you click on `View` for the products or product index, you will get an error. This is because we have not yet written any templates for displaying our shop frontend. We [will get to this](shipping.md) but first we will move on to configuring the shipping.
-
