@@ -33,7 +33,7 @@ We can configure a default shipping rate to apply to all countries we have not e
 To enable default shipping:
 
 - Select `settings` from the wagtail admin menu
-- Select `Longclaw Settings`
+- Select `Configuration`
 - Fill in `Default Shipping Rate` and `Default Shipping Carrier`
 - Ensure `Enable Default Shipping` is checked.
 

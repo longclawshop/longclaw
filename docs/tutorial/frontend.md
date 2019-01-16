@@ -128,9 +128,48 @@ The [Basket API](../guide/basket.md) also allows you to specify the quantity of 
 
 ## Navbar Basket Link
 
-One other thing I want to have in my shop is the commong 'basket' link in the nav bar. This would be easy enough, but I also want to show the number of items in my basket:
+One other thing I want to have in my shop is the common 'basket' link in the nav bar. This would be easy enough, but I also want to show the number of items in my basket:
 
 ![Basket Link](assets/basket-link.png)
+
+In `base.html` you will see that the project template already provided you with a basic top header bar:
+
+```html
+<div class="header">
+</div>
+```
+
+I'm going to flesh it out to add my logo and links on the left and a basket icon on the right:
+
+```html
+<div class="header">
+  <div class="nav-left">
+    <a class="nav-brand" href="/">Longclaw Bakery</a>
+    <a href="/products">Products</a>
+  </div>
+
+  <div class="nav-right">
+    <a href="{% url 'longclaw_basket' %}"><span id="basket-item-count"> </span><i class="fas fa-shopping-basket fa-lg" aria-hidden="true"></i></a>
+  </div>
+</div>
+```
+
+Now some CSS:
+
+```css
+.header {
+    grid-area: header;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 5px;
+    background-color: var(--brand-primary)
+}
+
+.header-brand {
+    flex: 1;
+}
+```
 
 
 ## Displaying the Basket

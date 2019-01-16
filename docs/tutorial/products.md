@@ -127,7 +127,7 @@ Add a title, description then start adding variants.
 You will see that in the product variants are the custom fields we added for
 applying discounts.
 
-![Image of the product](assets/longclaw-bakery-create-product.png)
+![Image of the product](assets/longclaw-bakery-add-product.png)
 
 
 If we navigate back to the product index page, we see the new product listed:
