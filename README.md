@@ -33,6 +33,20 @@ Setup a Longclaw project
   $ longclaw start my_project
 ```
 
+Go to project directory and create missing migrations 
+
+```bash
+  $ python manage.py makemigrations home
+  $ python manage.py makemigrations catalog
+```
+
+Do migrations for whole project and run 
+
+```bash
+  $ python manage.py migrate
+  $ python manage.py runserver
+```
+
 ## Features
 
 - Tightly integrated with Wagtail. Create products, manage orders, configure shipping and view statistics all from the Wagtail admin.
