@@ -8,14 +8,9 @@
 
 An e-commerce extension for [Wagtail CMS](https://github.com/wagtail/wagtail)
 
-## NEWS
-> Jan 2019: The master branch is now updated to 1.0.0 which has breaking changes and will shortly be released. New documentation is being prepared at https://jamesramm.github.io/longclaw/
 
---------------------------------------------------------------------------------
 
-Checkout the [demo site](https://github.com/JamesRamm/longclaw_demo) and [documentation](http://longclaw.readthedocs.io/en/latest/)
-
-<a href="https://www.buymeacoffee.com/pHtXDM748" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+Checkout the [documentation](https://jamesramm.github.io/longclaw/)
 
 ![Image of the dashboard](docs/assets/dashboard.png)
 
@@ -54,4 +49,6 @@ Setup a Longclaw project
 Please raise bugs/feature requests using the github issue tracker and ask questions on stackoverflow.
 For further support contact ramshacklerecording@gmail.com
 
+If you use Longclaw, please consider supporting the developer:
+<a href="https://www.buymeacoffee.com/pHtXDM748" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
