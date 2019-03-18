@@ -55,6 +55,8 @@ class ShippingBasketTests(LongclawTestCase):
         self.item = BasketItemFactory(basket_id=bid)
         BasketItemFactory(basket_id=bid)
         
+        self.address = AddressFactory()
+        
         self.rate1 = ShippingRate.objects.create(
             name='98d17c43-7e20-42bd-b603-a4c83c829c5a',
             rate=99,
@@ -62,11 +64,33 @@ class ShippingBasketTests(LongclawTestCase):
             description='313037e1-644a-4570-808a-f9ba82ecfb34',
             basket_id=bid,
         )
+        
+        self.rate2 = ShippingRate.objects.create(
+            name='8e721550-594c-482b-b512-54dc1744dff8',
+            rate=97,
+            carrier='4f4cca35-1a7a-47ec-ab38-a9918e0c04af',
+            description='eacb446d-eb17-4ea7-82c1-ac2f62a53a7d',
+            basket_id=bid,
+            address=address,
+        )
     
     def test_basket_rate(self):
+        # this tests that we get a basket rate that is just tied to the basket and nothing else
+        # (i.e. this basket qualifies for free shipping or something like that)
         result = get_shipping_cost(Configuration(), name='98d17c43-7e20-42bd-b603-a4c83c829c5a', basket_id=self.bid)
         self.assertEqual(result["rate"], 99)
         self.assertEqual(result["description"], '313037e1-644a-4570-808a-f9ba82ecfb34')
+    
+    def test_basket_address_rate(self):
+        # this tests that we get a rate tied to a particular basket and a particular address
+        result = get_shipping_cost(
+            Configuration(),
+            name='8e721550-594c-482b-b512-54dc1744dff8',
+            basket_id=self.bid,
+            shipping_address=self.address,
+        )
+        self.assertEqual(result["rate"], 97)
+        self.assertEqual(result["description"], 'eacb446d-eb17-4ea7-82c1-ac2f62a53a7d')
 
 
 class AddressFormTest(TestCase):
