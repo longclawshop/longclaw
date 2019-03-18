@@ -1,6 +1,7 @@
 import uuid
 
 from django.test import TestCase
+from django.test.client import RequestFactory
 from django.forms.models import model_to_dict
 from longclaw.tests.utils import LongclawTestCase, AddressFactory, CountryFactory, ShippingRateFactory, BasketItemFactory
 from longclaw.shipping.forms import AddressForm
