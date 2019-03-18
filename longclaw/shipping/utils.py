@@ -44,7 +44,7 @@ def get_shipping_cost(settings, country_code=None, name=None, basket_id=None, sh
             q.add(Q(address=shipping_address, basket_id=basket_id), Q.OR)
         
         if shipping_address:
-            q.add(Q(address=shipping_address, basket_id=None), Q.OR)
+            q.add(Q(address=shipping_address, basket_id=''), Q.OR)
         
         if basket_id:
             q.add(Q(address=None, basket_id=basket_id), Q.OR)
