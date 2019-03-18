@@ -52,11 +52,11 @@ class ShippingBasketTests(LongclawTestCase):
         """
         request = RequestFactory().get('/')
         request.session = {}
-        self.bid = basket_id(request)
+        self.bid = bid = basket_id(request)
         self.item = BasketItemFactory(basket_id=bid)
         BasketItemFactory(basket_id=bid)
         
-        self.address = AddressFactory()
+        self.address = address = AddressFactory()
         
         self.rate1 = ShippingRate.objects.create(
             name='98d17c43-7e20-42bd-b603-a4c83c829c5a',
