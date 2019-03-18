@@ -72,7 +72,7 @@ class ShippingBasketTests(LongclawTestCase):
             carrier='4f4cca35-1a7a-47ec-ab38-a9918e0c04af',
             description='eacb446d-eb17-4ea7-82c1-ac2f62a53a7d',
             basket_id=bid,
-            address=address,
+            destination=address,
         )
     
     def test_basket_rate(self):
@@ -88,7 +88,7 @@ class ShippingBasketTests(LongclawTestCase):
             Configuration(),
             name='8e721550-594c-482b-b512-54dc1744dff8',
             basket_id=self.bid,
-            shipping_address=self.address,
+            destination=self.address,
         )
         self.assertEqual(result["rate"], 97)
         self.assertEqual(result["description"], 'eacb446d-eb17-4ea7-82c1-ac2f62a53a7d')

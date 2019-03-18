@@ -40,7 +40,7 @@ class ShippingRate(models.Model):
     description = models.CharField(max_length=128)
     countries = models.ManyToManyField('shipping.Country')
     basket_id = models.CharField(blank=True, db_index=True, max_length=32)
-    address = models.ForeignKey(Address, blank=True, null=True, on_delete=models.PROTECT)
+    destination = models.ForeignKey(Address, blank=True, null=True, on_delete=models.PROTECT)
 
     panels = [
         FieldPanel('name'),

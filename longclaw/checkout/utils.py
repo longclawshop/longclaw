@@ -70,7 +70,7 @@ def create_order(email,
             shipping_address.country.pk,
             shipping_option,
             basket_id=current_basket_id,
-            shipping_address=shipping_address,
+            destination=shipping_address,
         )['rate']
     else:
         shipping_rate = Decimal(0)

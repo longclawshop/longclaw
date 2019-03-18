@@ -10,11 +10,11 @@ class InvalidShippingRate(Exception):
 class InvalidShippingCountry(Exception):
     pass
 
-def get_shipping_cost(settings, country_code=None, name=None, basket_id=None, shipping_address=None):
+def get_shipping_cost(settings, country_code=None, name=None, basket_id=None, destination=None):
     """Return the shipping cost for a given country code and shipping option (shipping rate name)
     """
-    if not country_code and shipping_address:
-        country_code = shipping_address.country.pk
+    if not country_code and destination:
+        country_code = destination.country.pk
         
     shipping_rate = None
     invalid_country = False
@@ -37,17 +37,17 @@ def get_shipping_cost(settings, country_code=None, name=None, basket_id=None, sh
                 "description": shipping_rate_qrs.description,
                 "carrier": shipping_rate_qrs.carrier}
     
-    if basket_id or shipping_address:
+    if basket_id or destination:
         q = Q()
         
-        if shipping_address and basket_id:
-            q.add(Q(address=shipping_address, basket_id=basket_id), Q.OR)
+        if destination and basket_id:
+            q.add(Q(destination=destination, basket_id=basket_id), Q.OR)
         
-        if shipping_address:
-            q.add(Q(address=shipping_address, basket_id=''), Q.OR)
+        if destination:
+            q.add(Q(destination=destination, basket_id=''), Q.OR)
         
         if basket_id:
-            q.add(Q(address=None, basket_id=basket_id), Q.OR)
+            q.add(Q(destination=None, basket_id=basket_id), Q.OR)
             
         qrs = models.ShippingRate.objects.filter(name=name).filter(q)
         count = qrs.count()

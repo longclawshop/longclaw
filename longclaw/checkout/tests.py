@@ -120,7 +120,7 @@ class CheckoutApiShippingTest(LongclawTestCase):
             rate=amount,
             carrier=force_text(uuid.uuid4()),
             description=force_text(uuid.uuid4()),
-            address=self.shipping_address,
+            destination=self.shipping_address,
         )
         order = create_order(
             self.email,
@@ -138,7 +138,7 @@ class CheckoutApiShippingTest(LongclawTestCase):
             rate=amount,
             carrier=force_text(uuid.uuid4()),
             description=force_text(uuid.uuid4()),
-            address=self.shipping_address,
+            destination=self.shipping_address,
             basket_id=self.basket_id,
         )
         order = create_order(
