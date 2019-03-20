@@ -8,9 +8,10 @@ from longclaw.shipping.forms import AddressForm
 from longclaw.shipping.utils import get_shipping_cost
 from longclaw.shipping.templatetags import longclawshipping_tags
 from longclaw.configuration.models import Configuration
+from longclaw.basket.signals import basket_modified
 from longclaw.basket.utils import basket_id
 
-from .models import ShippingRate
+from .models import ShippingRate, clear_basket_rates
 
 
 class ShippingTests(LongclawTestCase):
@@ -110,6 +111,17 @@ class ShippingBasketTests(LongclawTestCase):
         )
         self.assertEqual(result["rate"], 95)
         self.assertEqual(result["description"], '78b03c47-b20f-4f91-8161-47340367fb34')
+    
+    def test_clear_basket_rates_is_connected(self):
+        result = basket_modified.disconnect(clear_basket_rates)
+        self.assertTrue(result)
+        basket_modified.connect(clear_basket_rates)
+    
+    def test_clear_basket_rates(self):
+        self.assertTrue(ShippingRate.objects.filter(pk__in=[self.rate1.pk, self.rate2.pk, self.rate3.pk]).exists())
+        clear_basket_rates(sender=ShippingRate, basket_id=self.bid)
+        self.assertFalse(ShippingRate.objects.filter(pk__in=[self.rate1.pk, self.rate2.pk]).exists())
+        self.assertTrue(ShippingRate.objects.filter(pk__in=[self.rate3.pk]).exists())
 
 
 class AddressFormTest(TestCase):

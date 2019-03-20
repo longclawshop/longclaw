@@ -1,5 +1,7 @@
 from django.db import models
+from django.dispatch import receiver
 
+from longclaw.basket.signals import basket_modified
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.snippets.models import register_snippet
 
@@ -52,6 +54,12 @@ class ShippingRate(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(basket_modified)
+def clear_basket_rates(sender, basket_id, **kwargs):
+    ShippingRate.objects.filter(basket_id=basket_id).delete()
+
 
 class Country(models.Model):
     """
