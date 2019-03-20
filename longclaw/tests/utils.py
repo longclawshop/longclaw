@@ -113,7 +113,7 @@ class LongclawTestCase(APITestCase):
             urlkwargs (dict): The `kwargs` parameter to pass to the `reverse_lazy` function
         """
         response = self.client.get(reverse_lazy(urlname, kwargs=urlkwargs), **kwargs)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
         return response
 
     def post_test(self, data, urlname, urlkwargs=None, **kwargs):
@@ -133,15 +133,16 @@ class LongclawTestCase(APITestCase):
         """ Submit a PATCH request and assert the response status code is 200
         """
         response = self.client.patch(reverse_lazy(urlname, kwargs=urlkwargs), data, **kwargs)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
         return response
 
     def put_test(self, data, urlname, urlkwargs=None, **kwargs):
         response = self.client.put(reverse_lazy(urlname, kwargs=urlkwargs), data, **kwargs)
-        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
+        self.assertIn(response.status_code,
+                      (status.HTTP_201_CREATED, status.HTTP_200_OK, status.HTTP_202_ACCEPTED), response.content)
         return response
 
     def del_test(self, urlname, urlkwargs=None, **kwargs):
         response = self.client.delete(reverse_lazy(urlname, kwargs=urlkwargs), **kwargs)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
         return response
