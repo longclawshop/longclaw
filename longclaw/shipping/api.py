@@ -4,12 +4,28 @@ from rest_framework.response import Response
 from longclaw.shipping import models, utils, serializers
 from longclaw.configuration.models import Configuration
 
+from .signals import address_modified
+
 class AddressViewSet(viewsets.ModelViewSet):
     """
     Create, list and view Addresses
     """
     queryset = models.Address.objects.all()
     serializer_class = serializers.AddressSerializer
+    
+    def perform_create(self, serializer):
+        output = super().perform_create(serializer)
+        instance = serializer.instance
+        address_modified.send(sender=models.Address, instance=instance)
+    
+    def perform_update(self, serializer):
+        output = super().perform_update(serializer)
+        instance = serializer.instance
+        address_modified.send(sender=models.Address, instance=instance)
+    
+    def perform_destroy(self, instance):
+        output = super().perform_destroy(instance)
+        address_modified.send(sender=models.Address, instance=instance)
 
 
 @api_view(['GET'])

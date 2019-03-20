@@ -5,6 +5,8 @@ from longclaw.basket.signals import basket_modified
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.snippets.models import register_snippet
 
+from .signals import address_modified
+
 
 @register_snippet
 class Address(models.Model):
@@ -26,6 +28,12 @@ class Address(models.Model):
 
     def __str__(self):
         return "{}, {}, {}".format(self.name, self.city, self.country)
+
+
+@receiver(address_modified)
+def clear_address_rates(sender, instance, **kwargs):
+    ShippingRate.objects.filter(destination=instance).delete()
+
 
 class ShippingRate(models.Model):
     """

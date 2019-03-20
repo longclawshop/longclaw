@@ -1,9 +1,10 @@
 import uuid
+import mock
 
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.forms.models import model_to_dict
-from longclaw.tests.utils import LongclawTestCase, AddressFactory, CountryFactory, ShippingRateFactory, BasketItemFactory
+from longclaw.tests.utils import LongclawTestCase, AddressFactory, CountryFactory, ShippingRateFactory, BasketItemFactory, catch_signal
 from longclaw.shipping.forms import AddressForm
 from longclaw.shipping.utils import get_shipping_cost
 from longclaw.shipping.templatetags import longclawshipping_tags
@@ -11,7 +12,9 @@ from longclaw.configuration.models import Configuration
 from longclaw.basket.signals import basket_modified
 from longclaw.basket.utils import basket_id
 
-from .models import ShippingRate, clear_basket_rates
+from .models import Address, ShippingRate, clear_basket_rates, clear_address_rates
+from .signals import address_modified
+from .serializers import AddressSerializer
 
 
 class ShippingTests(LongclawTestCase):
@@ -122,6 +125,118 @@ class ShippingBasketTests(LongclawTestCase):
         clear_basket_rates(sender=ShippingRate, basket_id=self.bid)
         self.assertFalse(ShippingRate.objects.filter(pk__in=[self.rate1.pk, self.rate2.pk]).exists())
         self.assertTrue(ShippingRate.objects.filter(pk__in=[self.rate3.pk]).exists())
+
+
+class AddressModifiedSignalTest(LongclawTestCase):
+    """Round trip API tests
+    """
+    def setUp(self):
+        self.country = CountryFactory()
+        self.address = AddressFactory()
+        self.address_data = {
+            'name': 'JANE DOE',
+            'line_1': '1600 Pennsylvania Ave NW',
+            'city': 'DC',
+            'postcode': '20500',
+            'country': self.country.pk,
+        }
+        
+        request = RequestFactory().get('/')
+        request.session = {}
+        self.bid = bid = basket_id(request)
+        self.item = BasketItemFactory(basket_id=bid)
+        BasketItemFactory(basket_id=bid)
+        
+        self.ratedAddress = address = AddressFactory()
+        
+        self.rate1 = ShippingRate.objects.create(
+            name='98d17c43-7e20-42bd-b603-a4c83c829c5a',
+            rate=99,
+            carrier='8717ca67-4691-4dff-96ec-c43cccd15241',
+            description='313037e1-644a-4570-808a-f9ba82ecfb34',
+            basket_id=bid,
+        )
+        
+        self.rate2 = ShippingRate.objects.create(
+            name='8e721550-594c-482b-b512-54dc1744dff8',
+            rate=97,
+            carrier='4f4cca35-1a7a-47ec-ab38-a9918e0c04af',
+            description='eacb446d-eb17-4ea7-82c1-ac2f62a53a7d',
+            basket_id=bid,
+            destination=address,
+        )
+        
+        self.rate3 = ShippingRate.objects.create(
+            name='72991859-dc0b-463e-821a-bf8b04aaed2c',
+            rate=95,
+            carrier='0aa3c318-b045-4a96-a456-69b4cc71d46a',
+            description='78b03c47-b20f-4f91-8161-47340367fb34',
+            destination=address,
+        )
+    
+    def test_clear_address_rates_is_connected(self):
+        result = address_modified.disconnect(clear_address_rates)
+        self.assertTrue(result)
+        address_modified.connect(clear_address_rates)
+    
+    def test_clear_address_rates(self):
+        self.assertTrue(ShippingRate.objects.filter(pk__in=[self.rate1.pk, self.rate2.pk, self.rate3.pk]).exists())
+        clear_address_rates(sender=ShippingRate, instance=self.ratedAddress)
+        self.assertTrue(ShippingRate.objects.filter(pk__in=[self.rate1.pk]).exists())
+        self.assertFalse(ShippingRate.objects.filter(pk__in=[self.rate2.pk, self.rate3.pk]).exists())
+
+    def test_create_address_sends_signal(self):
+        with catch_signal(address_modified) as handler:
+            self.post_test(self.address_data, 'longclaw_address_list')
+        
+        handler.assert_called_once_with(
+            instance=mock.ANY,
+            sender=Address,
+            signal=address_modified,
+        )
+
+    def test_put_address_sends_signal(self):
+        serializer = AddressSerializer(self.address)
+        data = {}
+        data.update(serializer.data)
+        data.update(self.address_data)
+        
+        self.assertNotEqual(self.address.postcode, '20500')
+        
+        with catch_signal(address_modified) as handler:
+            response = self.put_test(data, 'longclaw_address_detail', urlkwargs={'pk': self.address.pk})
+        
+        self.assertEqual('20500', response.data['postcode'])
+        
+        handler.assert_called_once_with(
+            instance=self.address,
+            sender=Address,
+            signal=address_modified,
+        )
+    
+    def test_patch_address_sends_signal(self):
+        self.assertNotEqual(self.address.postcode, '20500')
+        
+        with catch_signal(address_modified) as handler:
+            response = self.patch_test(self.address_data, 'longclaw_address_detail', urlkwargs={'pk': self.address.pk})
+        
+        self.assertEqual('20500', response.data['postcode'])
+        
+        handler.assert_called_once_with(
+            instance=self.address,
+            sender=Address,
+            signal=address_modified,
+        )
+    
+    def test_delete_address_sends_signal(self):
+        with catch_signal(address_modified) as handler:
+            self.del_test('longclaw_address_detail', urlkwargs={'pk': self.address.pk})
+        
+        handler.assert_called_once_with(
+            instance=mock.ANY,
+            sender=Address,
+            signal=address_modified,
+        )
 
 
 class AddressFormTest(TestCase):
