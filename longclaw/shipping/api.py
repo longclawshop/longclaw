@@ -1,8 +1,10 @@
+from django.db.models import Q
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
 from longclaw.shipping import models, utils, serializers
 from longclaw.configuration.models import Configuration
+from longclaw.basket.utils import basket_id
 
 from .signals import address_modified
 
@@ -28,6 +30,30 @@ class AddressViewSet(viewsets.ModelViewSet):
         address_modified.send(sender=models.Address, instance=instance)
 
 
+def get_shipping_cost_kwargs_or_response(request):
+    country_code = request.query_params.get('country_code', None) or request.query_params.get('country', None)
+    
+    destination = request.query_params.get('destination', None)
+    if destination:
+        try:
+            destination = models.Address.objects.get(pk=destination)
+        except models.Address.DoesNotExist:
+            return Response(data={"message": "Address not found"},
+                        status=status.HTTP_400_BAD_REQUEST)
+    elif not country_code:
+        return Response(data={"message": "No country code supplied"},
+                        status=status.HTTP_400_BAD_REQUEST)
+    
+    if not country_code:
+        country_code = destination.country.pk
+
+    bid = basket_id(request)
+    option = request.query_params.get('shipping_rate_name', 'standard')
+    settings = Configuration.for_site(request.site)
+    
+    return dict(country_code=country_code, destination=destination, basket_id=bid, settings=settings, name=option)
+
+
 @api_view(['GET'])
 @permission_classes({permissions.AllowAny})
 def shipping_cost(request):
@@ -36,25 +62,25 @@ def shipping_cost(request):
     fallback to the default shipping cost if it has been enabled in the app
     settings
     """
+    kwargs = get_shipping_cost_kwargs_or_response(request)
+    if isinstance(kwargs, Response):
+        return kwargs
+    
+    status_code = status.HTTP_400_BAD_REQUEST
     try:
-        code = request.query_params.get('country_code')
-    except AttributeError:
-        return Response(data={"message": "No country code supplied"},
-                        status=status.HTTP_400_BAD_REQUEST)
-
-    option = request.query_params.get('shipping_rate_name', 'standard')
-    try:
-        settings = Configuration.for_site(request.site)
-        data = utils.get_shipping_cost(settings, code, option)
-        response = Response(data=data, status=status.HTTP_200_OK)
+        data = utils.get_shipping_cost(**kwargs)
     except utils.InvalidShippingRate:
-        response = Response(data={"message": "Shipping option {} is invalid".format(option)},
-                            status=status.HTTP_400_BAD_REQUEST)
+        data = {
+            "message": "Shipping option {} is invalid".format(kwargs['name'])
+        }
     except utils.InvalidShippingCountry:
-        response = Response(data={"message": "Shipping to {} is not available".format(code)},
-                            status=status.HTTP_400_BAD_REQUEST)
+        data = {
+            "message": "Shipping to {} is not available".format(kwargs['country_code'])
+        }
+    else:
+        status_code = status.HTTP_200_OK
 
-    return response
+    return Response(data=data, status=status_code)
 
 
 @api_view(["GET"])
@@ -68,11 +94,19 @@ def shipping_countries(request):
 
 @api_view(["GET"])
 @permission_classes([permissions.AllowAny])
-def shipping_options(request, country):
+def shipping_options(request):
     """
     Get the shipping options for a given country
     """
-    qrs = models.ShippingRate.objects.filter(countries__in=[country])
+    kwargs = get_shipping_cost_kwargs_or_response(request)
+    if isinstance(kwargs, Response):
+        return kwargs
+    
+    q = Q(countries__in=[kwargs['country_code']]) | Q(basket_id=kwargs['basket_id'])
+    if destination:
+        q.add(Q(destination=kwargs['destination']), Q.OR)
+    
+    qrs = models.ShippingRate.objects.filter(q)
     serializer = serializers.ShippingRateSerializer(qrs, many=True)
     return Response(
         data=serializer.data,

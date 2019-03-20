@@ -1,5 +1,6 @@
 import uuid
 import mock
+from decimal import Decimal
 
 from django.test import TestCase
 from django.test.client import RequestFactory
@@ -248,3 +249,93 @@ class AddressFormTest(TestCase):
         form = AddressForm(data=model_to_dict(self.address))
         self.assertTrue(form.is_valid(), form.errors.as_json())
 
+
+def simple_basket_id(request):
+    return 'foo'
+
+
+@mock.patch('longclaw.basket.utils.basket_id', side_effect=simple_basket_id)
+class ShippingCostEndpointTest(LongclawTestCase):
+    def setUp(self):
+        self.country = CountryFactory()
+        self.address = AddressFactory()
+        
+        request = RequestFactory().get('/')
+        request.session = {}
+        
+        self.basket_id = basket_id(request)
+        BasketItemFactory(basket_id=self.basket_id)
+        BasketItemFactory(basket_id=self.basket_id)
+        
+        self.rate1 = ShippingRate.objects.create(
+            name='rate1',
+            rate=99,
+            carrier='rate1c',
+            description='rate1d',
+            basket_id=self.basket_id,
+        )
+        
+        self.rate2 = ShippingRate.objects.create(
+            name='rate2',
+            rate=97,
+            carrier='rate2c',
+            description='rate2d',
+            basket_id=self.basket_id,
+            destination=self.address,
+        )
+        
+        self.rate3 = ShippingRate.objects.create(
+            name='rate3',
+            rate=95,
+            carrier='rate3c',
+            description='rate3d',
+            destination=self.address,
+        )
+        
+        self.rate4 = ShippingRate.objects.create(
+            name='rate4',
+            rate=93,
+            carrier='rate4c',
+            description='rate4d',
+        )
+        self.rate4.countries.add(self.country)
+    
+    def test_get_rate1_cost(self, basket_id_func):
+        params = dict(
+            country_code=self.country.pk,
+            shipping_rate_name='rate1',
+        )
+        response = self.get_test('longclaw_shipping_cost', params=params)
+        self.assertEqual(response.data, {'description': 'rate1d', 'rate': Decimal('99.00'), 'carrier': 'rate1c'})
+    
+    def test_get_rate2_cost(self, basket_id_func):
+        params = dict(
+            destination=self.address.pk,
+            shipping_rate_name='rate2',
+        )
+        response = self.get_test('longclaw_shipping_cost', params=params)
+        self.assertEqual(response.data, {'description': 'rate2d', 'rate': Decimal('97.00'), 'carrier': 'rate2c'})
+    
+    def test_get_rate3_cost(self, basket_id_func):
+        params = dict(
+            destination=self.address.pk,
+            shipping_rate_name='rate3',
+        )
+        response = self.get_test('longclaw_shipping_cost', params=params)
+        self.assertEqual(response.data, {'description': 'rate3d', 'rate': Decimal('95.00'), 'carrier': 'rate3c'})
+    
+    def test_get_rate4_cost(self, basket_id_func):
+        # 
+        # destination
+        # 
+        params = dict(
+            country_code=self.country.pk,
+            shipping_rate_name='rate4',
+        )
+        response = self.get_test('longclaw_shipping_cost', params=params)
+        self.assertEqual(response.data, {'description': 'rate4d', 'rate': Decimal('93.00'), 'carrier': 'rate4c'})
+        
+        
+        
+        
+        
