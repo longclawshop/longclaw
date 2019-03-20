@@ -250,11 +250,7 @@ class AddressFormTest(TestCase):
         self.assertTrue(form.is_valid(), form.errors.as_json())
 
 
-def simple_basket_id(request):
-    return 'foo'
-
-
-@mock.patch('longclaw.basket.utils.basket_id', side_effect=simple_basket_id)
+@mock.patch('longclaw.shipping.api.basket_id', return_value='foo')
 class ShippingCostEndpointTest(LongclawTestCase):
     def setUp(self):
         self.country = CountryFactory()
@@ -263,7 +259,7 @@ class ShippingCostEndpointTest(LongclawTestCase):
         request = RequestFactory().get('/')
         request.session = {}
         
-        self.basket_id = basket_id(request)
+        self.basket_id = 'foo'
         BasketItemFactory(basket_id=self.basket_id)
         BasketItemFactory(basket_id=self.basket_id)
         
