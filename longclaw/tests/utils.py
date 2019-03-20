@@ -126,7 +126,7 @@ class LongclawTestCase(APITestCase):
         """
         response = self.client.post(reverse_lazy(urlname, kwargs=urlkwargs), data, **kwargs)
         self.assertIn(response.status_code,
-                      (status.HTTP_201_CREATED, status.HTTP_200_OK, status.HTTP_204_NO_CONTENT))
+                      (status.HTTP_201_CREATED, status.HTTP_200_OK, status.HTTP_204_NO_CONTENT), response.content)
         return response
 
     def patch_test(self, data, urlname, urlkwargs=None, **kwargs):
