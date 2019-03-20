@@ -30,8 +30,13 @@ class AddressViewSet(viewsets.ModelViewSet):
         address_modified.send(sender=models.Address, instance=instance)
 
 
-def get_shipping_cost_kwargs_or_response(request):
-    country_code = request.query_params.get('country_code', None) or request.query_params.get('country', None)
+def get_shipping_cost_kwargs_or_response(request, country=None):
+    country_code = request.query_params.get('country_code', None)
+    if country:
+        if country_code is not None:
+            return Response(data={"message": "Cannot specify country and country_code"},
+                        status=status.HTTP_400_BAD_REQUEST)
+        country_code = country
     
     destination = request.query_params.get('destination', None)
     if destination:
@@ -94,17 +99,20 @@ def shipping_countries(request):
 
 @api_view(["GET"])
 @permission_classes([permissions.AllowAny])
-def shipping_options(request):
+def shipping_options(request, country=None):
     """
     Get the shipping options for a given country
     """
-    kwargs = get_shipping_cost_kwargs_or_response(request)
+    kwargs = get_shipping_cost_kwargs_or_response(request, country=country)
     if isinstance(kwargs, Response):
         return kwargs
     
-    q = Q(countries__in=[kwargs['country_code']]) | Q(basket_id=kwargs['basket_id'])
+    q = Q(countries__in=[kwargs['country_code']]) | Q(basket_id=kwargs['basket_id'], destination=None)
+    
+    destination = kwargs['destination']
     if destination:
-        q.add(Q(destination=kwargs['destination']), Q.OR)
+        q.add(Q(destination=destination, basket_id=''), Q.OR)
+        q.add(Q(destination=destination, basket_id=kwargs['basket_id']), Q.OR)
     
     qrs = models.ShippingRate.objects.filter(q)
     serializer = serializers.ShippingRateSerializer(qrs, many=True)

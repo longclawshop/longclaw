@@ -15,7 +15,7 @@ from longclaw.basket.utils import basket_id
 
 from .models import Address, ShippingRate, clear_basket_rates, clear_address_rates
 from .signals import address_modified
-from .serializers import AddressSerializer
+from .serializers import AddressSerializer, ShippingRateSerializer
 
 
 class ShippingTests(LongclawTestCase):
@@ -330,6 +330,175 @@ class ShippingCostEndpointTest(LongclawTestCase):
         )
         response = self.get_test('longclaw_shipping_cost', params=params)
         self.assertEqual(response.data, {'description': 'rate4d', 'rate': Decimal('93.00'), 'carrier': 'rate4c'})
+
+
+class ShippingOptionEndpointTest(LongclawTestCase):
+    def setUp(self):
+        self.country = CountryFactory()
+        self.country2 = CountryFactory()
+        self.address = AddressFactory()
+        self.address2 = AddressFactory()
+        self.address2.country = self.country2
+        self.address2.save()
+        
+        self.assertNotEqual(self.country.pk, self.country2.pk, 'Try again. Random got you!')
+        
+        
+        request = RequestFactory().get('/')
+        request.session = {}
+        
+        self.basket_id = 'bar'
+        BasketItemFactory(basket_id=self.basket_id)
+        BasketItemFactory(basket_id=self.basket_id)
+        
+        self.rate1 = ShippingRate.objects.create(
+            name='rate1',
+            rate=99,
+            carrier='rate1c',
+            description='rate1d',
+            basket_id=self.basket_id,
+        )
+        
+        self.rate2 = ShippingRate.objects.create(
+            name='rate2',
+            rate=97,
+            carrier='rate2c',
+            description='rate2d',
+            basket_id=self.basket_id,
+            destination=self.address,
+        )
+        
+        self.rate3 = ShippingRate.objects.create(
+            name='rate3',
+            rate=95,
+            carrier='rate3c',
+            description='rate3d',
+            destination=self.address,
+        )
+        
+        self.rate4 = ShippingRate.objects.create(
+            name='rate4',
+            rate=93,
+            carrier='rate4c',
+            description='rate4d',
+        )
+        self.rate4.countries.add(self.country)
+        
+        self.rate5 = ShippingRate.objects.create(
+            name='rate5',
+            rate=95,
+            carrier='rate5c',
+            description='rate5d',
+            destination=self.address2,
+        )
+
+    @mock.patch('longclaw.shipping.api.basket_id', return_value='bar')
+    def test_get_rate1rate4_option_urlkwargs(self, basket_id_func):
+        """
+            We expect rate1 because of the basket id.
+            We expect rate4 because of the country.
+        """
+        expected_pks = [self.rate1.pk, self.rate4.pk]
+        serializer = ShippingRateSerializer(ShippingRate.objects.filter(pk__in=expected_pks), many=True)
+        response = self.get_test('longclaw_shipping_options', urlkwargs={'country': self.country.pk})
+        self.assertEqual(len(response.data), len(expected_pks))
+        self.assertEqual(response.data, serializer.data)
+    
+    @mock.patch('longclaw.shipping.api.basket_id', return_value='bar')
+    def test_get_rate1rate4_option(self, basket_id_func):
+        """
+            We expect rate1 because of the basket id.
+            We expect rate4 because of the country.
+        """
+        expected_pks = [self.rate1.pk, self.rate4.pk]
+        serializer = ShippingRateSerializer(ShippingRate.objects.filter(pk__in=expected_pks), many=True)
+        params = {
+            'country_code': self.country.pk,
+        }
+        response = self.get_test('longclaw_applicable_shipping_rate_list', params=params)
+        self.assertEqual(len(response.data), len(expected_pks))
+        self.assertEqual(response.data, serializer.data)
+    
+    @mock.patch('longclaw.shipping.api.basket_id', return_value='bar')
+    def test_get_rate1rate2rate3_option(self, basket_id_func):
+        """
+            We expect rate1 because of the basket id.
+            We expect rate2 because of the destination address and basket id.
+            We expect rate3 because of the destination address.
+        """
+        expected_pks = [self.rate1.pk, self.rate2.pk, self.rate3.pk]
+        serializer = ShippingRateSerializer(ShippingRate.objects.filter(pk__in=expected_pks), many=True)
+        params = {
+            'destination': self.address.pk,
+        }
+        response = self.get_test('longclaw_applicable_shipping_rate_list', params=params)
+        self.assertEqual(len(response.data), len(expected_pks))
+        self.assertEqual(response.data, serializer.data)
+    
+    def test_get_rate5_option(self):
+        """
+            We expect rate5 because of the destination address.
+        """
+        expected_pks = [self.rate5.pk]
+        serializer = ShippingRateSerializer(ShippingRate.objects.filter(pk__in=expected_pks), many=True)
+        params = {
+            'destination': self.address2.pk,
+        }
+        response = self.get_test('longclaw_applicable_shipping_rate_list', params=params)
+        self.assertEqual(len(response.data), len(expected_pks))
+        self.assertEqual(response.data, serializer.data)
+    
+    def test_get_rate4_option(self):
+        """
+            We expect rate4 because of the country.
+        """
+        expected_pks = [self.rate4.pk]
+        serializer = ShippingRateSerializer(ShippingRate.objects.filter(pk__in=expected_pks), many=True)
+        params = {
+            'country_code': self.country.pk,
+        }
+        response = self.get_test('longclaw_applicable_shipping_rate_list', params=params)
+        self.assertEqual(len(response.data), len(expected_pks))
+        self.assertEqual(response.data, serializer.data)
+    
+    def test_get_rate4_option_urlkwargs(self):
+        """
+            We expect rate4 because of the country.
+        """
+        expected_pks = [self.rate4.pk]
+        serializer = ShippingRateSerializer(ShippingRate.objects.filter(pk__in=expected_pks), many=True)
+        response = self.get_test('longclaw_shipping_options', urlkwargs={'country': self.country.pk})
+        self.assertEqual(len(response.data), len(expected_pks))
+        self.assertEqual(response.data, serializer.data)
+    
+    @mock.patch('longclaw.shipping.api.basket_id', return_value='bar')
+    def test_get_rate1_option(self, basket_id_func):
+        """
+            We expect rate1 because of the basket.
+        """
+        expected_pks = [self.rate1.pk]
+        serializer = ShippingRateSerializer(ShippingRate.objects.filter(pk__in=expected_pks), many=True)
+        params = {
+            'country_code': self.country2.pk,
+        }
+        response = self.get_test('longclaw_applicable_shipping_rate_list', params=params)
+        self.assertEqual(len(response.data), len(expected_pks))
+        self.assertEqual(response.data, serializer.data)
+    
+    @mock.patch('longclaw.shipping.api.basket_id', return_value='bar')
+    def test_get_rate6_option(self, basket_id_func):
+        """
+            We expect rate6 because of the basket id and address.
+        """
+        expected_pks = [self.rate1.pk]
+        serializer = ShippingRateSerializer(ShippingRate.objects.filter(pk__in=expected_pks), many=True)
+        params = {
+            'country_code': self.country2.pk,
+        }
+        response = self.get_test('longclaw_applicable_shipping_rate_list', params=params)
+        self.assertEqual(len(response.data), len(expected_pks))
+        self.assertEqual(response.data, serializer.data)
+    
         
         
         
