@@ -1,3 +1,6 @@
+from unittest import mock
+from contextlib import contextmanager
+
 import factory
 from django.urls import reverse_lazy
 
@@ -11,6 +14,19 @@ from longclaw.basket.models import BasketItem
 from longclaw.orders.models import Order
 from longclaw.shipping.models import Address, Country, ShippingRate
 from longclaw.utils import ProductVariant, maybe_get_product_model
+
+
+@contextmanager
+def catch_signal(signal):
+    """
+        Catch django signal and return the mocked call.
+        https://medium.freecodecamp.org/how-to-testing-django-signals-like-a-pro-c7ed74279311
+    """
+    handler = mock.Mock()
+    signal.connect(handler)
+    yield handler
+    signal.disconnect(handler)
+
 
 class OrderFactory(factory.django.DjangoModelFactory):
     class Meta:
