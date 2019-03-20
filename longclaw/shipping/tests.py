@@ -74,6 +74,14 @@ class ShippingBasketTests(LongclawTestCase):
             basket_id=bid,
             destination=address,
         )
+        
+        self.rate3 = ShippingRate.objects.create(
+            name='72991859-dc0b-463e-821a-bf8b04aaed2c',
+            rate=95,
+            carrier='0aa3c318-b045-4a96-a456-69b4cc71d46a',
+            description='78b03c47-b20f-4f91-8161-47340367fb34',
+            destination=address,
+        )
     
     def test_basket_rate(self):
         # this tests that we get a basket rate that is just tied to the basket and nothing else
@@ -92,6 +100,16 @@ class ShippingBasketTests(LongclawTestCase):
         )
         self.assertEqual(result["rate"], 97)
         self.assertEqual(result["description"], 'eacb446d-eb17-4ea7-82c1-ac2f62a53a7d')
+    
+    def test_address_rate(self):
+        # this tests that we get a rate tied to a particular address
+        result = get_shipping_cost(
+            Configuration(),
+            name='72991859-dc0b-463e-821a-bf8b04aaed2c',
+            destination=self.address,
+        )
+        self.assertEqual(result["rate"], 95)
+        self.assertEqual(result["description"], '78b03c47-b20f-4f91-8161-47340367fb34')
 
 
 class AddressFormTest(TestCase):
