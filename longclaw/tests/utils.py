@@ -105,14 +105,15 @@ class BasketItemFactory(factory.django.DjangoModelFactory):
 
 class LongclawTestCase(APITestCase):
 
-    def get_test(self, urlname, urlkwargs=None, **kwargs):
+    def get_test(self, urlname, urlkwargs=None, params=None, **kwargs):
         """ Submit a GET request and assert the response status code is 200
 
         Arguments:
             urlname (str): The url name to pass to the 'reverse_lazy' function
             urlkwargs (dict): The `kwargs` parameter to pass to the `reverse_lazy` function
         """
-        response = self.client.get(reverse_lazy(urlname, kwargs=urlkwargs), **kwargs)
+        params = params or {}
+        response = self.client.get(reverse_lazy(urlname, kwargs=urlkwargs), params, **kwargs)
         self.assertTrue(status.is_success(response.status_code), response.content)
         return response
 
