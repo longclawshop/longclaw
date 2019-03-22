@@ -2,6 +2,7 @@ import uuid
 import mock
 from decimal import Decimal
 
+from django.utils.encoding import force_text
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.forms.models import model_to_dict
@@ -13,7 +14,7 @@ from longclaw.configuration.models import Configuration
 from longclaw.basket.signals import basket_modified
 from longclaw.basket.utils import basket_id
 
-from .models import Address, ShippingRate, clear_basket_rates, clear_address_rates
+from .models import Address, ShippingRate, clear_basket_rates, clear_address_rates, ShippingRateProcessor
 from .signals import address_modified
 from .serializers import AddressSerializer, ShippingRateSerializer
 
@@ -330,6 +331,44 @@ class ShippingCostEndpointTest(LongclawTestCase):
         )
         response = self.get_test('longclaw_shipping_cost', params=params)
         self.assertEqual(response.data, {'description': 'rate4d', 'rate': Decimal('93.00'), 'carrier': 'rate4c'})
+
+
+class ShippingRateProcessorTest(LongclawTestCase):
+    def setUp(self):
+        pass
+    
+    def test_get_rates_not_implemented(self):
+        with self.assertRaises(NotImplementedError):
+            ShippingRateProcessor()._get_rates()
+    
+    def test_get_rates_cache(self):
+        rates = [
+            ShippingRate(pk=1),
+            ShippingRate(pk=2),
+            ShippingRate(pk=3),
+        ]
+        
+        rates_alt = [
+            ShippingRate(pk=4),
+            ShippingRate(pk=5),
+            ShippingRate(pk=6),
+        ]
+        
+        self.assertNotEqual(rates, rates_alt)
+        
+        processor = ShippingRateProcessor()
+        processor._get_rates = lambda **kwargs: rates
+        processor.get_rates_cache_key = lambda **kwargs: force_text('foo')
+        
+        self.assertEqual(processor.get_rates(), rates)
+        
+        processor._get_rates = lambda **kwargs: rates_alt
+        
+        self.assertEqual(processor.get_rates(), rates)
+        
+        processor.get_rates_cache_key = lambda **kwargs: force_text('bar')
+        
+        self.assertEqual(processor.get_rates(), rates_alt)
 
 
 class ShippingOptionEndpointTest(LongclawTestCase):
