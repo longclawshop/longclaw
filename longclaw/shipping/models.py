@@ -47,7 +47,7 @@ class ShippingRateProcessor(PolymorphicModel):
         rates = cache.get(key)
         if rates is None:
             with transaction.atomic():
-                rates = self._get_rates(**kwargs)
+                rates = self.process_rates(**kwargs)
             if rates is not None:
                 cache.set(key, rates, self.rates_cache_timeout)
         return rates
@@ -55,7 +55,7 @@ class ShippingRateProcessor(PolymorphicModel):
     def get_rates_cache_key(self, **kwargs):
         raise NotImplementedError()
     
-    def _get_rates(self, **kwargs):
+    def process_rates(self, **kwargs):
         raise NotImplementedError()
 
 

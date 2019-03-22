@@ -337,9 +337,9 @@ class ShippingRateProcessorTest(LongclawTestCase):
     def setUp(self):
         pass
     
-    def test_get_rates_not_implemented(self):
+    def test_process_rates_not_implemented(self):
         with self.assertRaises(NotImplementedError):
-            ShippingRateProcessor()._get_rates()
+            ShippingRateProcessor().process_rates()
     
     def test_get_rates_cache(self):
         rates = [
@@ -357,12 +357,12 @@ class ShippingRateProcessorTest(LongclawTestCase):
         self.assertNotEqual(rates, rates_alt)
         
         processor = ShippingRateProcessor()
-        processor._get_rates = lambda **kwargs: rates
+        processor.process_rates = lambda **kwargs: rates
         processor.get_rates_cache_key = lambda **kwargs: force_text('foo')
         
         self.assertEqual(processor.get_rates(), rates)
         
-        processor._get_rates = lambda **kwargs: rates_alt
+        processor.process_rates = lambda **kwargs: rates_alt
         
         self.assertEqual(processor.get_rates(), rates)
         
