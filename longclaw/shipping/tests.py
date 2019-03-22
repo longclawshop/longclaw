@@ -13,6 +13,7 @@ from longclaw.shipping.templatetags import longclawshipping_tags
 from longclaw.configuration.models import Configuration
 from longclaw.basket.signals import basket_modified
 from longclaw.basket.utils import basket_id
+from rest_framework import status
 
 from .models import Address, ShippingRate, clear_basket_rates, clear_address_rates, ShippingRateProcessor
 from .signals import address_modified
@@ -369,6 +370,24 @@ class ShippingRateProcessorTest(LongclawTestCase):
         processor.get_rates_cache_key = lambda **kwargs: force_text('bar')
         
         self.assertEqual(processor.get_rates(), rates_alt)
+
+
+class ShippingRateProcessorAPITest(LongclawTestCase):
+    def setUp(self):
+        self.country = CountryFactory()
+        self.country.iso = '11'
+        self.country.save()
+        self.processor = ShippingRateProcessor()
+        self.processor.save()
+        self.processor.countries.add(self.country)
+    
+    def test_shipping_option_endpoint_without_destination(self):
+        params = {
+            'country_code': self.country.pk,
+        }
+        response = self.get_test('longclaw_applicable_shipping_rate_list', params=params, success_expected=False)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['message'], "Destination address is required for rates to 11.")
 
 
 class ShippingOptionEndpointTest(LongclawTestCase):
