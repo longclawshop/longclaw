@@ -37,6 +37,31 @@ def clear_address_rates(sender, instance, **kwargs):
     ShippingRate.objects.filter(destination=instance).delete()
 
 
+class ShippingRateProcessor(PolymorphicModel):
+    country = models.ForeignKey('shipping.Country', blank=True, null=True, on_delete=models.PROTECT)
+    
+    rates_cache_timeout = 300
+    def get_rates(self, settings=None, basket_id=None, destination=None):
+        kwargs = dict(settings=settings, basket_id=basket_id, destination=destination)
+        key = self.get_rates_cache_key(**kwargs)
+        rates = cache.get(key)
+        if rates is None:
+            with transaction.atomic():
+                rates = self._process_rates(**kwargs)
+            if rates is not None:
+                for rate in rates:
+                    rate.processor = self
+                    rate.save()
+                cache.set(key, rates, self.rates_cache_timeout)
+        return rates
+    
+    def get_rates_cache_key(self, **kwargs):
+        raise NotImplementedError()
+    
+    def _get_rates(self, **kwargs):
+        raise NotImplementedError()
+
+
 class ShippingRate(models.Model):
     """
     An individual shipping rate. This can be applied to
@@ -53,6 +78,7 @@ class ShippingRate(models.Model):
     countries = models.ManyToManyField('shipping.Country')
     basket_id = models.CharField(blank=True, db_index=True, max_length=32)
     destination = models.ForeignKey(Address, blank=True, null=True, on_delete=models.PROTECT)
+    processor = models.ForeignKey(ShippingRateProcessor, blank=True, null=True, on_delete=models.PROTECT)
 
     panels = [
         FieldPanel('name'),
@@ -69,28 +95,6 @@ class ShippingRate(models.Model):
 @receiver(basket_modified)
 def clear_basket_rates(sender, basket_id, **kwargs):
     ShippingRate.objects.filter(basket_id=basket_id).delete()
-
-
-class ShippingRateProcessor(PolymorphicModel):
-    country = models.ForeignKey('shipping.Country', blank=True, null=True, on_delete=models.PROTECT)
-    
-    rates_cache_timeout = 300
-    def get_rates(self, settings=None, basket_id=None, destination=None):
-        kwargs = dict(settings=settings, basket_id=basket_id, destination=destination)
-        key = self.get_rates_cache_key(**kwargs)
-        rates = cache.get(key)
-        if rates is None:
-            with transaction.atomic():
-                rates = self._process_rates(**kwargs)
-            if rates is not None:
-                cache.set(key, rates, self.rates_cache_timeout)
-        return rates
-    
-    def get_rates_cache_key(self, **kwargs):
-        raise NotImplementedError()
-    
-    def _get_rates(self, **kwargs):
-        raise NotImplementedError()
 
 
 class Country(models.Model):
