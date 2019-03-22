@@ -38,7 +38,7 @@ def clear_address_rates(sender, instance, **kwargs):
 
 
 class ShippingRateProcessor(PolymorphicModel):
-    country = models.ForeignKey('shipping.Country', blank=True, null=True, on_delete=models.PROTECT)
+    countries = models.ManyToManyField('shipping.Country')
     
     rates_cache_timeout = 300
     def get_rates(self, settings=None, basket_id=None, destination=None):
