@@ -6,6 +6,7 @@ from longclaw.shipping import models, utils, serializers
 from longclaw.configuration.models import Configuration
 from longclaw.basket.utils import basket_id
 
+from .models import ShippingRateProcessor
 from .signals import address_modified
 
 class AddressViewSet(viewsets.ModelViewSet):
@@ -107,12 +108,28 @@ def shipping_options(request, country=None):
     if isinstance(kwargs, Response):
         return kwargs
     
-    q = Q(countries__in=[kwargs['country_code']]) | Q(basket_id=kwargs['basket_id'], destination=None)
-    
+    country_code = kwargs['country_code']
+    settings = kwargs['settings']
+    bid = kwargs['basket_id']
     destination = kwargs['destination']
+    
+    processors = ShippingRateProcessor.objects.filter(countries__in=[country_code])
+    if processors:
+        if not destination:
+            return Response(
+                data={
+                    "message": "Destination address is required for rates to {}.".format(country_code)
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        for processor in processors:
+            processor.get_rates(settings=settings, basket_id=bid, destination=destination)
+    
+    q = Q(countries__in=[country_code]) | Q(basket_id=bid, destination=None)
+    
     if destination:
         q.add(Q(destination=destination, basket_id=''), Q.OR)
-        q.add(Q(destination=destination, basket_id=kwargs['basket_id']), Q.OR)
+        q.add(Q(destination=destination, basket_id=bid), Q.OR)
     
     qrs = models.ShippingRate.objects.filter(q)
     serializer = serializers.ShippingRateSerializer(qrs, many=True)
