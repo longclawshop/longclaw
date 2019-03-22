@@ -400,8 +400,17 @@ class ShippingRateProcessorAPITest(LongclawTestCase):
         }
         with mock.patch('longclaw.shipping.api.ShippingRateProcessor.get_rates') as mocked_get_rates:
             mocked_get_rates.return_value = []
+            
             response = self.get_test('longclaw_applicable_shipping_rate_list', params=params)
+            self.assertTrue(mocked_get_rates.called)
             self.assertEqual(mocked_get_rates.call_count, 1)
+            
+            processor = ShippingRateProcessor()
+            processor.save()
+            processor.countries.add(self.country)
+            
+            response = self.get_test('longclaw_applicable_shipping_rate_list', params=params)
+            self.assertEqual(mocked_get_rates.call_count, 3)
 
 
 class ShippingOptionEndpointTest(LongclawTestCase):
