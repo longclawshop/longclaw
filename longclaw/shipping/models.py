@@ -1,7 +1,9 @@
 from django.core.cache import cache
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models, transaction
 from django.dispatch import receiver
 
+from longclaw.basket.models import BasketItem
 from longclaw.basket.signals import basket_modified
 from polymorphic.models import PolymorphicModel
 from wagtail.admin.edit_handlers import FieldPanel
@@ -53,7 +55,36 @@ class ShippingRateProcessor(PolymorphicModel):
         return rates
     
     def get_rates_cache_key(self, **kwargs):
-        raise NotImplementedError()
+        #
+        # TODO: FIX CIRCULAR IMPORTS
+        #
+        from longclaw.basket.serializers import BasketItemSerializer
+        from .serializers import AddressSerializer
+        
+        settings = kwargs['settings']
+        origin = settings.shipping_origin
+        destination = kwargs['destination']
+        basket_id = kwargs['basket_id']
+        
+        items = BasketItem.objects.filter(basket_id=basket_id)
+        serialized_items = BasketItemSerializer(items, many=True)
+        
+        serialized_origin = AddressSerializer(origin) or None
+        serialized_destination = AddressSerializer(destination) or None
+        
+        data = {
+            "items": serialized_items.data,
+            "origin": serialized_origin.data,
+            "destination": serialized_destination.data,
+        }
+        
+        return json.dumps(
+            data,
+            sort_keys=True,
+            indent=4,
+            separators=(',', ': '),
+            cls=DjangoJSONEncoder,
+        )
     
     def process_rates(self, **kwargs):
         raise NotImplementedError()
