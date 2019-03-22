@@ -1,7 +1,9 @@
-from django.db import models
+from django.core.cache import cache
+from django.db import models, transaction
 from django.dispatch import receiver
 
 from longclaw.basket.signals import basket_modified
+from polymorphic.models import PolymorphicModel
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.snippets.models import register_snippet
 
@@ -67,6 +69,28 @@ class ShippingRate(models.Model):
 @receiver(basket_modified)
 def clear_basket_rates(sender, basket_id, **kwargs):
     ShippingRate.objects.filter(basket_id=basket_id).delete()
+
+
+class ShippingRateProcessor(PolymorphicModel):
+    country = models.ForeignKey('shipping.Country', blank=True, null=True, on_delete=models.PROTECT)
+    
+    rates_cache_timeout = 300
+    def get_rates(self, settings=None, basket_id=None, destination=None):
+        kwargs = dict(settings=settings, basket_id=basket_id, destination=destination)
+        key = self.get_rates_cache_key(**kwargs)
+        rates = cache.get(key)
+        if rates is None:
+            with transaction.atomic():
+                rates = self._process_rates(**kwargs)
+            if rates is not None:
+                cache.set(key, rates, self.rates_cache_timeout)
+        return rates
+    
+    def get_rates_cache_key(self, **kwargs):
+        raise NotImplementedError()
+    
+    def _get_rates(self, **kwargs):
+        raise NotImplementedError()
 
 
 class Country(models.Model):

@@ -3,4 +3,4 @@ django-extensions==2.1.5
 django-ipware>=2.1.0
 djangorestframework==3.9.1
 wagtail>=2.3
-
+django-polymorphic>=2.0,<2.1
