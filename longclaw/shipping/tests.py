@@ -377,6 +377,11 @@ class ShippingRateProcessorAPITest(LongclawTestCase):
         self.country = CountryFactory()
         self.country.iso = '11'
         self.country.save()
+        
+        self.address = AddressFactory()
+        self.address.country = self.country
+        self.address.save()
+        
         self.processor = ShippingRateProcessor()
         self.processor.save()
         self.processor.countries.add(self.country)
@@ -388,6 +393,15 @@ class ShippingRateProcessorAPITest(LongclawTestCase):
         response = self.get_test('longclaw_applicable_shipping_rate_list', params=params, success_expected=False)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['message'], "Destination address is required for rates to 11.")
+    
+    def test_shipping_option_endpoint_gets_processor_rates(self):
+        params = {
+            'destination': self.address.pk,
+        }
+        with mock.patch('longclaw.shipping.api.ShippingRateProcessor.get_rates') as mocked_get_rates:
+            mocked_get_rates.return_value = []
+            response = self.get_test('longclaw_applicable_shipping_rate_list', params=params)
+            self.assertEqual(mocked_get_rates.call_count, 1)
 
 
 class ShippingOptionEndpointTest(LongclawTestCase):
