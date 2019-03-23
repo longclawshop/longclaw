@@ -1,3 +1,7 @@
+import json
+import hashlib
+
+from django.utils.encoding import force_bytes, force_text
 from django.core.cache import cache
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models, transaction
@@ -78,13 +82,17 @@ class ShippingRateProcessor(PolymorphicModel):
             "destination": serialized_destination.data,
         }
         
-        return json.dumps(
+        raw_key = json.dumps(
             data,
             sort_keys=True,
             indent=4,
             separators=(',', ': '),
             cls=DjangoJSONEncoder,
         )
+        
+        hashed_key = hashlib.sha1(force_bytes(raw_key)).hexdigest()
+        
+        return force_text(hashed_key)
     
     def process_rates(self, **kwargs):
         raise NotImplementedError()
