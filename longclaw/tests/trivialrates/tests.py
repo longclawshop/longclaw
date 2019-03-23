@@ -67,6 +67,23 @@ class TrivialShippingRateProcessorAPITest(LongclawTestCase):
         self.assert_contains_turtle(response)
         self.assert_not_contains_rabbit(response)
         self.assert_not_contains_cheetah(response)
+        
+        return response
+    
+    def test_one_rate_cost(self, m1):
+        rate_list_response = self.test_one_rate()
+        rate = rate_list_response.data[0]
+        self.assertIn('name', rate)
+        name = rate['name']
+        
+        params = dict(
+            destination=self.address.pk,
+            shipping_rate_name=name,
+        )
+        response = self.get_test('longclaw_shipping_cost', params=params)
+        self.assert_contains_turtle(response)
+        self.assertIn('rate', response.data)
+        self.assertEqual(response.data['rate'], 2)
     
     def test_two_rates(self, m1):
         self.add_item_to_basket()
