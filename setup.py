@@ -55,7 +55,7 @@ if sys.argv[-1] == 'publish':
         print('Wheel library missing. Please run "pip install wheel"')
         sys.exit()
     os.system('python setup.py sdist bdist_wheel')
-    os.system('python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*')
+    os.system('python -m twine upload --verbose dist/*')
     sys.exit()
 
 if sys.argv[-1] == 'tag':
