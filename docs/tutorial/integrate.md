@@ -26,7 +26,27 @@ INSTALLED_APPS = [
 ]
 ```
 
-3. Add Longclaw to `urls.py`
+3. Add context processor in `TEMPLATES`
+
+```python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(PROJECT_DIR, 'templates'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # ...
+                'longclaw.configuration.context_processors.currency',
+            ],
+        },
+    },
+]
+```
+
+4. Add Longclaw to `urls.py`
 
 ```python
 from longclaw import urls as longclaw_urls
@@ -38,13 +58,13 @@ urlpatterns = [
 ]
 ```
 
-4. Create new app
+5. Create new app
 
 ```bash
   $ ./manage.py startapp webshop
 ```
 
-5. In this new app, add the following models
+6. In this new app, add the following models
 
 ```
 from django.db import models
@@ -112,7 +132,7 @@ A basic example you can find on [the repo](https://github.com/JamesRamm/longclaw
 
 We'll be building on top these basic templates in the next section.
 
-6. Add Longclaw specific settings
+7. Add Longclaw specific settings
 
 ```python
 PRODUCT_VARIANT_MODEL = 'webshop.ProductVariant'
