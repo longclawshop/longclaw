@@ -87,10 +87,10 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'django>=2.1',
-        'wagtail>=2.3',
-        'django-countries>=5.3.2',
-        'django-extensions>=2.1.4',
+        'django==2.2.5',
+        'wagtail==2.6.2',
+        'django-countries==5.5',
+        'django-extensions==2.2.1',
         'djangorestframework>=3.9.0',
         'django-ipware>=2.1.0'
     ],

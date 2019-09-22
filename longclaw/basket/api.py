@@ -1,4 +1,4 @@
-from rest_framework.decorators import detail_route, list_route
+from rest_framework.decorators import action
 from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
 from longclaw.basket.models import BasketItem
@@ -85,7 +85,7 @@ class BasketViewSet(viewsets.ModelViewSet):
         return Response(data=serializer.data,
                         status=status.HTTP_200_OK)
 
-    @list_route(methods=['get'])
+    @action(detail=False, methods=['get'])
     def total_items(self, request):
         """
         Get total number of items in the basket
@@ -96,7 +96,7 @@ class BasketViewSet(viewsets.ModelViewSet):
 
         return Response(data={"quantity": n_total}, status=status.HTTP_200_OK)
 
-    @detail_route(methods=['get'])
+    @action(detail=True, methods=['get'])
     def item_count(self, request, variant_id=None):
         """
         Get quantity of a single item in the basket
