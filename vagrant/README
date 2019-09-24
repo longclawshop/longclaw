@@ -6,11 +6,8 @@ USAGE:
 cd to this directory and then issue the following commands:
     vagrant up
     vagrant ssh
-    cd /vagrant
-    tox
+    cd /vagrant/vagrant
+    bash runtox.sh
 
-    
-IF THIS IS VERY SLOW DUE TO NPM INSTALL, I LIKE TO DO THE FOLLOWING TO INSTALL NPM DEPS OUTSIDE OF THE SHARED FOLDER:
-    rsync --recursive --exclude="*/node_modules/*" --exclude="*/.git/*" /vagrant /tmp
-    cd /tmp/vagrant
-    tox
+To clean inbetween runs:
+    rm -R /tmp/vagrant
