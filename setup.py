@@ -54,8 +54,8 @@ if sys.argv[-1] == 'publish':
     except ImportError:
         print('Wheel library missing. Please run "pip install wheel"')
         sys.exit()
-    os.system('python setup.py sdist upload')
-    os.system('python setup.py bdist_wheel upload')
+    os.system('python setup.py sdist bdist_wheel')
+    os.system('python -m twine upload --verbose dist/*')
     sys.exit()
 
 if sys.argv[-1] == 'tag':
@@ -87,10 +87,10 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'django>=2.1',
-        'wagtail>=2.3',
-        'django-countries>=5.3.2',
-        'django-extensions>=2.1.4',
+        'django==2.2.5',
+        'wagtail==2.6.2',
+        'django-countries==5.5',
+        'django-extensions==2.2.1',
         'djangorestframework>=3.9.0',
         'django-ipware>=2.1.0'
     ],

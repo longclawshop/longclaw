@@ -1,5 +1,5 @@
 from rest_framework import viewsets, permissions, status
-from rest_framework.decorators import detail_route, list_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from longclaw.contrib.productrequests.serializers import ProductRequestSerializer
@@ -31,7 +31,7 @@ class ProductRequestViewSet(viewsets.ModelViewSet):
 
         return response
 
-    @list_route(methods=['get'])
+    @action(detail=False, methods=['get'])
     def requests_for_variant(self, request, variant_id=None):
         """Get all the requests for a single variant
         """

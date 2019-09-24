@@ -91,18 +91,12 @@ class Index extends React.Component {
       </Container>
     );
 
-    const FeatureCallout = () => (
-      <div
+    const QuickStart = () => (
+      <Block layout="twoColumn">
         className="productShowcaseSection paddingBottom"
         style={{textAlign: 'center'}}>
-        <h2>Features</h2>
-        <ul>
-          <li>Fully customisable product catalog management. Capture any attribute of your product</li>
-          <li>Fully integrated with Wagtail - Use all features of Wagtail as normal (add a blog, articles or any other wagtail plugin)</li>
-          <li>Multiple payment backend integrations; Stripe, Braintree, Paypal...</li>
-          <li>Dashboard view in the Wagtail admin shows statistics about your shop</li>
-        </ul>
-      </div>
+        <h2>Quick Start</h2>
+      </Block>
     );
 
     const Support = () => (
@@ -215,6 +209,7 @@ class Index extends React.Component {
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
           <Features />
+          <QuickStart />
           <Support />
           <Showcase />
         </div>
