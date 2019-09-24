@@ -1,1 +1,12 @@
 CREATES A VAGRANT ENVIRONMENT TO FACILITATE LOCAL TESTING
+
+========
+USAGE:
+========
+cd to this directory and then issue the following commands:
+    vagrant up
+    vagrant ssh
+    cd /vagrant
+    sudo su
+    . $HOME/.nvm/nvm.sh
+    tox
