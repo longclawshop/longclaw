@@ -5,11 +5,11 @@ cache: pip
 
 matrix:
   include:
-    - env: TOX_ENV=py35-django-213
+    - env: TOX_ENV=py35-django-225
       python: 3.5
-    - env: TOX_ENV=py36-django-213
+    - env: TOX_ENV=py36-django-225
       python: 3.6
-    - env: TOX_ENV=py37-django-213
+    - env: TOX_ENV=py37-django-225
       python: 3.7
       dist: xenial
       sudo: true
