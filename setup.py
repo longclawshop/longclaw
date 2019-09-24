@@ -92,7 +92,8 @@ setup(
         'django-countries==5.5',
         'django-extensions==2.2.1',
         'djangorestframework>=3.9.0',
-        'django-ipware>=2.1.0'
+        'django-ipware>=2.1.0',
+        'django-polymorphic==2.0.3',
     ],
     license="MIT",
     zip_safe=False,
