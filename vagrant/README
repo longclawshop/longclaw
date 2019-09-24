@@ -1,0 +1,13 @@
+CREATES A VAGRANT ENVIRONMENT TO FACILITATE LOCAL TESTING
+
+========
+USAGE:
+========
+cd to this directory and then issue the following commands:
+    vagrant up
+    vagrant ssh
+    cd /vagrant/vagrant
+    bash runtox.sh
+
+To clean inbetween runs:
+    rm -R /tmp/vagrant
