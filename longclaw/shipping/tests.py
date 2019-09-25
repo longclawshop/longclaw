@@ -70,8 +70,8 @@ class ShippingTests(LongclawTestCase):
         result = get_shipping_cost_kwargs(api_request)
         self.assertEqual(result['country_code'], 'US')
         self.assertEqual(result['destination'], None)
-        self.assertIn('basket_id', result)
-        self.assertIn('settings', result)
+        self.assertEqual(result['basket_id'], basket_id(api_request))
+        self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
         self.assertEqual(result['name'], 'standard')
     
     def test_create_address(self):
