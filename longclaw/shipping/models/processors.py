@@ -13,6 +13,7 @@ from longclaw.basket.signals import basket_modified
 from polymorphic.models import PolymorphicModel
 from wagtail.admin.edit_handlers import FieldPanel
 
+from ..serializers.locations import AddressSerializer
 from ..signals import address_modified
 
 
@@ -33,7 +34,6 @@ class ShippingRateProcessor(PolymorphicModel):
     
     def get_rates_cache_key(self, **kwargs):
         from longclaw.basket.serializers import BasketItemSerializer
-        from ..serializers.locations import AddressSerializer
         
         settings = kwargs['settings']
         origin = settings.shipping_origin
