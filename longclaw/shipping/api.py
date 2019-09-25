@@ -31,12 +31,11 @@ class AddressViewSet(viewsets.ModelViewSet):
         address_modified.send(sender=models.Address, instance=instance)
 
 
-def get_shipping_cost_kwargs_or_response(request, country=None):
+def get_shipping_cost_kwargs(request, country=None):
     country_code = request.query_params.get('country_code', None)
     if country:
         if country_code is not None:
-            return Response(data={"message": "Cannot specify country and country_code"},
-                        status=status.HTTP_400_BAD_REQUEST)
+            raise utils.InvalidShippingCountry("Cannot specify country and country_code")
         country_code = country
     
     destination = request.query_params.get('destination', None)
@@ -44,11 +43,9 @@ def get_shipping_cost_kwargs_or_response(request, country=None):
         try:
             destination = models.Address.objects.get(pk=destination)
         except models.Address.DoesNotExist:
-            return Response(data={"message": "Address not found"},
-                        status=status.HTTP_400_BAD_REQUEST)
+            raise utils.InvalidShippingDestination("Address not found")
     elif not country_code:
-        return Response(data={"message": "No country code supplied"},
-                        status=status.HTTP_400_BAD_REQUEST)
+        raise utils.InvalidShippingCountry("No country code supplied")
     
     if not country_code:
         country_code = destination.country.pk
@@ -68,23 +65,24 @@ def shipping_cost(request):
     fallback to the default shipping cost if it has been enabled in the app
     settings
     """
-    kwargs = get_shipping_cost_kwargs_or_response(request)
-    if isinstance(kwargs, Response):
-        return kwargs
-    
     status_code = status.HTTP_400_BAD_REQUEST
     try:
-        data = utils.get_shipping_cost(**kwargs)
-    except utils.InvalidShippingRate:
-        data = {
-            "message": "Shipping option {} is invalid".format(kwargs['name'])
-        }
-    except utils.InvalidShippingCountry:
-        data = {
-            "message": "Shipping to {} is not available".format(kwargs['country_code'])
-        }
+        kwargs = get_shipping_cost_kwargs(request)
+    except (utils.InvalidShippingCountry, utils.InvalidShippingDestination) as e:
+        data = {'message': e.message}
     else:
-        status_code = status.HTTP_200_OK
+        try:
+            data = utils.get_shipping_cost(**kwargs)
+        except utils.InvalidShippingRate:
+            data = {
+                "message": "Shipping option {} is invalid".format(kwargs['name'])
+            }
+        except utils.InvalidShippingCountry:
+            data = {
+                "message": "Shipping to {} is not available".format(kwargs['country_code'])
+            }
+        else:
+            status_code = status.HTTP_200_OK
 
     return Response(data=data, status=status_code)
 
@@ -104,9 +102,10 @@ def shipping_options(request, country=None):
     """
     Get the shipping options for a given country
     """
-    kwargs = get_shipping_cost_kwargs_or_response(request, country=country)
-    if isinstance(kwargs, Response):
-        return kwargs
+    try:
+        kwargs = get_shipping_cost_kwargs(request, country=country)
+    except (utils.InvalidShippingCountry, utils.InvalidShippingDestination) as e:
+        return Response(data={'message': e.message}, status=status.HTTP_400_BAD_REQUEST)
     
     country_code = kwargs['country_code']
     settings = kwargs['settings']

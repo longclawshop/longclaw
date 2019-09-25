@@ -10,6 +10,11 @@ class InvalidShippingRate(Exception):
 class InvalidShippingCountry(Exception):
     pass
 
+
+class InvalidShippingDestination(Exception):
+    pass
+
+
 def get_shipping_cost(settings, country_code=None, name=None, basket_id=None, destination=None):
     """Return the shipping cost for a given country code and shipping option (shipping rate name)
     """
