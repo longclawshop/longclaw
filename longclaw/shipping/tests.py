@@ -9,6 +9,7 @@ from django.forms.models import model_to_dict
 from longclaw.tests.utils import LongclawTestCase, AddressFactory, CountryFactory, ShippingRateFactory, BasketItemFactory, catch_signal
 from longclaw.shipping.api import get_shipping_cost_kwargs
 from longclaw.shipping.forms import AddressForm
+from longclaw.shipping.models import Address
 from longclaw.shipping.utils import get_shipping_cost, InvalidShippingCountry
 from longclaw.shipping.templatetags import longclawshipping_tags
 from longclaw.configuration.models import Configuration
@@ -44,6 +45,14 @@ class ShippingTests(LongclawTestCase):
     
     def test_get_shipping_cost_kwargs_country_and_code(self):
         request = RequestFactory().get('/', { 'country_code': 'US' })
+        api_request = upgrade_to_api_request(request)
+        with self.assertRaises(InvalidShippingCountry):
+            get_shipping_cost_kwargs(api_request, country=self.country)
+    
+    def test_get_shipping_cost_kwargs_destination_does_not_exist(self):
+        non_existant_pk = 2147483647
+        self.assertFalse(Address.objects.filter(pk=non_existant_pk).exists())
+        request = RequestFactory().get('/', { 'country_code': 'US', 'destination': str(non_existant_pk) })
         api_request = upgrade_to_api_request(request)
         with self.assertRaises(InvalidShippingCountry):
             get_shipping_cost_kwargs(api_request, country=self.country)
