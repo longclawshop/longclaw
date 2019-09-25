@@ -8,7 +8,6 @@ from django.db import models, transaction
 from django.dispatch import receiver
 
 from longclaw.basket.models import BasketItem
-
 from longclaw.basket.signals import basket_modified
 from polymorphic.models import PolymorphicModel
 from wagtail.admin.edit_handlers import FieldPanel
