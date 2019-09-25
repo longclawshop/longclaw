@@ -57,6 +57,12 @@ class ShippingTests(LongclawTestCase):
         with self.assertRaises(InvalidShippingCountry):
             get_shipping_cost_kwargs(api_request, country=self.country)
     
+    def test_get_shipping_cost_kwargs_no_country_or_code(self):
+        request = RequestFactory().get('/')
+        api_request = upgrade_to_api_request(request)
+        with self.assertRaises(InvalidShippingCountry):
+            get_shipping_cost_kwargs(api_request)
+    
     def test_create_address(self):
         """
         Test creating an address object via the api
