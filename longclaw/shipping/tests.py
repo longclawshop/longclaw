@@ -7,22 +7,47 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.forms.models import model_to_dict
 from longclaw.tests.utils import LongclawTestCase, AddressFactory, CountryFactory, ShippingRateFactory, BasketItemFactory, catch_signal
+from longclaw.shipping.api import get_shipping_cost_kwargs
 from longclaw.shipping.forms import AddressForm
-from longclaw.shipping.utils import get_shipping_cost
+from longclaw.shipping.utils import get_shipping_cost, InvalidShippingCountry
 from longclaw.shipping.templatetags import longclawshipping_tags
 from longclaw.configuration.models import Configuration
 from longclaw.basket.signals import basket_modified
 from longclaw.basket.utils import basket_id
 from rest_framework import status
+from rest_framework.views import APIView
 
 from .models import Address, ShippingRate, clear_basket_rates, clear_address_rates, ShippingRateProcessor
 from .signals import address_modified
 from .serializers import AddressSerializer, ShippingRateSerializer
 
 
+def upgrade_to_api_request(request):
+    # This extra step is required until https://github.com/encode/django-rest-framework/issues/6488
+    # is resolved
+    class DummyGenericViewsetLike(APIView):
+        lookup_field = 'test'
+
+        def reverse_action(view, *args, **kwargs):
+            self.assertEqual(kwargs['kwargs']['test'], 1)
+            return '/example/'
+
+    response = DummyGenericViewsetLike.as_view()(request)
+    view = response.renderer_context['view']
+    
+    return view.request
+
+
 class ShippingTests(LongclawTestCase):
     def setUp(self):
         self.country = CountryFactory()
+    
+    def test_get_shipping_cost_kwargs_country_and_code(self):
+        request = RequestFactory().get('/', { 'country_code': 'US' })
+        api_request = upgrade_to_api_request(request)
+        with self.assertRaises(InvalidShippingCountry):
+            get_shipping_cost_kwargs(api_request, country=self.country)
+    
     def test_create_address(self):
         """
         Test creating an address object via the api
