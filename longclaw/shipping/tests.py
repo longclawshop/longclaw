@@ -106,6 +106,18 @@ class ShippingTests(LongclawTestCase):
         self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
         self.assertEqual(result['name'], 'standard')
     
+    def test_get_shipping_cost_kwargs_with_destination_and_country_code(self):
+        destination = AddressFactory()
+        request = RequestFactory().get('/', { 'destination': destination.pk, 'country_code': '11' })
+        api_request = upgrade_to_api_request(request)
+        result = get_shipping_cost_kwargs(api_request)
+        self.assertNotEqual(str(destination.country.pk), '11')
+        self.assertEqual(result['country_code'], '11')
+        self.assertEqual(result['destination'], destination)
+        self.assertEqual(result['basket_id'], basket_id(api_request))
+        self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
+        self.assertEqual(result['name'], 'standard')
+    
     def test_create_address(self):
         """
         Test creating an address object via the api
