@@ -9,7 +9,7 @@ from django.forms.models import model_to_dict
 from longclaw.tests.utils import LongclawTestCase, AddressFactory, CountryFactory, ShippingRateFactory, BasketItemFactory, catch_signal
 from longclaw.shipping.api import get_shipping_cost_kwargs
 from longclaw.shipping.forms import AddressForm
-from longclaw.shipping.models import Address
+from longclaw.shipping.models import Address, Country
 from longclaw.shipping.utils import get_shipping_cost, InvalidShippingCountry
 from longclaw.shipping.templatetags import longclawshipping_tags
 from longclaw.configuration.models import Configuration
@@ -79,6 +79,17 @@ class ShippingTests(LongclawTestCase):
         api_request = upgrade_to_api_request(request)
         result = get_shipping_cost_kwargs(api_request, country=self.country.pk)
         self.assertEqual(result['country_code'], self.country.pk)
+        self.assertEqual(result['destination'], None)
+        self.assertEqual(result['basket_id'], basket_id(api_request))
+        self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
+        self.assertEqual(result['name'], 'standard')
+    
+    def test_get_shipping_cost_kwargs_only_country_known_iso(self):
+        request = RequestFactory().get('/')
+        api_request = upgrade_to_api_request(request)
+        country = Country.objects.create(iso='ZZ', name_official='foo', name='foo')
+        result = get_shipping_cost_kwargs(api_request, country=country.pk)
+        self.assertEqual(result['country_code'], 'ZZ')
         self.assertEqual(result['destination'], None)
         self.assertEqual(result['basket_id'], basket_id(api_request))
         self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
