@@ -48,7 +48,7 @@ class ShippingTests(LongclawTestCase):
         request = RequestFactory().get('/', { 'country_code': 'US' })
         api_request = upgrade_to_api_request(request)
         with self.assertRaises(InvalidShippingCountry):
-            get_shipping_cost_kwargs(api_request, country=self.country)
+            get_shipping_cost_kwargs(api_request, country=self.country.pk)
     
     def test_get_shipping_cost_kwargs_destination_does_not_exist(self):
         non_existant_pk = 2147483647
@@ -56,7 +56,7 @@ class ShippingTests(LongclawTestCase):
         request = RequestFactory().get('/', { 'country_code': 'US', 'destination': str(non_existant_pk) })
         api_request = upgrade_to_api_request(request)
         with self.assertRaises(InvalidShippingCountry):
-            get_shipping_cost_kwargs(api_request, country=self.country)
+            get_shipping_cost_kwargs(api_request, country=self.country.pk)
     
     def test_get_shipping_cost_kwargs_no_country_or_code(self):
         request = RequestFactory().get('/')
