@@ -39,5 +39,6 @@ To migrate:
 To run tests directly:
     apt-get install -y python3-pip
     pip3 install -r requirements.txt
+    pip3 install -r requirements_dev.txt
     cd /vagrant
     DJANGO_SETTINGS_MODULE='longclaw.tests.settings'; python3 manage.py test
