@@ -74,6 +74,16 @@ class ShippingTests(LongclawTestCase):
         self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
         self.assertEqual(result['name'], 'standard')
     
+    def test_get_shipping_cost_kwargs_country_code_and_shipping_rate_name(self):
+        request = RequestFactory().get('/', { 'country_code': 'US', 'shipping_rate_name': 'foo' })
+        api_request = upgrade_to_api_request(request)
+        result = get_shipping_cost_kwargs(api_request)
+        self.assertEqual(result['country_code'], 'US')
+        self.assertEqual(result['destination'], None)
+        self.assertEqual(result['basket_id'], basket_id(api_request))
+        self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
+        self.assertEqual(result['name'], 'foo')
+    
     def test_get_shipping_cost_kwargs_only_country(self):
         request = RequestFactory().get('/')
         api_request = upgrade_to_api_request(request)
