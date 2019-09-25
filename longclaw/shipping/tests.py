@@ -17,6 +17,7 @@ from longclaw.basket.signals import basket_modified
 from longclaw.basket.utils import basket_id
 from rest_framework import status
 from rest_framework.views import APIView
+from  wagtail.core.models import Site
 
 from .models import Address, ShippingRate, clear_basket_rates, clear_address_rates, ShippingRateProcessor
 from .signals import address_modified
@@ -35,7 +36,7 @@ def upgrade_to_api_request(request):
 
     response = DummyGenericViewsetLike.as_view()(request)
     view = response.renderer_context['view']
-    
+    view.request.site = Site.objects.first()
     return view.request
 
 
