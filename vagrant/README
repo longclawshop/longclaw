@@ -14,31 +14,31 @@ To clean after tests run:
 
 To use django's manage.py:
     apt-get install -y python3-pip
-    pip3 install -r requirements.txt
     cd /vagrant
-    DJANGO_SETTINGS_MODULE='longclaw.tests.settings'; python3 manage.py --help
+    pip3 install -r requirements.txt
+    python3 manage.py --help
 
 To use django's manage.py shell:
     apt-get install -y python3-pip
-    pip3 install -r requirements.txt
     cd /vagrant
-    DJANGO_SETTINGS_MODULE='longclaw.tests.settings'; python3 manage.py shell
+    pip3 install -r requirements.txt
+    python3 manage.py shell
 
 To make migrations:
     apt-get install -y python3-pip
-    pip3 install -r requirements.txt
     cd /vagrant
-    DJANGO_SETTINGS_MODULE='longclaw.tests.settings'; python3 manage.py makemigrations
+    pip3 install -r requirements.txt
+    python3 manage.py makemigrations
 
 To migrate:
     apt-get install -y python3-pip
-    pip3 install -r requirements.txt
     cd /vagrant
-    DJANGO_SETTINGS_MODULE='longclaw.tests.settings'; python3 manage.py migrate
+    pip3 install -r requirements.txt
+    python3 manage.py migrate
 
 To run tests directly:
     apt-get install -y python3-pip
+    cd /vagrant
     pip3 install -r requirements.txt
     pip3 install -r requirements_dev.txt
-    cd /vagrant
-    DJANGO_SETTINGS_MODULE='longclaw.tests.settings'; python3 manage.py test
+    python3 manage.py test
