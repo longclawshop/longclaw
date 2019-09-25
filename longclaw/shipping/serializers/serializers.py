@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from longclaw.shipping.models import Address, ShippingRate, Country
+from longclaw.shipping.models.location import Address, Country
+from longclaw.shipping.models.rates import ShippingRate
 
 class AddressSerializer(serializers.ModelSerializer):
     country = serializers.PrimaryKeyRelatedField(queryset=Country.objects.all())
