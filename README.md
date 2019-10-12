@@ -36,8 +36,7 @@ Setup a Longclaw project
 Go to project directory and create missing migrations 
 
 ```bash
-  $ python manage.py makemigrations home
-  $ python manage.py makemigrations catalog
+  $ python manage.py makemigrations home catalog
 ```
 
 Do migrations for whole project and run 
