@@ -44,6 +44,8 @@ Do migrations for whole project and run
 
 ```bash
   $ python manage.py migrate
+  $ python manage.py loadcountries
+  $ python manage.py createsuperuser
   $ python manage.py runserver
 ```
 
