@@ -5,7 +5,7 @@ from jinja2.ext import Extension
 from django.template.loader import get_template
 
 # to keep namespaces from colliding
-from longclaw.core.templatetags import longclawcore_tags as lc_tags
+from .templatetags import longclawcore_tags as lc_tags
 
 
 def longclaw_vendors_bundle():

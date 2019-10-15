@@ -4,7 +4,7 @@ from jinja2.ext import Extension
 
 from django.template.loader import get_template
 
-from longclaw.checkout.templatetags.longclawcheckout_tags import gateway_client_js, gateway_token
+from .templatetags.longclawcheckout_tags import gateway_client_js, gateway_token
 
 
 class LongClawCheckoutExtension(Extension):

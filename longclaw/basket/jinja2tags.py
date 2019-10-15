@@ -4,8 +4,8 @@ from jinja2.ext import Extension
 
 from django.template.loader import get_template
 
-from longclaw.basket.templatetags.basket_tags import get_basket_items
-from longclaw.basket.utils import get_basket_items
+from .templatetags.basket_tags import get_basket_items
+from .utils import get_basket_items
 
 
 def add_to_basket_btn(variant_id, btn_class="btn btn-default", btn_text="Add To Basket"):
