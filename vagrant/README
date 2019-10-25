@@ -1,0 +1,44 @@
+CREATES A VAGRANT ENVIRONMENT TO FACILITATE LOCAL TESTING
+
+========
+USAGE:
+========
+To run tests:
+    cd to this directory and then issue the following commands:
+        vagrant up
+        vagrant ssh
+        bash /vagrant/vagrant/runtox.sh
+
+To clean after tests run:
+    rm -R /tmp/vagrant
+
+To use django's manage.py:
+    apt-get install -y python3-pip
+    cd /vagrant
+    pip3 install -r requirements.txt
+    python3 manage.py --help
+
+To use django's manage.py shell:
+    apt-get install -y python3-pip
+    cd /vagrant
+    pip3 install -r requirements.txt
+    python3 manage.py shell
+
+To make migrations:
+    apt-get install -y python3-pip
+    cd /vagrant
+    pip3 install -r requirements.txt
+    python3 manage.py makemigrations
+
+To migrate:
+    apt-get install -y python3-pip
+    cd /vagrant
+    pip3 install -r requirements.txt
+    python3 manage.py migrate
+
+To run tests directly:
+    apt-get install -y python3-pip
+    cd /vagrant
+    pip3 install -r requirements.txt
+    pip3 install -r requirements_dev.txt
+    python3 manage.py test
