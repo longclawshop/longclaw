@@ -98,7 +98,7 @@ We also need a button:
 We then need to intercept the click event of the button to make the HTTP request:
 
 ```javascript
-const btn = document.getElementById('add-to-basket-btn');
+const btn = document.getElementById('btn-add-to-basket');
 const select = document.getElementById('variant-select');
 
 btn.addEventListener("click", (e) => {
