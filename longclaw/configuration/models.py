@@ -3,7 +3,10 @@ Admin confiurable settings for longclaw apps
 """
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from django.db import models
+
+from longclaw.shipping.models import Address
 
 
 @register_setting
@@ -24,6 +27,8 @@ class Configuration(BaseSetting):
         help_text=('Whether to enable default shipping.'
                    ' This essentially means you ship to all countries,'
                    ' not only those with configured shipping rates'))
+    
+    shipping_origin = models.ForeignKey(Address, blank=True, null=True, on_delete=models.PROTECT)
 
     currency_html_code = models.CharField(
         max_length=12,
@@ -40,6 +45,8 @@ class Configuration(BaseSetting):
         FieldPanel('default_shipping_rate'),
         FieldPanel('default_shipping_carrier'),
         FieldPanel('default_shipping_enabled'),
+        SnippetChooserPanel('shipping_origin'),
+        FieldPanel('currency_html_code'),
         FieldPanel('currency_html_code'),
         FieldPanel('currency')
     )

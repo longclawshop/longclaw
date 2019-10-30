@@ -22,7 +22,7 @@ def create_order(email,
     """
     Create an order from a basket and customer infomation
     """
-    basket_items, _ = get_basket_items(request)
+    basket_items, current_basket_id = get_basket_items(request)
     if addresses:
         # Longclaw < 0.2 used 'shipping_name', longclaw > 0.2 uses a consistent
         # prefix (shipping_address_xxxx)
@@ -68,7 +68,10 @@ def create_order(email,
         shipping_rate = get_shipping_cost(
             site_settings,
             shipping_address.country.pk,
-            shipping_option)['rate']
+            shipping_option,
+            basket_id=current_basket_id,
+            destination=shipping_address,
+        )['rate']
     else:
         shipping_rate = Decimal(0)
 

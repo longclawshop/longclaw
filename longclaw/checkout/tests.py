@@ -1,5 +1,8 @@
+import uuid
+from django.utils.encoding import force_text
 from django.test import TestCase
 from django.test.client import RequestFactory
+from wagtail.core.models import Site
 try:
     from django.urls import reverse_lazy
 except ImportError:
@@ -12,6 +15,7 @@ from longclaw.tests.utils import (
     CountryFactory,
     OrderFactory
 )
+from longclaw.shipping.models import ShippingRate
 from longclaw.checkout.utils import create_order
 from longclaw.checkout.forms import CheckoutForm
 from longclaw.checkout.views import CheckoutView
@@ -78,6 +82,73 @@ class CheckoutApiTest(LongclawTestCase):
         Test api endpoint checkout/token/
         """
         self.get_test('longclaw_checkout_token')
+
+
+class CheckoutApiShippingTest(LongclawTestCase):
+    def setUp(self):
+        self.shipping_address = AddressFactory()
+        self.billing_address = AddressFactory()
+        self.email = "test@test.com"
+        self.request = RequestFactory().get('/')
+        self.request.session = {}
+        self.request.site = Site.find_for_request(self.request)
+        self.basket_id = basket_id(self.request)
+        BasketItemFactory(basket_id=self.basket_id)
+
+    def test_create_order_with_basket_shipping_option(self):
+        amount = 11
+        rate = ShippingRate.objects.create(
+            name=force_text(uuid.uuid4()),
+            rate=amount,
+            carrier=force_text(uuid.uuid4()),
+            description=force_text(uuid.uuid4()),
+            basket_id=self.basket_id,
+        )
+        order = create_order(
+            self.email,
+            self.request,
+            shipping_address=self.shipping_address,
+            billing_address=self.billing_address,
+            shipping_option=rate.name,
+        )
+        self.assertEqual(order.shipping_rate, amount)
+    
+    def test_create_order_with_address_shipping_option(self):
+        amount = 12
+        rate = ShippingRate.objects.create(
+            name=force_text(uuid.uuid4()),
+            rate=amount,
+            carrier=force_text(uuid.uuid4()),
+            description=force_text(uuid.uuid4()),
+            destination=self.shipping_address,
+        )
+        order = create_order(
+            self.email,
+            self.request,
+            shipping_address=self.shipping_address,
+            billing_address=self.billing_address,
+            shipping_option=rate.name,
+        )
+        self.assertEqual(order.shipping_rate, amount)
+    
+    def test_create_order_with_address_and_basket_shipping_option(self):
+        amount = 13
+        rate = ShippingRate.objects.create(
+            name=force_text(uuid.uuid4()),
+            rate=amount,
+            carrier=force_text(uuid.uuid4()),
+            description=force_text(uuid.uuid4()),
+            destination=self.shipping_address,
+            basket_id=self.basket_id,
+        )
+        order = create_order(
+            self.email,
+            self.request,
+            shipping_address=self.shipping_address,
+            billing_address=self.billing_address,
+            shipping_option=rate.name,
+        )
+        self.assertEqual(order.shipping_rate, amount)
 
 
 class CheckoutTest(TestCase):

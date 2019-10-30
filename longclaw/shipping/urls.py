@@ -28,5 +28,8 @@ urlpatterns = [
         name='longclaw_shipping_countries'),
     url(API_URL_PREFIX + r'shipping/countries/(?P<country>[a-zA-Z]+)/$',
         api.shipping_options,
-        name='longclaw_shipping_options')
+        name='longclaw_shipping_options'),
+    url(API_URL_PREFIX + r'shipping/options/$',
+        api.shipping_options,
+        name='longclaw_applicable_shipping_rate_list')
 ]
