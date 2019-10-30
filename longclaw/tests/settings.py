@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'longclaw.stats',
     'longclaw.contrib.productrequests',
     'longclaw.tests.testproducts',
+    'longclaw.tests.trivialrates',
 ]
 
 SITE_ID = 1

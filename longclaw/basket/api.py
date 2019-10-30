@@ -6,6 +6,9 @@ from longclaw.basket.serializers import BasketItemSerializer
 from longclaw.basket import utils
 from longclaw.utils import ProductVariant
 
+from .signals import basket_modified
+
+
 class BasketViewSet(viewsets.ModelViewSet):
     """
     Viewset for interacting with a sessions 'basket' -
@@ -44,6 +47,8 @@ class BasketViewSet(viewsets.ModelViewSet):
             serializer = BasketItemSerializer(self.get_queryset(request), many=True)
             response = Response(data=serializer.data,
                                 status=status.HTTP_201_CREATED)
+            
+            basket_modified.send(sender=BasketItem, basket_id=bid)
 
         else:
             response = Response(
@@ -66,24 +71,33 @@ class BasketViewSet(viewsets.ModelViewSet):
         serializer = BasketItemSerializer(self.get_queryset(request), many=True)
         response = Response(data=serializer.data,
                             status=status.HTTP_200_OK)
+        
+        basket_modified.send(sender=BasketItem, basket_id=bid)
+        
         return response
 
     def destroy(self, request, variant_id=None):
         """
         Remove an item from the basket
         """
+        bid = utils.basket_id(request)
+        
         variant = ProductVariant.objects.get(id=variant_id)
         quantity = int(request.data.get("quantity", 1))
         try:
             item = BasketItem.objects.get(
-                basket_id=utils.basket_id(request), variant=variant)
+                basket_id=bid, variant=variant)
             item.decrease_quantity(quantity)
         except BasketItem.DoesNotExist:
             pass
 
         serializer = BasketItemSerializer(self.get_queryset(request), many=True)
-        return Response(data=serializer.data,
+        response = Response(data=serializer.data,
                         status=status.HTTP_200_OK)
+        
+        basket_modified.send(sender=BasketItem, basket_id=bid)
+        
+        return response 
 
     @action(detail=False, methods=['get'])
     def total_items(self, request):
