@@ -1,3 +1,6 @@
+from unittest import mock
+from contextlib import contextmanager
+
 import factory
 from django.urls import reverse_lazy
 
@@ -11,6 +14,19 @@ from longclaw.basket.models import BasketItem
 from longclaw.orders.models import Order
 from longclaw.shipping.models import Address, Country, ShippingRate
 from longclaw.utils import ProductVariant, maybe_get_product_model
+
+
+@contextmanager
+def catch_signal(signal):
+    """
+        Catch django signal and return the mocked call.
+        https://medium.freecodecamp.org/how-to-testing-django-signals-like-a-pro-c7ed74279311
+    """
+    handler = mock.Mock()
+    signal.connect(handler)
+    yield handler
+    signal.disconnect(handler)
+
 
 class OrderFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -89,18 +105,20 @@ class BasketItemFactory(factory.django.DjangoModelFactory):
 
 class LongclawTestCase(APITestCase):
 
-    def get_test(self, urlname, urlkwargs=None, **kwargs):
+    def get_test(self, urlname, urlkwargs=None, params=None, success_expected=True, **kwargs):
         """ Submit a GET request and assert the response status code is 200
 
         Arguments:
             urlname (str): The url name to pass to the 'reverse_lazy' function
             urlkwargs (dict): The `kwargs` parameter to pass to the `reverse_lazy` function
         """
-        response = self.client.get(reverse_lazy(urlname, kwargs=urlkwargs), **kwargs)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        params = params or {}
+        response = self.client.get(reverse_lazy(urlname, kwargs=urlkwargs), params, **kwargs)
+        if success_expected:
+            self.assertTrue(status.is_success(response.status_code), response.content)
         return response
 
-    def post_test(self, data, urlname, urlkwargs=None, **kwargs):
+    def post_test(self, data, urlname, urlkwargs=None, success_expected=True, **kwargs):
         """ Submit a POST request and assert the response status code is 201
 
         Arguments:
@@ -109,23 +127,26 @@ class LongclawTestCase(APITestCase):
             urlkwargs (dict): The `kwargs` parameter to pass to the `reverse_lazy` function
         """
         response = self.client.post(reverse_lazy(urlname, kwargs=urlkwargs), data, **kwargs)
-        self.assertIn(response.status_code,
-                      (status.HTTP_201_CREATED, status.HTTP_200_OK, status.HTTP_204_NO_CONTENT))
+        if success_expected:
+            self.assertTrue(status.is_success(response.status_code), response.content)
         return response
 
-    def patch_test(self, data, urlname, urlkwargs=None, **kwargs):
+    def patch_test(self, data, urlname, urlkwargs=None, success_expected=True, **kwargs):
         """ Submit a PATCH request and assert the response status code is 200
         """
         response = self.client.patch(reverse_lazy(urlname, kwargs=urlkwargs), data, **kwargs)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        if success_expected:
+            self.assertTrue(status.is_success(response.status_code), response.content)
         return response
 
-    def put_test(self, data, urlname, urlkwargs=None, **kwargs):
+    def put_test(self, data, urlname, urlkwargs=None, success_expected=True, **kwargs):
         response = self.client.put(reverse_lazy(urlname, kwargs=urlkwargs), data, **kwargs)
-        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
+        if success_expected:
+            self.assertTrue(status.is_success(response.status_code), response.content)
         return response
 
-    def del_test(self, urlname, urlkwargs=None, **kwargs):
+    def del_test(self, urlname, urlkwargs=None, success_expected=True, **kwargs):
         response = self.client.delete(reverse_lazy(urlname, kwargs=urlkwargs), **kwargs)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        if success_expected:
+            self.assertTrue(status.is_success(response.status_code), response.content)
         return response

@@ -1,3 +1,4 @@
+import mock
 from django.test.client import RequestFactory
 from django.test import TestCase
 try:
@@ -7,10 +8,13 @@ except ImportError:
 from django.core.management import call_command
 from django.utils.six import StringIO
 
-from longclaw.tests.utils import LongclawTestCase, BasketItemFactory, ProductVariantFactory
+from longclaw.tests.utils import LongclawTestCase, BasketItemFactory, ProductVariantFactory, catch_signal
 from longclaw.basket.utils import basket_id
 from longclaw.basket.templatetags import basket_tags
 from longclaw.basket.context_processors import stripe_key
+from longclaw.basket.models import BasketItem
+
+from .signals import basket_modified
 
 
 class CommandTests(TestCase):
@@ -81,6 +85,59 @@ class BasketTest(LongclawTestCase):
 
     def test_ctx_proc(self):
         self.assertIn('STRIPE_KEY', stripe_key(None))
+
+
+class BasketModifiedSignalTest(LongclawTestCase):
+    """Round trip API tests
+    """
+    def setUp(self):
+        """Create a basket with things in it
+        """
+        request = RequestFactory().get('/')
+        request.session = {}
+        bid = basket_id(request)
+        self.item = BasketItemFactory(basket_id=bid)
+        BasketItemFactory(basket_id=bid)
+
+    def test_create_basket_item(self):
+        """
+        Test creating a new basket item
+        """
+        with catch_signal(basket_modified) as handler:
+            variant = ProductVariantFactory()
+            self.post_test({'variant_id': variant.id}, 'longclaw_basket_list')
+        
+        handler.assert_called_once_with(
+            basket_id=mock.ANY, # TODO: CHECK CORRECT BASKET ID IS SENT
+            sender=BasketItem,
+            signal=basket_modified,
+        )
+
+    def test_increase_basket_item(self):
+        """
+        Test increasing quantity of basket item
+        """
+        with catch_signal(basket_modified) as handler:
+            self.post_test({'variant_id': self.item.variant.id}, 'longclaw_basket_list')
+        
+        handler.assert_called_once_with(
+            basket_id=mock.ANY, # TODO: CHECK CORRECT BASKET ID IS SENT
+            sender=BasketItem,
+            signal=basket_modified,
+        )
+
+    def test_remove_item(self):
+        """
+        Test removing an item from the basket
+        """
+        with catch_signal(basket_modified) as handler:
+            self.del_test('longclaw_basket_detail', {'variant_id': self.item.variant.id})
+        
+        handler.assert_called_once_with(
+            basket_id=mock.ANY, # TODO: CHECK CORRECT BASKET ID IS SENT
+            sender=BasketItem,
+            signal=basket_modified,
+        )
 
 
 class BasketModelTest(TestCase):
