@@ -1,7 +1,7 @@
 -r requirements.txt
 bumpversion==0.5.3
 setuptools==42.0.1
-wheel==0.33.6
+wheel==0.34.0
 
 coverage>=4.5.2
 mock>=2.0.0
