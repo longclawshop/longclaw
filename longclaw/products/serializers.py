@@ -10,7 +10,8 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class ProductVariantSerializer(serializers.ModelSerializer):
 
-    product = ProductSerializer()
+    if maybe_get_product_model():
+        product = ProductSerializer()
 
     class Meta:
         model = ProductVariant
