@@ -3,8 +3,8 @@
 History
 -------
 
-1.0.0 (In development)
-+++++++++++++++++++++++
+1.0.0
++++++++++++
 
   * Switched to supporting Python 3 only
   * Updated to support Wagtail & Django > 2 only
