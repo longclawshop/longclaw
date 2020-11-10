@@ -14,6 +14,7 @@ const OrderSummary = ({order, shippingAddress}) => (
           <address>
             {shippingAddress.name}<br />
             {shippingAddress.line_1}<br />
+            {shippingAddress.line_2}<br />
             {shippingAddress.city}<br />
             {shippingAddress.postcode}<br />
             {shippingAddress.country}<br />
@@ -52,6 +53,7 @@ OrderSummary.propTypes = {
   shippingAddress: PropTypes.shape({
     name: PropTypes.string,
     line_1: PropTypes.string,
+    line_2: PropTypes.string,
     city: PropTypes.string,
     postcode: PropTypes.string,
     country: PropTypes.string
