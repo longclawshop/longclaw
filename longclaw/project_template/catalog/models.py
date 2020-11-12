@@ -42,7 +42,7 @@ class ProductVariant(ProductVariantBase):
 
     # Enter your custom product variant fields here
     # e.g. colour, size, stock and so on.
-    # Remember, ProductVariantBase provides 'price', 'ref' and 'stock' fields
+    # Remember, ProductVariantBase provides 'base_price', 'ref' and 'stock' fields
     description = RichTextField()
 
 
