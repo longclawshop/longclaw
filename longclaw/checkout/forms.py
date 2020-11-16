@@ -1,4 +1,5 @@
 from django import forms
+from longclaw.shipping.models import ShippingRate
 
 class CheckoutForm(forms.Form):
     """
@@ -9,3 +10,10 @@ class CheckoutForm(forms.Form):
     different_billing_address = forms.BooleanField(required=False)
     class Media:
         js = ('checkout.js',)
+
+    def __init__(self, *args, **kwargs):
+        super(CheckoutForm, self).__init__(*args, **kwargs)
+
+        shipping_rates = ShippingRate.objects.filter(countries='NZ')
+        choices = [(sr.name, sr.name) for sr in shipping_rates]
+        self.fields['shipping_option'].widget.choices = [(sr.name, sr.name) for sr in shipping_rates]
