@@ -64,7 +64,7 @@ def create_order(email,
 
     ip_address = get_real_ip(request)
     if shipping_country and shipping_option:
-        site_settings = Configuration.for_site(request.site)
+        site_settings = Configuration.for_request(request)
         shipping_rate = get_shipping_cost(
             site_settings,
             shipping_address.country.pk,
