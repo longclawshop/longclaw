@@ -18,48 +18,80 @@ module.exports = {
   },
 
   module: {
-    loaders: [{
+    // loaders: [{
+    rules: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loaders: [
-        'babel?presets[]=stage-0'
-      ]
+      loader: 'babel-loader',
+      options: {
+        // presets: ['@babel/preset-stage-0']
+      }
     }, {
       test: /\.css$/,
-      loader: 'style!css'
+      use: 'style!css'
     }, {
       test: /\.less$/,
-      loader: 'style-loader!css-loader!postcss-loader!less'
+      use: 'style-loader!css-loader!postcss-loader!less'
     },
     {
       test: /api.js$/,
-      loaders: ['expose-loader?longclawclient','babel?presets[]=stage-0']
+      use: [
+        { 
+          loader: 'expose-loader',
+          options: {
+            exposes: {
+              globalName: 'longclawclient'
+            }
+          }
+        },
+        { 
+          loader: 'babel-loader', 
+          options: { 
+            // presets: ['@babel/preset-stage-0'] 
+          } 
+        }
+      ]
     }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     alias: {
       ie: 'component-ie',
       'isomorphic-fetch': 'fetch-mock-forwarder'
     }
   },
-  debug: false,
+  // debug: false,
+
+  // optimization: {
+  //   runtimeChunk: "single",
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       default: {
+  //         // name: "vendors",
+  //         chunks: "all",
+  //       }
+  //     }
+  //   }
+  // },
 
   plugins: [
     new BundleTracker({filename: './webpack-stats.json'}),
-    new webpack.optimize.CommonsChunkPlugin(
-      'vendors', 'vendors.bundle.js', Infinity
-    ),
-    new webpack.optimize.DedupePlugin(),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendors', 
+    //   filename: 'vendors.bundle.js', 
+    //   minChunks: Infinity
+    // }),
+    // new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       }
     }),
-    new webpack.SourceMapDevToolPlugin(
-      'bundle.js.map',
-      '\n//# sourceMappingURL=http://127.0.0.1:3001/dist/js/[url]'
-    ),
+    new webpack.SourceMapDevToolPlugin({
+      // filename: 'bundle.js.map',
+      filename: '[file].map[query]',
+      append: '\n//# sourceMappingURL=http://127.0.0.1:3001/dist/js/[url]'
+    }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ]
 }
