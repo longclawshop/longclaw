@@ -37,6 +37,8 @@ class Order(models.Model):
                                         decimal_places=2,
                                         blank=True,
                                         null=True)
+                                    
+    receipt_email_sent = models.BooleanField(defualt=False)
 
     def __str__(self):
         return "Order #{} - {}".format(self.id, self.email)
