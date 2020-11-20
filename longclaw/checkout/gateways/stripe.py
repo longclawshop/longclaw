@@ -19,7 +19,7 @@ class StripePayment(BasePayment):
             charge = stripe.Charge.create(
                 amount=int(math.ceil(amount * 100)),  # Amount in pence
                 currency=currency.lower(),
-                source=request.data['token'],
+                source=request.POST['stripeToken'],
                 description=description
             )
             return charge.id
@@ -31,10 +31,10 @@ class StripePayment(BasePayment):
         """
         return stripe.Token.create(
             card={
-                "number": request.data["number"],
-                "exp_month": request.data["exp_month"],
-                "exp_year": request.data["exp_year"],
-                "cvc": request.data["cvc"]
+                "number": request.POST["number"],
+                "exp_month": request.POST["exp_month"],
+                "exp_year": request.POST["exp_year"],
+                "cvc": request.POST["cvc"]
 
             }
         )
