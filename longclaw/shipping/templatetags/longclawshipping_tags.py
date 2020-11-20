@@ -9,7 +9,7 @@ register = template.Library()
 def shipping_rate(context, **kwargs):
     """Return the shipping rate for a country & shipping option name.
     """
-    settings = Configuration.for_site(context["request"].site)
+    settings = Configuration.for_request(context["request"])
     code = kwargs.get('code', None)
     name = kwargs.get('name', None)
     return get_shipping_cost(settings, code, name)
