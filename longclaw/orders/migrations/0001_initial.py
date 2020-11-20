@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('shipping_rate', models.DecimalField(blank=True, decimal_places=2, max_digits=12, null=True)),
                 ('billing_address', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='orders_billing_address', to='shipping.Address')),
                 ('shipping_address', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='orders_shipping_address', to='shipping.Address')),
-                ('receipt_email_sent', models.BooleanField(default=False)),
+                # ('receipt_email_sent', models.BooleanField(default=False)),
             ],
         ),
         migrations.CreateModel(
