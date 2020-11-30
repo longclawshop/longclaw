@@ -22,4 +22,4 @@ class AddressForm(ModelForm):
         else:
             queryset = Country.objects.exclude(shippingrate=None)
         self.fields['country'] = ModelChoiceField(queryset)
-
+        self.fields['country'].initial = Country.objects.filter(iso='NZ').first()
