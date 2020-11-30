@@ -47,6 +47,5 @@ class Configuration(BaseSetting):
         FieldPanel('default_shipping_enabled'),
         SnippetChooserPanel('shipping_origin'),
         FieldPanel('currency_html_code'),
-        FieldPanel('currency_html_code'),
         FieldPanel('currency')
     )
