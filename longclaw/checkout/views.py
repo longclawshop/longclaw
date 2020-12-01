@@ -11,8 +11,10 @@ except ImportError:
 from longclaw.shipping.forms import AddressForm
 from longclaw.checkout.forms import CheckoutForm
 from longclaw.checkout.utils import create_order
-from longclaw.basket.utils import get_basket_items
+from longclaw.basket.utils import get_basket_items, basket_id
 from longclaw.orders.models import Order
+from longclaw.coupon.models import Discount
+from longclaw.coupon.utils import discount_total
 
 
 @require_GET
@@ -31,6 +33,8 @@ class CheckoutView(TemplateView):
         context = super(CheckoutView, self).get_context_data(**kwargs)
         items, _ = get_basket_items(self.request)
         total_price = sum(item.total() for item in items)
+        discount = Discount.objects.filter(basket_id=basket_id(self.request), order=None).last()
+        discount_total_price, discount_total_saved = discount_total(total_price, discount)
         site = getattr(self.request, 'site', None)
         context['checkout_form'] = self.checkout_form(
             self.request.POST or None)
@@ -44,12 +48,16 @@ class CheckoutView(TemplateView):
             site=site)
         context['basket'] = items
         context['total_price'] = total_price
+        context['discount'] = discount
+        context['discount_total_price'] = discount_total_price
+        context['discount_total_saved'] = discount_total_saved
         return context
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         checkout_form = context['checkout_form']
         shipping_form = context['shipping_form']
+        discount = context['discount']
         all_ok = checkout_form.is_valid() and shipping_form.is_valid()
         if all_ok:
             email = checkout_form.cleaned_data['email']
@@ -72,6 +80,7 @@ class CheckoutView(TemplateView):
                 shipping_address=shipping_address,
                 billing_address=billing_address,
                 shipping_option=shipping_option,
+                discount=discount,
                 capture_payment=True
             )
             return HttpResponseRedirect(reverse(

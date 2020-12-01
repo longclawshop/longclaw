@@ -2,9 +2,11 @@ from decimal import Decimal
 from django.utils.module_loading import import_string
 from django.utils import timezone
 from ipware.ip import get_real_ip
+from decimal import Decimal
 
 from longclaw.basket.utils import get_basket_items, destroy_basket
 from longclaw.shipping.utils import get_shipping_cost
+from longclaw.coupon.utils import discount_total
 from longclaw.checkout.errors import PaymentError
 from longclaw.orders.models import Order, OrderItem
 from longclaw.shipping.models import Address
@@ -18,6 +20,7 @@ def create_order(email,
                  shipping_address=None,
                  billing_address=None,
                  shipping_option=None,
+                 discount=None,
                  capture_payment=False):
     """
     Create an order from a basket and customer infomation
@@ -80,7 +83,8 @@ def create_order(email,
         ip_address=ip_address,
         shipping_address=shipping_address,
         billing_address=billing_address,
-        shipping_rate=shipping_rate
+        shipping_rate=shipping_rate,
+        discount=discount,
     )
     order.save()
 
@@ -94,6 +98,16 @@ def create_order(email,
             order=order
         )
         order_item.save()
+    
+    # Set the relative discount instance (if it exists) to refer to the order
+    if discount:
+        # last second check that the discount code can still be used
+        if not discount.coupon.depleted:
+            discount.consume(order)
+
+            # Adjust the total by the discount
+            total, _ = discount_total(total, discount)
+            total = Decimal(total)
 
     if capture_payment:
         desc = 'Payment from {} for order id #{}'.format(email, order.id)
