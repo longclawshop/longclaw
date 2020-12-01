@@ -119,6 +119,8 @@ class OrderDetail extends Component {
           items={order.items}
           subTotal={order.total}
           shippingRate={parseFloat(order.shipping_rate)}
+          discountTotal={order.discount_total}
+          discountValue={order.discount_value}
         />
       </div>
     );

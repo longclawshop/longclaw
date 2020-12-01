@@ -85,6 +85,15 @@ class Order(models.Model):
         self.status = self.CANCELLED
         self.save()
 
+    def total_incl_discount(self):
+        from longclaw.coupon.models import Discount
+        from longclaw.coupon.utils import discount_total
+        try:
+            new_total, _ = discount_total(self.total, Discount.objects.get(order=self))
+            return new_total
+        except:
+            return self.total
+
 class OrderItem(models.Model):
     product = models.ForeignKey(PRODUCT_VARIANT_MODEL, on_delete=models.DO_NOTHING)
     quantity = models.IntegerField(default=1)

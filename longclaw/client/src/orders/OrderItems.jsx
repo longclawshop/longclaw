@@ -6,7 +6,7 @@ const propTypes = {
   shippingRate: PropTypes.number.isRequired
 };
 
-const OrderItems = ({items, subTotal, shippingRate}) => (
+const OrderItems = ({items, subTotal, shippingRate, discountTotal, discountValue}) => (
   <table className="listing">
     <thead>
       <tr>
@@ -40,6 +40,13 @@ const OrderItems = ({items, subTotal, shippingRate}) => (
           <td>Subtotal</td>
           <td>{subTotal}</td>
       </tr>
+      {discountTotal || discountTotal == 0 ? <tr>
+        <td></td>
+        <td>Discounted Value</td>
+        <td>{discountValue}</td>
+        <td>Discounted Subtotal</td>
+        <td>{discountTotal || discountTotal == 0 ? discountTotal : '---'}</td>
+      </tr> : ''}
       <tr>
           <td></td>
           <td></td>
@@ -52,7 +59,7 @@ const OrderItems = ({items, subTotal, shippingRate}) => (
           <td></td>
           <td></td>
           <td><strong>Total</strong></td>
-          <td><strong>{subTotal+shippingRate}</strong></td>
+          <td><strong>{discountTotal+shippingRate || discountTotal+shippingRate == 0 ? discountTotal : subTotal+shippingRate}</strong></td>
       </tr>
       </tfoot>   
   </table>
