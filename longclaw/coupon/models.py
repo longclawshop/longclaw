@@ -93,9 +93,10 @@ class Coupon(models.Model):
 class Discount(models.Model):
     coupon = models.ForeignKey(Coupon, on_delete=models.CASCADE)
     basket_id = models.CharField(max_length=32)
-    order = models.ForeignKey(Order, blank=True, null=True, on_delete=models.SET_NULL)
+    order = models.ForeignKey(Order, related_name='discounts', blank=True, null=True, on_delete=models.SET_NULL)
 
     created = models.DateTimeField(default=timezone.now)
+    consumed = models.BooleanField(default=False)
     consumed_date = models.DateTimeField(blank=True, null=True)
 
     def consume(self, order=None):
@@ -104,13 +105,9 @@ class Discount(models.Model):
             return
         self.order = order
         self.coupon.redemptions += 1
+        self.consumed = True
         self.consumed_date = timezone.now()
         self.save()
-        
-        # remove other Discount instances related to the same basket
-        # discounts = Discount.objects.filter(basket_id=self.basket_id).exclude(id=self.id)
-        # for discount in discounts:
-        #     discount.delete()
 
     def __str__(self):
         string = f'{self.basket_id} - {str(self.coupon)}'

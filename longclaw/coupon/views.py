@@ -41,7 +41,7 @@ def verify_discount_code(request):
                 return JsonResponse({
                     'success': False,
                     'code': 'DEPLETED',
-                    'reason': 'This discount code no more uses available',
+                    'reason': 'This discount code has no more uses available',
                     'coupon': {
                         'type': coupon.discount_type,
                         'value': coupon.discount_value,

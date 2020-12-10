@@ -37,7 +37,7 @@ def discount_total(total, discount=None):
     if not discount:
         return total, 0
     
-    total = float(total)
+    total = total
     
     # check what type of discount it is and apply the value appropriately
     if discount.coupon.discount_type == 'percentage':
