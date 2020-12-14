@@ -51,8 +51,11 @@ def discount_total(total, discount=None):
         amount_saved = 0
 
     # pretty sure the amount should not go below zero, so check for it
-    if new_total < 0:
-        new_total = 0
+    # if new_total < 0:
+    # because stripe doesn't accept payments below $0.50, if the discountSubtotal is
+    # in that range, just zero it off
+    if new_total <= 0.5:
+        new_total = Decimal(0)
         amount_saved = total
     
     return new_total, amount_saved

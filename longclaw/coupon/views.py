@@ -4,6 +4,7 @@ from django.utils import timezone
 from longclaw.coupon.models import Coupon, Discount
 from longclaw.basket.utils import get_basket_items, basket_id
 from longclaw.coupon.utils import discount_total
+from longclaw.shipping.models.rates import ShippingRate
 
 def verify_discount_code(request):
 
@@ -22,7 +23,7 @@ def verify_discount_code(request):
         else:
 
             # check if the coupon has expired
-            if coupon.expiry_date < timezone.now():
+            if coupon.expiry_date < timezone.now() and not coupon.infinite_redemptions:
                 return JsonResponse({
                     'success': False, 
                     'code': 'EXPIRED', 
@@ -77,6 +78,17 @@ def verify_discount_code(request):
 
             # get the total price from the items in the basket and run them through the discount
             total_price = sum(item.total() for item in items)
+
+            if shipping_rate_id := request.POST.get('shipping'):
+                try:
+                    shipping_rate = ShippingRate.objects.get(id=shipping_rate_id)
+                except ShippingRate.DoesNotExist:
+                    # don't worry that it doesn't exist, just move along
+                    print('couldn\'t find a shipping rate')
+                    pass
+                else:
+                    total_price += shipping_rate.rate
+
             discount_total_price, discount_total_saved = discount_total(total_price, discount)
             
         

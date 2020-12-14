@@ -61,10 +61,10 @@ class Order(models.Model):
             This includes the total price (reduced by any discount applied), plus shipping
         """
         total = self.total
-        if self.discounts.first():
-            total, _ = discount_total(total, self.discounts.first())
         if self.shipping_rate:
             total += self.shipping_rate
+        if self.discounts.first():
+            total, _ = discount_total(total, self.discounts.first())
         return round(total, 2)
 
     @property

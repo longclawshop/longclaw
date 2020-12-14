@@ -48,15 +48,15 @@ class CheckoutView(TemplateView):
             site=site)
         context['basket'] = items
         
+        default_shipping_rate = ShippingRate.objects.first().rate
         total_price = sum(item.total() for item in items)
         discount = Discount.objects.filter(basket_id=basket_id(self.request), order=None).last()
-        discount_total_price, discount_total_saved = discount_total(total_price, discount)
+        discount_total_price, discount_total_saved = discount_total(total_price + default_shipping_rate, discount)
         context['total_price'] = total_price
         context['discount'] = discount
         context['discount_total_price'] = round(discount_total_price, 2)
         context['discount_total_saved'] = round(discount_total_saved, 2)
 
-        default_shipping_rate = ShippingRate.objects.first().rate
         context['default_shipping_rate'] = round(default_shipping_rate, 2)
 
         context['discount_plus_shipping'] = round(discount_total_price + default_shipping_rate, 2)
@@ -90,6 +90,7 @@ class CheckoutView(TemplateView):
                 shipping_address=shipping_address,
                 billing_address=billing_address,
                 shipping_option=shipping_option,
+                delivery_instructions=delivery_instructions,
                 discount=discount,
                 capture_payment=True
             )

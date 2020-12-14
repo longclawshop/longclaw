@@ -36,6 +36,9 @@ class ShippingRate(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name',]
+
 
 @receiver(address_modified)
 def clear_address_rates(sender, instance, **kwargs):

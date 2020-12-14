@@ -44,7 +44,7 @@ class Coupon(models.Model):
         FieldPanel('expiry_date'),
         FieldPanel('infinite_redemptions'),
         FieldPanel('max_redemptions'),
-        FieldPanel('redemptions'),
+        # FieldPanel('redemptions'),
     ]
 
     # This property is only appropriate now because only one discount type is allowed (at a time)

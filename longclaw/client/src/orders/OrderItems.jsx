@@ -40,13 +40,6 @@ const OrderItems = ({items, subTotal, shippingRate, discountTotal, discountValue
           <td>Subtotal</td>
           <td>{subTotal}</td>
       </tr>
-      {discountTotal || discountTotal == 0 ? <tr>
-        <td></td>
-        <td>Discounted Value</td>
-        <td>{discountValue}</td>
-        <td>Discounted Subtotal</td>
-        <td>{discountTotal || discountTotal == 0 ? discountTotal : '---'}</td>
-      </tr> : ''}
       <tr>
           <td></td>
           <td></td>
@@ -54,14 +47,21 @@ const OrderItems = ({items, subTotal, shippingRate, discountTotal, discountValue
           <td>Shipping</td>
           <td>{shippingRate}</td>
       </tr>
+      {discountTotal || discountTotal == 0 ? <tr>
+        <td></td>
+        <td>Discounted Value</td>
+        <td>{discountValue}</td>
+        <td>Discounted Subtotal</td>
+        <td>{discountTotal || discountTotal == 0 ? discountTotal.toFixed(2) : '---'}</td>
+      </tr> : ''}
       <tr>
           <td></td>
           <td></td>
           <td></td>
           <td><strong>Total</strong></td>
-          <td><strong>{discountTotal+shippingRate || discountTotal+shippingRate == 0 ? discountTotal : subTotal+shippingRate}</strong></td>
+          <td><strong>{discountTotal || discountTotal == 0 ? (discountTotal).toFixed(2) : (subTotal+shippingRate).toFixed(2)}</strong></td>
       </tr>
-      </tfoot>   
+      </tfoot>  
   </table>
 );
 

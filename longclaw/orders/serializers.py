@@ -24,7 +24,7 @@ class OrderSerializer(serializers.ModelSerializer):
         rep = super().to_representation(value)
         try:
             discount = Discount.objects.get(order=value.id)
-            rep['discount_total'], amount_off = discount_total(value.total, discount)
+            rep['discount_total'], amount_off = discount_total(value.total + value.shipping_rate, discount)
             rep['discount_value'] = discount.coupon.discount_string(discount.coupon.discount_value)
         except Discount.DoesNotExist:
             pass
