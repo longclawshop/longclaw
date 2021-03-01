@@ -26,6 +26,10 @@ def create_order(email,
     Create an order from a basket and customer infomation
     """
     basket_items, current_basket_id = get_basket_items(request)
+
+    if not basket_items:
+        raise ValueError('Basket is empty, do not complete order')
+    
     if addresses:
         # Longclaw < 0.2 used 'shipping_name', longclaw > 0.2 uses a consistent
         # prefix (shipping_address_xxxx)

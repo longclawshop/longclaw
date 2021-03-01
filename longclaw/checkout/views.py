@@ -84,27 +84,31 @@ class CheckoutView(TemplateView):
                 billing_address = shipping_address
 
         if all_ok:
-            order = create_order(
-                email,
-                request,
-                shipping_address=shipping_address,
-                billing_address=billing_address,
-                shipping_option=shipping_option,
-                delivery_instructions=delivery_instructions,
-                discount=discount,
-                capture_payment=True
-            )
-        
-            # Check for if the payment went through
-            if order.status == order.SUBMITTED:
-                return HttpResponseRedirect(reverse(
-                    'longclaw_checkout_success',
-                    kwargs={'pk': order.id}
-                ))
-            else:
-                context['checkout_form'] = checkout_form
-                context['shipping_form'] = shipping_form
-                context['discount'] = discount
+            try:
+                order = create_order(
+                    email,
+                    request,
+                    shipping_address=shipping_address,
+                    billing_address=billing_address,
+                    shipping_option=shipping_option,
+                    delivery_instructions=delivery_instructions,
+                    discount=discount,
+                    capture_payment=True
+                )
+            except ValueError: 
+                # Something went wrong, no items in basket?
                 return super(CheckoutView, self).render_to_response(context)
+            else:
+                # Check for if the payment went through
+                if order.status == order.SUBMITTED:
+                    return HttpResponseRedirect(reverse(
+                        'longclaw_checkout_success',
+                        kwargs={'pk': order.id}
+                    ))
+                else:
+                    context['checkout_form'] = checkout_form
+                    context['shipping_form'] = shipping_form
+                    context['discount'] = discount
+                    return super(CheckoutView, self).render_to_response(context)
                 
         return super(CheckoutView, self).render_to_response(context)
