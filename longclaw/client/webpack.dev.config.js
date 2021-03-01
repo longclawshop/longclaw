@@ -8,7 +8,7 @@ module.exports = {
     orders: './src/orders/index.jsx',
     longclawclient: './src/api/client.js',
     vendors: [
-      'react', 'isomorphic-fetch', 'whatwg-fetch',
+      'react', 'whatwg-fetch', // 'isomorphic-fetch', 
        'immutable',
     ]
   },
@@ -36,7 +36,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
     alias: {
       ie: 'component-ie',
-      'isomorphic-fetch': 'fetch-mock-forwarder'
+      // 'isomorphic-fetch': 'fetch-mock-forwarder'
     }
   },
   debug: false,
