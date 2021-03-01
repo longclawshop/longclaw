@@ -6,6 +6,7 @@ import calendar
 from datetime import datetime
 from django.db.models import Q, Sum, F
 from longclaw.orders.models import Order, OrderItem
+import pytz
 
 
 def current_month():
@@ -13,6 +14,8 @@ def current_month():
     n_days = calendar.monthrange(now.year, now.month)[1]
     month_start = datetime.strptime('{}{}{}'.format(now.year, now.month, 1), '%Y%m%d')
     month_end = datetime.strptime('{}{}{}'.format(now.year,now.month, n_days), '%Y%m%d')
+    month_start = pytz.utc.localize(month_start)
+    month_end = pytz.utc.localize(month_end)
     return month_start, month_end
 
 

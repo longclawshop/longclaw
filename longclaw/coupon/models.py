@@ -86,6 +86,11 @@ class Coupon(models.Model):
         elif name == 'dollar':
             string += f' - ${float(value):.2f}'
 
+        if self.infinite_redemptions:
+            string += f' (Used {self.redemptions} time{"s" if self.redemptions != 1 else ""})'
+        else:
+            string += f' (Used {self.redemptions}/{self.max_redemptions})'
+
         return string
 
 

@@ -103,8 +103,6 @@ def create_order(email,
     if discount:
         # last second check that the discount code can still be used
         if not discount.coupon.depleted:
-            discount.consume(order)
-
             # Adjust the total by the discount
             total, _ = discount_total(total, discount)
             total = Decimal(total)
@@ -117,6 +115,12 @@ def create_order(email,
                                                     description=desc)
             order.payment_date = timezone.now()
             order.transaction_id = transaction_id
+
+            # Payment has succeeded, so consume the discount code used
+            if discount:
+                if not discount.coupon.depleted:
+                    discount.consume(order)
+            
             # Once the order has been successfully taken, we can empty the basket
             destroy_basket(request)
         except PaymentError:

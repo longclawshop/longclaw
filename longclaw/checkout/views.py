@@ -94,7 +94,17 @@ class CheckoutView(TemplateView):
                 discount=discount,
                 capture_payment=True
             )
-            return HttpResponseRedirect(reverse(
-                'longclaw_checkout_success',
-                kwargs={'pk': order.id}))
+        
+            # Check for if the payment went through
+            if order.status == order.SUBMITTED:
+                return HttpResponseRedirect(reverse(
+                    'longclaw_checkout_success',
+                    kwargs={'pk': order.id}
+                ))
+            else:
+                context['checkout_form'] = checkout_form
+                context['shipping_form'] = shipping_form
+                context['discount'] = discount
+                return super(CheckoutView, self).render_to_response(context)
+                
         return super(CheckoutView, self).render_to_response(context)
