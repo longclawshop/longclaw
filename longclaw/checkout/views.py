@@ -11,8 +11,10 @@ except ImportError:
 from longclaw.shipping.forms import AddressForm
 from longclaw.checkout.forms import CheckoutForm
 from longclaw.checkout.utils import create_order
-from longclaw.basket.utils import get_basket_items
+from longclaw.basket.utils import get_basket_items, basket_id
 from longclaw.orders.models import Order
+from longclaw.coupon.models import Discount
+from longclaw.coupon.utils import discount_total
 
 
 @require_GET
@@ -31,6 +33,8 @@ class CheckoutView(TemplateView):
         context = super(CheckoutView, self).get_context_data(**kwargs)
         items, _ = get_basket_items(self.request)
         total_price = sum(item.total() for item in items)
+        discount = Discount.objects.filter(basket_id=basket_id(self.request), order=None).last()
+        discount_total_price, discount_total_saved = discount_total(total_price, discount)
         site = getattr(self.request, 'site', None)
         context['checkout_form'] = self.checkout_form(
             self.request.POST or None)
@@ -43,13 +47,27 @@ class CheckoutView(TemplateView):
             prefix='billing',
             site=site)
         context['basket'] = items
+        
+        default_shipping_rate = ShippingRate.objects.first().rate
+        total_price = sum(item.total() for item in items)
+        discount = Discount.objects.filter(basket_id=basket_id(self.request), order=None).last()
+        discount_total_price, discount_total_saved = discount_total(total_price + default_shipping_rate, discount)
         context['total_price'] = total_price
+        context['discount'] = discount
+        context['discount_total_price'] = round(discount_total_price, 2)
+        context['discount_total_saved'] = round(discount_total_saved, 2)
+
+        context['default_shipping_rate'] = round(default_shipping_rate, 2)
+
+        context['discount_plus_shipping'] = round(discount_total_price + default_shipping_rate, 2)
+        context['total_plus_shipping'] = round(total_price + default_shipping_rate, 2)
         return context
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         checkout_form = context['checkout_form']
         shipping_form = context['shipping_form']
+        discount = context['discount']
         all_ok = checkout_form.is_valid() and shipping_form.is_valid()
         if all_ok:
             email = checkout_form.cleaned_data['email']
@@ -72,9 +90,21 @@ class CheckoutView(TemplateView):
                 shipping_address=shipping_address,
                 billing_address=billing_address,
                 shipping_option=shipping_option,
+                delivery_instructions=delivery_instructions,
+                discount=discount,
                 capture_payment=True
             )
-            return HttpResponseRedirect(reverse(
-                'longclaw_checkout_success',
-                kwargs={'pk': order.id}))
+        
+            # Check for if the payment went through
+            if order.status == order.SUBMITTED:
+                return HttpResponseRedirect(reverse(
+                    'longclaw_checkout_success',
+                    kwargs={'pk': order.id}
+                ))
+            else:
+                context['checkout_form'] = checkout_form
+                context['shipping_form'] = shipping_form
+                context['discount'] = discount
+                return super(CheckoutView, self).render_to_response(context)
+                
         return super(CheckoutView, self).render_to_response(context)

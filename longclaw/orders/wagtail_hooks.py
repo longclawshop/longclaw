@@ -92,7 +92,7 @@ class OrderModelAdmin(ModelAdmin):
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ('id', 'status', 'status_note', 'email',
-                    'payment_date', 'total_items', 'total')
+                    'payment_date', 'total_items', 'total_incl_discount') # 'total')
     list_filter = ('status', 'payment_date', 'email')
     inspect_view_enabled = True
     detail_view_class = DetailView

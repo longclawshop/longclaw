@@ -2,6 +2,8 @@ from datetime import datetime
 from django.db import models
 from longclaw.settings import PRODUCT_VARIANT_MODEL
 from longclaw.shipping.models import Address
+# from longclaw.coupon.models import Discount
+from longclaw.coupon.utils import discount_total
 
 class Order(models.Model):
     SUBMITTED = 1
@@ -50,7 +52,20 @@ class Order(models.Model):
         total = 0
         for item in self.items.all():
             total += item.total
-        return total
+
+        return round(total, 2)
+    
+    @property
+    def final_payment(self):
+        """ The total payment received
+            This includes the total price (reduced by any discount applied), plus shipping
+        """
+        total = self.total
+        if self.shipping_rate:
+            total += self.shipping_rate
+        if self.discounts.first():
+            total, _ = discount_total(total, self.discounts.first())
+        return round(total, 2)
 
     @property
     def total_items(self):
