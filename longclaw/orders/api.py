@@ -7,7 +7,7 @@ from longclaw.orders.serializers import OrderSerializer
 
 class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Order.objects.all()
 
     @action(detail=True, methods=['post'])
