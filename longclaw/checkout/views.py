@@ -109,6 +109,8 @@ class CheckoutView(TemplateView):
                     context['checkout_form'] = checkout_form
                     context['shipping_form'] = shipping_form
                     context['discount'] = discount
+                    if order.status == order.FAILURE:
+                        context['payment_error'] = order.status_note
                     return super(CheckoutView, self).render_to_response(context)
                 
         return super(CheckoutView, self).render_to_response(context)

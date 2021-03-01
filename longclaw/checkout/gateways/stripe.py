@@ -24,7 +24,7 @@ class StripePayment(BasePayment):
             )
             return charge.id
         except stripe.error.CardError as error:
-            raise PaymentError(error)
+            raise PaymentError(error.user_message)
 
     def get_token(self, request):
         """ Create a stripe token for a card

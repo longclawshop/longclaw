@@ -127,8 +127,9 @@ def create_order(email,
             
             # Once the order has been successfully taken, we can empty the basket
             destroy_basket(request)
-        except PaymentError:
+        except PaymentError as e:
             order.status = order.FAILURE
+            order.status_note = str(e)
 
         order.save()
 
