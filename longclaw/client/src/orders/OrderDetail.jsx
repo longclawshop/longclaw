@@ -28,11 +28,14 @@ class OrderDetail extends Component {
   }
 
   fetchOrder() {
+    const self = this;
     this.setState({ loading: true })
-    api.orderDetail.get({
-      prefix: this.props.urlPrefix,
-      urlParams: { id: this.props.orderId }})
-      .then(json => this.setState({ loading: false, order: json }))
+    setTimeout(() => {
+      api.orderDetail.get({
+        prefix: this.props.urlPrefix,
+        urlParams: { id: this.props.orderId }})
+        .then(json => this.setState({ loading: false, order: json }))
+    }, 100)
   }
 
   componentDidMount() {
