@@ -25,3 +25,12 @@ class OrderViewSet(viewsets.ModelViewSet):
         order = Order.objects.get(id=pk)
         order.fulfill()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(detail=True, methods=['post'])
+    def unfulfill_order(self, request, pk):
+        """Unmark the order specified by pk as fulfilled
+        """
+        order = Order.objects.get(id=pk)
+        order.unfulfill()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+

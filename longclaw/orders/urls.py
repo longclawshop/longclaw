@@ -11,6 +11,10 @@ fulfill_order = api.OrderViewSet.as_view({
     'post': 'fulfill_order'
 })
 
+unfulfill_order = api.OrderViewSet.as_view({
+    'post': 'unfulfill_order'
+})
+
 refund_order = api.OrderViewSet.as_view({
     'post': 'refund_order'
 })
@@ -27,6 +31,12 @@ urlpatterns = [
         PREFIX + r'(?P<pk>[0-9]+)/fulfill/$',
         fulfill_order,
         name='longclaw_fulfill_order'
+    ),
+
+    url(
+        PREFIX + r'(?P<pk>[0-9]+)/unfulfill/$',
+        unfulfill_order,
+        name='longclaw_unfulfill_order'
     ),
 
     url(

@@ -92,6 +92,12 @@ class Order(models.Model):
         self.status = self.FULFILLED
         self.save()
 
+    def unfulfill(self):
+        """Unmark this order as being fulfilled
+        """
+        self.status = self.SUBMITTED
+        self.save()
+
     def cancel(self, refund=True):
         """Cancel this order, optionally refunding it
         """
