@@ -41,3 +41,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         order.unfulfill()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    @action(detail=False, methods=['get'])
+    def order_statuses(self, request):
+        return Response({value: text for value, text in Order.ORDER_STATUSES}, status=200)

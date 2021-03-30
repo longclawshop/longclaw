@@ -19,8 +19,18 @@ refund_order = api.OrderViewSet.as_view({
     'post': 'refund_order'
 })
 
+order_statuses = api.OrderViewSet.as_view({
+    'get': 'order_statuses'
+})
+
 PREFIX = r'^{}order/'.format(API_URL_PREFIX)
 urlpatterns = [
+    url(
+        PREFIX + 'statuses/',
+        order_statuses,
+        name='longclaw_order_statuses'
+    ),
+
     url(
         PREFIX + r'(?P<pk>[0-9]+)/$',
         orders,
