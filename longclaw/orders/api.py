@@ -1,6 +1,7 @@
 from rest_framework.decorators import action 
-from rest_framework import permissions, status, viewsets
+from rest_framework import permissions, status, viewsets, filters
 from rest_framework.response import Response
+from rest_framework.pagination import LimitOffsetPagination
 from longclaw.orders.models import Order
 from longclaw.orders.serializers import OrderSerializer
 
@@ -9,6 +10,12 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAuthenticated]
     queryset = Order.objects.all()
+    pagination_class = LimitOffsetPagination
+    filter_backends = [filters.SearchFilter]
+    search_fields = [
+        '=id', 'email', 
+        'shipping_address__name', 'shipping_address__city',
+    ]
 
     @action(detail=True, methods=['post'])
     def refund_order(self, request, pk):
