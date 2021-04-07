@@ -19,7 +19,7 @@ class StripePayment(BasePayment):
             charge = stripe.Charge.create(
                 amount=int(math.ceil(amount * 100)),  # Amount in pence
                 currency=currency.lower(),
-                source=request.POST['stripeToken'],
+                source=request.POST.get('stripeToken'),
                 description=description
             )
             return charge.id
