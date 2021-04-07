@@ -1,6 +1,9 @@
 # Longclaw
 
 
+!!Call For Maintainers!! 
+https://github.com/JamesRamm/longclaw/issues/375
+
 [![Pypi Version](https://badge.fury.io/py/longclaw.svg)](https://badge.fury.io/py/longclaw)
 [![Codecov Status](https://codecov.io/gh/JamesRamm/longclaw/branch/master/graph/badge.svg)](https://codecov.io/gh/JamesRamm/longclaw)
 [![Build Status](https://travis-ci.org/JamesRamm/longclaw.svg?branch=master)](https://travis-ci.org/JamesRamm/longclaw)
@@ -58,12 +61,4 @@ Do migrations for whole project and run
 ![Order Detail](docs/assets/order_detail.png)
 
 
-## Support
-
-
-Please raise bugs/feature requests using the github issue tracker and ask questions on stackoverflow.
-For further support contact ramshacklerecording@gmail.com
-
-If you use Longclaw, please consider supporting the developer:
-<a href="https://www.buymeacoffee.com/pHtXDM748" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
