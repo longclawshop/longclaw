@@ -1,7 +1,8 @@
 # Longclaw
 
 
-!!Call For Maintainers!! 
+## Call For Maintainers
+If you are interested in developing this project, please get in touch
 https://github.com/JamesRamm/longclaw/issues/375
 
 [![Pypi Version](https://badge.fury.io/py/longclaw.svg)](https://badge.fury.io/py/longclaw)
