@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class LongclawSettingsConfig(AppConfig):
-    name = 'configuration'
+    name = 'longclaw.configuration'
     verbose_name = 'Longclaw Configuration'
