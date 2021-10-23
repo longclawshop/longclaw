@@ -1,6 +1,6 @@
 -r requirements.txt
 bumpversion==0.5.3
-setuptools==42.0.1
+setuptools==58.3.0
 wheel==0.33.6
 
 coverage>=4.5.2
