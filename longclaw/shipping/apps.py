@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class LongclawShippingConfig(AppConfig):
-    name = 'shipping'
+    name = 'longclaw.shipping'
