@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class LongclawcoreConfig(AppConfig):
-    name = 'core'
+    name = 'longclaw.core'
