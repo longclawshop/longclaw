@@ -1,8 +1,7 @@
 -r requirements.txt
 bumpversion==0.5.3
+wheel==0.37.0
 setuptools==58.3.0
-wheel==0.33.6
-
 coverage>=4.5.2
 mock>=2.0.0
 flake8>=3.6.0
