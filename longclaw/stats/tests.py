@@ -20,11 +20,11 @@ class StatsTest(TestCase):
 
     def test_sales_for_time_period(self):
         delta = timedelta(days=1)
-        sales = stats.sales_for_time_period(datetime.now() - delta, datetime.now() + delta)
+        sales = stats.sales_for_time_period(timezone.now() - delta, timezone.now() + delta)
         self.assertEqual(sales.count(), 1)
 
     def test_daily_sales(self):
         delta = timedelta(days=10)
-        groups = stats.daily_sales(datetime.now() - delta, datetime.now() + delta)
+        groups = stats.daily_sales(timezone.now() - delta, timezone.now() + delta)
         # We only create 1 order.
         self.assertEqual(len(list(groups)), 1)
