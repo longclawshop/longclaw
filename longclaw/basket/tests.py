@@ -6,7 +6,7 @@ try:
 except ImportError:
     from django.core.urlresolvers import reverse_lazy
 from django.core.management import call_command
-from django.utils.six import StringIO
+from six import StringIO
 
 from longclaw.tests.utils import LongclawTestCase, BasketItemFactory, ProductVariantFactory, catch_signal
 from longclaw.basket.utils import basket_id
