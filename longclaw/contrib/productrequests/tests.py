@@ -27,4 +27,4 @@ class ProductRequestTest(LongclawTestCase):
     def test_get_admin(self):
         """Check we can retrieve the requests admin page
         """
-        self.get_test('productrequests_admin', {'pk': self.variant.product.id})
+        self.get_test('productrequests_admin', {'pk': self.product_request.variant.product.id})
