@@ -1,3 +1,3 @@
 import django.dispatch
 
-address_modified = django.dispatch.Signal('instance')
+address_modified = django.dispatch.Signal("instance")

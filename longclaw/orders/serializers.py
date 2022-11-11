@@ -1,7 +1,9 @@
 from rest_framework import serializers
+
 from longclaw.orders.models import Order, OrderItem
 from longclaw.products.serializers import ProductVariantSerializer
 from longclaw.shipping.serializers import AddressSerializer
+
 
 class OrderItemSerializer(serializers.ModelSerializer):
 

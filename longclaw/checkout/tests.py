@@ -1,58 +1,62 @@
 import uuid
+
 from django import VERSION as DJANGO_VERSION
 
-if DJANGO_VERSION < (4,0):
+if DJANGO_VERSION < (4, 0):
     from django.utils.encoding import force_text as force_str
 else:
     from django.utils.encoding import force_str
+
 from django.test import TestCase
 from django.test.client import RequestFactory
 from wagtail.core.models import Site
+
 try:
     from django.urls import reverse_lazy
 except ImportError:
     from django.core.urlresolvers import reverse_lazy
 
+from longclaw.basket.utils import basket_id
+from longclaw.checkout.forms import CheckoutForm
+from longclaw.checkout.templatetags import longclawcheckout_tags as tags
+from longclaw.checkout.utils import create_order
+from longclaw.checkout.views import CheckoutView
+from longclaw.shipping.models import ShippingRate
 from longclaw.tests.utils import (
-    LongclawTestCase,
     AddressFactory,
     BasketItemFactory,
     CountryFactory,
-    OrderFactory
+    LongclawTestCase,
+    OrderFactory,
 )
-from longclaw.shipping.models import ShippingRate
-from longclaw.checkout.utils import create_order
-from longclaw.checkout.forms import CheckoutForm
-from longclaw.checkout.views import CheckoutView
-from longclaw.checkout.templatetags import longclawcheckout_tags as tags
-from longclaw.basket.utils import basket_id
 
 
 class CheckoutApiTest(LongclawTestCase):
-
     def setUp(self):
 
         self.addresses = {
-            'shipping_name': '',
-            'shipping_address_line1': '',
-            'shipping_address_city': '',
-            'shipping_address_zip': '',
-            'shipping_address_country': '',
-            'billing_name': '',
-            'billing_address_line1': '',
-            'billing_address_city': '',
-            'billing_address_zip': '',
-            'billing_address_country': ''
+            "shipping_name": "",
+            "shipping_address_line1": "",
+            "shipping_address_city": "",
+            "shipping_address_zip": "",
+            "shipping_address_country": "",
+            "billing_name": "",
+            "billing_address_line1": "",
+            "billing_address_city": "",
+            "billing_address_zip": "",
+            "billing_address_country": "",
         }
         self.email = "test@test.com"
-        self.request = RequestFactory().get('/')
+        self.request = RequestFactory().get("/")
         self.request.session = {}
         self.basket_id = basket_id(self.request)
 
     def test_create_order(self):
         BasketItemFactory(basket_id=self.basket_id),
         BasketItemFactory(basket_id=self.basket_id)
-        order = create_order(self.email, self.request, self.addresses, capture_payment=True)
+        order = create_order(
+            self.email, self.request, self.addresses, capture_payment=True
+        )
         self.assertIsNotNone(order)
         self.assertIsNotNone(order.payment_date)
         self.assertEqual(self.email, order.email)
@@ -64,11 +68,8 @@ class CheckoutApiTest(LongclawTestCase):
         """
         BasketItemFactory(basket_id=self.basket_id)
         BasketItemFactory(basket_id=self.basket_id)
-        data = {
-            'address': self.addresses,
-            'email': self.email
-        }
-        self.post_test(data, 'longclaw_checkout', format='json')
+        data = {"address": self.addresses, "email": self.email}
+        self.post_test(data, "longclaw_checkout", format="json")
 
     def test_checkout_prepaid(self):
         """
@@ -76,17 +77,17 @@ class CheckoutApiTest(LongclawTestCase):
         """
         BasketItemFactory(basket_id=self.basket_id)
         data = {
-            'address': self.addresses,
-            'email': self.email,
-            'transaction_id': 'blahblah'
+            "address": self.addresses,
+            "email": self.email,
+            "transaction_id": "blahblah",
         }
-        self.post_test(data, 'longclaw_checkout_prepaid', format='json')
+        self.post_test(data, "longclaw_checkout_prepaid", format="json")
 
     def test_create_token(self):
         """
         Test api endpoint checkout/token/
         """
-        self.get_test('longclaw_checkout_token')
+        self.get_test("longclaw_checkout_token")
 
 
 class CheckoutApiShippingTest(LongclawTestCase):
@@ -94,7 +95,7 @@ class CheckoutApiShippingTest(LongclawTestCase):
         self.shipping_address = AddressFactory()
         self.billing_address = AddressFactory()
         self.email = "test@test.com"
-        self.request = RequestFactory().get('/')
+        self.request = RequestFactory().get("/")
         self.request.session = {}
         self.request.site = Site.find_for_request(self.request)
         self.basket_id = basket_id(self.request)
@@ -117,7 +118,7 @@ class CheckoutApiShippingTest(LongclawTestCase):
             shipping_option=rate.name,
         )
         self.assertEqual(order.shipping_rate, amount)
-    
+
     def test_create_order_with_address_shipping_option(self):
         amount = 12
         rate = ShippingRate.objects.create(
@@ -135,7 +136,7 @@ class CheckoutApiShippingTest(LongclawTestCase):
             shipping_option=rate.name,
         )
         self.assertEqual(order.shipping_rate, amount)
-    
+
     def test_create_order_with_address_and_basket_shipping_option(self):
         amount = 13
         rate = ShippingRate.objects.create(
@@ -157,15 +158,11 @@ class CheckoutApiShippingTest(LongclawTestCase):
 
 
 class CheckoutTest(TestCase):
-
     def test_checkout_form(self):
         """
         Test we can create the form without a shipping option
         """
-        data = {
-            'email': 'test@test.com',
-            'different_billing_address': False
-        }
+        data = {"email": "test@test.com", "different_billing_address": False}
         form = CheckoutForm(data=data)
         self.assertTrue(form.is_valid(), form.errors.as_json())
 
@@ -173,16 +170,14 @@ class CheckoutTest(TestCase):
         """
         Test making an invalid form
         """
-        form = CheckoutForm({
-            'email': ''
-        })
+        form = CheckoutForm({"email": ""})
         self.assertFalse(form.is_valid())
 
     def test_get_checkout(self):
         """
         Test the checkout GET view
         """
-        request = RequestFactory().get(reverse_lazy('longclaw_checkout_view'))
+        request = RequestFactory().get(reverse_lazy("longclaw_checkout_view"))
         response = CheckoutView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
@@ -192,15 +187,15 @@ class CheckoutTest(TestCase):
         """
         country = CountryFactory()
         request = RequestFactory().post(
-            reverse_lazy('longclaw_checkout_view'),
+            reverse_lazy("longclaw_checkout_view"),
             {
-                'shipping-name': 'bob',
-                'shipping-line_1': 'blah blah',
-                'shipping-postcode': 'ytxx 23x',
-                'shipping-city': 'London',
-                'shipping-country': country.pk,
-                'email': 'test@test.com'
-            }
+                "shipping-name": "bob",
+                "shipping-line_1": "blah blah",
+                "shipping-postcode": "ytxx 23x",
+                "shipping-city": "London",
+                "shipping-country": country.pk,
+                "email": "test@test.com",
+            },
         )
         request.session = {}
         bid = basket_id(request)
@@ -215,21 +210,21 @@ class CheckoutTest(TestCase):
         """
         country = CountryFactory()
         request = RequestFactory().post(
-            reverse_lazy('longclaw_checkout_view'),
+            reverse_lazy("longclaw_checkout_view"),
             {
-                'shipping-name': 'bob',
-                'shipping-line_1': 'blah blah',
-                'shipping-postcode': 'ytxx 23x',
-                'shipping-city': 'London',
-                'shipping-country': country.pk,
-                'billing-name': 'john',
-                'billing-line_1': 'somewhere',
-                'billing-postcode': 'lmewrewr',
-                'billing-city': 'London',
-                'billing-country': country.pk,
-                'email': 'test@test.com',
-                'different_billing_address': True
-            }
+                "shipping-name": "bob",
+                "shipping-line_1": "blah blah",
+                "shipping-postcode": "ytxx 23x",
+                "shipping-city": "London",
+                "shipping-country": country.pk,
+                "billing-name": "john",
+                "billing-line_1": "somewhere",
+                "billing-postcode": "lmewrewr",
+                "billing-city": "London",
+                "billing-country": country.pk,
+                "email": "test@test.com",
+                "different_billing_address": True,
+            },
         )
         request.session = {}
         bid = basket_id(request)
@@ -243,9 +238,7 @@ class CheckoutTest(TestCase):
         This should return a 200 response - rerendering
         the form page with the errors
         """
-        request = RequestFactory().post(
-            reverse_lazy('longclaw_checkout_view')
-        )
+        request = RequestFactory().post(reverse_lazy("longclaw_checkout_view"))
         request.session = {}
         bid = basket_id(request)
         BasketItemFactory(basket_id=bid)
@@ -258,13 +251,13 @@ class CheckoutTest(TestCase):
         """
         address = AddressFactory()
         order = OrderFactory(shipping_address=address, billing_address=address)
-        response = self.client.get(reverse_lazy('longclaw_checkout_success', kwargs={'pk': order.id}))
+        response = self.client.get(
+            reverse_lazy("longclaw_checkout_success", kwargs={"pk": order.id})
+        )
         self.assertEqual(response.status_code, 200)
 
 
-
 class GatewayTests(TestCase):
-
     def test_token_tag(self):
         token = tags.gateway_token()
         self.assertIsInstance(token, str)

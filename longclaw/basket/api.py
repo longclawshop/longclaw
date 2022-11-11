@@ -1,9 +1,10 @@
-from rest_framework.decorators import action
 from rest_framework import permissions, status, viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
+
+from longclaw.basket import utils
 from longclaw.basket.models import BasketItem
 from longclaw.basket.serializers import BasketItemSerializer
-from longclaw.basket import utils
 from longclaw.utils import ProductVariant
 
 from .signals import basket_modified
@@ -14,8 +15,9 @@ class BasketViewSet(viewsets.ModelViewSet):
     Viewset for interacting with a sessions 'basket' -
     ``ProductVariants`` which have been marked for checkout.BaseException
     """
+
     serializer_class = BasketItemSerializer
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.AllowAny,)
 
     def get_queryset(self, request=None):
         items, _ = utils.get_basket_items(request or self.request)
@@ -45,15 +47,14 @@ class BasketViewSet(viewsets.ModelViewSet):
                 item.save()
 
             serializer = BasketItemSerializer(self.get_queryset(request), many=True)
-            response = Response(data=serializer.data,
-                                status=status.HTTP_201_CREATED)
-            
+            response = Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
             basket_modified.send(sender=BasketItem, basket_id=bid)
 
         else:
             response = Response(
-                {"message": "Missing 'variant_id'"},
-                status=status.HTTP_400_BAD_REQUEST)
+                {"message": "Missing 'variant_id'"}, status=status.HTTP_400_BAD_REQUEST
+            )
 
         return response
 
@@ -69,11 +70,10 @@ class BasketViewSet(viewsets.ModelViewSet):
             item.save()
 
         serializer = BasketItemSerializer(self.get_queryset(request), many=True)
-        response = Response(data=serializer.data,
-                            status=status.HTTP_200_OK)
-        
+        response = Response(data=serializer.data, status=status.HTTP_200_OK)
+
         basket_modified.send(sender=BasketItem, basket_id=bid)
-        
+
         return response
 
     def destroy(self, request, variant_id=None):
@@ -81,25 +81,23 @@ class BasketViewSet(viewsets.ModelViewSet):
         Remove an item from the basket
         """
         bid = utils.basket_id(request)
-        
+
         variant = ProductVariant.objects.get(id=variant_id)
         quantity = int(request.data.get("quantity", 1))
         try:
-            item = BasketItem.objects.get(
-                basket_id=bid, variant=variant)
+            item = BasketItem.objects.get(basket_id=bid, variant=variant)
             item.decrease_quantity(quantity)
         except BasketItem.DoesNotExist:
             pass
 
         serializer = BasketItemSerializer(self.get_queryset(request), many=True)
-        response = Response(data=serializer.data,
-                        status=status.HTTP_200_OK)
-        
-        basket_modified.send(sender=BasketItem, basket_id=bid)
-        
-        return response 
+        response = Response(data=serializer.data, status=status.HTTP_200_OK)
 
-    @action(detail=False, methods=['get'])
+        basket_modified.send(sender=BasketItem, basket_id=bid)
+
+        return response
+
+    @action(detail=False, methods=["get"])
     def total_items(self, request):
         """
         Get total number of items in the basket
@@ -110,7 +108,7 @@ class BasketViewSet(viewsets.ModelViewSet):
 
         return Response(data={"quantity": n_total}, status=status.HTTP_200_OK)
 
-    @action(detail=True, methods=['get'])
+    @action(detail=True, methods=["get"])
     def item_count(self, request, variant_id=None):
         """
         Get quantity of a single item in the basket

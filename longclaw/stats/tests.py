@@ -1,12 +1,13 @@
 from datetime import datetime, timedelta
+
 from django.test import TestCase
 from django.utils import timezone
 
 from longclaw.stats import stats
 from longclaw.tests.utils import OrderFactory
 
-class StatsTest(TestCase):
 
+class StatsTest(TestCase):
     def setUp(self):
         order = OrderFactory()
         order.payment_date = timezone.now()
@@ -20,7 +21,9 @@ class StatsTest(TestCase):
 
     def test_sales_for_time_period(self):
         delta = timedelta(days=1)
-        sales = stats.sales_for_time_period(datetime.now() - delta, datetime.now() + delta)
+        sales = stats.sales_for_time_period(
+            datetime.now() - delta, datetime.now() + delta
+        )
         self.assertEqual(sales.count(), 1)
 
     def test_daily_sales(self):

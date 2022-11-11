@@ -1,18 +1,22 @@
 """
 Various stats/analysis calculations
 """
-import itertools
 import calendar
+import itertools
 from datetime import datetime
-from django.db.models import Q, Sum, F
+
+from django.db.models import F, Q, Sum
+
 from longclaw.orders.models import Order, OrderItem
 
 
 def current_month():
     now = datetime.now()
     n_days = calendar.monthrange(now.year, now.month)[1]
-    month_start = datetime.strptime('{}{}{}'.format(now.year, now.month, 1), '%Y%m%d')
-    month_end = datetime.strptime('{}{}{}'.format(now.year,now.month, n_days), '%Y%m%d')
+    month_start = datetime.strptime("{}{}{}".format(now.year, now.month, 1), "%Y%m%d")
+    month_end = datetime.strptime(
+        "{}{}{}".format(now.year, now.month, n_days), "%Y%m%d"
+    )
     return month_start, month_end
 
 
@@ -29,20 +33,22 @@ def sales_for_time_period(from_date, to_date):
 
 def daily_sales(from_date, to_date):
     sales = sales_for_time_period(from_date, to_date)
-    grouped = itertools.groupby(sales, lambda order: order.payment_date.strftime("%Y-%m-%d"))
+    grouped = itertools.groupby(
+        sales, lambda order: order.payment_date.strftime("%Y-%m-%d")
+    )
     return grouped
 
+
 def sales_by_product(from_date, to_date):
-    sales = OrderItem.objects.filter(
-        Q(order__payment_date__lte=to_date) & Q(order__payment_date__gte=from_date)
-    ).exclude(
-        order__status=Order.CANCELLED
-    ).annotate(
-        title=F('product__product__title')
-    ).values(
-        'title'
-    ).annotate(
-        quantity=Sum('quantity')
-    ).order_by('-quantity')
+    sales = (
+        OrderItem.objects.filter(
+            Q(order__payment_date__lte=to_date) & Q(order__payment_date__gte=from_date)
+        )
+        .exclude(order__status=Order.CANCELLED)
+        .annotate(title=F("product__product__title"))
+        .values("title")
+        .annotate(quantity=Sum("quantity"))
+        .order_by("-quantity")
+    )
 
     return sales

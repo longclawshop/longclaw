@@ -1,7 +1,9 @@
 from django import template
+
 from longclaw.checkout.utils import GATEWAY
 
 register = template.Library()
+
 
 @register.simple_tag
 def gateway_client_js():
@@ -17,7 +19,10 @@ def gateway_client_js():
         return tags
     else:
         raise TypeError(
-            'function client_js of {} must return a list or tuple'.format(GATEWAY.__name__))
+            "function client_js of {} must return a list or tuple".format(
+                GATEWAY.__name__
+            )
+        )
 
 
 @register.simple_tag

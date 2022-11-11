@@ -1,12 +1,11 @@
-import os
-from django.test import TestCase
 from django.contrib.staticfiles import finders
+from django.test import TestCase
 
 from longclaw import settings
 from longclaw.core.templatetags import longclawcore_tags
 
-class TagTests(TestCase):
 
+class TagTests(TestCase):
     def _test_static_file(self, pth):
         result = finders.find(pth)
         # print(result)
@@ -15,14 +14,13 @@ class TagTests(TestCase):
     def test_vendors_bundle(self):
         ctx = longclawcore_tags.longclaw_vendors_bundle()
         # print(ctx)
-        self._test_static_file(ctx['path'])
+        self._test_static_file(ctx["path"])
 
     def test_client_bundle(self):
         ctx = longclawcore_tags.longclaw_client_bundle()
-        self._test_static_file(ctx['path'])
+        self._test_static_file(ctx["path"])
 
     def test_api_url_prefix(self):
         self.assertEqual(
-            settings.API_URL_PREFIX,
-            longclawcore_tags.longclaw_api_url_prefix()
+            settings.API_URL_PREFIX, longclawcore_tags.longclaw_api_url_prefix()
         )

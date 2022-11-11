@@ -23,8 +23,7 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        # "django>=2.2<3.0",
-        "wagtail>=2.8",
+        "wagtail>=2.15",
         # "django-countries==5.5",
         "django-extensions",
         "django-ipware",
@@ -35,7 +34,13 @@ setup(
             "mock",
             "wagtail-factories",
             "factory-boy",
-        ]
+        ],
+        "dev": [
+            "black==22.10.0",
+            "flake8==5.0.4",
+            "isort==5.10.1",
+            "pre-commit",
+        ],
     },
     license="MIT",
     zip_safe=False,
@@ -43,7 +48,10 @@ setup(
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Framework :: Django",
-        "Framework :: Django :: 2.0",
+        "Framework :: Django :: 3",
+        "Framework :: Django :: 4",
+        "Framework :: Wagtail",
+        "Framework :: Wagtail :: 2",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: BSD License",
         "Natural Language :: English",

@@ -1,11 +1,12 @@
 from wagtail.tests.utils import WagtailPageTests
-from longclaw.utils import maybe_get_product_model
+
+from longclaw.products.serializers import ProductVariantSerializer
 from longclaw.tests.testproducts.models import ProductIndex
 from longclaw.tests.utils import ProductVariantFactory
-from longclaw.products.serializers import ProductVariantSerializer
+from longclaw.utils import maybe_get_product_model
+
 
 class TestProducts(WagtailPageTests):
-
     def setUp(self):
         self.product_model = maybe_get_product_model()
 
@@ -37,7 +38,7 @@ class TestProducts(WagtailPageTests):
     def test_variant_serializer(self):
         variant = ProductVariantFactory()
         serializer = ProductVariantSerializer(variant)
-        self.assertIn('product', serializer.data)
+        self.assertIn("product", serializer.data)
 
     def test_product_title(self):
         variant = ProductVariantFactory()

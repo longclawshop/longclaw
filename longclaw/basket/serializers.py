@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
-from longclaw.products.serializers import ProductVariantSerializer
 from longclaw.basket.models import BasketItem
+from longclaw.products.serializers import ProductVariantSerializer
+
 
 class BasketItemSerializer(serializers.ModelSerializer):
 
@@ -18,4 +19,3 @@ class BasketItemSerializer(serializers.ModelSerializer):
 
     def get_total(self, obj):
         return obj.total()
-    

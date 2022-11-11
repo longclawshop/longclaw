@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class LongclawProductsConfig(AppConfig):
-    name = 'longclaw.products'
+    name = "longclaw.products"

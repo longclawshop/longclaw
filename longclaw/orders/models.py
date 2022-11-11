@@ -1,7 +1,10 @@
 from datetime import datetime
+
 from django.db import models
+
 from longclaw.settings import PRODUCT_VARIANT_MODEL
 from longclaw.shipping.models import Address
+
 
 class Order(models.Model):
     SUBMITTED = 1
@@ -9,11 +12,13 @@ class Order(models.Model):
     CANCELLED = 3
     REFUNDED = 4
     FAILURE = 5
-    ORDER_STATUSES = ((SUBMITTED, 'Submitted'),
-                      (FULFILLED, 'Fulfilled'),
-                      (CANCELLED, 'Cancelled'),
-                      (REFUNDED, 'Refunded'),
-                      (FAILURE, 'Payment Failed'))
+    ORDER_STATUSES = (
+        (SUBMITTED, "Submitted"),
+        (FULFILLED, "Fulfilled"),
+        (CANCELLED, "Cancelled"),
+        (REFUNDED, "Refunded"),
+        (FAILURE, "Payment Failed"),
+    )
     payment_date = models.DateTimeField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=ORDER_STATUSES, default=SUBMITTED)
@@ -27,24 +32,32 @@ class Order(models.Model):
 
     # shipping info
     shipping_address = models.ForeignKey(
-        Address, blank=True, null=True, related_name="orders_shipping_address", on_delete=models.PROTECT)
+        Address,
+        blank=True,
+        null=True,
+        related_name="orders_shipping_address",
+        on_delete=models.PROTECT,
+    )
 
     # billing info
     billing_address = models.ForeignKey(
-        Address, blank=True, null=True, related_name="orders_billing_address", on_delete=models.PROTECT)
+        Address,
+        blank=True,
+        null=True,
+        related_name="orders_billing_address",
+        on_delete=models.PROTECT,
+    )
 
-    shipping_rate = models.DecimalField(max_digits=12,
-                                        decimal_places=2,
-                                        blank=True,
-                                        null=True)
+    shipping_rate = models.DecimalField(
+        max_digits=12, decimal_places=2, blank=True, null=True
+    )
 
     def __str__(self):
         return "Order #{} - {}".format(self.id, self.email)
 
     @property
     def total(self):
-        """Total cost of the order
-        """
+        """Total cost of the order"""
         total = 0
         for item in self.items.all():
             total += item.total
@@ -52,15 +65,13 @@ class Order(models.Model):
 
     @property
     def total_items(self):
-        """The number of individual items on the order
-        """
+        """The number of individual items on the order"""
         return self.items.count()
 
-
     def refund(self):
-        """Issue a full refund for this order
-        """
+        """Issue a full refund for this order"""
         from longclaw.utils import GATEWAY
+
         now = datetime.strftime(datetime.now(), "%b %d %Y %H:%M:%S")
         if GATEWAY.issue_refund(self.transaction_id, self.total):
             self.status = self.REFUNDED
@@ -70,23 +81,22 @@ class Order(models.Model):
         self.save()
 
     def fulfill(self):
-        """Mark this order as being fulfilled
-        """
+        """Mark this order as being fulfilled"""
         self.status = self.FULFILLED
         self.save()
 
     def cancel(self, refund=True):
-        """Cancel this order, optionally refunding it
-        """
+        """Cancel this order, optionally refunding it"""
         if refund:
             self.refund()
         self.status = self.CANCELLED
         self.save()
 
+
 class OrderItem(models.Model):
     product = models.ForeignKey(PRODUCT_VARIANT_MODEL, on_delete=models.DO_NOTHING)
     quantity = models.IntegerField(default=1)
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name="items", on_delete=models.CASCADE)
 
     @property
     def total(self):
