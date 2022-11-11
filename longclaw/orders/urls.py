@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path
 from longclaw.orders import api
 
 from longclaw.settings import API_URL_PREFIX
@@ -17,19 +17,19 @@ refund_order = api.OrderViewSet.as_view({
 
 PREFIX = r'^{}order/'.format(API_URL_PREFIX)
 urlpatterns = [
-    url(
+    path(
         PREFIX + r'(?P<pk>[0-9]+)/$',
         orders,
         name='longclaw_orders'
     ),
 
-    url(
+    path(
         PREFIX + r'(?P<pk>[0-9]+)/fulfill/$',
         fulfill_order,
         name='longclaw_fulfill_order'
     ),
 
-    url(
+    path(
         PREFIX + r'(?P<pk>[0-9]+)/refund/$',
         refund_order,
         name='longclaw_refund_order'

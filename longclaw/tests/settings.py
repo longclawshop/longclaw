@@ -4,7 +4,7 @@ import os
 import django
 
 DEBUG = True
-USE_TZ = True
+# USE_TZ = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk'
@@ -66,7 +66,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'wagtail.core.middleware.SiteMiddleware',
+    'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 

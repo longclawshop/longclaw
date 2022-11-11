@@ -9,12 +9,12 @@ class TagTests(TestCase):
 
     def _test_static_file(self, pth):
         result = finders.find(pth)
-        print(result)
+        # print(result)
         self.assertTrue(result)
 
     def test_vendors_bundle(self):
         ctx = longclawcore_tags.longclaw_vendors_bundle()
-        print(ctx)
+        # print(ctx)
         self._test_static_file(ctx['path'])
 
     def test_client_bundle(self):

@@ -1,6 +1,6 @@
 from django.contrib.admin.utils import quote
-from django.utils.translation import ugettext as _
-from django.conf.urls import url
+from django.utils.translation import gettext as _
+from django.urls import path
 
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, modeladmin_register
@@ -115,7 +115,7 @@ class OrderModelAdmin(ModelAdmin):
         """
         urls = super(OrderModelAdmin, self).get_admin_urls_for_registration()
         urls = urls + (
-            url(self.url_helper.get_action_url_pattern('detail'),
+            path(self.url_helper.get_action_url_pattern('detail'),
                 self.detail_view,
                 name=self.url_helper.get_action_url_name('detail')),
         )

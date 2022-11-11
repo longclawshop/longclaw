@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path
 from longclaw.basket import api
 from longclaw.basket import views
 from longclaw.settings import API_URL_PREFIX
@@ -23,20 +23,20 @@ total_items = api.BasketViewSet.as_view({
 
 urlpatterns = [
 
-    url(API_URL_PREFIX + r'basket/$',
+    path(API_URL_PREFIX + 'basket/',
         basket_list,
         name='longclaw_basket_list'),
-    url(API_URL_PREFIX + r'basket/count/$',
+    path(API_URL_PREFIX + 'basket/count/',
         total_items,
         name="longclaw_basket_total_items"),
-    url(API_URL_PREFIX + r'basket/(?P<variant_id>[0-9]+)/$',
+    path(API_URL_PREFIX + 'basket/<variant_id>/',
         basket_detail,
         name='longclaw_basket_detail'),
-    url(API_URL_PREFIX + r'basket/(?P<variant_id>[0-9]+)/count/$',
+    path(API_URL_PREFIX + 'basket/<variant_id>/count/',
         item_count,
         name='longclaw_basket_item_count'),
 
-    url(r'basket/$',
+    path('basket/',
         views.BasketView.as_view(),
         name="longclaw_basket")
 ]
