@@ -2,7 +2,13 @@
 
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.core.fields
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    import wagtail.fields as wagtail_fields
+else:
+    import wagtail.core.fields as wagtail_fields
+
 from django.db import migrations, models
 
 
@@ -29,7 +35,7 @@ class Migration(migrations.Migration):
                         to="wagtailcore.Page",
                     ),
                 ),
-                ("description", wagtail.core.fields.RichTextField()),
+                ("description", wagtail_fields.RichTextField()),
             ],
             options={
                 "abstract": False,
@@ -71,7 +77,7 @@ class Migration(migrations.Migration):
                 ("base_price", models.DecimalField(decimal_places=2, max_digits=12)),
                 ("ref", models.CharField(max_length=32)),
                 ("stock", models.IntegerField(default=0)),
-                ("description", wagtail.core.fields.RichTextField()),
+                ("description", wagtail_fields.RichTextField()),
                 (
                     "product",
                     modelcluster.fields.ParentalKey(

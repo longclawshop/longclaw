@@ -13,7 +13,12 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from rest_framework import status
 from rest_framework.views import APIView
-from wagtail.core.models import Site
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.models import Site
+else:
+    from wagtail.core.models import Site
 
 from longclaw.basket.signals import basket_modified
 from longclaw.basket.utils import basket_id

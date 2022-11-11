@@ -2,13 +2,12 @@ from __future__ import absolute_import, unicode_literals
 
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
+from wagtail import VERSION as WAGTAIL_VERSION
 
-try:
-    from wagtail.core.models import Page
-    from wagtail.search.models import Query
-except ImportError:
-    from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailsearch.models import Query
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.models import Page, Query
+else:
+    from wagtail.core.models import Page, Query
 
 
 def search(request):

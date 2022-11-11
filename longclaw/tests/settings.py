@@ -3,6 +3,8 @@ from __future__ import absolute_import, unicode_literals
 
 import os
 
+from wagtail import VERSION as WAGTAIL_VERSION
+
 DEBUG = True
 # USE_TZ = True
 
@@ -36,7 +38,7 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
-    "wagtail.core",
+    "wagtail" if WAGTAIL_VERSION >= (3, 0) else "wagtail.wagtailcore",
     "wagtail.contrib.modeladmin",
     "wagtail.contrib.settings",
     "modelcluster",
@@ -91,3 +93,5 @@ STATIC_URL = "/static/"
 PRODUCT_VARIANT_MODEL = "testproducts.ProductVariant"
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+WAGTAILADMIN_BASE_URL = "http://localhost:8000/admin"

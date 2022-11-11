@@ -3,8 +3,13 @@ try:
 except ImportError:
     from django.core.urlresolvers import reverse
 
+from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.admin import widgets
-from wagtail.core import hooks
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail import hooks
+else:
+    from wagtail.core import hooks
 
 from longclaw.utils import ProductVariant
 

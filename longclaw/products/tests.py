@@ -1,4 +1,9 @@
-from wagtail.tests.utils import WagtailPageTests
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.test.utils import WagtailPageTests
+else:
+    from wagtail.tests.utils import WagtailPageTests
 
 from longclaw.products.serializers import ProductVariantSerializer
 from longclaw.tests.testproducts.models import ProductIndex

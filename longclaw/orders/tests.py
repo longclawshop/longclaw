@@ -5,7 +5,12 @@ try:
 except ImportError:
     from django.core.urlresolvers import reverse_lazy
 
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.test.utils import WagtailTestUtils
+else:
+    from wagtail.tests.utils import WagtailTestUtils
 
 from longclaw.orders.wagtail_hooks import OrderModelAdmin
 from longclaw.tests.utils import LongclawTestCase, OrderFactory

@@ -1,7 +1,12 @@
 import datetime
 
+from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.admin.site_summary import SummaryItem
-from wagtail.core import hooks
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail import hooks
+else:
+    from wagtail.core import hooks
 
 from longclaw.configuration.models import Configuration
 from longclaw.orders.models import Order

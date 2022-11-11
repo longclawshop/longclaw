@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
+from wagtail import VERSION as WAGTAIL_VERSION
 
-try:
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.models import Page
+else:
     from wagtail.core.models import Page
-except ImportError:
-    from wagtail.wagtailcore.models import Page
 
 from longclaw.contrib.productrequests.models import ProductRequest
 

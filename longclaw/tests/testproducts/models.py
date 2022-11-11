@@ -1,7 +1,14 @@
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.admin.panels import FieldPanel, InlinePanel
+    from wagtail.fields import RichTextField
+    from wagtail.models import Page
+else:
+    from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+    from wagtail.core.fields import RichTextField
+    from wagtail.core.models import Page
 
 from longclaw.products.models import ProductBase, ProductVariantBase
 

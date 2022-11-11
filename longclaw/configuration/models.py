@@ -2,15 +2,26 @@
 Admin confiurable settings for longclaw apps
 """
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.admin.panels import FieldPanel
+else:
+    from wagtail.admin.edit_handlers import FieldPanel
+    from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
+if WAGTAIL_VERSION >= (4, 0):
+    from wagtail.contrib.settings.models import BaseSiteSetting as BaseSiteSetting
+else:
+    from wagtail.contrib.settings.models import BaseSetting as BaseSiteSetting
+
+from wagtail.contrib.settings.models import register_setting
 
 from longclaw.shipping.models import Address
 
 
 @register_setting
-class Configuration(BaseSetting):
+class Configuration(BaseSiteSetting):
     default_shipping_rate = models.DecimalField(
         default=3.95,
         max_digits=12,
@@ -48,7 +59,9 @@ class Configuration(BaseSetting):
         FieldPanel("default_shipping_rate"),
         FieldPanel("default_shipping_carrier"),
         FieldPanel("default_shipping_enabled"),
-        SnippetChooserPanel("shipping_origin"),
+        FieldPanel("shipping_origin")
+        if WAGTAIL_VERSION >= (3, 0)
+        else SnippetChooserPanel("shipping_origin"),
         FieldPanel("currency_html_code"),
         FieldPanel("currency"),
     )
