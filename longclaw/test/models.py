@@ -1,16 +1,53 @@
 import hashlib
 
-from django import VERSION as DJANGO_VERSION
+# if DJANGO_VERSION < (4, 0):
+#     from django.utils.encoding import force_text as force_str
+# else:
+from django.utils.encoding import force_bytes, force_str
 
-if DJANGO_VERSION < (4, 0):
-    from django.utils.encoding import force_text as force_str
+# from django import VERSION as DJANGO_VERSION
+from modelcluster.fields import ParentalKey
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.admin.panels import FieldPanel, InlinePanel
+    from wagtail.fields import RichTextField
+    from wagtail.models import Page
 else:
-    from django.utils.encoding import force_str
-
-from django.utils.encoding import force_bytes
+    from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+    from wagtail.core.fields import RichTextField
+    from wagtail.core.models import Page
 
 from longclaw.basket.models import BasketItem
+from longclaw.products.models import ProductBase, ProductVariantBase
 from longclaw.shipping.models import ShippingRate, ShippingRateProcessor
+
+
+class ProductIndex(Page):
+    """Index page for all products"""
+
+    subpage_types = ("Product", "ProductIndex")
+
+
+class Product(ProductBase):
+    parent_page_types = [ProductIndex]
+    description = RichTextField()
+    content_panels = ProductBase.content_panels + [
+        FieldPanel("description"),
+        InlinePanel("variants"),
+    ]
+
+
+class ProductVariant(ProductVariantBase):
+    """Basic product variant for testing"""
+
+    product = ParentalKey(Product, related_name="variants")
+    description = RichTextField()
+
+    @ProductVariantBase.price.getter
+    def price(self):
+        """Make the price dynamic to check that longclaw works with ``get_price``"""
+        return self.base_price * 10
 
 
 class TrivialShippingRateProcessor(ShippingRateProcessor):

@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("contenttypes", "0002_remove_content_type_name"),
-        ("shipping", "0002_auto_20190318_1237"),
+        ("longclaw_shipping", "0002_auto_20190318_1237"),
     ]
 
     operations = [
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("countries", models.ManyToManyField(to="shipping.Country")),
+                ("countries", models.ManyToManyField(to="longclaw_shipping.Country")),
                 (
                     "polymorphic_ctype",
                     models.ForeignKey(
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 null=True,
                 on_delete=django.db.models.deletion.PROTECT,
-                to="shipping.ShippingRateProcessor",
+                to="longclaw_shipping.ShippingRateProcessor",
             ),
         ),
     ]

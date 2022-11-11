@@ -17,7 +17,7 @@ class Address(models.Model):
     city = models.CharField(max_length=64)
     postcode = models.CharField(max_length=10)
     country = models.ForeignKey(
-        "shipping.Country", blank=True, null=True, on_delete=models.PROTECT
+        "longclaw_shipping.Country", blank=True, null=True, on_delete=models.PROTECT
     )
 
     panels = [

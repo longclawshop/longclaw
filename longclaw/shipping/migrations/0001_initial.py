@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
                 ("rate", models.DecimalField(decimal_places=2, max_digits=12)),
                 ("carrier", models.CharField(max_length=64)),
                 ("description", models.CharField(max_length=128)),
-                ("countries", models.ManyToManyField(to="shipping.Country")),
+                ("countries", models.ManyToManyField(to="longclaw_shipping.Country")),
             ],
         ),
         migrations.AddField(
@@ -79,7 +79,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 null=True,
                 on_delete=django.db.models.deletion.PROTECT,
-                to="shipping.Country",
+                to="longclaw_shipping.Country",
             ),
         ),
     ]

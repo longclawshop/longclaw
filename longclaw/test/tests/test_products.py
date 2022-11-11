@@ -6,8 +6,8 @@ else:
     from wagtail.tests.utils import WagtailPageTests
 
 from longclaw.products.serializers import ProductVariantSerializer
-from longclaw.tests.testproducts.models import ProductIndex
-from longclaw.tests.utils import ProductVariantFactory
+from longclaw.test.models import ProductIndex
+from longclaw.test.utils import ProductVariantFactory
 from longclaw.utils import maybe_get_product_model
 
 

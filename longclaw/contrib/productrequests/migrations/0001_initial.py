@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("testproducts", "0001_initial"),
+        ("longclaw_test", "0001_initial"),
     ]
 
     operations = [
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="requests",
-                        to="testproducts.ProductVariant",
+                        to="longclaw_test.ProductVariant",
                     ),
                 ),
             ],

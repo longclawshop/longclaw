@@ -16,7 +16,11 @@ from longclaw.utils import ProductVariant, maybe_get_product_model
 
 class LongclawSummaryItem(SummaryItem):
     order = 10
-    template = "stats/summary_item.html"
+
+    if WAGTAIL_VERSION >= (3, 0):
+        template_name = "stats/summary_item.html"
+    else:
+        template = "stats/summary_item.html"
 
     def get_context(self):
         return {"total": 0, "text": "", "url": "", "icon": "icon-doc-empty-inverse"}
@@ -30,7 +34,7 @@ class OutstandingOrders(LongclawSummaryItem):
         return {
             "total": orders.count(),
             "text": "Outstanding Orders",
-            "url": "/admin/orders/order/",
+            "url": "/admin/longclaw_orders/order/",
             "icon": "icon-warning",
         }
 
@@ -58,14 +62,18 @@ class MonthlySales(LongclawSummaryItem):
                 settings.currency_html_code, sum(order.total for order in sales)
             ),
             "text": "In sales this month",
-            "url": "/admin/orders/order/",
+            "url": "/admin/longclaw_orders/order/",
             "icon": "icon-tick",
         }
 
 
 class LongclawStatsPanel(SummaryItem):
     order = 110
-    template = "stats/stats_panel.html"
+
+    if WAGTAIL_VERSION >= (3, 0):
+        template_name = "stats/stats_panel.html"
+    else:
+        template = "stats/stats_panel.html"
 
     def get_context(self):
         month_start, month_end = stats.current_month()

@@ -1,8 +1,4 @@
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
-
+from django.urls import reverse
 from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.admin import widgets
 
@@ -15,7 +11,7 @@ from longclaw.utils import ProductVariant
 
 
 @hooks.register("register_page_listing_buttons")
-def product_requests_button(page, page_perms, is_parent=False):
+def product_requests_button(page, page_perms, is_parent=False, next_url=None):
     """Renders a 'requests' button on the page index showing the number
     of times the product has been requested.
 

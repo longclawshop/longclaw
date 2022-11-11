@@ -5,20 +5,31 @@ import os
 
 from wagtail import VERSION as WAGTAIL_VERSION
 
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(PROJECT_DIR)
+
 DEBUG = True
-# USE_TZ = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
 
+# Database
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": ":memory:",
+        "NAME": os.path.join(BASE_DIR, "test_longclaw_db.sqlite3"),
     }
 }
 
-ROOT_URLCONF = "longclaw.tests.urls"
+ROOT_URLCONF = "longclaw.test.urls"
+
+WAGTAILSEARCH_BACKENDS = {
+    "default": {
+        "BACKEND": "wagtail.search.backends.database",
+    }
+}
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -38,7 +49,7 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
-    "wagtail" if WAGTAIL_VERSION >= (3, 0) else "wagtail.wagtailcore",
+    "wagtail" if WAGTAIL_VERSION >= (3, 0) else "wagtail.core",
     "wagtail.contrib.modeladmin",
     "wagtail.contrib.settings",
     "modelcluster",
@@ -53,9 +64,8 @@ INSTALLED_APPS = [
     "longclaw.checkout",
     "longclaw.basket",
     "longclaw.stats",
+    "longclaw.test",
     "longclaw.contrib.productrequests",
-    "longclaw.tests.testproducts",
-    "longclaw.tests.trivialrates",
 ]
 
 SITE_ID = 1
@@ -90,8 +100,23 @@ TEMPLATES = [
 
 STATIC_URL = "/static/"
 
-PRODUCT_VARIANT_MODEL = "testproducts.ProductVariant"
+PRODUCT_VARIANT_MODEL = "longclaw_test.ProductVariant"
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 WAGTAILADMIN_BASE_URL = "http://localhost:8000/admin"
+
+WAGTAIL_SITE_NAME = "Longclaw"
+
+# Internationalization
+# https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/
+
+LANGUAGE_CODE = "en-us"
+
+TIME_ZONE = "UTC"
+
+USE_I18N = True
+
+USE_L10N = True
+
+# USE_TZ = True

@@ -1,28 +1,22 @@
 from io import StringIO
 
 import mock
+from django.core.management import call_command
 from django.test import TestCase
 from django.test.client import RequestFactory
-
-try:
-    from django.urls import reverse_lazy
-except ImportError:
-    from django.core.urlresolvers import reverse_lazy
-
-from django.core.management import call_command
+from django.urls import reverse_lazy
 
 from longclaw.basket.context_processors import stripe_key
 from longclaw.basket.models import BasketItem
+from longclaw.basket.signals import basket_modified
 from longclaw.basket.templatetags import basket_tags
 from longclaw.basket.utils import basket_id
-from longclaw.tests.utils import (
+from longclaw.test.utils import (
     BasketItemFactory,
     LongclawTestCase,
     ProductVariantFactory,
     catch_signal,
 )
-
-from .signals import basket_modified
 
 # from django.utils.six import StringIO
 

@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         (settings.PRODUCT_VARIANT_MODEL.split(".")[0], "__first__"),
-        ("shipping", "__first__"),
+        ("longclaw_shipping", "__first__"),
     ]
 
     operations = [
@@ -65,7 +65,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.PROTECT,
                         related_name="orders_billing_address",
-                        to="shipping.Address",
+                        to="longclaw_shipping.Address",
                     ),
                 ),
                 (
@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.PROTECT,
                         related_name="orders_shipping_address",
-                        to="shipping.Address",
+                        to="longclaw_shipping.Address",
                     ),
                 ),
             ],
@@ -98,7 +98,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="items",
-                        to="orders.Order",
+                        to="longclaw_orders.Order",
                     ),
                 ),
                 (

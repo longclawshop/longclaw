@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 from longclaw.stats import stats
-from longclaw.tests.utils import OrderFactory
+from longclaw.test.utils import OrderFactory
 
 
 class StatsTest(TestCase):

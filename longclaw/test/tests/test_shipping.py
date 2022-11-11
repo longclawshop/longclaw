@@ -1,19 +1,20 @@
 from decimal import Decimal
 
 import mock
-from django import VERSION as DJANGO_VERSION
-
-if DJANGO_VERSION < (4, 0):
-    from django.utils.encoding import force_text as force_str
-else:
-    from django.utils.encoding import force_str
-
 from django.forms.models import model_to_dict
 from django.test import TestCase
 from django.test.client import RequestFactory
+
+# if DJANGO_VERSION < (4, 0):
+#     from django.utils.encoding import force_text as force_str
+# else:
+from django.utils.encoding import force_str
 from rest_framework import status
 from rest_framework.views import APIView
 from wagtail import VERSION as WAGTAIL_VERSION
+
+# from django import VERSION as DJANGO_VERSION
+
 
 if WAGTAIL_VERSION >= (3, 0):
     from wagtail.models import Site
@@ -25,9 +26,25 @@ from longclaw.basket.utils import basket_id
 from longclaw.configuration.models import Configuration
 from longclaw.shipping.api import get_shipping_cost_kwargs
 from longclaw.shipping.forms import AddressForm
-from longclaw.shipping.models import Address, Country
+from longclaw.shipping.models import (
+    Address,
+    Country,
+    ShippingRate,
+    ShippingRateProcessor,
+    clear_address_rates,
+    clear_basket_rates,
+)
+
+# from .models import (  # Address,
+#     ShippingRate,
+#     ShippingRateProcessor,
+#     clear_address_rates,
+#     clear_basket_rates,
+# )
+from longclaw.shipping.serializers import AddressSerializer, ShippingRateSerializer
+from longclaw.shipping.signals import address_modified
 from longclaw.shipping.utils import InvalidShippingCountry, get_shipping_cost
-from longclaw.tests.utils import (
+from longclaw.test.utils import (
     AddressFactory,
     BasketItemFactory,
     CountryFactory,
@@ -35,15 +52,6 @@ from longclaw.tests.utils import (
     ShippingRateFactory,
     catch_signal,
 )
-
-from .models import (  # Address,
-    ShippingRate,
-    ShippingRateProcessor,
-    clear_address_rates,
-    clear_basket_rates,
-)
-from .serializers import AddressSerializer, ShippingRateSerializer
-from .signals import address_modified
 
 
 def upgrade_to_api_request(request):

@@ -1,10 +1,5 @@
 from django.contrib.auth.models import User
-
-try:
-    from django.urls import reverse_lazy
-except ImportError:
-    from django.core.urlresolvers import reverse_lazy
-
+from django.urls import reverse_lazy
 from wagtail import VERSION as WAGTAIL_VERSION
 
 if WAGTAIL_VERSION >= (3, 0):
@@ -13,7 +8,7 @@ else:
     from wagtail.tests.utils import WagtailTestUtils
 
 from longclaw.orders.wagtail_hooks import OrderModelAdmin
-from longclaw.tests.utils import LongclawTestCase, OrderFactory
+from longclaw.test.utils import LongclawTestCase, OrderFactory
 
 
 class OrderTests(LongclawTestCase):

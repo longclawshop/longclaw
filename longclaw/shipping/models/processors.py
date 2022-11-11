@@ -1,26 +1,25 @@
 import hashlib
 import json
 
-from django import VERSION as DJANGO_VERSION
-
-if DJANGO_VERSION < (4, 0):
-    from django.utils.encoding import force_text as force_str
-else:
-    from django.utils.encoding import force_str
-
 from django.core.cache import cache
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models, transaction
-from django.utils.encoding import force_bytes
+
+# if DJANGO_VERSION < (4, 0):
+#     from django.utils.encoding import force_text as force_str
+# else:
+from django.utils.encoding import force_bytes, force_str
 from polymorphic.models import PolymorphicModel
 
 from longclaw.basket.models import BasketItem
 
 from ..serializers.locations import AddressSerializer
 
+# from django import VERSION as DJANGO_VERSION
+
 
 class ShippingRateProcessor(PolymorphicModel):
-    countries = models.ManyToManyField("shipping.Country")
+    countries = models.ManyToManyField("longclaw_shipping.Country")
 
     rates_cache_timeout = 300
 

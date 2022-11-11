@@ -7,8 +7,8 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("shipping", "0003_auto_20190322_1429"),
-        ("configuration", "0001_initial"),
+        ("longclaw_shipping", "0003_auto_20190322_1429"),
+        ("longclaw_configuration", "0001_initial"),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 null=True,
                 on_delete=django.db.models.deletion.PROTECT,
-                to="shipping.Address",
+                to="longclaw_shipping.Address",
             ),
         ),
     ]

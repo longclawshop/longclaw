@@ -1,25 +1,23 @@
 import uuid
 
-from django import VERSION as DJANGO_VERSION
-
-if DJANGO_VERSION < (4, 0):
-    from django.utils.encoding import force_text as force_str
-else:
-    from django.utils.encoding import force_str
-
 from django.test import TestCase
 from django.test.client import RequestFactory
+
+# if DJANGO_VERSION < (4, 0):
+#     from django.utils.encoding import force_text as force_str
+# else:
+from django.utils.encoding import force_str
 from wagtail import VERSION as WAGTAIL_VERSION
+
+# from django import VERSION as DJANGO_VERSION
+
 
 if WAGTAIL_VERSION >= (3, 0):
     from wagtail.models import Site
 else:
     from wagtail.core.models import Site
 
-try:
-    from django.urls import reverse_lazy
-except ImportError:
-    from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 from longclaw.basket.utils import basket_id
 from longclaw.checkout.forms import CheckoutForm
@@ -27,7 +25,7 @@ from longclaw.checkout.templatetags import longclawcheckout_tags as tags
 from longclaw.checkout.utils import create_order
 from longclaw.checkout.views import CheckoutView
 from longclaw.shipping.models import ShippingRate
-from longclaw.tests.utils import (
+from longclaw.test.utils import (
     AddressFactory,
     BasketItemFactory,
     CountryFactory,

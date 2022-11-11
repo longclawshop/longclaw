@@ -1,6 +1,6 @@
 from longclaw.contrib.productrequests.models import ProductRequest
 from longclaw.contrib.productrequests.templatetags import productrequests_tags
-from longclaw.tests.utils import LongclawTestCase, ProductVariantFactory
+from longclaw.test.utils import LongclawTestCase, ProductVariantFactory
 
 
 class ProductRequestTest(LongclawTestCase):
