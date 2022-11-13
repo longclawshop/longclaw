@@ -113,7 +113,7 @@ STATIC_URL = "/static/"
 
 PRODUCT_VARIANT_MODEL = "longclaw_test.ProductVariant"
 
-DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+# DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 WAGTAILADMIN_BASE_URL = "http://localhost:8000/admin"
 
