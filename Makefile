@@ -11,3 +11,9 @@ run:
 test:
 	@echo "Running tests..."
 	@python testmanage.py test --deprecation all
+
+setup:
+	@echo "Setting up test environment..."
+	@pip install -e ".[testing,dev]"
+	@make migrate
+	@make admin
