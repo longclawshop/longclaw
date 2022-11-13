@@ -1,4 +1,11 @@
+from django.urls import path, reverse
 from wagtail import VERSION as WAGTAIL_VERSION
+from wagtail.admin.menu import MenuItem, SubmenuMenuItem
+from wagtail.contrib.modeladmin.menus import (  # TODO: seeing console warnings about this being deprecated v5.0
+    SubMenu,
+)
+
+from longclaw.stats import views
 
 if WAGTAIL_VERSION >= (3, 0):
     from wagtail import hooks
@@ -8,9 +15,6 @@ else:
 
 @hooks.register("register_admin_urls")
 def register_longclaw_stats_url():
-    from django.urls import path
-
-    from longclaw.stats import views
 
     return [
         path("longclaw_stats/", views.longclaw_stats_view, name="longclaw_stats"),
@@ -19,9 +23,6 @@ def register_longclaw_stats_url():
 
 @hooks.register("register_admin_menu_item")
 def register_longclaw_stats_menu_item():
-    from django.urls import reverse
-    from wagtail.admin.menu import MenuItem, SubmenuMenuItem
-    from wagtail.contrib.modeladmin.menus import SubMenu
 
     menu_items = [
         MenuItem("Dashboard", reverse("longclaw_stats"), icon_name="table", order=10000)
