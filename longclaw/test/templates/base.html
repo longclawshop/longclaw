@@ -1,0 +1,42 @@
+{% load static wagtailuserbar %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {% comment %} Global stylesheets {% endcomment %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/{{ project_name }}.css' %}">
+
+        {% block extra_css %}
+            {% comment %} Override this in templates to add extra stylesheets {% endcomment %}
+        {% endblock %}
+        {% if request.in_preview_panel %}
+            <base target="_blank">
+        {% endif %}
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}">
+        <div class="layout">
+        {% wagtailuserbar %}
+        <div class="header"></div>
+
+        <div class="main">
+        {% block content %}{% endblock %}
+        </div>
+        </div>
+        {% comment %} Global javascript {% endcomment %}
+        <script type="text/javascript" src="{% static 'js/{{ project_name }}.js' %}"></script>
+
+        {% block extra_js %}
+            {% comment %} Override this in templates to add extra javascript {% endcomment %}
+        {% endblock %}
+    </body>
+</html>
