@@ -17,19 +17,16 @@ from longclaw.utils import ProductVariant, maybe_get_product_model
 class LongclawSummaryItem(SummaryItem):
     order = 10
 
-    if WAGTAIL_VERSION >= (3, 0):
-        template_name = "stats/summary_item.html"
-    else:
-        template = "stats/summary_item.html"
+    template_name = "stats/summary_item.html"
 
-    def get_context(self):
+    def get_context_data(self, parent_context):
         return {"total": 0, "text": "", "url": "", "icon": "icon-doc-empty-inverse"}
 
 
 class OutstandingOrders(LongclawSummaryItem):
     order = 10
 
-    def get_context(self):
+    def get_context_data(self, parent_context):
         orders = Order.objects.filter(status=Order.SUBMITTED)
         return {
             "total": orders.count(),
@@ -42,7 +39,7 @@ class OutstandingOrders(LongclawSummaryItem):
 class ProductCount(LongclawSummaryItem):
     order = 20
 
-    def get_context(self):
+    def get_context_data(self, parent_context):
         product_model = maybe_get_product_model()
         if product_model:
             count = product_model.objects.all().count()
@@ -54,7 +51,7 @@ class ProductCount(LongclawSummaryItem):
 class MonthlySales(LongclawSummaryItem):
     order = 30
 
-    def get_context(self):
+    def get_context_data(self, parent_context):
         settings = Configuration.for_site(self.request.site)
         sales = stats.sales_for_time_period(*stats.current_month())
         return {
@@ -67,15 +64,19 @@ class MonthlySales(LongclawSummaryItem):
         }
 
 
+@hooks.register("construct_homepage_summary_items")
+def add_summary_items(request, items):
+    items.append(OutstandingOrders(request))
+    items.append(ProductCount(request))
+    items.append(MonthlySales(request))
+
+
 class LongclawStatsPanel(SummaryItem):
     order = 110
 
-    if WAGTAIL_VERSION >= (3, 0):
-        template_name = "stats/stats_panel.html"
-    else:
-        template = "stats/stats_panel.html"
+    template_name = "stats/stats_panel.html"
 
-    def get_context(self):
+    def get_context_data(self, parent_context):
         month_start, month_end = stats.current_month()
         daily_sales = stats.daily_sales(month_start, month_end)
         labels = [
@@ -96,16 +97,6 @@ class LongclawStatsPanel(SummaryItem):
         }
 
 
-@hooks.register("construct_homepage_summary_items")
-def add_longclaw_summary_items(request, items):
-
-    # We are going to replace everything with our own items
-    items[:] = []
-    items.extend(
-        [OutstandingOrders(request), ProductCount(request), MonthlySales(request)]
-    )
-
-
 @hooks.register("construct_homepage_panels")
-def add_stats_panel(request, panels):
-    return panels.append(LongclawStatsPanel(request))
+def add_longclaw_stats_panel(request, panels):
+    panels.append(LongclawStatsPanel(request))
