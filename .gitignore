@@ -160,3 +160,4 @@ cython_debug/
 poetry.lock
 node_modules/
 /tempkeep
+/vagrant
