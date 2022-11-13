@@ -10,7 +10,7 @@ run:
 
 test:
 	@echo "Running tests..."
-	@python testmanage.py test --deprecation all
+	@coverage run testmanage.py test --deprecation all && coverage report -m
 
 setup:
 	@echo "Setting up test environment..."

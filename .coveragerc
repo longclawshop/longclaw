@@ -1,0 +1,4 @@
+[run]
+branch = True
+include = longclaw/*
+omit = */migrations/*,*/test/*,*/bin/*,*/docs/*,*/tests/*,*/__init__.py

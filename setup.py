@@ -34,6 +34,7 @@ setup(
             "mock",
             "wagtail-factories",
             "factory-boy",
+            "coverage",
         ],
         "dev": [
             "black==22.10.0",
