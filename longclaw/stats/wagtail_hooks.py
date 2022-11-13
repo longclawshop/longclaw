@@ -1,102 +1,32 @@
-import datetime
-
 from wagtail import VERSION as WAGTAIL_VERSION
-from wagtail.admin.site_summary import SummaryItem
 
 if WAGTAIL_VERSION >= (3, 0):
     from wagtail import hooks
 else:
     from wagtail.core import hooks
 
-from longclaw.configuration.models import Configuration
-from longclaw.orders.models import Order
-from longclaw.stats import stats
-from longclaw.utils import ProductVariant, maybe_get_product_model
+
+@hooks.register("register_admin_urls")
+def register_longclaw_stats_url():
+    from django.urls import path
+
+    from longclaw.stats import views
+
+    return [
+        path("longclaw_stats/", views.longclaw_stats_view, name="longclaw_stats"),
+    ]
 
 
-class LongclawSummaryItem(SummaryItem):
-    order = 10
+@hooks.register("register_admin_menu_item")
+def register_longclaw_stats_menu_item():
+    from django.urls import reverse
+    from wagtail.admin.menu import MenuItem, SubmenuMenuItem
+    from wagtail.contrib.modeladmin.menus import SubMenu
 
-    template_name = "stats/summary_item.html"
+    menu_items = [
+        MenuItem("Dashboard", reverse("longclaw_stats"), icon_name="table", order=10000)
+    ]
 
-    def get_context_data(self, parent_context):
-        return {"total": 0, "text": "", "url": "", "icon": "icon-doc-empty-inverse"}
-
-
-class OutstandingOrders(LongclawSummaryItem):
-    order = 10
-
-    def get_context_data(self, parent_context):
-        orders = Order.objects.filter(status=Order.SUBMITTED)
-        return {
-            "total": orders.count(),
-            "text": "Outstanding Orders",
-            "url": "/admin/longclaw_orders/order/",
-            "icon": "icon-warning",
-        }
-
-
-class ProductCount(LongclawSummaryItem):
-    order = 20
-
-    def get_context_data(self, parent_context):
-        product_model = maybe_get_product_model()
-        if product_model:
-            count = product_model.objects.all().count()
-        else:
-            count = ProductVariant.objects.all().count()
-        return {"total": count, "text": "Product", "url": "", "icon": "icon-list-ul"}
-
-
-class MonthlySales(LongclawSummaryItem):
-    order = 30
-
-    def get_context_data(self, parent_context):
-        settings = Configuration.for_site(self.request.site)
-        sales = stats.sales_for_time_period(*stats.current_month())
-        return {
-            "total": "{}{}".format(
-                settings.currency_html_code, sum(order.total for order in sales)
-            ),
-            "text": "In sales this month",
-            "url": "/admin/longclaw_orders/order/",
-            "icon": "icon-tick",
-        }
-
-
-@hooks.register("construct_homepage_summary_items")
-def add_summary_items(request, items):
-    items.append(OutstandingOrders(request))
-    items.append(ProductCount(request))
-    items.append(MonthlySales(request))
-
-
-class LongclawStatsPanel(SummaryItem):
-    order = 110
-
-    template_name = "stats/stats_panel.html"
-
-    def get_context_data(self, parent_context):
-        month_start, month_end = stats.current_month()
-        daily_sales = stats.daily_sales(month_start, month_end)
-        labels = [
-            (month_start + datetime.timedelta(days=x)).strftime("%Y-%m-%d")
-            for x in range(0, datetime.datetime.now().day)
-        ]
-        daily_income = [0] * len(labels)
-        for k, order_group in daily_sales:
-            i = labels.index(k)
-            daily_income[i] = float(sum(order.total for order in order_group))
-
-        popular_products = stats.sales_by_product(month_start, month_end)[:5]
-        return {
-            "daily_income": daily_income,
-            "labels": labels,
-            "product_labels": list(popular_products.values_list("title", flat=True)),
-            "sales_volume": list(popular_products.values_list("quantity", flat=True)),
-        }
-
-
-@hooks.register("construct_homepage_panels")
-def add_longclaw_stats_panel(request, panels):
-    panels.append(LongclawStatsPanel(request))
+    return SubmenuMenuItem(
+        "Longclaw", SubMenu(menu_items), icon_name="table", order=10000
+    )
