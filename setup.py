@@ -24,7 +24,7 @@ setup(
     include_package_data=True,
     install_requires=[
         "wagtail>=2.15",
-        # "django-countries==5.5",
+        "django-countries",
         "django-extensions",
         "django-ipware",
         "django-polymorphic",
