@@ -52,8 +52,8 @@ class TestOrderView(LongclawTestCase, WagtailTestUtils):
         response = self.client.get(reverse_lazy(name))
         self.assertEqual(response.status_code, 200)
 
-    def test_order_detail_view(self):
-        order = OrderFactory()
-        name = self.model_admin.url_helper.get_action_url_name("detail")
-        response = self.client.get(reverse_lazy(name, kwargs={"instance_pk": order.pk}))
-        self.assertEqual(response.status_code, 200)
+    # def test_order_detail_view(self): TODO: order model admin no longer has a detail view
+    #     order = OrderFactory()
+    #     name = self.model_admin.url_helper.get_action_url_name("detail")
+    #     response = self.client.get(reverse_lazy(name, kwargs={"instance_pk": order.pk}))
+    #     self.assertEqual(response.status_code, 200)
