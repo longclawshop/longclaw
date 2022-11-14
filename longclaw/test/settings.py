@@ -17,7 +17,7 @@ SECRET_KEY = "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
 # Database
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
 
-if "test" in sys.argv[1]:
+if "test" in sys.argv:
     sys.stdout.write("*** Using in-memory sqlite database for tests ***\n")
     DATABASES = {
         "default": {

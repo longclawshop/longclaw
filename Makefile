@@ -17,3 +17,7 @@ setup:
 	@pip install -e ".[testing,dev]"
 	@make migrate
 	@make admin
+
+countries:
+	@echo "Loading countries..."
+	@python testmanage.py loadcountries
