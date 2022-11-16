@@ -23,6 +23,10 @@ from longclaw.products.models import ProductBase, ProductVariantBase
 from longclaw.shipping.models import ShippingRate, ShippingRateProcessor
 
 
+class HomePage(Page):
+    pass
+
+
 class ProductIndex(Page):
     """Index page for all products"""
 
