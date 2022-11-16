@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load longclawcheckout_tags longclawcore_tags %}
+
+{% block breadcrumbs_extra %}
+<li>&rarr;Checkout<li>
+{% endblock %}
+
+{% block content %}
+{% comment %} {#
+`checkout_form`, `shipping_form`, `billing_form`, `basket` and `total_price` are the context
+variables available for you to build up your checkout page.
+`checkout_form` includes the `different_billing_address` checkbox which you can use to
+decide whether to display `billing_form` or not (javascript needed here!).
+`checkout_form` also includes the `shipping_option` dropdown which should be initialized
+using the `initShippingOption` javascript function.
+The aforementioned fields are optional (different_billing_address and shipping_option); if you dont
+offer shipping/it is fixed rate you can prevent these fields from being displayed.
+The only required field in `checkout_form` is `email`.
+
+`shipping_form` gathers the address. `billing_form` is the same (but intended to gather a billing address).
+`billing_form` is optional; you may not require it, or a gateway integration dropin may gather it instead.
+
+`basket` is a queryset of `BasketItem` for the current customer.
+`total_price` is the total cost of all items in the basket.
+#} {% endcomment %}
+{% endblock content %}
+
+{% block extra_js %}
+
+{% comment %} {#
+Load any client javascript provided by the payment gateway.
+This will give a list of <script/> tags which load the client SDK's.
+An integration might have more than 1 SDK - e.g. braintree offers
+'dropin' and 'hostedfields'. A user should be able to rely on all
+possibilities being loaded or refer to individual gateway documentation.
+#} {% endcomment %}
+{% gateway_client_js as scripts %}
+{% for js in scripts %}
+{{ js|safe }}
+{% endfor %}
+
+{% comment %} {#
+Finally add the media from the checkout form. This provides the ``initShippingOption`` function
+which will initialize the shipping option dropdown on the checkout form
+#} {% endcomment %}
+{{ checkout_form.media }}
+{% endblock extra_js %}
