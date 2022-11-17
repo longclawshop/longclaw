@@ -2,9 +2,11 @@
 from __future__ import absolute_import, unicode_literals
 
 import os
-import sys
 
 from wagtail import VERSION as WAGTAIL_VERSION
+
+# import sys
+
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -17,21 +19,21 @@ SECRET_KEY = "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
 # Database
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
 
-if "test" in sys.argv:
-    sys.stdout.write("*** Using in-memory sqlite database for tests ***\n")
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": ":memory:",
-        },
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "test_longclaw_db.sqlite3"),
-        },
-    }
+# if "test" in sys.argv:
+#     sys.stdout.write("*** Using in-memory sqlite database for tests ***\n")
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.sqlite3",
+#             "NAME": ":memory:",
+#         },
+#     }
+# else:
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "test_longclaw_db.sqlite3"),
+    },
+}
 
 ROOT_URLCONF = "longclaw.test.urls"
 
