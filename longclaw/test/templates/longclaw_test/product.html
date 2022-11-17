@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags basket_tags %}
+
+{% block body_class %} template-productpage {%endblock%}
+
+{% block content %}
+<div class="product_content">
+    <div class="image">
+    {% if page.images %}
+       {% for item in page.images.all %}
+        <div style="float: left; margin: 10px">
+            {% image item.image max-1000x900 %}
+            <p>{{ item.caption }}</p>
+        </div>
+    {% endfor %}
+    {% else %}
+        <img style="width: 450px; background-color: #ECEFF1;" src="..."/>
+    {% endif %}
+    </div>
+    
+    <div class="product_content_info">
+        <h1 class="product_title">{{ page.title }}</h1>
+        <div class="product_description">{{ page.description|richtext  }}</div>
+        <table>
+            <thead>
+                <tr>
+                <th>Type</th>
+                <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for variant in page.variants.all %}
+        <tr>
+            <td><p>{{variant.ref}}</p></td>
+            <td><p>&euro;{{variant.price}}</p></td>
+            <td>
+                {% if variant.stock > 0 %}
+                {% add_to_basket_btn variant.id btn_text="Add To Basket" %}
+                {% else %}
+                <span class="label label-danger">Sold out</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+  {% if page.tags.all.count %}
+    <div class="tags">
+        <h3>Tags</h3>
+        {% for tag in page.tags.all %}
+            <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
+        {% endfor %}
+    </div>
+  {% endif %}
+
+    <p><a href="{{ page.get_parent.url }}">Return</a></p>
+
+{% endblock %}

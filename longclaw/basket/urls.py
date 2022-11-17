@@ -1,42 +1,34 @@
-from django.conf.urls import url
-from longclaw.basket import api
-from longclaw.basket import views
+from django.urls import path
+
+from longclaw.basket import api, views
 from longclaw.settings import API_URL_PREFIX
 
-basket_list = api.BasketViewSet.as_view({
-    'get': 'list',
-    'post': 'create',
-    'put': 'bulk_update'
-})
+basket_list = api.BasketViewSet.as_view(
+    {"get": "list", "post": "create", "put": "bulk_update"}
+)
 
-basket_detail = api.BasketViewSet.as_view({
-    'delete': 'destroy'
-})
+basket_detail = api.BasketViewSet.as_view({"delete": "destroy"})
 
-item_count = api.BasketViewSet.as_view({
-    'get': 'item_count'
-})
+item_count = api.BasketViewSet.as_view({"get": "item_count"})
 
-total_items = api.BasketViewSet.as_view({
-    'get': 'total_items'
-})
+total_items = api.BasketViewSet.as_view({"get": "total_items"})
 
 urlpatterns = [
-
-    url(API_URL_PREFIX + r'basket/$',
-        basket_list,
-        name='longclaw_basket_list'),
-    url(API_URL_PREFIX + r'basket/count/$',
+    path(API_URL_PREFIX + "basket/", basket_list, name="longclaw_basket_list"),
+    path(
+        API_URL_PREFIX + "basket/count/",
         total_items,
-        name="longclaw_basket_total_items"),
-    url(API_URL_PREFIX + r'basket/(?P<variant_id>[0-9]+)/$',
+        name="longclaw_basket_total_items",
+    ),
+    path(
+        API_URL_PREFIX + "basket/<variant_id>/",
         basket_detail,
-        name='longclaw_basket_detail'),
-    url(API_URL_PREFIX + r'basket/(?P<variant_id>[0-9]+)/count/$',
+        name="longclaw_basket_detail",
+    ),
+    path(
+        API_URL_PREFIX + "basket/<variant_id>/count/",
         item_count,
-        name='longclaw_basket_item_count'),
-
-    url(r'basket/$',
-        views.BasketView.as_view(),
-        name="longclaw_basket")
+        name="longclaw_basket_item_count",
+    ),
+    path("basket/", views.BasketView.as_view(), name="longclaw_basket"),
 ]

@@ -1,35 +1,38 @@
-from django.conf.urls import url
-from longclaw.shipping import api
-from longclaw.settings import API_URL_PREFIX
+from django.urls import path
 
-address_list = api.AddressViewSet.as_view({
-    'get': 'list',
-    'post': 'create'
-})
-address_detail = api.AddressViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy'
-})
+from longclaw.settings import API_URL_PREFIX
+from longclaw.shipping import api
+
+address_list = api.AddressViewSet.as_view({"get": "list", "post": "create"})
+address_detail = api.AddressViewSet.as_view(
+    {"get": "retrieve", "put": "update", "patch": "partial_update", "delete": "destroy"}
+)
 
 urlpatterns = [
-    url(API_URL_PREFIX + r'addresses/$',
-        address_list,
-        name='longclaw_address_list'),
-    url(API_URL_PREFIX + r'addresses/(?P<pk>[0-9]+)/$',
+    path(API_URL_PREFIX + "addresses/", address_list, name="longclaw_address_list"),
+    path(
+        API_URL_PREFIX + "addresses/<pk>/",
         address_detail,
-        name='longclaw_address_detail'),
-    url(API_URL_PREFIX + r'shipping/cost/$',
+        name="longclaw_address_detail",
+    ),
+    path(
+        API_URL_PREFIX + "shipping/cost/",
         api.shipping_cost,
-        name='longclaw_shipping_cost'),
-    url(API_URL_PREFIX + r'shipping/countries/$',
+        name="longclaw_shipping_cost",
+    ),
+    path(
+        API_URL_PREFIX + "shipping/countries/",
         api.shipping_countries,
-        name='longclaw_shipping_countries'),
-    url(API_URL_PREFIX + r'shipping/countries/(?P<country>[a-zA-Z]+)/$',
+        name="longclaw_shipping_countries",
+    ),
+    path(
+        API_URL_PREFIX + "shipping/countries/<country>/",
         api.shipping_options,
-        name='longclaw_shipping_options'),
-    url(API_URL_PREFIX + r'shipping/options/$',
+        name="longclaw_shipping_options",
+    ),
+    path(
+        API_URL_PREFIX + "shipping/options/",
         api.shipping_options,
-        name='longclaw_applicable_shipping_rate_list')
+        name="longclaw_applicable_shipping_rate_list",
+    ),
 ]

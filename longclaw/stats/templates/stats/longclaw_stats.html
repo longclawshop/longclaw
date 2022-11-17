@@ -1,0 +1,73 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags %}
+{% block titletag %}Longclaw Stats{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <style>
+        .summary {
+            margin-bottom: 2em;
+            padding-top: 2em;
+        }
+        .summary ul.stats {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-left: 0;
+            list-style-type: none;
+            font-style: normal;
+            width: 100%;
+            margin-left: -1.5%;
+        }
+        .summary ul.stats li {
+            list-style-type: none;
+            font-style: normal;
+            box-sizing: border-box;
+            display: inline;
+            float: left;
+            width: 33.3333333333%;
+            padding-right: 1.5%;
+            padding-left: 1.5%;
+            margin-bottom: 2em;
+        }
+        .icon {
+            fill: currentColor;
+        }
+        .summary ul.stats a {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .summary ul.stats span {
+            display: block;
+            font-size: 4em;
+            line-height: 1em;
+            font-weight: 700;
+        }
+        .summary ul.stats li:before {
+            opacity: .2;
+            font-size: 6em;
+            float: left;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=title icon=icon %}
+
+    <section class="panel summary nice-padding">
+        <h2 class="title">{{ graphs_title }}</h2>
+        {% for panel in graphs %}
+            {{ panel.render_html }}
+        {% endfor %}
+    </section>
+
+    <section class="panel summary nice-padding">
+        <h2>{{ summary_title }}</h2>
+        <ul class="stats">
+        {% for panel in summary %}
+            {{ panel.render_html }}
+        {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

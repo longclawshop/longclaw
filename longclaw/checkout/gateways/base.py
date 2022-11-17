@@ -1,12 +1,13 @@
 from longclaw.checkout.errors import PaymentError
 
+
 class BasePayment(object):
     """
     Provides the interface for payment backends and
     can function as a dummy backend for testing.
     """
 
-    def create_payment(self, request, amount, description=''):
+    def create_payment(self, request, amount, description=""):
         """
         Dummy function for creating a payment through a payment gateway.
         Should be overridden in gateway implementations.
@@ -17,7 +18,7 @@ class BasePayment(object):
         if err:
             raise PaymentError("Dummy error requested")
 
-        return 'fake_transaction_id'
+        return "fake_transaction_id"
 
     def get_token(self, request=None):
         """
@@ -28,7 +29,7 @@ class BasePayment(object):
 
         This function should be overriden in child classes
         """
-        return 'dummy_token'
+        return "dummy_token"
 
     def client_js(self):
         """
@@ -37,7 +38,7 @@ class BasePayment(object):
         Should return an iterable of JS paths which can
         be used in <script> tags
         """
-        return ('http://dummy.js', 'dummy.js')
+        return ("http://dummy.js", "dummy.js")
 
     def issue_refund(self, identifier, amount):
         """Issue a refund of the given amount.

@@ -1,2 +1,2 @@
-from .locations import *
-from .rates import *
+from .locations import *  # noqa
+from .rates import *  # noqa

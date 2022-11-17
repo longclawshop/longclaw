@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block breadcrumbs_extra %}
+<li>&rarr;Basket<li>
+{% endblock %}
+
+{% block content %}
+    <h2>Your Basket</h2>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in basket %}
+            <tr>
+                <td>{% image item.variant.product.first_image.image max-75x75 %}</td>
+                <td>{{item.variant.product.title}} - {{item.variant.ref}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.total}}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4"><p class="text-center">There is nothing in your basket!</p></td>
+            </tr>
+        {% endfor %}
+        {% if basket.count > 0 %}
+            <tr>
+                <td />
+                <td />
+                <td />
+                <th>{{total_price}}</th>
+            <tr>
+            <tr>
+                <td />
+                <td />
+                <td />
+                <td><a href="/checkout" class="btn btn-default">Checkout</button></td>
+            <tr>
+        {% endif %}
+        </tbody>
+    <table>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="order-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Thankyou for your order!</h4>
+            </div>
+            <div class="modal-body">
+                <p>Thanks! your order ID is #<span id="order-id"></span></p>
+                <p>Since this is a demo we have skipped taking payment details and performing a 'real' checkout</p>
+                <p>You can view the created order in the Wagtail admin. Login with demo/demo</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{% endblock %}

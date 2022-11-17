@@ -1,6 +1,11 @@
 from django.db import models
+from wagtail import VERSION as WAGTAIL_VERSION
 
-from wagtail.admin.edit_handlers import FieldPanel
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.admin.panels import FieldPanel
+else:
+    from wagtail.admin.edit_handlers import FieldPanel
+
 from wagtail.snippets.models import register_snippet
 
 
@@ -11,19 +16,25 @@ class Address(models.Model):
     line_2 = models.CharField(max_length=128, blank=True)
     city = models.CharField(max_length=64)
     postcode = models.CharField(max_length=10)
-    country = models.ForeignKey('shipping.Country', blank=True, null=True, on_delete=models.PROTECT)
+    country = models.ForeignKey(
+        "longclaw_shipping.Country", blank=True, null=True, on_delete=models.PROTECT
+    )
 
     panels = [
-        FieldPanel('name'),
-        FieldPanel('line_1'),
-        FieldPanel('line_2'),
-        FieldPanel('city'),
-        FieldPanel('postcode'),
-        FieldPanel('country')
+        FieldPanel("name"),
+        FieldPanel("line_1"),
+        FieldPanel("line_2"),
+        FieldPanel("city"),
+        FieldPanel("postcode"),
+        FieldPanel("country"),
     ]
 
     def __str__(self):
         return "{}, {}, {}".format(self.name, self.city, self.country)
+
+    class Meta:
+        verbose_name_plural = "Addresses"
+        verbose_name = "Address"
 
 
 class Country(models.Model):
@@ -42,15 +53,19 @@ class Country(models.Model):
     country_grabber.py's priority dictionary and run it to regenerate
     the json
     """
+
     iso = models.CharField(max_length=2, primary_key=True)
     name_official = models.CharField(max_length=128)
     name = models.CharField(max_length=128)
     sort_priority = models.PositiveIntegerField(default=0)
 
     class Meta:
-        verbose_name_plural = 'Countries'
-        ordering = ('-sort_priority', 'name',)
+        verbose_name_plural = "Countries"
+        ordering = (
+            "-sort_priority",
+            "name",
+        )
 
     def __str__(self):
-        """ Return the display form of the country name"""
+        """Return the display form of the country name"""
         return self.name

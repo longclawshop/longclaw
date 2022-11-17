@@ -1,32 +1,37 @@
 import braintree
+
 from longclaw import settings
-from longclaw.configuration.models import Configuration
 from longclaw.checkout.errors import PaymentError
 from longclaw.checkout.gateways import BasePayment
+from longclaw.configuration.models import Configuration
+
 
 class BraintreePayment(BasePayment):
     """
     Create a payment using Braintree
     """
+
     def __init__(self):
         if settings.BRAINTREE_SANDBOX:
             env = braintree.Environment.Sandbox
         else:
             env = braintree.Environment.Production
-        braintree.Configuration.configure(env,
-                                          merchant_id=settings.BRAINTREE_MERCHANT_ID,
-                                          public_key=settings.BRAINTREE_PUBLIC_KEY,
-                                          private_key=settings.BRAINTREE_PRIVATE_KEY)
+        braintree.Configuration.configure(
+            env,
+            merchant_id=settings.BRAINTREE_MERCHANT_ID,
+            public_key=settings.BRAINTREE_PUBLIC_KEY,
+            private_key=settings.BRAINTREE_PRIVATE_KEY,
+        )
 
-    def create_payment(self, request, amount, description=''):
-        nonce = request.POST.get('payment_method_nonce')
-        result = braintree.Transaction.sale({
-            "amount": str(amount),
-            "payment_method_nonce": nonce,
-            "options": {
-                "submit_for_settlement": True
+    def create_payment(self, request, amount, description=""):
+        nonce = request.POST.get("payment_method_nonce")
+        result = braintree.Transaction.sale(
+            {
+                "amount": str(amount),
+                "payment_method_nonce": nonce,
+                "options": {"submit_for_settlement": True},
             }
-        })
+        )
         if not result.is_success:
             raise PaymentError(result)
         return result.transaction.id
@@ -39,7 +44,7 @@ class BraintreePayment(BasePayment):
         return (
             "https://js.braintreegateway.com/web/dropin/1.2.0/js/dropin.min.js",
             "https://js.braintreegateway.com/web/3.15.0/js/client.min.js",
-            "https://js.braintreegateway.com/web/3.15.0/js/hosted-fields.min.js"
+            "https://js.braintreegateway.com/web/3.15.0/js/hosted-fields.min.js",
         )
 
     def issue_refund(self, identifier, amount):
@@ -51,22 +56,23 @@ class PaypalVZeroPayment(BasePayment):
     """
     Create a payment using the Paypal/Braintree v.zero SDK
     """
-    def __init__(self):
-        self.gateway = braintree.BraintreeGateway(access_token=settings.VZERO_ACCESS_TOKEN)
 
-    def create_payment(self, request, amount, description=''):
+    def __init__(self):
+        self.gateway = braintree.BraintreeGateway(
+            access_token=settings.VZERO_ACCESS_TOKEN
+        )
+
+    def create_payment(self, request, amount, description=""):
         config = Configuration.for_site(request.site)
-        nonce = request.POST.get('payment_method_nonce')
-        result = self.gateway.transaction.sale({
-            "amount": str(amount),
-            "payment_method_nonce": nonce,
-            "merchant_account_id": config.currency,
-            "options": {
-                "paypal": {
-                    "description": description
-                }
+        nonce = request.POST.get("payment_method_nonce")
+        result = self.gateway.transaction.sale(
+            {
+                "amount": str(amount),
+                "payment_method_nonce": nonce,
+                "merchant_account_id": config.currency,
+                "options": {"paypal": {"description": description}},
             }
-        })
+        )
         if not result.is_success:
             raise PaymentError(result.message)
         return result.transaction.order_id
@@ -78,7 +84,7 @@ class PaypalVZeroPayment(BasePayment):
         return (
             "https://www.paypalobjects.com/api/checkout.js",
             "https://js.braintreegateway.com/web/3.15.0/js/client.min.js",
-            "https://js.braintreegateway.com/web/3.15.0/js/paypal-checkout.min.js"
+            "https://js.braintreegateway.com/web/3.15.0/js/paypal-checkout.min.js",
         )
 
     def issue_refund(self, identifier, amount):

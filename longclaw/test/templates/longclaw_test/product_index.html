@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-productindex{% endblock %}
+
+{% block content %}
+{% comment %} <h1>{{ page.title }}</h1> {% endcomment %}
+<div class="card-grid">
+{% for post in page.get_children %}
+   {% with post=post.specific %}
+    <div class="card">
+        {% image post.images.first.image max-400x400 %}
+        <div class="card-body">
+            <a href="{% pageurl post %}"><h2>{{ post.title }}</h2></a>
+            <p>{{ post.description|richtext }}</p>
+            <p>From &euro;{{ post.price_range.0 }}</p>
+        </div>        
+   </div>
+   {% endwith %}
+{% endfor %}
+</div>
+{% endblock %}

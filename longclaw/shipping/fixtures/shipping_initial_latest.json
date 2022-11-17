@@ -1,0 +1,2216 @@
+[
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AD",
+  "fields": {
+    "name_official": "ANDORRA",
+    "name": "Andorra",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AE",
+  "fields": {
+    "name_official": "UNITED ARAB EMIRATES",
+    "name": "United Arab Emirates",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AF",
+  "fields": {
+    "name_official": "AFGHANISTAN",
+    "name": "Afghanistan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AG",
+  "fields": {
+    "name_official": "ANTIGUA AND BARBUDA",
+    "name": "Antigua And Barbuda",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AI",
+  "fields": {
+    "name_official": "ANGUILLA",
+    "name": "Anguilla",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AL",
+  "fields": {
+    "name_official": "ALBANIA",
+    "name": "Albania",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AM",
+  "fields": {
+    "name_official": "ARMENIA",
+    "name": "Armenia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AN",
+  "fields": {
+    "name_official": "NETHERLANDS ANTILLES",
+    "name": "Netherlands Antilles",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AO",
+  "fields": {
+    "name_official": "ANGOLA",
+    "name": "Angola",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AQ",
+  "fields": {
+    "name_official": "ANTARCTICA",
+    "name": "Antarctica",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AR",
+  "fields": {
+    "name_official": "ARGENTINA",
+    "name": "Argentina",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AS",
+  "fields": {
+    "name_official": "AMERICAN SAMOA",
+    "name": "American Samoa",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AT",
+  "fields": {
+    "name_official": "AUSTRIA",
+    "name": "Austria",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AU",
+  "fields": {
+    "name_official": "AUSTRALIA",
+    "name": "Australia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AW",
+  "fields": {
+    "name_official": "ARUBA",
+    "name": "Aruba",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AX",
+  "fields": {
+    "name_official": "ÅLAND ISLANDS",
+    "name": "ÅLand Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "AZ",
+  "fields": {
+    "name_official": "AZERBAIJAN",
+    "name": "Azerbaijan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BA",
+  "fields": {
+    "name_official": "BOSNIA AND HERZEGOVINA",
+    "name": "Bosnia And Herzegovina",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BB",
+  "fields": {
+    "name_official": "BARBADOS",
+    "name": "Barbados",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BD",
+  "fields": {
+    "name_official": "BANGLADESH",
+    "name": "Bangladesh",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BE",
+  "fields": {
+    "name_official": "BELGIUM",
+    "name": "Belgium",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BF",
+  "fields": {
+    "name_official": "BURKINA FASO",
+    "name": "Burkina Faso",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BG",
+  "fields": {
+    "name_official": "BULGARIA",
+    "name": "Bulgaria",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BH",
+  "fields": {
+    "name_official": "BAHRAIN",
+    "name": "Bahrain",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BI",
+  "fields": {
+    "name_official": "BURUNDI",
+    "name": "Burundi",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BJ",
+  "fields": {
+    "name_official": "BENIN",
+    "name": "Benin",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BL",
+  "fields": {
+    "name_official": "SAINT BARTHÉLEMY",
+    "name": "Saint BarthÉLemy",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BM",
+  "fields": {
+    "name_official": "BERMUDA",
+    "name": "Bermuda",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BN",
+  "fields": {
+    "name_official": "BRUNEI DARUSSALAM",
+    "name": "Brunei Darussalam",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BO",
+  "fields": {
+    "name_official": "BOLIVIA, PLURINATIONAL STATE OF",
+    "name": "Bolivia, Plurinational State Of",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BR",
+  "fields": {
+    "name_official": "BRAZIL",
+    "name": "Brazil",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BS",
+  "fields": {
+    "name_official": "BAHAMAS",
+    "name": "Bahamas",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BT",
+  "fields": {
+    "name_official": "BHUTAN",
+    "name": "Bhutan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BV",
+  "fields": {
+    "name_official": "BOUVET ISLAND",
+    "name": "Bouvet Island",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BW",
+  "fields": {
+    "name_official": "BOTSWANA",
+    "name": "Botswana",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BY",
+  "fields": {
+    "name_official": "BELARUS",
+    "name": "Belarus",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "BZ",
+  "fields": {
+    "name_official": "BELIZE",
+    "name": "Belize",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CA",
+  "fields": {
+    "name_official": "CANADA",
+    "name": "Canada",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CC",
+  "fields": {
+    "name_official": "COCOS (KEELING) ISLANDS",
+    "name": "Cocos (Keeling) Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CD",
+  "fields": {
+    "name_official": "CONGO, THE DEMOCRATIC REPUBLIC OF THE",
+    "name": "Congo, The Democratic Republic Of The",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CF",
+  "fields": {
+    "name_official": "CENTRAL AFRICAN REPUBLIC",
+    "name": "Central African Republic",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CG",
+  "fields": {
+    "name_official": "CONGO",
+    "name": "Congo",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CH",
+  "fields": {
+    "name_official": "SWITZERLAND",
+    "name": "Switzerland",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CI",
+  "fields": {
+    "name_official": "CÔTE D'IVOIRE",
+    "name": "CÔTe D'Ivoire",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CK",
+  "fields": {
+    "name_official": "COOK ISLANDS",
+    "name": "Cook Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CL",
+  "fields": {
+    "name_official": "CHILE",
+    "name": "Chile",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CM",
+  "fields": {
+    "name_official": "CAMEROON",
+    "name": "Cameroon",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CN",
+  "fields": {
+    "name_official": "CHINA",
+    "name": "China",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CO",
+  "fields": {
+    "name_official": "COLOMBIA",
+    "name": "Colombia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CR",
+  "fields": {
+    "name_official": "COSTA RICA",
+    "name": "Costa Rica",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CU",
+  "fields": {
+    "name_official": "CUBA",
+    "name": "Cuba",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CV",
+  "fields": {
+    "name_official": "CAPE VERDE",
+    "name": "Cape Verde",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CX",
+  "fields": {
+    "name_official": "CHRISTMAS ISLAND",
+    "name": "Christmas Island",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CY",
+  "fields": {
+    "name_official": "CYPRUS",
+    "name": "Cyprus",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "CZ",
+  "fields": {
+    "name_official": "CZECH REPUBLIC",
+    "name": "Czech Republic",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "DE",
+  "fields": {
+    "name_official": "GERMANY",
+    "name": "Germany",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "DJ",
+  "fields": {
+    "name_official": "DJIBOUTI",
+    "name": "Djibouti",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "DK",
+  "fields": {
+    "name_official": "DENMARK",
+    "name": "Denmark",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "DM",
+  "fields": {
+    "name_official": "DOMINICA",
+    "name": "Dominica",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "DO",
+  "fields": {
+    "name_official": "DOMINICAN REPUBLIC",
+    "name": "Dominican Republic",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "DZ",
+  "fields": {
+    "name_official": "ALGERIA",
+    "name": "Algeria",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "EC",
+  "fields": {
+    "name_official": "ECUADOR",
+    "name": "Ecuador",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "EE",
+  "fields": {
+    "name_official": "ESTONIA",
+    "name": "Estonia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "EG",
+  "fields": {
+    "name_official": "EGYPT",
+    "name": "Egypt",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "EH",
+  "fields": {
+    "name_official": "WESTERN SAHARA",
+    "name": "Western Sahara",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "ER",
+  "fields": {
+    "name_official": "ERITREA",
+    "name": "Eritrea",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "ES",
+  "fields": {
+    "name_official": "SPAIN",
+    "name": "Spain",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "ET",
+  "fields": {
+    "name_official": "ETHIOPIA",
+    "name": "Ethiopia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "FI",
+  "fields": {
+    "name_official": "FINLAND",
+    "name": "Finland",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "FJ",
+  "fields": {
+    "name_official": "FIJI",
+    "name": "Fiji",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "FK",
+  "fields": {
+    "name_official": "FALKLAND ISLANDS (MALVINAS)",
+    "name": "Falkland Islands (Malvinas)",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "FM",
+  "fields": {
+    "name_official": "MICRONESIA, FEDERATED STATES OF",
+    "name": "Micronesia, Federated States Of",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "FO",
+  "fields": {
+    "name_official": "FAROE ISLANDS",
+    "name": "Faroe Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "FR",
+  "fields": {
+    "name_official": "FRANCE",
+    "name": "France",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GA",
+  "fields": {
+    "name_official": "GABON",
+    "name": "Gabon",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GB",
+  "fields": {
+    "name_official": "UNITED KINGDOM",
+    "name": "United Kingdom",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GD",
+  "fields": {
+    "name_official": "GRENADA",
+    "name": "Grenada",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GE",
+  "fields": {
+    "name_official": "GEORGIA",
+    "name": "Georgia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GF",
+  "fields": {
+    "name_official": "FRENCH GUIANA",
+    "name": "French Guiana",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GG",
+  "fields": {
+    "name_official": "GUERNSEY",
+    "name": "Guernsey",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GH",
+  "fields": {
+    "name_official": "GHANA",
+    "name": "Ghana",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GI",
+  "fields": {
+    "name_official": "GIBRALTAR",
+    "name": "Gibraltar",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GL",
+  "fields": {
+    "name_official": "GREENLAND",
+    "name": "Greenland",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GM",
+  "fields": {
+    "name_official": "GAMBIA",
+    "name": "Gambia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GN",
+  "fields": {
+    "name_official": "GUINEA",
+    "name": "Guinea",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GP",
+  "fields": {
+    "name_official": "GUADELOUPE",
+    "name": "Guadeloupe",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GQ",
+  "fields": {
+    "name_official": "EQUATORIAL GUINEA",
+    "name": "Equatorial Guinea",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GR",
+  "fields": {
+    "name_official": "GREECE",
+    "name": "Greece",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GS",
+  "fields": {
+    "name_official": "SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS",
+    "name": "South Georgia And The South Sandwich Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GT",
+  "fields": {
+    "name_official": "GUATEMALA",
+    "name": "Guatemala",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GU",
+  "fields": {
+    "name_official": "GUAM",
+    "name": "Guam",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GW",
+  "fields": {
+    "name_official": "GUINEA-BISSAU",
+    "name": "Guinea-Bissau",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "GY",
+  "fields": {
+    "name_official": "GUYANA",
+    "name": "Guyana",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "HK",
+  "fields": {
+    "name_official": "HONG KONG",
+    "name": "Hong Kong",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "HM",
+  "fields": {
+    "name_official": "HEARD ISLAND AND MCDONALD ISLANDS",
+    "name": "Heard Island And Mcdonald Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "HN",
+  "fields": {
+    "name_official": "HONDURAS",
+    "name": "Honduras",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "HR",
+  "fields": {
+    "name_official": "CROATIA",
+    "name": "Croatia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "HT",
+  "fields": {
+    "name_official": "HAITI",
+    "name": "Haiti",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "HU",
+  "fields": {
+    "name_official": "HUNGARY",
+    "name": "Hungary",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "ID",
+  "fields": {
+    "name_official": "INDONESIA",
+    "name": "Indonesia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "IE",
+  "fields": {
+    "name_official": "IRELAND",
+    "name": "Ireland",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "IL",
+  "fields": {
+    "name_official": "ISRAEL",
+    "name": "Israel",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "IM",
+  "fields": {
+    "name_official": "ISLE OF MAN",
+    "name": "Isle Of Man",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "IN",
+  "fields": {
+    "name_official": "INDIA",
+    "name": "India",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "IO",
+  "fields": {
+    "name_official": "BRITISH INDIAN OCEAN TERRITORY",
+    "name": "British Indian Ocean Territory",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "IQ",
+  "fields": {
+    "name_official": "IRAQ",
+    "name": "Iraq",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "IR",
+  "fields": {
+    "name_official": "IRAN, ISLAMIC REPUBLIC OF",
+    "name": "Iran, Islamic Republic Of",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "IS",
+  "fields": {
+    "name_official": "ICELAND",
+    "name": "Iceland",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "IT",
+  "fields": {
+    "name_official": "ITALY",
+    "name": "Italy",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "JE",
+  "fields": {
+    "name_official": "JERSEY",
+    "name": "Jersey",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "JM",
+  "fields": {
+    "name_official": "JAMAICA",
+    "name": "Jamaica",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "JO",
+  "fields": {
+    "name_official": "JORDAN",
+    "name": "Jordan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "JP",
+  "fields": {
+    "name_official": "JAPAN",
+    "name": "Japan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "KE",
+  "fields": {
+    "name_official": "KENYA",
+    "name": "Kenya",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "KG",
+  "fields": {
+    "name_official": "KYRGYZSTAN",
+    "name": "Kyrgyzstan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "KH",
+  "fields": {
+    "name_official": "CAMBODIA",
+    "name": "Cambodia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "KI",
+  "fields": {
+    "name_official": "KIRIBATI",
+    "name": "Kiribati",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "KM",
+  "fields": {
+    "name_official": "COMOROS",
+    "name": "Comoros",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "KN",
+  "fields": {
+    "name_official": "SAINT KITTS AND NEVIS",
+    "name": "Saint Kitts And Nevis",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "KP",
+  "fields": {
+    "name_official": "KOREA, DEMOCRATIC PEOPLE'S REPUBLIC OF",
+    "name": "Korea, Democratic People'S Republic Of",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "KR",
+  "fields": {
+    "name_official": "KOREA, REPUBLIC OF",
+    "name": "Korea, Republic Of",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "KW",
+  "fields": {
+    "name_official": "KUWAIT",
+    "name": "Kuwait",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "KY",
+  "fields": {
+    "name_official": "CAYMAN ISLANDS",
+    "name": "Cayman Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "KZ",
+  "fields": {
+    "name_official": "KAZAKHSTAN",
+    "name": "Kazakhstan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "LA",
+  "fields": {
+    "name_official": "LAO PEOPLE'S DEMOCRATIC REPUBLIC",
+    "name": "Lao People'S Democratic Republic",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "LB",
+  "fields": {
+    "name_official": "LEBANON",
+    "name": "Lebanon",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "LC",
+  "fields": {
+    "name_official": "SAINT LUCIA",
+    "name": "Saint Lucia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "LI",
+  "fields": {
+    "name_official": "LIECHTENSTEIN",
+    "name": "Liechtenstein",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "LK",
+  "fields": {
+    "name_official": "SRI LANKA",
+    "name": "Sri Lanka",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "LR",
+  "fields": {
+    "name_official": "LIBERIA",
+    "name": "Liberia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "LS",
+  "fields": {
+    "name_official": "LESOTHO",
+    "name": "Lesotho",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "LT",
+  "fields": {
+    "name_official": "LITHUANIA",
+    "name": "Lithuania",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "LU",
+  "fields": {
+    "name_official": "LUXEMBOURG",
+    "name": "Luxembourg",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "LV",
+  "fields": {
+    "name_official": "LATVIA",
+    "name": "Latvia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "LY",
+  "fields": {
+    "name_official": "LIBYAN ARAB JAMAHIRIYA",
+    "name": "Libyan Arab Jamahiriya",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MA",
+  "fields": {
+    "name_official": "MOROCCO",
+    "name": "Morocco",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MC",
+  "fields": {
+    "name_official": "MONACO",
+    "name": "Monaco",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MD",
+  "fields": {
+    "name_official": "MOLDOVA, REPUBLIC OF",
+    "name": "Moldova, Republic Of",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "ME",
+  "fields": {
+    "name_official": "MONTENEGRO",
+    "name": "Montenegro",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MF",
+  "fields": {
+    "name_official": "SAINT MARTIN",
+    "name": "Saint Martin",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MG",
+  "fields": {
+    "name_official": "MADAGASCAR",
+    "name": "Madagascar",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MH",
+  "fields": {
+    "name_official": "MARSHALL ISLANDS",
+    "name": "Marshall Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MK",
+  "fields": {
+    "name_official": "MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF",
+    "name": "Macedonia, The Former Yugoslav Republic Of",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "ML",
+  "fields": {
+    "name_official": "MALI",
+    "name": "Mali",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MM",
+  "fields": {
+    "name_official": "MYANMAR",
+    "name": "Myanmar",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MN",
+  "fields": {
+    "name_official": "MONGOLIA",
+    "name": "Mongolia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MO",
+  "fields": {
+    "name_official": "MACAO",
+    "name": "Macao",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MP",
+  "fields": {
+    "name_official": "NORTHERN MARIANA ISLANDS",
+    "name": "Northern Mariana Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MQ",
+  "fields": {
+    "name_official": "MARTINIQUE",
+    "name": "Martinique",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MR",
+  "fields": {
+    "name_official": "MAURITANIA",
+    "name": "Mauritania",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MS",
+  "fields": {
+    "name_official": "MONTSERRAT",
+    "name": "Montserrat",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MT",
+  "fields": {
+    "name_official": "MALTA",
+    "name": "Malta",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MU",
+  "fields": {
+    "name_official": "MAURITIUS",
+    "name": "Mauritius",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MV",
+  "fields": {
+    "name_official": "MALDIVES",
+    "name": "Maldives",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MW",
+  "fields": {
+    "name_official": "MALAWI",
+    "name": "Malawi",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MX",
+  "fields": {
+    "name_official": "MEXICO",
+    "name": "Mexico",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MY",
+  "fields": {
+    "name_official": "MALAYSIA",
+    "name": "Malaysia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "MZ",
+  "fields": {
+    "name_official": "MOZAMBIQUE",
+    "name": "Mozambique",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NA",
+  "fields": {
+    "name_official": "NAMIBIA",
+    "name": "Namibia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NC",
+  "fields": {
+    "name_official": "NEW CALEDONIA",
+    "name": "New Caledonia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NE",
+  "fields": {
+    "name_official": "NIGER",
+    "name": "Niger",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NF",
+  "fields": {
+    "name_official": "NORFOLK ISLAND",
+    "name": "Norfolk Island",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NG",
+  "fields": {
+    "name_official": "NIGERIA",
+    "name": "Nigeria",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NI",
+  "fields": {
+    "name_official": "NICARAGUA",
+    "name": "Nicaragua",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NL",
+  "fields": {
+    "name_official": "NETHERLANDS",
+    "name": "Netherlands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NO",
+  "fields": {
+    "name_official": "NORWAY",
+    "name": "Norway",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NP",
+  "fields": {
+    "name_official": "NEPAL",
+    "name": "Nepal",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NR",
+  "fields": {
+    "name_official": "NAURU",
+    "name": "Nauru",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NU",
+  "fields": {
+    "name_official": "NIUE",
+    "name": "Niue",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "NZ",
+  "fields": {
+    "name_official": "NEW ZEALAND",
+    "name": "New Zealand",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "OM",
+  "fields": {
+    "name_official": "OMAN",
+    "name": "Oman",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PA",
+  "fields": {
+    "name_official": "PANAMA",
+    "name": "Panama",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PE",
+  "fields": {
+    "name_official": "PERU",
+    "name": "Peru",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PF",
+  "fields": {
+    "name_official": "FRENCH POLYNESIA",
+    "name": "French Polynesia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PG",
+  "fields": {
+    "name_official": "PAPUA NEW GUINEA",
+    "name": "Papua New Guinea",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PH",
+  "fields": {
+    "name_official": "PHILIPPINES",
+    "name": "Philippines",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PK",
+  "fields": {
+    "name_official": "PAKISTAN",
+    "name": "Pakistan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PL",
+  "fields": {
+    "name_official": "POLAND",
+    "name": "Poland",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PM",
+  "fields": {
+    "name_official": "SAINT PIERRE AND MIQUELON",
+    "name": "Saint Pierre And Miquelon",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PN",
+  "fields": {
+    "name_official": "PITCAIRN",
+    "name": "Pitcairn",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PR",
+  "fields": {
+    "name_official": "PUERTO RICO",
+    "name": "Puerto Rico",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PS",
+  "fields": {
+    "name_official": "PALESTINIAN TERRITORY, OCCUPIED",
+    "name": "Palestinian Territory, Occupied",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PT",
+  "fields": {
+    "name_official": "PORTUGAL",
+    "name": "Portugal",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PW",
+  "fields": {
+    "name_official": "PALAU",
+    "name": "Palau",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "PY",
+  "fields": {
+    "name_official": "PARAGUAY",
+    "name": "Paraguay",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "QA",
+  "fields": {
+    "name_official": "QATAR",
+    "name": "Qatar",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "RE",
+  "fields": {
+    "name_official": "RÉUNION",
+    "name": "RÉUnion",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "RO",
+  "fields": {
+    "name_official": "ROMANIA",
+    "name": "Romania",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "RS",
+  "fields": {
+    "name_official": "SERBIA",
+    "name": "Serbia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "RU",
+  "fields": {
+    "name_official": "RUSSIAN FEDERATION",
+    "name": "Russian Federation",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "RW",
+  "fields": {
+    "name_official": "RWANDA",
+    "name": "Rwanda",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SA",
+  "fields": {
+    "name_official": "SAUDI ARABIA",
+    "name": "Saudi Arabia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SB",
+  "fields": {
+    "name_official": "SOLOMON ISLANDS",
+    "name": "Solomon Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SC",
+  "fields": {
+    "name_official": "SEYCHELLES",
+    "name": "Seychelles",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SD",
+  "fields": {
+    "name_official": "SUDAN",
+    "name": "Sudan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SE",
+  "fields": {
+    "name_official": "SWEDEN",
+    "name": "Sweden",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SG",
+  "fields": {
+    "name_official": "SINGAPORE",
+    "name": "Singapore",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SH",
+  "fields": {
+    "name_official": "SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA",
+    "name": "Saint Helena, Ascension And Tristan Da Cunha",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SI",
+  "fields": {
+    "name_official": "SLOVENIA",
+    "name": "Slovenia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SJ",
+  "fields": {
+    "name_official": "SVALBARD AND JAN MAYEN",
+    "name": "Svalbard And Jan Mayen",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SK",
+  "fields": {
+    "name_official": "SLOVAKIA",
+    "name": "Slovakia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SL",
+  "fields": {
+    "name_official": "SIERRA LEONE",
+    "name": "Sierra Leone",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SM",
+  "fields": {
+    "name_official": "SAN MARINO",
+    "name": "San Marino",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SN",
+  "fields": {
+    "name_official": "SENEGAL",
+    "name": "Senegal",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SO",
+  "fields": {
+    "name_official": "SOMALIA",
+    "name": "Somalia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SR",
+  "fields": {
+    "name_official": "SURINAME",
+    "name": "Suriname",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "ST",
+  "fields": {
+    "name_official": "SAO TOME AND PRINCIPE",
+    "name": "Sao Tome And Principe",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SV",
+  "fields": {
+    "name_official": "EL SALVADOR",
+    "name": "El Salvador",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SY",
+  "fields": {
+    "name_official": "SYRIAN ARAB REPUBLIC",
+    "name": "Syrian Arab Republic",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "SZ",
+  "fields": {
+    "name_official": "SWAZILAND",
+    "name": "Swaziland",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TC",
+  "fields": {
+    "name_official": "TURKS AND CAICOS ISLANDS",
+    "name": "Turks And Caicos Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TD",
+  "fields": {
+    "name_official": "CHAD",
+    "name": "Chad",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TF",
+  "fields": {
+    "name_official": "FRENCH SOUTHERN TERRITORIES",
+    "name": "French Southern Territories",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TG",
+  "fields": {
+    "name_official": "TOGO",
+    "name": "Togo",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TH",
+  "fields": {
+    "name_official": "THAILAND",
+    "name": "Thailand",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TJ",
+  "fields": {
+    "name_official": "TAJIKISTAN",
+    "name": "Tajikistan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TK",
+  "fields": {
+    "name_official": "TOKELAU",
+    "name": "Tokelau",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TL",
+  "fields": {
+    "name_official": "TIMOR-LESTE",
+    "name": "Timor-Leste",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TM",
+  "fields": {
+    "name_official": "TURKMENISTAN",
+    "name": "Turkmenistan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TN",
+  "fields": {
+    "name_official": "TUNISIA",
+    "name": "Tunisia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TO",
+  "fields": {
+    "name_official": "TONGA",
+    "name": "Tonga",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TR",
+  "fields": {
+    "name_official": "TURKEY",
+    "name": "Turkey",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TT",
+  "fields": {
+    "name_official": "TRINIDAD AND TOBAGO",
+    "name": "Trinidad And Tobago",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TV",
+  "fields": {
+    "name_official": "TUVALU",
+    "name": "Tuvalu",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TW",
+  "fields": {
+    "name_official": "TAIWAN, PROVINCE OF CHINA",
+    "name": "Taiwan, Province Of China",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "TZ",
+  "fields": {
+    "name_official": "TANZANIA, UNITED REPUBLIC OF",
+    "name": "Tanzania, United Republic Of",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "UA",
+  "fields": {
+    "name_official": "UKRAINE",
+    "name": "Ukraine",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "UG",
+  "fields": {
+    "name_official": "UGANDA",
+    "name": "Uganda",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "UM",
+  "fields": {
+    "name_official": "UNITED STATES MINOR OUTLYING ISLANDS",
+    "name": "United States Minor Outlying Islands",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "US",
+  "fields": {
+    "name_official": "UNITED STATES",
+    "name": "United States",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "UY",
+  "fields": {
+    "name_official": "URUGUAY",
+    "name": "Uruguay",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "UZ",
+  "fields": {
+    "name_official": "UZBEKISTAN",
+    "name": "Uzbekistan",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "VA",
+  "fields": {
+    "name_official": "HOLY SEE (VATICAN CITY STATE)",
+    "name": "Holy See (Vatican City State)",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "VC",
+  "fields": {
+    "name_official": "SAINT VINCENT AND THE GRENADINES",
+    "name": "Saint Vincent And The Grenadines",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "VE",
+  "fields": {
+    "name_official": "VENEZUELA, BOLIVARIAN REPUBLIC OF",
+    "name": "Venezuela, Bolivarian Republic Of",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "VG",
+  "fields": {
+    "name_official": "VIRGIN ISLANDS, BRITISH",
+    "name": "Virgin Islands, British",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "VI",
+  "fields": {
+    "name_official": "VIRGIN ISLANDS, U.S.",
+    "name": "Virgin Islands, U.S.",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "VN",
+  "fields": {
+    "name_official": "VIET NAM",
+    "name": "Viet Nam",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "VU",
+  "fields": {
+    "name_official": "VANUATU",
+    "name": "Vanuatu",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "WF",
+  "fields": {
+    "name_official": "WALLIS AND FUTUNA",
+    "name": "Wallis And Futuna",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "WS",
+  "fields": {
+    "name_official": "SAMOA",
+    "name": "Samoa",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "YE",
+  "fields": {
+    "name_official": "YEMEN",
+    "name": "Yemen",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "YT",
+  "fields": {
+    "name_official": "MAYOTTE",
+    "name": "Mayotte",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "ZA",
+  "fields": {
+    "name_official": "SOUTH AFRICA",
+    "name": "South Africa",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "ZM",
+  "fields": {
+    "name_official": "ZAMBIA",
+    "name": "Zambia",
+    "sort_priority": 0
+  }
+},
+{
+  "model": "longclaw_shipping.country",
+  "pk": "ZW",
+  "fields": {
+    "name_official": "ZIMBABWE",
+    "name": "Zimbabwe",
+    "sort_priority": 0
+  }
+}
+]
