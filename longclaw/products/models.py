@@ -1,5 +1,10 @@
 from django.db import models
-from wagtail.core.models import Page
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.models import Page
+else:
+    from wagtail.core.models import Page
 
 
 # Abstract base classes a user can use to implement their own product system
@@ -17,9 +22,8 @@ class ProductBase(Page):
 
     @property
     def price_range(self):
-        """ Calculate the price range of the products variants
-        """
-        ordered = self.variants.order_by('base_price')
+        """Calculate the price range of the products variants"""
+        ordered = self.variants.order_by("base_price")
         if ordered:
             return ordered.first().price, ordered.last().price
         else:
@@ -27,8 +31,7 @@ class ProductBase(Page):
 
     @property
     def in_stock(self):
-        """ Returns True if any of the product variants are in stock
-        """
+        """Returns True if any of the product variants are in stock"""
         return any(self.variants.filter(stock__gt=0))
 
 
@@ -36,6 +39,7 @@ class ProductVariantBase(models.Model):
     """
     Base model for creating product variants
     """
+
     base_price = models.DecimalField(max_digits=12, decimal_places=2)
     ref = models.CharField(max_length=32)
     stock = models.IntegerField(default=0)

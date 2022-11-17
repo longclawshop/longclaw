@@ -1,11 +1,4 @@
 [run]
-branch = true
-
-[report]
-omit =
-    *site-packages*
-    *tests*
-    *.tox*
-show_missing = True
-exclude_lines =
-    raise NotImplementedError
+branch = True
+include = longclaw/*
+omit = */migrations/*,*/test/*,*/bin/*,*/docs/*,*/tests/*,*/__init__.py

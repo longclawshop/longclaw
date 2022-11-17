@@ -3,6 +3,10 @@
 History
 -------
 
+Unreleased
+
+# This work to re-boot the project and modernise codebase
+
 1.0.0
 +++++++++++
 

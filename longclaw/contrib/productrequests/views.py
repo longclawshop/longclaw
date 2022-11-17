@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
-try:
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.models import Page
+else:
     from wagtail.core.models import Page
-except ImportError:
-    from wagtail.wagtailcore.models import Page
-from longclaw.utils import ProductVariant
+
 from longclaw.contrib.productrequests.models import ProductRequest
+
 
 @require_GET
 def requests_admin(request, pk):
@@ -18,14 +21,12 @@ def requests_admin(request, pk):
     only 1 variant) or to be variants of the product page.
     """
     page = Page.objects.get(pk=pk).specific
-    if hasattr(page, 'variants'):
-        requests = ProductRequest.objects.filter(
-            variant__in=page.variants.all()
-        )
+    if hasattr(page, "variants"):
+        requests = ProductRequest.objects.filter(variant__in=page.variants.all())
     else:
         requests = ProductRequest.objects.filter(variant=page)
     return render(
         request,
         "productrequests/requests_admin.html",
-        {'page': page, 'requests': requests}
+        {"page": page, "requests": requests},
     )

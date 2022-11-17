@@ -1,3 +1,3 @@
-from .locations import *
-from .processors import *
-from .rates import *
+from .locations import *  # noqa
+from .processors import *  # noqa
+from .rates import *  # noqa

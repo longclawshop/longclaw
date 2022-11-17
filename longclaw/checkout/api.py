@@ -1,27 +1,29 @@
 """
 Shipping logic and payment capture API
 """
-from django.utils import timezone
 from django.db import transaction
-from rest_framework.decorators import api_view, permission_classes
+from django.utils import timezone
 from rest_framework import permissions, status
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from longclaw.basket.utils import destroy_basket
-from longclaw.checkout.utils import create_order, GATEWAY
-from longclaw.checkout.errors import PaymentError
 
-@api_view(['GET'])
+from longclaw.basket.utils import destroy_basket
+from longclaw.checkout.utils import GATEWAY, create_order
+
+
+@api_view(["GET"])
 @permission_classes([permissions.AllowAny])
 def create_token(request):
-    """ Generic function for creating a payment token from the
+    """Generic function for creating a payment token from the
     payment backend. Some payment backends (e.g. braintree) support creating a payment
     token, which should be imported from the backend as 'get_token'
     """
     token = GATEWAY.get_token(request)
-    return Response({'token': token}, status=status.HTTP_200_OK)
+    return Response({"token": token}, status=status.HTTP_200_OK)
+
 
 @transaction.atomic
-@api_view(['POST'])
+@api_view(["POST"])
 @permission_classes([permissions.AllowAny])
 def create_order_with_token(request):
     """
@@ -32,13 +34,15 @@ def create_order_with_token(request):
     """
     # Get the request data
     try:
-        address = request.data['address']
-        shipping_option = request.data.get('shipping_option', None)
-        email = request.data['email']
-        transaction_id = request.data['transaction_id']
+        address = request.data["address"]
+        shipping_option = request.data.get("shipping_option", None)
+        email = request.data["email"]
+        transaction_id = request.data["transaction_id"]
     except KeyError:
-        return Response(data={"message": "Missing parameters from request data"},
-                        status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            data={"message": "Missing parameters from request data"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
     # Create the order
     order = create_order(
@@ -56,8 +60,9 @@ def create_order_with_token(request):
 
     return Response(data={"order_id": order.id}, status=status.HTTP_201_CREATED)
 
+
 @transaction.atomic
-@api_view(['POST'])
+@api_view(["POST"])
 @permission_classes([permissions.AllowAny])
 def capture_payment(request):
     """
@@ -81,9 +86,9 @@ def capture_payment(request):
     'shipping': The shipping rate (in the sites' currency)
     """
     # get request data
-    address = request.data['address']
-    email = request.data.get('email', None)
-    shipping_option = request.data.get('shipping_option', None)
+    address = request.data["address"]
+    email = request.data.get("email", None)
+    shipping_option = request.data.get("shipping_option", None)
 
     # Capture the payment
     order = create_order(
@@ -91,9 +96,8 @@ def capture_payment(request):
         request,
         addresses=address,
         shipping_option=shipping_option,
-        capture_payment=True
+        capture_payment=True,
     )
-    response = Response(data={"order_id": order.id},
-                        status=status.HTTP_201_CREATED)
+    response = Response(data={"order_id": order.id}, status=status.HTTP_201_CREATED)
 
     return response
