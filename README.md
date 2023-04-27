@@ -14,7 +14,7 @@ An e-commerce extension for [Wagtail CMS](https://github.com/wagtail/wagtail)
 
 
 
-Checkout the [documentation](https://jamesramm.github.io/longclaw/)
+Checkout the [documentation](https://longclawshop.github.io/longclaw/)
 
 ![Image of the dashboard](docs/assets/dashboard.png)
 
