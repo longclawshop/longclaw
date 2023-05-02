@@ -54,3 +54,6 @@ docs/_build
 webpack-stats.json
 *bundle.js*
 .eggs/
+
+# local virtual environment
+/venv
