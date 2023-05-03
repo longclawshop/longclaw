@@ -21,8 +21,7 @@
                 {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
 
                 {% include "wagtailadmin/pages/_privacy_switch.html" with page=page page_perms=page_perms only %}
-                {% comment %} The blelow needs to be investigated, it's no longer available{% endcomment %}
-                {% comment %} {% include "wagtailadmin/pages/_lock_switch.html" %} {% endcomment %}
+                {% include "wagtailadmin/pages/action_menu/lock_unlock_menu_item.html" %}
             </div>
         </div>
     </header>
