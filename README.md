@@ -1,7 +1,7 @@
 # Longclaw
 
-
 ## Call For Maintainers
+
 If you are interested in developing this project, please get in touch
 https://github.com/JamesRamm/longclaw/issues/375
 
@@ -12,8 +12,6 @@ https://github.com/JamesRamm/longclaw/issues/375
 
 An e-commerce extension for [Wagtail CMS](https://github.com/wagtail/wagtail)
 
-
-
 Checkout the [documentation](https://longclawshop.github.io/longclaw/)
 
 ![Image of the dashboard](docs/assets/dashboard.png)
@@ -23,28 +21,28 @@ Checkout the [documentation](https://longclawshop.github.io/longclaw/)
 Install Longclaw:
 
 ```bash
-  $ pip install longclaw
+pip install longclaw
 ```
 
 Setup a Longclaw project
 
 ```bash
-  $ longclaw start my_project
+longclaw start my_project
 ```
 
 Go to project directory and create missing migrations 
 
 ```bash
-  $ python manage.py makemigrations home catalog
+python manage.py makemigrations home catalog
 ```
 
 Do migrations for whole project and run 
 
 ```bash
-  $ python manage.py migrate
-  $ python manage.py loadcountries
-  $ python manage.py createsuperuser
-  $ python manage.py runserver
+python manage.py migrate
+python manage.py loadcountries
+python manage.py createsuperuser
+python manage.py runserver
 ```
 
 ## Features
@@ -61,5 +59,28 @@ Do migrations for whole project and run
 
 ![Order Detail](docs/assets/order_detail.png)
 
+## Development setup
 
+Work in progress!
 
+This is a brief guide to setting up a development environment for Longclaw.
+
+Create a virtualenv and install the requirements
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -e ".[testing]"
+```
+
+Run the tests
+
+```bash
+make test
+```
+
+Run the tests with TOX
+
+```bash
+make test-all
+```

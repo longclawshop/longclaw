@@ -87,14 +87,30 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'django==2.2.28',
-        'wagtail==2.11.8',
+        'django>=2.2,<3.0',
+        'wagtail>=2.11,<2.14',
         'django-countries==5.5',
         'django-extensions==2.2.1',
         'djangorestframework==3.11.2',
         'django-ipware==2.1.0',
         'django-polymorphic==2.0.3',
     ],
+    extras_require={
+        "testing": [
+            "bumpversion==0.6.0",
+            "wheel==0.38.1",
+            "setuptools==65.5.1",
+            "coverage>=4.5.2",
+            "mock==2.0.0",
+            "flake8>=3.6.0",
+            "tox>=3.5.3",
+            "codecov>=2.0.15",
+            
+            "# Additional test requirements go here",
+            "factory_boy>=2.11.1",
+            "wagtail-factories>=1.1.0",
+        ],
+    },
     license="MIT",
     zip_safe=False,
     keywords='longclaw',
@@ -102,13 +118,16 @@ setup(
         'Development Status :: 3 - Alpha',
         'Framework :: Django',
         'Framework :: Django :: 2.0',
+        'Framework :: Wagtail',
+        'Framework :: Wagtail :: 2',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.7'
+        'Programming Language :: Python :: 3.8'
+        'Programming Language :: Python :: 3.9'
+        'Programming Language :: Python :: 3.10'
     ],
     entry_points="""
         [console_scripts]
