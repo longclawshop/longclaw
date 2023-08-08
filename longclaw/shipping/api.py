@@ -52,7 +52,7 @@ def get_shipping_cost_kwargs(request, country=None):
 
     bid = basket_id(request)
     option = request.query_params.get('shipping_rate_name', 'standard')
-    settings = Configuration.for_site(request.site)
+    settings = Configuration.for_request(request)
     
     return dict(country_code=country_code, destination=destination, basket_id=bid, settings=settings, name=option)
 
