@@ -15,7 +15,7 @@ class StripePayment(BasePayment):
 
     def create_payment(self, request, amount, description=''):
         try:
-            currency = Configuration.for_site(request.site).currency
+            currency = Configuration.for_request(request).currency
             charge = stripe.Charge.create(
                 amount=int(math.ceil(amount * 100)),  # Amount in pence
                 currency=currency.lower(),

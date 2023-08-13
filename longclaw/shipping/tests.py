@@ -71,7 +71,7 @@ class ShippingTests(LongclawTestCase):
         self.assertEqual(result['country_code'], 'US')
         self.assertEqual(result['destination'], None)
         self.assertEqual(result['basket_id'], basket_id(api_request))
-        self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
+        self.assertEqual(result['settings'], Configuration.for_request(api_request))
         self.assertEqual(result['name'], 'standard')
     
     def test_get_shipping_cost_kwargs_country_code_and_shipping_rate_name(self):
@@ -81,7 +81,7 @@ class ShippingTests(LongclawTestCase):
         self.assertEqual(result['country_code'], 'US')
         self.assertEqual(result['destination'], None)
         self.assertEqual(result['basket_id'], basket_id(api_request))
-        self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
+        self.assertEqual(result['settings'], Configuration.for_request(api_request))
         self.assertEqual(result['name'], 'foo')
     
     def test_get_shipping_cost_kwargs_only_country(self):
@@ -91,7 +91,7 @@ class ShippingTests(LongclawTestCase):
         self.assertEqual(result['country_code'], self.country.pk)
         self.assertEqual(result['destination'], None)
         self.assertEqual(result['basket_id'], basket_id(api_request))
-        self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
+        self.assertEqual(result['settings'], Configuration.for_request(api_request))
         self.assertEqual(result['name'], 'standard')
     
     def test_get_shipping_cost_kwargs_only_country_known_iso(self):
@@ -102,7 +102,7 @@ class ShippingTests(LongclawTestCase):
         self.assertEqual(result['country_code'], 'ZZ')
         self.assertEqual(result['destination'], None)
         self.assertEqual(result['basket_id'], basket_id(api_request))
-        self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
+        self.assertEqual(result['settings'], Configuration.for_request(api_request))
         self.assertEqual(result['name'], 'standard')
     
     def test_get_shipping_cost_kwargs_with_destination(self):
@@ -113,7 +113,7 @@ class ShippingTests(LongclawTestCase):
         self.assertEqual(result['country_code'], destination.country.pk)
         self.assertEqual(result['destination'], destination)
         self.assertEqual(result['basket_id'], basket_id(api_request))
-        self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
+        self.assertEqual(result['settings'], Configuration.for_request(api_request))
         self.assertEqual(result['name'], 'standard')
     
     def test_get_shipping_cost_kwargs_with_destination_and_country_code(self):
@@ -125,7 +125,7 @@ class ShippingTests(LongclawTestCase):
         self.assertEqual(result['country_code'], '11')
         self.assertEqual(result['destination'], destination)
         self.assertEqual(result['basket_id'], basket_id(api_request))
-        self.assertEqual(result['settings'], Configuration.for_site(api_request.site))
+        self.assertEqual(result['settings'], Configuration.for_request(api_request))
         self.assertEqual(result['name'], 'standard')
     
     def test_create_address(self):
